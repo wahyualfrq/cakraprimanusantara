@@ -1,30 +1,12 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo/metadata";
-import { proyekList } from "@/content/kontraktor/proyek";
-import { produkList } from "@/content/agribisnis/produk";
-// TODO: import daftar berita saat content/berita/*.mdx sudah ada helper loader-nya
+import { layananList } from "@/content/kontraktor/layanan";
+import { beritaPublishedList } from "@/lib/content/berita";
 
-const staticRoutes = [
-  "/",
-  "/tentang-kami",
-  "/portofolio",
-  "/berita",
-  "/kontak",
-  "/kontraktor",
-  "/kontraktor/civil-project",
-  "/kontraktor/building-project",
-  "/kontraktor/concrete-repair",
-  "/kontraktor/mechanical-electrical",
-  "/kontraktor/chipping-kelapa-sawit",
-  "/alat-berat",
-  "/alat-berat/sewa",
-  "/alat-berat/penjualan",
-  "/trading",
-  "/agribisnis",
-  "/agribisnis/produk",
-  "/agribisnis/riset-inovasi",
-  "/agribisnis/sertifikasi",
-];
+// Cuma rute yang sudah punya konten nyata (Fase 1, 2, 6, 7, 8). Rute stub
+// (alat-berat, trading, agribisnis, tentang-kami) sengaja belum dimasukkan
+// sampai fasenya dibangun — lihat GAP-REPORT.md §7.3 untuk noindex-nya.
+const staticRoutes = ["/", "/kontraktor", "/portofolio", "/berita", "/kontak"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
@@ -32,15 +14,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const proyekEntries: MetadataRoute.Sitemap = proyekList.map((proyek) => ({
-    url: `${SITE_URL}/portofolio/${proyek.slug}`,
+  const layananEntries: MetadataRoute.Sitemap = layananList.map((layanan) => ({
+    url: `${SITE_URL}/kontraktor/${layanan.slug}`,
     lastModified: new Date(),
   }));
 
-  const produkEntries: MetadataRoute.Sitemap = produkList.map((produk) => ({
-    url: `${SITE_URL}/agribisnis/produk/${produk.slug}`,
+  const beritaEntries: MetadataRoute.Sitemap = beritaPublishedList.map((entry) => ({
+    url: `${SITE_URL}/berita/${entry.meta.slug}`,
     lastModified: new Date(),
   }));
 
-  return [...staticEntries, ...proyekEntries, ...produkEntries];
+  return [...staticEntries, ...layananEntries, ...beritaEntries];
 }

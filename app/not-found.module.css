@@ -1,0 +1,35 @@
+.section {
+  padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-xl));
+}
+
+.code {
+  font-family: var(--cpn-font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--cpn-color-primary);
+}
+
+.title {
+  font-family: var(--cpn-font-heading);
+  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  font-weight: 700;
+  margin-block: var(--cpn-space-sm) var(--cpn-space-md);
+}
+
+.description {
+  color: var(--cpn-color-text-muted);
+  max-width: 40rem;
+  margin-bottom: var(--cpn-space-lg);
+}
+
+.unitLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cpn-space-sm);
+  margin-bottom: var(--cpn-space-lg);
+}
+
+.kontakLink {
+  color: var(--cpn-color-primary);
+  font-weight: 600;
+}

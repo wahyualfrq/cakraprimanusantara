@@ -1,0 +1,38 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-lg);
+}
+
+.item {
+  display: flex;
+  gap: var(--cpn-space-md);
+  padding-block: var(--cpn-space-md);
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.number {
+  flex-shrink: 0;
+  font-family: var(--cpn-font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--cpn-color-accent);
+  line-height: 1;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--cpn-color-text);
+  margin-bottom: var(--cpn-space-xs);
+}
+
+.description {
+  color: var(--cpn-color-text-muted);
+  line-height: 1.6;
+}

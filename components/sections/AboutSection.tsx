@@ -12,9 +12,9 @@ type Stat = {
 // TODO: pindahkan ke content/ begitu migrasi konten berjalan.
 const stats: Stat[] = [
   { value: "100+", label: "Unit Armada Alat Berat" },
-  { value: "20+", label: "Proyek Terselesaikan" },
-  { value: "6", label: "Produk Agribisnis Bersertifikasi" },
-  { value: "10+", label: "Brand Mitra Distribusi" },
+  { value: "23", label: "Proyek Terdokumentasi" },
+  { value: "6", label: "Produk Agribisnis" },
+  { value: "10", label: "Brand Mitra Distribusi" },
 ];
 
 export function AboutSection() {
@@ -36,8 +36,8 @@ export function AboutSection() {
           <p className={styles.paragraph}>
             PT Cakra Prima Nusantara menaungi empat unit usaha: kontraktor, alat berat,
             distribusi material industrial, dan agribisnis. Unit konstruksi dan alat berat kami
-            beroperasi di Sumatera Selatan, sementara produk agribisnis Ostindo telah dipakai
-            perkebunan besar di seluruh Indonesia sejak 1995.
+            beroperasi di Sumatera Selatan, sementara Ostindo, unit agribisnis yang berdiri sejak
+            1995, produknya dipakai perkebunan besar dari Sumatera hingga Papua.
           </p>
           <Link href="/tentang-kami" className={styles.link}>
             Selengkapnya tentang kami →

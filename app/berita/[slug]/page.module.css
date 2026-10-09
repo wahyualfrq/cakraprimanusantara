@@ -1,0 +1,22 @@
+.layout {
+  max-width: 68ch;
+}
+
+.tanggal {
+  color: var(--cpn-color-text-muted);
+  font-size: 0.875rem;
+  margin-bottom: var(--cpn-space-lg);
+}
+
+.foto {
+  margin-bottom: var(--cpn-space-lg);
+  border-radius: var(--cpn-radius-md);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  color: var(--cpn-color-text);
+  line-height: 1.7;
+}

@@ -1,0 +1,35 @@
+.nav {
+  font-size: 0.8125rem;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+}
+
+.item a {
+  color: inherit;
+  opacity: 0.7;
+}
+
+.item a:hover {
+  opacity: 1;
+}
+
+.item span[aria-current="page"] {
+  opacity: 0.95;
+  font-weight: 600;
+}
+
+.separator {
+  opacity: 0.4;
+}

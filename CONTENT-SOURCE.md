@@ -1,6 +1,8 @@
 # CONTENT-SOURCE.md
 ## Inventaris Konten Sumber — PT Cakra Prima Nusantara
 
+> **PENTING:** File ini berisi RINGKASAN dan data terstruktur. Untuk SEMUA teks yang tampil di halaman (paragraf, poin, judul, dosis), sumbernya adalah `CONTENT-VERBATIM.md` (teks asli persis). Jika ada beda, `CONTENT-VERBATIM.md` yang menang. File ini hanya dipakai untuk tabel kontak, daftar pelanggan, daftar kategori, dan catatan [GAP].
+
 Satu-satunya sumber data konten untuk halaman-halaman website. Dirangkum dari 3 website lama + PDF Company Profile Ostindo.
 
 **Aturan pakai:**

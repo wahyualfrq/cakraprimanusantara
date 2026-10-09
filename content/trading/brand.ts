@@ -1,12 +1,27 @@
 export type Brand = {
   slug: string;
   nama: string;
-  logo: string;
+  /**
+   * Sengaja kosong untuk semua entri — CONTENT-SOURCE.md §6: logo brand pihak
+   * ketiga ditampilkan sebagai wordmark teks sampai client mengonfirmasi izin
+   * pemakaian logo. Ini bukan data hilang, tapi keputusan desain.
+   */
+  logo?: string;
   deskripsi?: string;
   website?: string;
 };
 
+// Sumber: CONTENT-SOURCE.md §6 (halaman "Distributor & Agen"). Kategori produk
+// per brand: [GAP], tidak dikelompokkan berdasarkan tebakan.
 export const brandList: Brand[] = [
-  // diisi saat migrasi konten — 10 brand distributor (Jotun, Eneos, GForce
-  // Batteries, Massiv Batteries, LiuGong, HEO, Borgari, Conch, R-M, BASF)
+  { slug: "jotun", nama: "Jotun" },
+  { slug: "eneos", nama: "Eneos" },
+  { slug: "gforce-batteries", nama: "GForce Batteries" },
+  { slug: "massiv-batteries", nama: "Massiv Batteries" },
+  { slug: "liugong", nama: "LiuGong" },
+  { slug: "heo", nama: "HEO" },
+  { slug: "burgari", nama: "Burgari" },
+  { slug: "conch", nama: "Conch" },
+  { slug: "r-m", nama: "R-M" },
+  { slug: "basf", nama: "BASF" },
 ];

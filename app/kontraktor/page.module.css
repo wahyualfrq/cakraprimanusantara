@@ -1,0 +1,45 @@
+.proyekList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--cpn-space-lg);
+  margin-bottom: var(--cpn-space-lg);
+}
+
+.proyekItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--cpn-space-md);
+  padding-block: var(--cpn-space-md);
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.proyekItem:last-child {
+  border-bottom: 1px solid var(--cpn-color-border);
+}
+
+.proyekJudul {
+  font-weight: 600;
+  color: var(--cpn-color-text);
+}
+
+.proyekKategori {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  color: var(--cpn-color-text-muted);
+  white-space: nowrap;
+}
+
+.lihatSemua {
+  color: var(--cpn-color-primary);
+  font-weight: 600;
+}
+
+.kontakSection {
+  background-color: var(--cpn-color-surface-tint);
+}
+
+.kontakCta {
+  margin-top: var(--cpn-space-md);
+}

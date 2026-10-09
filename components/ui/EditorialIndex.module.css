@@ -1,0 +1,108 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.item:last-child {
+  border-bottom: 1px solid var(--cpn-color-border);
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "number title arrow"
+    "number description arrow";
+  column-gap: var(--cpn-space-md);
+  row-gap: var(--cpn-space-xs);
+  align-items: start;
+  padding-block: var(--cpn-space-lg);
+  color: var(--cpn-color-text);
+}
+
+.decorative {
+  display: contents;
+}
+
+.number {
+  grid-area: number;
+  font-family: var(--cpn-font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--cpn-color-accent);
+  line-height: 1.3;
+}
+
+.title {
+  grid-area: title;
+  font-family: var(--cpn-font-heading);
+  font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  transition: color 0.15s ease;
+}
+
+.row:hover .title,
+.row:focus-visible .title {
+  color: var(--cpn-color-primary);
+}
+
+.description {
+  grid-area: description;
+  font-size: 0.9375rem;
+  color: var(--cpn-color-text-muted);
+}
+
+.arrow {
+  grid-area: arrow;
+  align-self: center;
+  font-size: 1.25rem;
+  color: var(--cpn-color-text-muted);
+  transition:
+    transform 0.15s ease,
+    color 0.15s ease;
+}
+
+.row:hover .arrow,
+.row:focus-visible .arrow {
+  color: var(--cpn-color-primary);
+  transform: translateX(0.25rem);
+}
+
+/* Thumbnail: tanpa ruang kosong di perangkat sentuh (default display:none),
+   cuma muncul di perangkat yang benar-benar punya hover (brief Fase 2). */
+.thumbnail {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .thumbnail {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 3rem;
+    width: 9rem;
+    height: 6rem;
+    border-radius: var(--cpn-radius-md);
+    overflow: hidden;
+    box-shadow: var(--cpn-shadow-card);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) scale(0.96);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .row:hover .thumbnail,
+  .row:focus-visible .thumbnail {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}

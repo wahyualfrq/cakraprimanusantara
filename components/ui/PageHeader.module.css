@@ -1,0 +1,66 @@
+.header {
+  position: relative;
+  padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
+  padding-bottom: var(--cpn-space-xl);
+  overflow: hidden;
+}
+
+.solid {
+  background-color: var(--cpn-color-surface-tint);
+  color: var(--cpn-color-text);
+}
+
+.photo {
+  color: var(--cpn-color-text-on-dark);
+  min-height: 20rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+.photoLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.photoImage {
+  position: absolute;
+  inset: 0;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--cpn-scrim);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cpn-space-sm);
+  text-align: left;
+}
+
+.photo .inner {
+  text-shadow: var(--cpn-text-shadow-on-photo);
+}
+
+.title {
+  font-family: var(--cpn-font-heading);
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.title em {
+  font-style: italic;
+}
+
+.description {
+  max-width: 48ch;
+  font-size: 1.0625rem;
+  opacity: 0.85;
+}

@@ -1,0 +1,53 @@
+.jumlah {
+  color: var(--cpn-color-text-muted);
+  font-weight: 600;
+  margin-bottom: var(--cpn-space-lg);
+}
+
+.list {
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--cpn-space-md);
+  padding-block: var(--cpn-space-md);
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.item:last-child {
+  border-bottom: 1px solid var(--cpn-color-border);
+}
+
+.number {
+  flex-shrink: 0;
+  width: 2rem;
+  font-family: var(--cpn-font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--cpn-color-accent);
+}
+
+.thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--cpn-radius-sm);
+  overflow: hidden;
+}
+
+.title {
+  font-weight: 600;
+  color: var(--cpn-color-text);
+}
+
+.pencapaianSection {
+  background-color: var(--cpn-color-surface-tint);
+}
+
+.pencapaianItem {
+  font-weight: 600;
+  color: var(--cpn-color-text);
+}

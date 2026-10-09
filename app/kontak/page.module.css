@@ -1,0 +1,88 @@
+.pembuka {
+  max-width: 60ch;
+  color: var(--cpn-color-text-muted);
+  margin-bottom: var(--cpn-space-xl);
+}
+
+.group {
+  margin-bottom: var(--cpn-space-xl);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--cpn-space-lg);
+  margin-top: var(--cpn-space-md);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-sm);
+  padding: var(--cpn-space-lg);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-md);
+}
+
+.cardTitle {
+  font-family: var(--cpn-font-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--cpn-color-text);
+}
+
+.address {
+  font-style: normal;
+  color: var(--cpn-color-text-muted);
+  line-height: 1.5;
+}
+
+.mapsLink {
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--cpn-color-primary);
+}
+
+.kontakList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+}
+
+.kontakItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--cpn-space-xs);
+  font-size: 0.9375rem;
+}
+
+.kontakLabel {
+  font-weight: 600;
+  color: var(--cpn-color-text);
+}
+
+.kontakItem a {
+  color: var(--cpn-color-primary);
+}
+
+.kontakPic {
+  color: var(--cpn-color-text-muted);
+  font-size: 0.875rem;
+}
+
+.email a {
+  color: var(--cpn-color-primary);
+  font-weight: 600;
+}
+
+.jamKantor {
+  font-size: 0.875rem;
+  color: var(--cpn-color-text-muted);
+}
+
+.formSection {
+  background-color: var(--cpn-color-surface-tint);
+}

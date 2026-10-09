@@ -94,6 +94,11 @@
   --cpn-radius-full: 9999px;
 
   --cpn-container-max: 1200px;
+
+  /* Tinggi navbar fixed (= tinggi logoImage, components/layout/Navbar.module.css)
+     — dipakai komponen halaman dalam (mis. PageHeader) untuk reserve clearance,
+     karena navbar position:fixed tidak mendorong <main> lewat document flow. */
+  --cpn-navbar-height: 4rem;
 }
 
 /* Tema per unit usaha — di-scope lewat data-theme di layout.tsx masing-masing.

@@ -39,11 +39,10 @@ Dokumen ini adalah rujukan teknis untuk bagaimana proyek disusun: folder, penama
 │   ├── kontraktor/
 │   │   ├── layout.tsx             # inject data-theme="konstruksi"
 │   │   ├── page.tsx
-│   │   ├── civil-project/page.tsx
-│   │   ├── building-project/page.tsx
-│   │   ├── concrete-repair/page.tsx
-│   │   ├── mechanical-electrical/page.tsx
-│   │   └── chipping-kelapa-sawit/page.tsx
+│   │   └── [layanan]/
+│   │       └── page.tsx           # dinamis + generateStaticParams, bukan 5
+│   │                               # folder terpisah — lihat §2.1. Dieksekusi
+│   │                               # di Fase 2 (PROMPT-LANJUTAN.md), bukan Fase 1.
 │   │
 │   ├── alat-berat/
 │   │   ├── layout.tsx             # inject data-theme="konstruksi"
@@ -109,6 +108,18 @@ Dokumen ini adalah rujukan teknis untuk bagaimana proyek disusun: folder, penama
 ### Kenapa tidak pakai Route Groups `(nama)`?
 
 Route groups (`(folder)`) dipakai untuk mengelompokkan route tanpa menambah segmen URL. Di proyek ini, tiap unit usaha memang **sudah punya segmen URL sendiri** (`/kontraktor`, `/alat-berat`, dst), jadi cukup pakai `layout.tsx` biasa di tiap folder unit untuk inject tema — tidak perlu route group tambahan. Ini menghindari kompleksitas yang tidak perlu.
+
+### 2.1 Kenapa `/kontraktor/[layanan]` dinamis, bukan 5 folder terpisah?
+
+Versi awal dokumen ini (dan scaffolding awal repo) memakai 5 folder statis
+(`civil-project/`, `building-project/`, dst). Setelah migrasi konten (Fase 1,
+PROMPT-LANJUTAN.md), keputusannya diubah ke satu route dinamis
+`[layanan]/page.tsx` + `generateStaticParams()` dari
+`content/kontraktor/layanan.ts` — 5 halaman tetap di-pre-render statis saat
+build (D.1), cuma sumber route-nya satu file, bukan 5 file duplikat dengan
+struktur JSX yang sama persis. URL publik tidak berubah (slug tetap
+`civil-project` dst). Restrukturisasi foldernya sendiri dieksekusi di Fase 2,
+bukan Fase 1 — Fase 1 cuma mengisi `content/kontraktor/layanan.ts`.
 
 ---
 

@@ -25,7 +25,7 @@ const unitTiles: UnitTile[] = [
   },
   {
     label: "Trading",
-    deskripsi: "Distributor resmi cat, pelumas, aki, dan material industrial",
+    deskripsi: "Distributor dan agen untuk merek nasional dan internasional",
     href: "/trading",
   },
   {

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   images: {
@@ -10,8 +11,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       // Sumber foto konten final akan di Vercel Blob Storage (STRUCTURE.md §7.1).
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+      // Poster LiteYouTube (components/ui/LiteYouTube.tsx) — thumbnail resmi YouTube.
+      { protocol: "https", hostname: "i.ytimg.com" },
     ],
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);

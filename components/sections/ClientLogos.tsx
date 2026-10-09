@@ -34,7 +34,7 @@ export function ClientLogos() {
     <Section className={styles.section}>
       <Container className={styles.stack}>
         <LogoStrip label="Dipercaya oleh" items={klienRow} />
-        <LogoStrip label="Mitra Distribusi Resmi" items={mitraRow} />
+        <LogoStrip label="Mitra Distribusi" items={mitraRow} />
       </Container>
     </Section>
   );

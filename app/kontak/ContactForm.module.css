@@ -1,0 +1,72 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  max-width: 40rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+}
+
+.field label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--cpn-color-text);
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  padding: var(--cpn-space-sm) var(--cpn-space-md);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-sm);
+  background-color: var(--cpn-color-bg);
+  color: var(--cpn-color-text);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--cpn-color-primary);
+  outline-offset: 1px;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cpn-space-md);
+  margin-top: var(--cpn-space-sm);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--cpn-space-sm) var(--cpn-space-lg);
+  border-radius: var(--cpn-radius-full);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid var(--cpn-color-primary);
+  color: var(--cpn-color-primary);
+  transition: background-color 0.15s ease;
+}
+
+.btnSecondary:hover {
+  background-color: var(--cpn-color-surface-tint);
+}
+
+.note {
+  font-size: 0.8125rem;
+  color: var(--cpn-color-text-muted);
+}

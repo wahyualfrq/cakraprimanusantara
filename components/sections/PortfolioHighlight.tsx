@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { IconButton } from "@/components/ui/IconButton";
 import { cn } from "@/lib/utils";
+import { proyekList } from "@/content/kontraktor/proyek";
 import styles from "./PortfolioHighlight.module.css";
 
 type PortfolioCard = {
@@ -10,15 +11,26 @@ type PortfolioCard = {
   featured?: boolean;
 };
 
-// TODO: pindahkan ke content/kontraktor/proyek.ts begitu migrasi konten berjalan.
+function judulProyek(slug: string): string {
+  const proyek = proyekList.find((item) => item.slug === slug);
+  if (!proyek) throw new Error(`Proyek tidak ditemukan di proyekList: ${slug}`);
+  return proyek.judul;
+}
+
+// Sumber: content/kontraktor/proyek.ts (migrasi konten Fase 6+7+8). Card 1
+// & 3 dipertahankan dengan teks yang sudah tampil di section ini sebelum
+// migrasi — proyekList menulis "PT." dengan titik, section ini sebelumnya
+// tanpa titik — supaya render & teks tidak berubah (brief Fase 6+7+8 poin
+// 5). Card 5 (pencapaian Ostindo) bukan proyek kontraktor, tidak ada di
+// proyekList — tetap literal, sama seperti sebelumnya.
 // Foto asli menyusul via Vercel Blob (STRUCTURE.md §7.3) — placeholder pattern
 // sengaja beda dari Unit Selector (diagonal stripe abu-abu, bukan dot hijau)
 // supaya kedua section tidak terkesan komponen yang sama (DESIGN.md §8.9).
 const cards: PortfolioCard[] = [
   { judul: "Pekerjaan Proyek PT Bukit Asam", featured: true },
-  { judul: "Pekerjaan Perbaikan Jetty Tarahan Lampung" },
+  { judul: judulProyek("perbaikan-jetty-tarahan-lampung") },
   { judul: "HVC Kebun Tanjung Sari PT Sampoerna" },
-  { judul: "Pekerjaan Tanah Oprit Overpass STA Proyek Jalan Tol" },
+  { judul: judulProyek("tanah-oprit-overpass-sta-jalan-tol") },
   { judul: "OSTINDO Kembali Mendapatkan Penghargaan Best Fertilizer 2016" },
 ];
 
