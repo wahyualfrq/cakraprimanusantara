@@ -1,0 +1,18 @@
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+}
+
+.value {
+  font-family: var(--cpn-font-heading);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: var(--cpn-color-text-on-dark-muted);
+  max-width: 12rem;
+}

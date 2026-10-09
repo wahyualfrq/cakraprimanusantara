@@ -1,0 +1,76 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: rgba(255, 255, 255, 0.55);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    backdrop-filter 0.25s ease;
+}
+
+.scrolled {
+  background-color: rgba(255, 255, 255, 0.92);
+  border-color: var(--cpn-color-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.inner {
+  max-width: var(--cpn-container-max);
+  margin-inline: auto;
+  padding-inline: var(--cpn-space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cpn-space-md);
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logoImage {
+  height: 4rem;
+  width: auto;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: var(--cpn-space-lg);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--cpn-color-text);
+}
+
+.links a {
+  opacity: 0.85;
+}
+
+.links a:hover {
+  opacity: 1;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--cpn-space-sm);
+}
+
+@media (max-width: 900px) {
+  .links {
+    display: none;
+  }
+
+  .ctaDesktop {
+    display: none;
+  }
+}

@@ -1,0 +1,55 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cpn-space-xs);
+  padding: var(--cpn-space-sm) var(--cpn-space-lg);
+  border-radius: var(--cpn-radius-full);
+  font-family: var(--cpn-font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    opacity 0.15s ease,
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.pill:hover {
+  transform: translateY(-1px);
+}
+
+.solid {
+  background-color: var(--cpn-color-primary);
+  color: var(--cpn-color-on-primary);
+}
+
+.solid:hover {
+  background-color: var(--cpn-color-primary-hover);
+}
+
+.glass {
+  background-color: var(--cpn-glass-bg);
+  border-color: var(--cpn-glass-border);
+  backdrop-filter: var(--cpn-glass-blur);
+  -webkit-backdrop-filter: var(--cpn-glass-blur);
+  box-shadow: var(--cpn-glass-shadow);
+  color: var(--cpn-color-text-on-dark);
+  text-shadow: var(--cpn-text-shadow-on-photo);
+}
+
+.outline-glass {
+  background-color: transparent;
+  border-color: var(--cpn-glass-border);
+  color: var(--cpn-color-text-on-dark);
+  backdrop-filter: var(--cpn-glass-blur);
+  -webkit-backdrop-filter: var(--cpn-glass-blur);
+  text-shadow: var(--cpn-text-shadow-on-photo);
+}
+
+.outline-glass:hover,
+.glass:hover {
+  background-color: var(--cpn-glass-bg);
+}

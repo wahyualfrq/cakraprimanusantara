@@ -1,0 +1,76 @@
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + var(--cpn-space-sm));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--cpn-space-lg);
+  border-radius: var(--cpn-radius-lg);
+  border: 1px solid transparent;
+  min-width: 36rem;
+}
+
+.wrapper:hover .panel,
+.wrapper:focus-within .panel {
+  display: block;
+}
+
+.panelSolid {
+  background-color: var(--cpn-color-bg);
+  border-color: var(--cpn-color-border);
+  box-shadow: var(--cpn-glass-shadow);
+  color: var(--cpn-color-text);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--cpn-space-lg);
+}
+
+.columnTitle {
+  font-weight: 700;
+  display: block;
+  margin-bottom: var(--cpn-space-sm);
+}
+
+.column ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+  font-size: 0.875rem;
+}
+
+.column li a {
+  opacity: 0.85;
+}
+
+.column li a:hover {
+  opacity: 1;
+}
+
+.tradingRow {
+  display: block;
+  margin-top: var(--cpn-space-md);
+  padding-top: var(--cpn-space-md);
+  border-top: 1px solid currentColor;
+  border-top-color: color-mix(in srgb, currentColor 16%, transparent);
+  font-weight: 700;
+}

@@ -1,0 +1,6 @@
+.card {
+  background-color: var(--cpn-color-surface);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-md);
+  padding: var(--cpn-space-lg);
+}

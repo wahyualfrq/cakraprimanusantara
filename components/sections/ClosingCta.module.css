@@ -1,0 +1,35 @@
+.section {
+  padding-block: var(--cpn-space-section);
+  background-color: var(--cpn-color-primary);
+  color: var(--cpn-color-text-on-dark);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--cpn-space-md);
+  max-width: 36rem;
+}
+
+.heading {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+}
+
+.sub {
+  color: var(--cpn-color-text-on-dark-muted);
+  line-height: 1.5;
+}
+
+.section .cta {
+  margin-top: var(--cpn-space-sm);
+  background-color: var(--cpn-color-bg);
+  color: var(--cpn-color-primary);
+}
+
+.section .cta:hover {
+  background-color: var(--cpn-color-bg);
+  opacity: 0.9;
+}

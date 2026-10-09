@@ -1,0 +1,132 @@
+.hero {
+  position: relative;
+}
+
+.frame {
+  position: relative;
+  isolation: isolate;
+  min-height: 44rem;
+  height: 100vh;
+  max-height: 56rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--cpn-scrim);
+}
+
+.content {
+  width: 100%;
+  padding-block: var(--cpn-space-2xl);
+}
+
+.copy {
+  max-width: 54rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--cpn-space-md);
+  color: var(--cpn-color-text-on-dark);
+}
+
+.headline {
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.accentWord {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.subheadline {
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--cpn-color-text-on-dark-muted);
+  max-width: 38rem;
+}
+
+.cta {
+  margin-top: var(--cpn-space-sm);
+}
+
+.trustBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding-block: var(--cpn-space-lg);
+}
+
+.trust {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--cpn-space-sm);
+}
+
+.trustLabel {
+  font-size: 0.8125rem;
+  color: var(--cpn-color-text-on-dark-muted);
+}
+
+.logoStrip {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--cpn-space-md) var(--cpn-space-lg);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--cpn-color-text-on-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 640px) {
+  .frame {
+    min-height: 0;
+    height: auto;
+    max-height: none;
+    padding-block: var(--cpn-space-2xl) var(--cpn-space-xl);
+  }
+
+  .content {
+    padding-block: var(--cpn-space-xl) 0;
+  }
+
+  .trustBar {
+    position: static;
+    padding-block: var(--cpn-space-lg) 0;
+  }
+
+  .logoStrip {
+    font-size: 0.9375rem;
+    gap: var(--cpn-space-sm) var(--cpn-space-md);
+  }
+}

@@ -1,0 +1,40 @@
+.section {
+  padding-block: var(--cpn-space-section);
+  background-color: var(--cpn-color-bg);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xl);
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+}
+
+.rowLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cpn-color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cpn-space-lg) var(--cpn-space-xl);
+}
+
+.wordmark {
+  color: var(--cpn-gray-500);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}

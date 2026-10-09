@@ -1,0 +1,40 @@
+.card {
+  border-style: solid;
+  border-width: 1px;
+}
+
+.light {
+  background-color: var(--cpn-glass-bg);
+  border-color: var(--cpn-glass-border);
+  backdrop-filter: var(--cpn-glass-blur);
+  -webkit-backdrop-filter: var(--cpn-glass-blur);
+  box-shadow: var(--cpn-glass-shadow);
+  color: var(--cpn-color-text-on-dark);
+}
+
+.tinted {
+  background-color: var(--cpn-glass-tint-bg);
+  border-color: var(--cpn-glass-tint-border);
+  backdrop-filter: var(--cpn-glass-tint-blur);
+  -webkit-backdrop-filter: var(--cpn-glass-tint-blur);
+  color: var(--cpn-color-text);
+}
+
+.solid {
+  background-color: var(--cpn-color-bg);
+  border-color: var(--cpn-color-border);
+  box-shadow: var(--cpn-glass-shadow);
+  color: var(--cpn-color-text);
+}
+
+.radius-lg {
+  border-radius: var(--cpn-radius-lg);
+}
+
+.radius-xl {
+  border-radius: var(--cpn-radius-xl);
+}
+
+.radius-full {
+  border-radius: var(--cpn-radius-full);
+}
