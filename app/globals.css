@@ -1,0 +1,162 @@
+:root {
+  /* Green scale — brand utama, dari logo (#016625 = green-700). DESIGN.md §2, sudah final. */
+  --cpn-green-50: #f3fcf6;
+  --cpn-green-100: #e2f9ea;
+  --cpn-green-200: #bef4d1;
+  --cpn-green-300: #82eda8;
+  --cpn-green-400: #2bee70;
+  --cpn-green-500: #08c44b;
+  --cpn-green-600: #039637;
+  --cpn-green-700: #016625;
+  --cpn-green-800: #014c1c;
+  --cpn-green-900: #013213;
+  --cpn-green-950: #021d0b;
+
+  /* Gray scale — netral undertone hijau. DESIGN.md §3, sudah final. */
+  --cpn-gray-50: #fafafa;
+  --cpn-gray-100: #f4f5f4;
+  --cpn-gray-200: #e7e9e7;
+  --cpn-gray-300: #d1d5d2;
+  --cpn-gray-400: #a8afa9;
+  --cpn-gray-500: #7c847d;
+  --cpn-gray-600: #5a625b;
+  --cpn-gray-700: #414942;
+  --cpn-gray-800: #2b322c;
+  --cpn-gray-900: #181d19;
+  --cpn-gray-950: #0d110e;
+
+  /* Navy & orange — pendukung tema "konstruksi" (Kontraktor/Alat Berat/Trading).
+     MASIH PROPOSAL, belum di-approve eksplisit — lihat DESIGN.md §4 & §8. */
+  --cpn-navy-700: #16324f;
+  --cpn-navy-800: #0f2338;
+  --cpn-navy-100: #e7ecf1;
+  --cpn-orange-500: #f2994a;
+  --cpn-orange-600: #db7f2b;
+
+  /* Token semantik — default Hub (Home, Tentang Kami, Kontak, Portofolio, Berita). */
+  --cpn-color-primary: var(--cpn-green-700);
+  --cpn-color-primary-hover: var(--cpn-green-800);
+  --cpn-color-on-primary: #ffffff;
+  --cpn-color-secondary: var(--cpn-green-600);
+  --cpn-color-accent: var(--cpn-green-500);
+
+  --cpn-color-bg: #ffffff;
+  --cpn-color-surface: var(--cpn-gray-50);
+  --cpn-color-surface-tint: var(--cpn-green-50);
+  --cpn-color-border: var(--cpn-gray-200);
+
+  --cpn-color-text: var(--cpn-gray-900);
+  --cpn-color-text-muted: var(--cpn-gray-600);
+  --cpn-color-text-on-dark: #ffffff;
+  --cpn-color-text-on-dark-muted: rgba(255, 255, 255, 0.72);
+
+  /* Liquid glass — varian "Light Glass", dipakai di atas foto/background gelap. DESIGN.md §5.1. */
+  --cpn-glass-bg: rgba(255, 255, 255, 0.14);
+  --cpn-glass-border: rgba(255, 255, 255, 0.28);
+  --cpn-glass-blur: blur(24px) saturate(160%);
+  --cpn-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+
+  /* Shadow untuk card biasa non-glass (di atas background solid/putih). DESIGN.md §8.8. */
+  --cpn-shadow-card: 0 2px 8px rgba(24, 29, 25, 0.08);
+
+  /* Liquid glass — varian "Tinted Glass", dipakai di atas background terang/putih. DESIGN.md §5.2. */
+  --cpn-glass-tint-bg: rgba(1, 102, 37, 0.06);
+  --cpn-glass-tint-border: rgba(1, 102, 37, 0.16);
+  --cpn-glass-tint-blur: blur(16px);
+
+  /* Scrim wajib di belakang teks yang duduk di atas foto — DESIGN.md §5.3. */
+  --cpn-scrim: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+
+  /* Varian scrim untuk elemen yang menempel di tepi atas (mis. navbar) —
+     gelap di atas, memudar ke bawah. Kontras teks di navbar tidak boleh
+     bergantung sepenuhnya pada kecerahan foto di baliknya (DESIGN.md §5.3). */
+  --cpn-scrim-top: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 100%);
+
+  /* Text-shadow tipis untuk teks putih yang duduk langsung di atas foto
+     (mis. link navbar glass) — lapisan kontras tambahan selain scrim. */
+  --cpn-text-shadow-on-photo: 0 1px 3px rgba(0, 0, 0, 0.35);
+
+  --cpn-font-heading: var(--font-heading, system-ui, sans-serif);
+  --cpn-font-body: var(--font-body, system-ui, sans-serif);
+
+  --cpn-space-xs: 0.25rem;
+  --cpn-space-sm: 0.5rem;
+  --cpn-space-md: 1rem;
+  --cpn-space-lg: 2rem;
+  --cpn-space-xl: 4rem;
+  --cpn-space-2xl: 6rem;
+  --cpn-space-section: 6rem; /* padding vertikal standar tiap section, desktop — DESIGN.md §8.10 */
+
+  --cpn-radius-sm: 4px;
+  --cpn-radius-md: 8px;
+  --cpn-radius-lg: 20px;
+  --cpn-radius-xl: 28px;
+  --cpn-radius-full: 9999px;
+
+  --cpn-container-max: 1200px;
+}
+
+/* Tema per unit usaha — di-scope lewat data-theme di layout.tsx masing-masing.
+   Hub & Agribisnis satu keluarga hijau; Kontraktor/Alat Berat/Trading pakai
+   navy+orange sebagai pembeda (masih proposal, DESIGN.md §4 & §8). */
+[data-theme="konstruksi"] {
+  --cpn-color-primary: var(--cpn-navy-700);
+  --cpn-color-primary-hover: var(--cpn-navy-800);
+  --cpn-color-accent: var(--cpn-orange-500);
+  --cpn-color-surface-tint: var(--cpn-navy-100);
+}
+
+[data-theme="agri"] {
+  --cpn-color-primary: var(--cpn-green-600);
+  --cpn-color-primary-hover: var(--cpn-green-700);
+  --cpn-color-accent: var(--cpn-green-400);
+}
+
+html {
+  height: 100%;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: var(--cpn-color-text);
+  background: var(--cpn-color-bg);
+  font-family: var(--cpn-font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--cpn-font-heading);
+}
+
+main {
+  flex: 1;
+}
