@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Alat Berat",
     description: "Rental dan penjualan alat berat oleh PT Cakra Prima Nusantara.",
     path: "/alat-berat",
+    noindex: true,
   });
 }
 

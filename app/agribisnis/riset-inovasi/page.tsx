@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Riset & Inovasi",
     description: "Riset, inovasi, dan mitra riset unit Agribisnis PT Cakra Prima Nusantara.",
     path: "/agribisnis/riset-inovasi",
+    noindex: true,
   });
 }
 

@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Produk Agribisnis",
     description: "Daftar produk pupuk hayati dan biopestisida: Ostindo, Futricho, Bless, Rizafert, Actifert.",
     path: "/agribisnis/produk",
+    noindex: true,
   });
 }
 

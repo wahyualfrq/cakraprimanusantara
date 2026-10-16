@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Agribisnis",
     description: "Produk pupuk hayati dan biopestisida oleh unit Agribisnis PT Cakra Prima Nusantara.",
     path: "/agribisnis",
+    noindex: true,
   });
 }
 

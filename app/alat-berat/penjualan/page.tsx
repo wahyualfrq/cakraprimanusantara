@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Penjualan Alat Berat",
     description: "Katalog alat berat yang tersedia untuk dijual.",
     path: "/alat-berat/penjualan",
+    noindex: true,
   });
 }
 

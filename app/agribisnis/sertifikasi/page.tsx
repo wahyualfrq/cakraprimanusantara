@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Sertifikasi",
     description: "Sertifikasi produk unit Agribisnis PT Cakra Prima Nusantara (SNI, dll).",
     path: "/agribisnis/sertifikasi",
+    noindex: true,
   });
 }
 

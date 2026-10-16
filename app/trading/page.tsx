@@ -9,6 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       "Distribusi material, cat, oli, dan baterai industrial oleh PT Cakra Prima Nusantara.",
     path: "/trading",
+    noindex: true,
   });
 }
 

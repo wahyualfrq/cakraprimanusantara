@@ -3,11 +3,10 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PillButton } from "@/components/ui/PillButton";
-import { SITE_NAME } from "@/lib/seo/metadata";
 import styles from "./not-found.module.css";
 
 export const metadata: Metadata = {
-  title: `Halaman Tidak Ditemukan | ${SITE_NAME}`,
+  title: "Halaman Tidak Ditemukan",
   robots: { index: false, follow: true },
 };
 
