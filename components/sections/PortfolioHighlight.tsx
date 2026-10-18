@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -9,6 +10,8 @@ import styles from "./PortfolioHighlight.module.css";
 type PortfolioCard = {
   judul: string;
   featured?: boolean;
+  image?: string;
+  imageAlt?: string;
 };
 
 function judulProyek(slug: string): string {
@@ -17,21 +20,33 @@ function judulProyek(slug: string): string {
   return proyek.judul;
 }
 
-// Sumber: content/kontraktor/proyek.ts (migrasi konten Fase 6+7+8). Card 1
-// & 3 dipertahankan dengan teks yang sudah tampil di section ini sebelum
-// migrasi — proyekList menulis "PT." dengan titik, section ini sebelumnya
-// tanpa titik — supaya render & teks tidak berubah (brief Fase 6+7+8 poin
-// 5). Card 5 (pencapaian Ostindo) bukan proyek kontraktor, tidak ada di
-// proyekList — tetap literal, sama seperti sebelumnya.
-// Foto asli menyusul via Vercel Blob (STRUCTURE.md §7.3) — placeholder pattern
-// sengaja beda dari Unit Selector (diagonal stripe abu-abu, bukan dot hijau)
-// supaya kedua section tidak terkesan komponen yang sama (DESIGN.md §8.9).
 const cards: PortfolioCard[] = [
-  { judul: "Pekerjaan Proyek PT Bukit Asam", featured: true },
-  { judul: judulProyek("perbaikan-jetty-tarahan-lampung") },
-  { judul: "HVC Kebun Tanjung Sari PT Sampoerna" },
-  { judul: judulProyek("tanah-oprit-overpass-sta-jalan-tol") },
-  { judul: "OSTINDO Kembali Mendapatkan Penghargaan Best Fertilizer 2016" },
+  {
+    judul: "Pekerjaan Proyek PT Bukit Asam",
+    featured: true,
+    image: "/images/gambar-8.png",
+    imageAlt: "Pekerjaan Proyek PT Bukit Asam oleh PT Cakra Indo Pratama",
+  },
+  {
+    judul: judulProyek("perbaikan-jetty-tarahan-lampung"),
+    image: "/images/gambar-7.png",
+    imageAlt: "Pekerjaan Perbaikan Jetty Tarahan Lampung oleh PT Cakra Indo Pratama",
+  },
+  {
+    judul: "HVC Kebun Tanjung Sari PT Sampoerna",
+    image: "/images/gambar-6.png",
+    imageAlt: "Pekerjaan HVC Kebun Tanjung Sari PT Sampoerna di Sumatera Selatan",
+  },
+  {
+    judul: judulProyek("tanah-oprit-overpass-sta-jalan-tol"),
+    image: "/images/gambar-8.png",
+    imageAlt: "Pekerjaan Tanah Oprit Overpass STA Proyek Jalan Tol",
+  },
+  {
+    judul: "OSTINDO Kembali Mendapatkan Penghargaan Best Fertilizer 2016",
+    image: "/images/gambar-10.png",
+    imageAlt: "Penghargaan Best Fertilizer 2016 untuk produk pupuk dan agribisnis OSTINDO",
+  },
 ];
 
 export function PortfolioHighlight() {
@@ -51,7 +66,21 @@ export function PortfolioHighlight() {
               key={card.judul}
               className={cn(styles.card, card.featured && styles.featured)}
             >
-              <div className={styles.cardPattern} aria-hidden="true" />
+              {card.image ? (
+                <Image
+                  src={card.image}
+                  alt={card.imageAlt ?? card.judul}
+                  fill
+                  sizes={
+                    card.featured
+                      ? "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+                      : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  }
+                  className={styles.cardImage}
+                />
+              ) : (
+                <div className={styles.cardPattern} aria-hidden="true" />
+              )}
               <div className={styles.cardScrim} aria-hidden="true" />
               <IconButton
                 href="/portofolio"

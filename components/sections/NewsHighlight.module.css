@@ -55,6 +55,15 @@
   border-radius: 63% 37% 54% 46% / 43% 47% 53% 57%;
 }
 
+.thumbImage {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.itemLink:hover .thumbImage {
+  transform: scale(1.08);
+}
+
 .itemTitle {
   font-size: 1.0625rem;
   font-weight: 700;

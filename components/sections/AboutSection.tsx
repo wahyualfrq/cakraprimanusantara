@@ -23,8 +23,8 @@ export function AboutSection() {
       <Container className={styles.grid}>
         <div className={styles.media}>
           <Image
-            src="/placeholder/tentang-kami.jpg"
-            alt="Tim dan operasional PT Cakra Prima Nusantara"
+            src="/images/gambar-5.png"
+            alt="Tim dan operasional PT Cakra Prima Nusantara di lokasi proyek"
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
             className={styles.image}

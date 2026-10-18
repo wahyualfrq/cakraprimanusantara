@@ -51,6 +51,15 @@
   );
 }
 
+.cardImage {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.05);
+}
+
 .cardScrim {
   position: absolute;
   inset: 0;

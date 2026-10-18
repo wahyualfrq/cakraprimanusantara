@@ -24,9 +24,15 @@ export const sertifikasiList: Sertifikasi[] = [
     deskripsi: "Pembaruan sertifikat SNI produk Agribisnis.",
   },
   {
+    slug: "iopc-2014",
+    nama: "Sertifikat Peserta/Exhibitor International Oil Palm Conference 2014",
+    // penerbit: "International Oil Palm Conference (IOPC)",
+    tahun: 2014,
+  },
+  {
     slug: "alih-teknologi-lipi-2015",
     nama: "Penghargaan Alih Teknologi LIPI",
-    penerbit: "LIPI",
+    // penerbit: "LIPI",
     tahun: 2015,
     deskripsi:
       "Penghargaan atas lisensi invensi \"Komposisi Pembenah Tanah dan Penggunaannya untuk Lahan Kritis\".",
@@ -35,12 +41,6 @@ export const sertifikasiList: Sertifikasi[] = [
     slug: "iso-9001-2008",
     nama: "Sertifikat SNI ISO 9001:2008",
     deskripsi: "Sertifikat sistem manajemen mutu, sumber: PDF Company Profile Ostindo.",
-  },
-  {
-    slug: "iopc-2014",
-    nama: "Sertifikat Peserta/Exhibitor International Oil Palm Conference 2014",
-    penerbit: "International Oil Palm Conference (IOPC)",
-    tahun: 2014,
   },
   {
     slug: "best-fertilizer-2016",

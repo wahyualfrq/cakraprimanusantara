@@ -32,8 +32,15 @@
   transition: transform 0.4s ease;
 }
 
+.tileImage {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
 .tile:hover .tilePattern,
-.tile:focus-visible .tilePattern {
+.tile:focus-visible .tilePattern,
+.tile:hover .tileImage,
+.tile:focus-visible .tileImage {
   transform: scale(1.06);
 }
 

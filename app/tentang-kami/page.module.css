@@ -278,12 +278,14 @@
 .locationCard {
   background-color: var(--cpn-color-bg);
   border: 1px solid var(--cpn-color-border);
-  border-radius: var(--cpn-radius-md);
+  border-radius: var(--cpn-radius-lg);
   padding: var(--cpn-space-md) var(--cpn-space-lg);
   display: flex;
   flex-direction: column;
   gap: var(--cpn-space-xs);
 }
+
+
 
 .locationName {
   font-family: var(--cpn-font-heading);

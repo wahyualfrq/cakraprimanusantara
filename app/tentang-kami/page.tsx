@@ -41,8 +41,8 @@ export default function TentangKamiPage() {
           <div className={styles.overviewGrid}>
             <div className={styles.overviewMedia}>
               <Image
-                src="/placeholder/tentang-kami.jpg"
-                alt="Operasional dan tim terintegrasi PT Cakra Prima Nusantara"
+                src="/images/gambar-5.png"
+                alt="Tim operasional dan manajemen terintegrasi PT Cakra Prima Nusantara"
                 fill
                 sizes="(max-width: 900px) 100vw, 50vw"
                 className={styles.overviewImage}
