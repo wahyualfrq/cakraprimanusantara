@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ContentImage } from "@/components/ui/ContentImage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -33,12 +34,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
 }
 
+// Pemetaan aset gambar terverifikasi untuk artikel aktif.
+// Seluruh aset merupakan gambar pendukung relevan tanpa klaim palsu dokumentasi kegiatan fisik.
+const ARTIKEL_MEDIA: Record<string, { src: string; alt: string }> = {
+  "kerjasama-brin-teknologi-pestisida": {
+    src: "/images/gambar-9.png",
+    alt: "Ilustrasi riset agronomi — pengujian mikrobiologi terapan di laboratorium",
+  },
+  "kerjasama-dengan-lipi": {
+    src: "/images/gambar-11.png",
+    alt: "Ilustrasi pengujian dan evaluasi agronomi produk di lapangan",
+  },
+};
+
 export default async function BeritaDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const entry = getBeritaBySlug(slug);
   if (!entry || entry.meta.draft) notFound();
 
   const { meta, Content } = entry;
+  const media = ARTIKEL_MEDIA[meta.slug];
+
   const schema = articleSchema({
     headline: meta.judul,
     datePublished: meta.tanggal,
@@ -47,38 +63,92 @@ export default async function BeritaDetailPage({ params }: PageProps) {
   return (
     <>
       <JsonLd data={schema} />
-      <PageHeader
-        variant="solid"
-        breadcrumb={[
-          { label: "Beranda", href: "/" },
-          { label: "Berita", href: "/berita" },
-          { label: meta.judul, href: `/berita/${meta.slug}` },
-        ]}
-        title={meta.judul}
-      />
 
-      <Section>
-        <Container className={styles.layout}>
-          {meta.tanggal && (
-            <p className={styles.tanggal}>{formatTanggalIndonesia(meta.tanggal)}</p>
-          )}
-
-          {meta.fotoAlt && (
-            <ContentImage
-              alt={meta.fotoAlt}
-              variant="berita"
-              width={800}
-              height={520}
-              sizes="(min-width: 900px) 60vw, 100vw"
-              className={styles.foto}
+      <article className={styles.articlePage}>
+        <Container className={styles.articleContainer}>
+          {/* 1. Breadcrumb Beranda / Berita */}
+          <div className={styles.breadcrumbWrapper}>
+            <Breadcrumb
+              items={[
+                { label: "Beranda", href: "/" },
+                { label: "Berita", href: "/berita" },
+              ]}
             />
+          </div>
+
+          {/* 2. Gambar Utama Artikel (Sebelum Judul) */}
+          {media ? (
+            <div className={styles.mediaFrame}>
+              <Image
+                src={media.src}
+                alt={media.alt}
+                fill
+                sizes="(min-width: 1024px) 820px, 100vw"
+                className={styles.mediaImage}
+                priority
+              />
+            </div>
+          ) : meta.fotoAlt ? (
+            <div className={styles.mediaFrame}>
+              <ContentImage
+                alt={meta.fotoAlt}
+                variant="berita"
+                fill
+                sizes="(min-width: 1024px) 820px, 100vw"
+              />
+            </div>
+          ) : null}
+
+          {/* 3. Informasi Entitas dan Tanggal Publikasi */}
+          <div className={styles.metaGroup}>
+            <span className={styles.metaEntity}>
+              Agribisnis · PT Anugerah Mustika Ostindo
+            </span>
+            {meta.tanggal && (
+              <>
+                <span className={styles.metaDot} aria-hidden="true">·</span>
+                <time dateTime={meta.tanggal} className={styles.metaDate}>
+                  Diterbitkan pada {formatTanggalIndonesia(meta.tanggal)}
+                </time>
+              </>
+            )}
+          </div>
+
+          {/* 4. Judul Artikel */}
+          <h1 className={styles.title}>{meta.judul}</h1>
+
+          {/* 5. Excerpt atau Ringkasan Artikel */}
+          {meta.excerpt && (
+            <p className={styles.lead}>{meta.excerpt}</p>
           )}
 
+          {/* 6. Isi Artikel */}
           <div className={styles.content}>
             <Content />
           </div>
+
+          {/* 7. Footer: CTA & Tautan Kembali ke Semua Berita */}
+          <footer className={styles.articleFooter}>
+            <div className={styles.ctaBox}>
+              <div className={styles.ctaContent}>
+                <h3 className={styles.ctaHeading}>Kemitraan & Informasi Unit Agribisnis</h3>
+                <p className={styles.ctaDescription}>
+                  Untuk kolaborasi riset, pengujian formulasi agronomi, atau informasi produk PT Anugerah Mustika Ostindo, silakan hubungi tim kami.
+                </p>
+              </div>
+              <Link href="/kontak" className={styles.ctaButton}>
+                Hubungi Kami
+              </Link>
+            </div>
+
+            <div className={styles.navigationRow}>
+              {/* <Link href="/berita" className={styles.backLink}>
+                ← Kembali ke Semua Berita
+              </Link> */}
+            </div>
+          </footer>
         </Container>
-      </Section>
+      </article>
     </>
   );
 }

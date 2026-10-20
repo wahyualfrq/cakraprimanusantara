@@ -1,22 +1,242 @@
-.layout {
-  max-width: 68ch;
+.articlePage {
+  padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
+  padding-bottom: var(--cpn-space-3xl);
+  background-color: var(--cpn-color-bg);
 }
 
-.tanggal {
+.articleContainer {
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+/* ── 1. BREADCRUMB ──────────────────────────────────────────────────── */
+.breadcrumbWrapper {
+  margin-bottom: var(--cpn-space-md);
   color: var(--cpn-color-text-muted);
-  font-size: 0.875rem;
-  margin-bottom: var(--cpn-space-lg);
 }
 
-.foto {
-  margin-bottom: var(--cpn-space-lg);
+/* ── 2. GAMBAR UTAMA ARTIKEL ────────────────────────────────────────── */
+.mediaFrame {
+  position: relative;
+  width: 100%;
+  height: clamp(240px, 42vw, 440px);
   border-radius: var(--cpn-radius-md);
+  overflow: hidden;
+  background-color: var(--cpn-gray-100);
+  margin-bottom: var(--cpn-space-lg);
 }
 
+.mediaImage {
+  object-fit: cover;
+}
+
+/* ── 3. METADATA: ENTITAS & TANGGAL (TEKS BIASA, BUKAN BADGE) ───────── */
+.metaGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+  margin-bottom: var(--cpn-space-xs);
+}
+
+.metaEntity {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cpn-color-primary);
+}
+
+.metaDot {
+  color: var(--cpn-gray-400);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.metaDate {
+  font-size: 0.8125rem;
+  color: var(--cpn-color-text-muted);
+  font-weight: 500;
+}
+
+/* ── 4. JUDUL ARTIKEL ───────────────────────────────────────────────── */
+.title {
+  font-family: var(--cpn-font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.375rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--cpn-color-text);
+  letter-spacing: -0.01em;
+  margin-top: var(--cpn-space-xs);
+  margin-bottom: var(--cpn-space-md);
+}
+
+/* ── 5. EXCERPT / RINGKASAN ARTIKEL ─────────────────────────────────── */
+.lead {
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--cpn-gray-700);
+  border-left: 3px solid var(--cpn-color-primary);
+  padding-left: var(--cpn-space-md);
+  margin-bottom: var(--cpn-space-xl);
+}
+
+/* ── 6. ISI ARTIKEL ─────────────────────────────────────────────────── */
 .content {
+  font-family: var(--cpn-font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--cpn-gray-800);
   display: flex;
   flex-direction: column;
   gap: var(--cpn-space-md);
-  color: var(--cpn-color-text);
+}
+
+.content p {
+  margin-bottom: 0;
+}
+
+.content strong {
+  font-weight: 600;
+  color: var(--cpn-gray-900);
+}
+
+.content h2,
+.content h3 {
+  font-family: var(--cpn-font-heading);
+  font-weight: 700;
+  color: var(--cpn-gray-900);
+  line-height: 1.35;
+  margin-top: var(--cpn-space-xl);
+  margin-bottom: var(--cpn-space-xs);
+}
+
+.content h2 {
+  font-size: 1.5rem;
+}
+
+.content h3 {
+  font-size: 1.25rem;
+}
+
+.content blockquote {
+  border-left: 3px solid var(--cpn-color-primary);
+  padding-left: var(--cpn-space-md);
+  margin-block: var(--cpn-space-md);
+  font-style: italic;
+  color: var(--cpn-gray-700);
+}
+
+.content ul,
+.content ol {
+  padding-left: var(--cpn-space-lg);
+  margin-block: var(--cpn-space-xs);
+}
+
+.content li {
+  margin-bottom: var(--cpn-space-xs);
   line-height: 1.7;
+}
+
+/* ── 7. FOOTER & TAUTAN KEMBALI ─────────────────────────────────────── */
+.articleFooter {
+  margin-top: var(--cpn-space-3xl);
+  padding-top: var(--cpn-space-xl);
+  border-top: 1px solid var(--cpn-color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xl);
+}
+
+.ctaBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cpn-space-md);
+  background-color: var(--cpn-color-surface-tint);
+  border: 1px solid var(--cpn-green-200);
+  border-radius: var(--cpn-radius-md);
+  padding: var(--cpn-space-lg);
+}
+
+.ctaContent {
+  max-width: 46ch;
+}
+
+.ctaHeading {
+  font-family: var(--cpn-font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--cpn-color-text);
+  margin-bottom: 4px;
+}
+
+.ctaDescription {
+  font-size: 0.875rem;
+  color: var(--cpn-color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 1.4rem;
+  background-color: var(--cpn-color-primary);
+  color: var(--cpn-color-on-primary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--cpn-radius-sm);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
+}
+
+.ctaButton:hover {
+  background-color: var(--cpn-color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.navigationRow {
+  display: flex;
+  align-items: center;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--cpn-color-primary);
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+  transform: translateX(-2px);
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .articlePage {
+    padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-md));
+  }
+
+  .mediaFrame {
+    height: 220px;
+  }
+
+  .ctaBox {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--cpn-space-md);
+  }
+
+  .ctaButton {
+    width: 100%;
+    justify-content: center;
+  }
 }
