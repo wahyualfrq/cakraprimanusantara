@@ -64,3 +64,19 @@
   font-size: 1.0625rem;
   opacity: 0.85;
 }
+
+.innerCenter {
+  align-items: center;
+  text-align: center;
+}
+
+.innerCenter nav ol,
+.innerCenter nav ul {
+  justify-content: center;
+}
+
+.innerCenter .description {
+  max-width: 68ch;
+  margin-inline: auto;
+  line-height: 1.65;
+}

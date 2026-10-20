@@ -10,8 +10,9 @@ import {
   profilHoldingData,
   pilarBisnisList,
   linimasaList,
+  keunggulanHoldingData,
 } from "@/content/tentang-kami";
-import { lokasiList } from "@/content/kontak";
+import { StatsSection } from "./StatsSection";
 import styles from "./page.module.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -62,18 +63,21 @@ export default function TentangKamiPage() {
                 </p>
               ))}
 
-              <div className={styles.holdingNote}>
+              {/* <div className={styles.holdingNote}>
                 <strong>Sinergi Terpadu:</strong> Menyatukan rekayasa
                 infrastruktur fisik dan perbaikan beton di wilayah Sumatera
                 dengan riset bioteknologi pemupukan hayati berkelanjutan di
                 tingkat nasional.
-              </div>
+              </div> */}
             </div>
           </div>
         </Container>
       </Section>
 
-      {/* 2. Empat Pilar Unit Usaha */}
+      {/* 2. CPN dalam Angka (Statistik Korporat) */}
+      <StatsSection />
+
+      {/* 3. Empat Pilar Unit Usaha */}
       <Section className={styles.pillarsSection}>
         <Container>
           <SectionHeading
@@ -133,52 +137,43 @@ export default function TentangKamiPage() {
         </Container>
       </Section>
 
-      {/* 4. Jaringan Fasilitas & Operasional */}
-      <Section className={styles.locationsSection}>
+      {/* 4. Keunggulan CPN sebagai Holding */}
+      <Section className={styles.holdingAdvantageSection}>
         <Container>
-          <SectionHeading
-            title="Jaringan Operasional & Fasilitas"
-          />
+          <SectionHeading title={keunggulanHoldingData.judul} />
 
-          <div className={styles.locationsGrid}>
-            {lokasiList.map((lokasi) => (
-              <div key={lokasi.slug} className={styles.locationCard}>
-                <h3 className={styles.locationName}>{lokasi.nama}</h3>
-                <address className={styles.locationAddress}>
-                  {lokasi.alamat}
-                </address>
-                <div className={styles.locationBadgeList}>
-                  {lokasi.unitUsaha.map((u) => (
-                    <span key={u} className={styles.locationBadge}>
-                      {u}
-                    </span>
-                  ))}
-                </div>
+          <div className={styles.holdingIntroWrapper}>
+            {keunggulanHoldingData.paragraf.map((p, idx) => (
+              <p key={idx} className={styles.holdingIntroText}>
+                {p}
+              </p>
+            ))}
+          </div>
+
+          <div className={styles.holdingPillarsGrid}>
+            {keunggulanHoldingData.pilarStrategis.map((pillar, idx) => (
+              <div key={idx} className={styles.holdingPillarCard}>
+                <span className={styles.holdingPillarIndex}>0{idx + 1}</span>
+                <h3 className={styles.holdingPillarTitle}>{pillar.judul}</h3>
+                <p className={styles.holdingPillarDesc}>{pillar.deskripsi}</p>
               </div>
             ))}
           </div>
-        </Container>
-      </Section>
 
-      {/* 5. Call To Action Penutup */}
-      <Section className={styles.ctaSection}>
-        <Container>
-          <div className={styles.ctaCard}>
-            <h2 className={styles.ctaTitle}>
-              Siap Bermitra untuk Solusi Proyek & Industri Anda
-            </h2>
-            <p className={styles.ctaText}>
-              Jelajahi rekam jejak portofolio pekerjaan kami atau hubungi tim
-              ahli kami untuk konsultasi teknis kebutuhan konstruksi, alat berat,
-              distribusi, maupun agribisnis.
-            </p>
-            <div className={styles.ctaActions}>
-              <Link href="/portofolio" className={styles.ctaPrimary}>
-                Lihat Portofolio Proyek
-              </Link>
-              <Link href="/kontak" className={styles.ctaSecondary}>
-                Hubungi Kami
-              </Link>
+          <div className={styles.holdingScopeWrapper}>
+            <h3 className={styles.holdingScopeHeading}>
+              Cakupan Bidang Usaha & Entitas Terintegrasi
+            </h3>
+            <div className={styles.holdingScopeGrid}>
+              {keunggulanHoldingData.bidangUsaha.map((item) => (
+                <div key={item.id} className={styles.holdingScopeCard}>
+                  <div className={styles.holdingScopeHeader}>
+                    <h4 className={styles.holdingScopeTitle}>{item.bidang}</h4>
+                    <span className={styles.holdingScopeEntity}>{item.entitas}</span>
+                  </div>
+                  <p className={styles.holdingScopeDesc}>{item.deskripsi}</p>
+                </div>
+              ))}
             </div>
           </div>
         </Container>

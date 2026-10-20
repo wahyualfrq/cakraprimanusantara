@@ -22,6 +22,7 @@ type PageHeaderProps = {
   description?: string;
   photoSrc?: string;
   photoAlt?: string;
+  align?: "left" | "center";
 };
 
 function renderTitle(title: string, accentWord?: string): ReactNode {
@@ -40,9 +41,9 @@ function renderTitle(title: string, accentWord?: string): ReactNode {
 }
 
 /**
- * Header halaman dalam — rata kiri, breadcrumb, H1, satu kalimat deskripsi.
- * Tinggi jauh lebih rendah dari hero homepage (DESIGN.md §8.11). Dua
- * varian: `solid` (background tema) dan `photo` (foto + scrim wajib §5.3).
+ * Header halaman dalam — rata kiri (default) atau tengah (align="center"), breadcrumb,
+ * H1, satu kalimat deskripsi. Tinggi jauh lebih rendah dari hero homepage (DESIGN.md §8.11).
+ * Dua varian: `solid` (background tema) dan `photo` (foto + scrim wajib §5.3).
  */
 export function PageHeader({
   variant,
@@ -52,6 +53,7 @@ export function PageHeader({
   description,
   photoSrc,
   photoAlt,
+  align = "left",
 }: PageHeaderProps) {
   return (
     <header className={cn(styles.header, variant === "photo" ? styles.photo : styles.solid)}>
@@ -68,7 +70,7 @@ export function PageHeader({
           <div className={styles.scrim} aria-hidden="true" />
         </div>
       )}
-      <Container className={styles.inner}>
+      <Container className={cn(styles.inner, align === "center" && styles.innerCenter)}>
         <Breadcrumb items={breadcrumb} />
         <h1 className={styles.title}>{renderTitle(title, accentWord)}</h1>
         {description && <p className={styles.description}>{description}</p>}

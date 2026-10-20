@@ -4,7 +4,9 @@
   left: 0;
   right: 0;
   z-index: 50;
-  background-color: rgba(255, 255, 255, 0.55);
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
   transition:
     background-color 0.25s ease,
@@ -14,11 +16,11 @@
 }
 
 .scrolled {
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: #ffffff;
   border-color: var(--cpn-color-border);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .inner {

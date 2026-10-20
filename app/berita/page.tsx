@@ -131,7 +131,7 @@ export default function BeritaPage() {
           <div className={styles.archiveHeader}>
             <div>
               {/* <span className={styles.eyebrow}>ARSIP PUBLIKASI</span> */}
-              <h2 className={styles.sectionTitle}>Seluruh Berita & Dokumentasi</h2>
+              <h2 className={styles.sectionTitle}>Berita & Dokumentasi</h2>
             </div>
             {/* <p className={styles.archiveSubtitle}>
               Menampilkan {allArticles.length} catatan warta dan rilis kegiatan unit usaha. Artikel dengan status persiapan akan dipublikasikan setelah verifikasi dokumen sumber selesai.

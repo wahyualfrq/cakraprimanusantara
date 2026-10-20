@@ -85,4 +85,134 @@
 
 .formSection {
   background-color: var(--cpn-color-surface-tint);
+  padding-block: var(--cpn-space-2xl);
+  border-top: 1px solid var(--cpn-color-border);
+  border-bottom: 1px solid var(--cpn-color-border);
+}
+
+/* --- Section Spacing & Headers --- */
+.channelsSection {
+  padding-block: var(--cpn-space-xl);
+  background-color: var(--cpn-color-bg);
+}
+
+.locationsSection {
+  padding-block: var(--cpn-space-2xl);
+  background-color: var(--cpn-color-bg);
+}
+
+.sectionHeader {
+  margin-bottom: var(--cpn-space-xl);
+}
+
+.locationsHeader {
+  margin-bottom: var(--cpn-space-xl);
+  text-align: center;
+}
+
+.locationsLead {
+  font-size: 1rem;
+  color: var(--cpn-color-text-muted);
+  max-width: 65ch;
+  margin: var(--cpn-space-xs) auto 0;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.groupHeading {
+  font-family: var(--cpn-font-heading);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: var(--cpn-color-text);
+  margin-bottom: var(--cpn-space-md);
+  padding-bottom: var(--cpn-space-xs);
+  border-bottom: 2px solid var(--cpn-color-primary);
+  display: inline-block;
+}
+
+/* --- Kanal Komunikasi Utama Grid & Cards --- */
+.channelsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--cpn-space-lg);
+}
+
+.channelCard {
+  background-color: var(--cpn-color-bg);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-lg);
+  padding: var(--cpn-space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.channelCard:hover {
+  border-color: var(--cpn-color-primary);
+  transform: translateY(-2px);
+}
+
+.channelCategory {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cpn-color-primary);
+}
+
+.channelTitle {
+  font-family: var(--cpn-font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--cpn-color-text);
+  line-height: 1.35;
+}
+
+.channelList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: var(--cpn-space-xs);
+  padding-top: var(--cpn-space-xs);
+  border-top: 1px solid var(--cpn-gray-100);
+}
+
+.channelItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.375rem;
+  font-size: 0.9375rem;
+  color: var(--cpn-color-text);
+}
+
+.channelItem a {
+  color: var(--cpn-color-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.channelItem a:hover {
+  text-decoration: underline;
+}
+
+.channelPic {
+  font-size: 0.8125rem;
+  color: var(--cpn-color-text-muted);
+}
+
+.channelNote {
+  font-size: 0.875rem;
+  color: var(--cpn-color-text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .channelsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--cpn-space-md);
+  }
 }

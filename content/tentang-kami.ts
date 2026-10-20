@@ -132,3 +132,66 @@ export const linimasaList: LinimasaItem[] = [
       "Menyatukan seluruh unit usaha di bawah satu brand holding korporat guna memberikan solusi end-to-end yang solid dan terkoordinasi bagi mitra industri nasional.",
   },
 ];
+
+export type KeunggulanBidang = {
+  id: "konstruksi" | "alat-berat" | "trading" | "agribisnis";
+  bidang: string;
+  entitas: string;
+  deskripsi: string;
+};
+
+export const keunggulanHoldingData = {
+  judul: "Keunggulan",
+  paragraf: [
+    // "Sebagai holding korporat, PT Cakra Prima Nusantara menjalankan peran sentral dalam mengoordinasikan, mengintegrasikan, dan menyelaraskan seluruh unit usaha ke dalam satu ekosistem bisnis terpadu.",
+    // "Melalui tata kelola strategis yang terpadu, CPN menyatukan unit-unit usaha dengan latar bidang keahlian yang berbeda—dari konstruksi fisik, armada mekanis, perdagangan material industri, hingga bioteknologi agribisnis—sehingga mitra memperoleh solusi komprehensif yang efisien dan saling terhubung.",
+  ],
+  pilarStrategis: [
+    {
+      judul: "Integrasi Berbagai Bidang Usaha",
+      deskripsi:
+        "Mengonsolidasikan kapabilitas empat pilar bisnis utama ke dalam satu sinergi operasional yang kokoh dan berkelanjutan.",
+    },
+    {
+      judul: "Koordinasi Solusi Lintas Unit",
+      deskripsi:
+        "Menyediakan satu pintu koordinasi untuk kebutuhan proyek multidisiplin, mempermudah komunikasi dan mempercepat eksekusi lapangan.",
+    },
+    {
+      judul: "Penyatuan Keahlian Spesifik",
+      deskripsi:
+        "Memadukan spesialisasi teknis dan rekam jejak puluhan tahun dari setiap entitas di bawah standar tata kelola korporat yang selaras.",
+    },
+  ],
+  bidangUsaha: [
+    {
+      id: "konstruksi",
+      bidang: "Jasa Konstruksi",
+      entitas: "PT Cakra Indo Pratama",
+      deskripsi:
+        "Keahlian teknis dalam pekerjaan tanah, konstruksi sipil, pembangunan gedung, perbaikan beton industri, hingga mekanikal-elektrikal.",
+    },
+    {
+      id: "alat-berat",
+      bidang: "Armada Alat Berat",
+      entitas: "PT Cakra Indo Pratama (Lini Alat Berat)",
+      deskripsi:
+        "Kesiapan puluhan jenis armada alat berat dengan dukungan pool dan workshop pemeliharaan mandiri untuk kelancaran kerja proyek.",
+    },
+    {
+      id: "trading",
+      bidang: "Perdagangan Industrial",
+      entitas: "PT Cakra Indo Pratama (Lini Trading)",
+      deskripsi:
+        "Distribusi material konstruksi, pelumas industri, baterai komersial, dan pelapis protektif untuk kontinuitas operasional mitra.",
+    },
+    {
+      id: "agribisnis",
+      bidang: "Agribisnis Hayati",
+      entitas: "PT Anugerah Mustika Ostindo",
+      deskripsi:
+        "Pengembangan bioteknologi pupuk organik hayati, biofungisida ramah lingkungan, dan teknologi pembenah tanah berkelanjutan.",
+    },
+  ] as KeunggulanBidang[],
+};
+

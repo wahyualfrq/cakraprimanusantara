@@ -29,7 +29,7 @@ export function PortofolioFilter() {
 
   return (
     <div className={styles.filterWrap}>
-      {/* Tab bar */}
+      {/* Tab bar — Kontrol teks sederhana dengan indikator garis bawah aktif, bukan badge/pill */}
       <div className={styles.tabBar} role="tablist" aria-label="Filter kategori proyek">
         <button
           role="tab"
@@ -38,7 +38,7 @@ export function PortofolioFilter() {
           onClick={() => setActive("semua")}
         >
           Semua
-          <span className={styles.tabCount}>{proyekList.length}</span>
+          <span className={styles.tabCount}>({proyekList.length})</span>
         </button>
         {ALL_CATEGORIES.map((k) => (
           <button
@@ -49,12 +49,12 @@ export function PortofolioFilter() {
             onClick={() => setActive(k)}
           >
             {LABEL[k]}
-            <span className={styles.tabCount}>{countByKategori(k)}</span>
+            <span className={styles.tabCount}>({countByKategori(k)})</span>
           </button>
         ))}
       </div>
 
-      {/* Project list */}
+      {/* Project list — 23 proyek konstruksi dipertahankan utuh */}
       <ol className={styles.proyekList} aria-live="polite">
         {filtered.map((proyek, index) => (
           <li key={proyek.slug} className={styles.proyekItem}>
@@ -64,15 +64,17 @@ export function PortofolioFilter() {
             <div className={styles.proyekBody}>
               <span className={styles.proyekJudul}>{proyek.judul}</span>
               <div className={styles.proyekMeta}>
+                {/* Kategori sebagai teks biasa tanpa wadah badge/pill */}
                 <span className={styles.proyekKategori}>
                   {LABEL[proyek.kategori]}
                 </span>
+                {/* Informasi verifikasi sebagai teks biasa tanpa badge */}
                 {proyek.kategoriPerluVerifikasi && (
                   <span
-                    className={styles.verifikasiBadge}
+                    className={styles.statusVerifikasi}
                     title="Kategori usulan berdasarkan judul proyek, belum dikonfirmasi klien"
                   >
-                    <span aria-hidden="true">* </span>Perlu Verifikasi
+                    (Kategori dalam verifikasi)
                   </span>
                 )}
                 {proyek.klien && (

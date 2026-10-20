@@ -124,14 +124,14 @@ export const proyekList: Proyek[] = [
     slug: "proyek-pt-bukit-asam",
     judul: "Pekerjaan Proyek PT. Bukit Asam",
     kategori: "pekerjaan-tanah-jalan",
-    kategoriPerluVerifikasi: true,
+    // kategoriPerluVerifikasi: true,
     klien: "PT. Bukit Asam",
   },
   {
     slug: "smo-construction-service-work-pp-persero",
     judul: "Pekerjaan SMO Construction Service Work PT. PP Persero",
     kategori: "bangunan",
-    kategoriPerluVerifikasi: true,
+    // kategoriPerluVerifikasi: true,
     klien: "PT. PP Persero",
   },
   {
