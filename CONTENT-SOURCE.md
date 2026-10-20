@@ -1,9 +1,11 @@
 # CONTENT-SOURCE.md
-## Inventaris Konten Sumber — PT Cakra Prima Nusantara
+## Inventaris Konten Sumber — arsip multi-sumber; scope aktif: PT Anugerah Mustika Ostindo
+
+> **KOREKSI SCOPE (21 Oktober 2026).** Proyek ini hanya **redesign website PT Anugerah Mustika Ostindo** (https://www.ostindo.co.id). Bagian di file ini yang bersumber dari rentalalatberatpalembang.com, cakraindopratamagroup.co.id, PT Cakra Indo Pratama, dan PT Cakra Prima Nusantara (sebagai identitas/holding) diberi label **`OUT OF SCOPE`**: dipertahankan sebagai jejak historis, **bukan** acuan konten aktif dan tidak boleh dipakai untuk mengisi halaman. Bagian Ostindo (§2 baris Agribisnis, §7, §8, §9 butir Ostindo) tetap aktif. Judul "PT Cakra Prima Nusantara" pada versi lama file ini adalah artefak scope lama. Label lain: `VERIFY` = belum terverifikasi.
 
 > **PENTING:** File ini berisi RINGKASAN dan data terstruktur. Untuk SEMUA teks yang tampil di halaman (paragraf, poin, judul, dosis), sumbernya adalah `CONTENT-VERBATIM.md` (teks asli persis). Jika ada beda, `CONTENT-VERBATIM.md` yang menang. File ini hanya dipakai untuk tabel kontak, daftar pelanggan, daftar kategori, dan catatan [GAP].
 
-Satu-satunya sumber data konten untuk halaman-halaman website. Dirangkum dari 3 website lama + PDF Company Profile Ostindo.
+Sumber data konten untuk halaman-halaman website. Versi awal dirangkum dari 3 website lama + PDF Company Profile Ostindo; **untuk scope aktif hanya ostindo.co.id + PDF Company Profile Ostindo yang relevan** (dua website lain `OUT OF SCOPE`).
 
 **Aturan pakai:**
 - Tanda `[VERIFIKASI]` = hasil transkrip dari screenshot, wajib dicek ke sumber sebelum dianggap final.
@@ -12,14 +14,14 @@ Satu-satunya sumber data konten untuk halaman-halaman website. Dirangkum dari 3 
 
 **URL sumber untuk melengkapi data yang kurang** (coba WebFetch; kalau jaringan diblokir, laporkan dan jangan mengarang):
 - `https://www.ostindo.co.id/` (tentang-kami, produk, riset-inovasi, berita, kontak)
-- `https://cakraindopratamagroup.co.id/` (layanan-kami, pengalaman-kami, distributor-agen)
-- `https://rentalalatberatpalembang.com/` (alat-berat per kategori, penjualan, hubungi-kami)
+- ~~`https://cakraindopratamagroup.co.id/`~~ — `OUT OF SCOPE` (histori)
+- ~~`https://rentalalatberatpalembang.com/`~~ — `OUT OF SCOPE` (histori)
 
 ---
 
 ## 1. Sampah Template yang DILARANG Terbawa
 
-Website rental lama masih berisi sisa template. Jangan dipindahkan ke website baru:
+Website rental lama (`OUT OF SCOPE`) masih berisi sisa template; daftar larangan tetap dipertahankan sebagai aturan umum. Jangan dipindahkan ke website baru:
 - Teks Lorem Ipsum ("There are many variations of passages of Lorem Ipsum…", "Quam temere in vitiis…")
 - Widget "ACCORDION TITLE 1/2/3", kalender, tab "Popular / Recent / Comments", kotak search sidebar
 - Judul "DROPP A LINE HERE", teks "Your Email Will be kept Safe and Sound"
@@ -30,6 +32,8 @@ Website rental lama masih berisi sisa template. Jangan dipindahkan ke website ba
 
 ## 2. Kontak & Lokasi
 
+> Baris Palembang (3 baris pertama, unit Kontraktor/Alat Berat/Trading) = `OUT OF SCOPE (histori)`. Baris Office Agribisnis Jakarta dan Pabrik Tangerang (Ostindo) = aktif. Alamat/kontak Ostindo di bawah perlu dicocokkan lagi dengan halaman kontak resmi sebelum rilis (`VERIFY`).
+
 | Lokasi | Alamat | Kontak | Unit |
 |---|---|---|---|
 | Kantor Pusat Palembang | Jl. Veteran No. 318, Kel. Kuto Batu, Kec. Ilir Timur II, Kota Palembang 30111, Sumatera Selatan | info@cakraindopratama.com | Kontraktor, Alat Berat, Trading |
@@ -38,12 +42,14 @@ Website rental lama masih berisi sisa template. Jangan dipindahkan ke website ba
 | Office Agribisnis Jakarta | Kompleks Bojong Indah, Jl. Pakis Raya 88 B, Jakarta Barat 11740 | WA +62 819 2922 6666; Tel +62 21 580 9964; Fax +62 21 580 9965; IG @pupukkebun; ostindo_mail@yahoo.com | Agribisnis |
 | Pabrik Agribisnis Tangerang | Waru Doyong 59, Jl. Raya Balaraja-Serang Km 35, Jayanti, Tangerang, Banten | (ikut kontak Jakarta) | Agribisnis |
 
-Jam operasional kantor (sumber: web rental, hanya untuk Cakra): Senin-Jumat 09.00-17.00.
+Jam operasional kantor (sumber: web rental, hanya untuk Cakra — `OUT OF SCOPE`): Senin-Jumat 09.00-17.00. Jam operasional Ostindo: tidak ada di sumber (`GAP`).
 Koordinat peta: `[GAP]`. Jangan menebak. Gunakan tautan pencarian Google Maps berbasis alamat teks.
 
 ---
 
-## 3. Kontraktor (sumber: cakraindopratamagroup.co.id)
+## 3. Kontraktor (sumber: cakraindopratamagroup.co.id) — `OUT OF SCOPE (histori)`
+
+> Seluruh §3 tidak lagi menjadi sumber konten aktif. Dipertahankan sebagai arsip.
 
 Tagline entitas: "General Contractor, Trading & Rental Heavy Equipment".
 Layanan di sumber: Civil Project, Building Project, Concrete Repair, Chipping Kelapa Sawit, Mechanical & Electrical Contractor, Rental Alat Berat (tautan ke situs rental).
@@ -62,7 +68,9 @@ Foto di sumber: Concrete Repair 8 foto (pekerjaan di jetty dan jembatan); Chippi
 
 ---
 
-## 4. Portofolio (sumber: halaman "Pengalaman Kami", 23 proyek)
+## 4. Portofolio (sumber: halaman "Pengalaman Kami", 23 proyek) — `OUT OF SCOPE (histori)`
+
+> Ke-23 proyek berasal dari situs Cakra (Kontraktor/Alat Berat), bukan Ostindo. Nasib halaman portofolio pada redesain Ostindo `VERIFY` (PRD §9). Pengecualian: kartu "Best Fertilizer 2016" adalah pencapaian Ostindo (KEEP, lihat §7/sertifikasi).
 
 Kategori di bawah adalah usulan pemetaan dari judul. `[VERIFIKASI]` ke client. Klien/lokasi hanya diisi jika tertulis di judul.
 
@@ -96,7 +104,9 @@ Deskripsi, tahun, nilai proyek, jumlah foto per proyek: `[GAP]`. Item "OSTINDO K
 
 ---
 
-## 5. Alat Berat (sumber: rentalalatberatpalembang.com)
+## 5. Alat Berat (sumber: rentalalatberatpalembang.com) — `OUT OF SCOPE (histori)`
+
+> Seluruh §5 tidak lagi menjadi sumber konten aktif. Dipertahankan sebagai arsip.
 
 Narasi sumber (diringkas, buang klaim generik): didirikan 1999; penyewaan alat berat independen dengan armada sewa terbesar di Sumatera Selatan; armada lebih dari 100 unit melayani seluruh wilayah Sumatera Selatan; sewa jangka pendek dan panjang; layanan konstruksi seperti gradasi umum, pipa, pembongkaran, paving, pengangkutan tanah, pengendalian debu. Merek: Caterpillar, Hitachi, Komatsu, Kobelco, Volvo, Hyundai. Sumber juga menyebut "lebih dari 400 mesin baru": **jangan dipakai** (bertentangan dengan angka armada, `[VERIFIKASI]`).
 
@@ -115,7 +125,9 @@ Penjualan alat berat: halaman ada di menu sumber, isi tidak terlihat `[GAP]`.
 
 ---
 
-## 6. Trading (sumber: halaman "Distributor & Agen")
+## 6. Trading (sumber: halaman "Distributor & Agen") — `OUT OF SCOPE (histori)`
+
+> Seluruh §6 tidak lagi menjadi sumber konten aktif. Dipertahankan sebagai arsip.
 
 Narasi sumber (diringkas): Cakra Indo Pratama menjalin kerja sama dengan berbagai merek nasional dan internasional dan berperan sebagai mitra distributor dan agen. Kata "resmi" **tidak ada** di sumber, jangan ditambahkan tanpa konfirmasi client.
 
@@ -206,15 +218,15 @@ Judul terlihat (6):
 Halaman 2: `[GAP]`. Isi artikel lengkap: `[GAP]`, ambil dari sumber.
 
 **Masalah SEO di sumber:** semua artikel memakai kutipan (excerpt) yang sama persis ("PT. Anugerah Mustika Ostindo bergerak dibidang Produksi dan Pemasaran Penyubur Tanah, yang menekankan pada seleksi mikroba-mikroba pembangkit kesuburan tanah…"). Di website baru tiap artikel wajib punya excerpt dan meta description unik, diambil dari isi artikelnya sendiri. Tanggal terbit: `[GAP]` kecuali BRIN (27 April 2023, tanggal penandatanganan, bukan tentu tanggal terbit).
-Berita untuk Kontraktor dan Alat Berat: `[GAP]`, belum ada.
+Berita untuk Kontraktor dan Alat Berat: `OUT OF SCOPE` (tidak dibutuhkan).
 
 ---
 
 ## 9. Tentang Kami (bahan)
 
-- Cakra Indo Pratama: "Didirikan pada tahun 1999" (narasi web rental). Tahun berdiri grup PT Cakra Prima Nusantara: `[GAP]`, keputusan client (PRD §9 poin 2). Jangan menulis umur grup.
+- `OUT OF SCOPE (histori)`: Cakra Indo Pratama "Didirikan pada tahun 1999" (narasi web rental); tahun berdiri grup PT Cakra Prima Nusantara `[GAP]`. Tidak dipakai pada redesain Ostindo. Tahun berdiri Ostindo yang berlaku: Juli 1995 (§7). Jangan mencampur klaim lama usaha dua entitas.
 - Legalitas Ostindo (hanya jenis dokumen, tanpa nomor): Surat Izin Usaha Perdagangan (SIUP), Tanda Daftar Perusahaan (TDP), Izin Industri, Nomor Pokok Wajib Pajak (NPWP).
 - Visi Ostindo: "Menjadi perusahaan utama yang mampu memberikan kesejahteraan bagi seluruh pemangku kepentingan, khususnya masyarakat petani dengan berpegang teguh pada prinsip-prinsip ramah lingkungan."
 - Misi Ostindo: riset dan pengembangan produk sesuai kebutuhan lapangan; pemasaran yang membuat merek Ostindo dipercaya; menjadikan Ostindo standar mutu produk pertanian.
-- Visi/Misi unit konstruksi dan alat berat: ada di web rental (visi: penyedia solusi nomor satu di industri alat berat), selebihnya `[GAP]`. Visi/misi tingkat grup: `[GAP]`.
+- `OUT OF SCOPE (histori)`: visi/misi unit konstruksi dan alat berat (web rental) dan visi/misi tingkat grup.
 - Fasilitas Ostindo: pabrik dan laboratorium internal di Balaraja/Jayanti, Tangerang; pendampingan ke konsumen untuk hasil optimal penggunaan produk.

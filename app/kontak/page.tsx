@@ -17,6 +17,9 @@ import { ContactForm } from "./ContactForm";
 import { FaqSection } from "./FaqSection";
 import styles from "./page.module.css";
 
+const kalimatPembuka =
+  "Tim kami siap membantu kebutuhan konstruksi, armada alat berat, distribusi material industrial, maupun solusi agribisnis hayati. Sampaikan pertanyaan atau rencana kerja sama Anda melalui formulir di bawah ini atau hubungi kanal resmi unit usaha kami.";
+
 const palembangSlugs = [
   "kantor-pusat-palembang",
   "kantor-operasional-palembang",
@@ -164,11 +167,21 @@ export default function KontakPage() {
           { label: "Kontak", href: "/kontak" },
         ]}
         title="Hubungi Kami"
+        description={kalimatPembuka}
+        align="center"
       />
 
       {/* 2. Informasi Kanal Komunikasi Utama */}
       <Section className={styles.channelsSection}>
         <Container>
+          <div className={styles.sectionHeader}>
+            <SectionHeading
+              title="Kanal Komunikasi Utama"
+              description="Hubungi representatif unit usaha, layanan cepat proyek, atau operasional kantor kami secara langsung melalui kontak di bawah ini."
+              align="center"
+            />
+          </div>
+
           <div className={styles.channelsGrid}>
             <div className={styles.channelCard}>
               <span className={styles.channelCategory}>Layanan Cepat</span>
@@ -250,12 +263,13 @@ export default function KontakPage() {
       {/* 3. Formulir Kirim Pesan (Di Bagian Tengah) */}
       <Section className={styles.formSection}>
         <Container>
-          <div className={styles.sectionHeader}>
-            <SectionHeading
-              title="Kirim Pesan kepada Kami"
-              align="center"
-            />
+          <div className={styles.formSectionHeader}>
+            <h2 className={styles.formSectionTitle}>Kirim Pesan kepada Kami</h2>
+            <p className={styles.formSectionLead}>
+              Silakan lengkapi formulir terpusat di bawah ini untuk konsultasi teknis, permintaan penawaran armada, material, maupun kemitraan bisnis.
+            </p>
           </div>
+
           <ContactForm />
         </Container>
       </Section>
@@ -263,6 +277,13 @@ export default function KontakPage() {
       {/* 4. Lokasi Kantor dan Fasilitas Operasional */}
       <Section className={styles.locationsSection}>
         <Container>
+          <div className={styles.locationsHeader}>
+            <SectionHeading title="Lokasi Kantor & Fasilitas Operasional" />
+            <p className={styles.locationsLead}>
+              Seluruh fasilitas kantor pusat, kantor operasional, workshop armada, dan pabrik produksi PT Cakra Prima Nusantara dapat dikunjungi melalui alamat berikut.
+            </p>
+          </div>
+
           <div className={styles.group}>
             <h3 className={styles.groupHeading}>Palembang &amp; Banyuasin (Sumatera Selatan)</h3>
             <div className={styles.cardGrid}>

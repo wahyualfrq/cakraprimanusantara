@@ -9,7 +9,10 @@ Format: `[Unit] slug/lokasi — "teks asli" → "teks baru"`
 
 ---
 
-## Fase 2 — Kontraktor
+## Fase 2 — Kontraktor — `OUT OF SCOPE (histori)`
+
+(Bagian Kontraktor keluar dari scope redesain Ostindo, 21 Okt 2026; dicatat
+sebagai jejak. Entri Berita dan Kontak Ostindo di bawah tetap aktif.)
 
 Tidak ada typo di `CONTENT-VERBATIM.md` §A (Kontraktor) yang perlu
 diperbaiki. Semua teks disalin persis tanpa perubahan.

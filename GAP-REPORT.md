@@ -3,11 +3,25 @@
 Dicatat selama Fase 1 (Fondasi, Content Layer, Koreksi Copy Homepage). Lihat
 `CONTENT-SOURCE.md` untuk aturan tanda `[GAP]`/`[VERIFIKASI]`.
 
+> **KOREKSI SCOPE (21 Oktober 2026).** Proyek ini hanya **redesign website
+> PT Anugerah Mustika Ostindo** (https://www.ostindo.co.id). Konten
+> Kontraktor, Alat Berat, Trading, PT Cakra Indo Pratama, PT Cakra Prima
+> Nusantara (sebagai identitas/holding), rentalalatberatpalembang.com, dan
+> cakraindopratamagroup.co.id **keluar dari scope aktif**. Catatan gap
+> untuk bagian itu **tidak dihapus** (jejak historis) tetapi diberi label
+> `OUT OF SCOPE` — jangan dikerjakan, jangan diisi, jangan dijadikan acuan
+> backlog. Gap Agribisnis (Ostindo) dan "Umum" tetap aktif. Pekerjaan
+> pembersihan kode akibat perubahan scope dicatat di §8 sebagai pekerjaan
+> terpisah (bukan bagian tugas dokumentasi ini).
+>
+> Label yang dipakai di dokumen ini: `OUT OF SCOPE` (histori, tidak aktif),
+> `VERIFY` (belum terverifikasi, jangan diasumsikan).
+
 ---
 
 ## 1. Konten yang sengaja dikosongkan — `[GAP]`
 
-### Kontraktor
+### Kontraktor — `OUT OF SCOPE (histori)`
 - `content/kontraktor/layanan.ts`: 2 dari 5 layanan punya poin berlabel tanpa
   elaborasi teks (Building Project poin 1 & 3; Mechanical & Electrical poin 1)
   — sumber cuma kasih label, tidak ada kalimat penjelasan.
@@ -16,13 +30,16 @@ Dicatat selama Fase 1 (Fondasi, Content Layer, Koreksi Copy Homepage). Lihat
   Palembang - Sumatera Selatan", ID video tidak tercatat di sumber).
   Building Project, Civil Project, M&E: sumber memang tidak punya foto.
 
-### Portofolio
+### Portofolio — `OUT OF SCOPE (histori)` untuk 23 proyek Kontraktor/Cakra; `VERIFY` untuk studi kasus Agribisnis
+- Catatan: ke-23 proyek di bawah berasal dari website Cakra Rental
+  (Kontraktor/Alat Berat), bukan Ostindo. Nasib `/portofolio` pada redesain
+  Ostindo belum diputuskan (PRD §9).
 - Deskripsi, tahun, nilai proyek, jumlah foto — tidak ada di sumber untuk
   ke-23 proyek. Field `ringkasan` sengaja dihapus dari tipe `Proyek` (bukan
   cuma dikosongkan) karena tidak ada satupun data untuk field itu.
 - `gambar` kosong di semua 23 proyek — belum ada URL Vercel Blob.
 
-### Alat Berat
+### Alat Berat — `OUT OF SCOPE (histori)`
 - `content/alat-berat/unit.ts` cuma terisi kategori Excavator (23 unit).
   7 kategori lain (Bulldozer, Forklift, Motor Grader, Vibro, Wheel Loader,
   Dump Truck, Compressor) **tidak punya daftar unit sama sekali** — sumber
@@ -41,14 +58,14 @@ Dicatat selama Fase 1 (Fondasi, Content Layer, Koreksi Copy Homepage). Lihat
 - `/alat-berat/penjualan`: isi halaman tidak ada di sumber sama sekali.
   Fase 3 perlu bikin halaman minimal (noindex, keluar sitemap) sesuai brief.
 
-### Trading
+### Trading — `OUT OF SCOPE (histori)`
 - Kategori produk per brand: tidak ada di sumber, tidak dikelompokkan
   berdasarkan tebakan.
 - Logo brand: sengaja tidak dipakai (bukan field kosong karena hilang, tapi
   keputusan desain) — nama brand ditampilkan sebagai wordmark teks sampai
   client konfirmasi izin pemakaian logo pihak ketiga.
 
-### Agribisnis
+### Agribisnis (Ostindo) — tetap aktif
 - Nomor & masa berlaku sertifikat (SNI, SNI terbaru, ISO 9001:2008, IOPC
   2014): tidak ada di sumber.
 - Badan penerbit sertifikat SNI & ISO 9001:2008: tidak disebut eksplisit di
@@ -61,16 +78,18 @@ Dicatat selama Fase 1 (Fondasi, Content Layer, Koreksi Copy Homepage). Lihat
   sebelum client konfirmasi satuan.
 - Penerbit penghargaan "Best Fertilizer 2016": tidak disebut di sumber.
 
-### Umum
+### Umum — tetap aktif (untuk lokasi Ostindo saja)
 - Koordinat lokasi (`latitude`/`longitude`) di `content/kontak.ts`: tidak
-  ada di sumber mana pun, tidak ditebak. Tautan Google Maps nanti (Fase 8)
+  ada di sumber mana pun, tidak ditebak. (Lokasi Palembang di file itu
+  berasal dari Cakra — `OUT OF SCOPE`; yang relevan: Jakarta Barat &
+  Pabrik Tangerang.) Tautan Google Maps nanti (Fase 8)
   harus dibangun dari teks alamat (`?api=1&query=<alamat>`), bukan koordinat.
 
 ---
 
 ## 2. Perlu verifikasi client — `[VERIFIKASI]`
 
-- **Alat Berat / Excavator**: semua ejaan nama unit & brand di
+- **Alat Berat / Excavator** — `OUT OF SCOPE (histori)`: semua ejaan nama unit & brand di
   `content/alat-berat/unit.ts` perlu dicek ke sumber. Khusus:
   - "PC 300-7" — brand "Komatsu" disimpulkan dari pola penamaan "PC" yang
     dipakai entri lain (semua eksplisit "Komatsu"), BUKAN tertulis eksplisit
@@ -78,7 +97,7 @@ Dicatat selama Fase 1 (Fondasi, Content Layer, Koreksi Copy Homepage). Lihat
   - Dua entri "Kobelco (seri tidak terbaca)" di sumber: ditulis sebagai
     "Kobelco (seri belum terverifikasi)" di data, tanpa nomor model dikarang,
     sesuai instruksi. Slug: `kobelco-seri-belum-terverifikasi-1` / `-2`.
-- **Portofolio**: kategori proyek "Pekerjaan Proyek PT. Bukit Asam" dan
+- **Portofolio** — `OUT OF SCOPE (histori)`: kategori proyek "Pekerjaan Proyek PT. Bukit Asam" dan
   "Pekerjaan SMO Construction Service Work PT. PP Persero" ditandai
   `kategoriPerluVerifikasi: true` — pemetaan kategori usulan dari judul.
 - **Agribisnis / Futricho**: kandungan spora "10^6 per gram" — PDF sumber
@@ -88,7 +107,7 @@ Dicatat selama Fase 1 (Fondasi, Content Layer, Koreksi Copy Homepage). Lihat
 - **Agribisnis / mitra riset**: seluruh 13 tahun kerja sama di
   `content/agribisnis/riset.ts` dibaca dari screenshot web lama — ditandai
   `perluVerifikasi: true` di semua entri yang punya tahun.
-- **Kontak**: fax Kantor Operasional Palembang "0711-819821" — sumber
+- **Kontak** — `OUT OF SCOPE (histori)`: fax Kantor Operasional Palembang "0711-819821" — sumber
   menandainya lewat ikon fax di screenshot, bukan label teks eksplisit.
 - Catatan konflik data Agribisnis (dari CONTENT-SOURCE.md §7, belum
   ditampilkan di mana pun sampai dikonfirmasi): PDF menyebut "lebih dari 25
@@ -135,7 +154,8 @@ kemungkinan tanggal "terakhir diubah" CMS, bukan tanggal terbit asli. Field
 
 ## 4. Catatan teknis untuk fase berikutnya
 
-- **Konflik font**: `app/layout.tsx` (tidak boleh diedit di fase ini) memakai
+- **Konflik font** (tetap aktif; relevan untuk Ostindo — lihat juga PRD §9
+  poin 5 dan DESIGN.md §6): `app/layout.tsx` (tidak boleh diedit di fase ini) memakai
   **Manrope** untuk `--font-heading`, dengan komentar "lebih sesuai untuk
   company profile konstruksi/alat berat dibanding serif italic". Ini
   bertentangan langsung dengan `DESIGN.md` §6 yang menyatakan **Fraunces**
@@ -156,12 +176,19 @@ kemungkinan tanggal "terakhir diubah" CMS, bukan tanggal terbit asli. Field
   commit "snapshot" baru — sebagai gantinya HEAD saat itu ditandai tag
   `baseline-fase-1` untuk jadi referensi `git diff` proteksi Hero/Navbar/
   layout di semua fase. Tidak ada push yang dilakukan sesi ini.
+  **VERIFY (diperiksa 21 Okt 2026):** pada clone repo saat audit dokumentasi
+  ini, `git log` menunjukkan **12 commit** (bukan 7) dan **tidak ada tag**
+  (`baseline-fase-1` tidak ditemukan; mungkin hanya ada lokal di sesi lama
+  dan tidak pernah di-push). Paragraf di atas dipertahankan sebagai catatan
+  historis Fase 1.
 - **Copy homepage di luar scope Fase 1 yang diizinkan**: tile Agribisnis di
   `components/sections/UnitSelector.tsx` masih berbunyi "Pupuk hayati &
   biopestisida **terpercaya** sejak 1995" — "terpercaya" adalah adjective
   kosong tanpa bukti yang dilarang eksplisit di DESIGN.md §8.7 sebagai
   contoh. Tidak diubah di Fase 1 karena di luar daftar edit yang disetujui;
-  perlu persetujuan eksplisit sebelum disentuh.
+  perlu persetujuan eksplisit sebelum disentuh. Catatan: tile ini ada di
+  komponen pemilih unit (`UnitSelector`) yang berkaitan dengan struktur
+  multi-unit lama (lihat §8).
 - **MDX**: `@next/mdx` (16.3.5, pin exact ke versi `next`), `@mdx-js/loader`
   3.1.1, `@mdx-js/react` 3.1.1 (dependencies), `@types/mdx` 2.0.14 (devDep).
   Metadata artikel lewat named export `meta` per file MDX (bukan frontmatter
@@ -180,9 +207,9 @@ kemungkinan tanggal "terakhir diubah" CMS, bukan tanggal terbit asli. Field
   belum pakai `PageHeader` (semua stub saat ini) masih mengandalkan padding
   `Section` secara kebetulan, bukan clearance yang disengaja — kalau mau
   dirapikan sebelum Fase 2+, perlu keputusan terpisah.
-- **Kontraktor route**: lihat `STRUCTURE.md` §2.1 — restrukturisasi folder
+- **Kontraktor route** — `OUT OF SCOPE (histori)`: lihat `STRUCTURE.md` §2.1 — restrukturisasi folder
   `/kontraktor/[layanan]` dieksekusi di Fase 2, bukan Fase 1.
-- **`content/kontraktor/proyek.ts` kategori**: union tipe diganti total dari
+- **`content/kontraktor/proyek.ts` kategori** — `OUT OF SCOPE (histori)`: union tipe diganti total dari
   placeholder lama (5 kategori yang sama dengan layanan Kontraktor) ke
   taksonomi asli dari CONTENT-SOURCE.md §4 (7 kategori: chipping,
   pekerjaan-tanah-jalan, bangunan, concrete-repair, mekanikal, alat-berat,
@@ -191,7 +218,7 @@ kemungkinan tanggal "terakhir diubah" CMS, bukan tanggal terbit asli. Field
   secara substansi itu penghargaan Agribisnis, bukan proyek Kontraktor.
   Halaman `/portofolio` (Fase 6) perlu menggabungkan dari 2 sumber ini saat
   render kategori "Pencapaian".
-- **`content/klien.ts` vs `content/agribisnis/pelanggan.ts`**: sengaja TIDAK
+- **`content/klien.ts` vs `content/agribisnis/pelanggan.ts`** (`klien.ts` = `OUT OF SCOPE`; `pelanggan.ts` = Ostindo, aktif): sengaja TIDAK
   digabung jadi satu file untuk menghindari duplikasi data (STRUCTURE.md §1
   poin 2). `klien.ts` = klien Kontraktor/Alat Berat (dari judul proyek).
   `pelanggan.ts` = 31 klien Agribisnis dari PDF Ostindo. Komponen yang butuh
@@ -199,7 +226,11 @@ kemungkinan tanggal "terakhir diubah" CMS, bukan tanggal terbit asli. Field
 
 ---
 
-## 5. Fase 2 — konfirmasi implementasi
+## 5. Fase 2 — konfirmasi implementasi — `OUT OF SCOPE (histori)`
+
+Seluruh bagian ini mencatat implementasi Kontraktor (bukan Ostindo). Dipertahankan
+sebagai jejak; `EditorialIndex` (komponen generik) tetap relevan dipakai ulang
+untuk landing Agribisnis.
 
 - Galeri Concrete Repair (8 placeholder) dan Chipping Kelapa Sawit (3
   placeholder) sudah dirender di `/kontraktor/[layanan]`. Slot video
@@ -223,7 +254,10 @@ kemungkinan tanggal "terakhir diubah" CMS, bukan tanggal terbit asli. Field
 
 ---
 
-## 6. Fase 2.1 — revisi ke teks verbatim (CONTENT-VERBATIM.md)
+## 6. Fase 2.1 — revisi ke teks verbatim (CONTENT-VERBATIM.md) — `OUT OF SCOPE (histori)` untuk bagian Kontraktor
+
+Prinsip "disalin persis" (verbatim) tetap berlaku untuk konten Ostindo; rincian
+di bawah menyangkut §A Kontraktor yang keluar scope.
 
 Setelah Fase 2 selesai, `CONTENT-VERBATIM.md` ditemukan di repo (file baru,
 tidak dibuat sesi ini) dan dikonfirmasi oleh user sebagai sumber teks utama
@@ -271,6 +305,9 @@ ditulis ulang total mengikuti §A:
 
 ## 7. Fase 6+7+8 — Portofolio, Berita, Kontak (isi dari sumber)
 
+> Berita (7.1) = Ostindo, tetap aktif. Portofolio = `OUT OF SCOPE`/`VERIFY`.
+> Kontak (7.2) hanya relevan untuk kantor Jakarta Barat & pabrik Tangerang.
+
 ### 7.1 Koreksi atas simpulan §3 (artikel berita draft)
 
 §3 di atas (ditulis Fase 1) menyimpulkan cuma 1 dari 6 artikel punya isi
@@ -314,7 +351,7 @@ Penggunaan Pupuk Organic", "Proses Pupuk NPK Bless", "OSTINDO Penghargaan
 Best Fertilizer 2016", dan "Produk Baru Pupuk Bless Cair" — 5 artikel masih
 draft/judul-saja.
 
-### 7.2 Kontak
+### 7.2 Kontak (butir terkait Palembang/Cakra = `OUT OF SCOPE (histori)`)
 
 - Nomor fax `0711-819821`: status `[VERIFIKASI]` tidak berubah (lihat §1
   sebelumnya) — tidak ditampilkan di `/kontak` sampai jenisnya terkonfirmasi.
@@ -327,14 +364,20 @@ draft/judul-saja.
 
 ### 7.3 Pengingat untuk Fase 10 (SEO & QA)
 
-- Sebelum deploy publik: halaman stub yang belum punya konten nyata
+- ~~Sebelum deploy publik: halaman stub yang belum punya konten nyata
   (`/alat-berat`, `/trading`, `/agribisnis`, `/tentang-kami` dan sub-rutenya)
-  harus diberi `robots: { index: false }` seperti `app/not-found.tsx` —
-  saat ini belum, dan sengaja tidak dimasukkan ke `app/sitemap.ts` (lihat
-  7.4) supaya tidak diindeks lewat sitemap, tapi halaman itu sendiri masih
-  bisa diakses & terindeks langsung kalau di-crawl.
+  harus diberi `robots: { index: false }`...~~ **Basi (diperbarui 21 Okt
+  2026).** Verifikasi dengan grep pada kode: halaman stub yang diperiksa
+  (mis. `app/agribisnis/page.tsx`, `app/agribisnis/produk/[slug]/page.tsx`)
+  sudah memakai `noindex: true`. Hasil `grep "noindex: true" app` (21 Okt
+  2026): 10 file — `app/agribisnis/{page,produk/page,produk/[slug]/page,riset-inovasi/page,sertifikasi/page}.tsx`,
+  `app/alat-berat/{page,penjualan/page,sewa/page,sewa/[kategori]/page}.tsx`, `app/trading/page.tsx`.
+  Yang tetap berlaku: jangan mengindeks halaman kosong/draft, dan jangan
+  memasukkannya ke sitemap. Stub `/alat-berat` dan `/trading` bukan lagi
+  target SEO (lihat §8). Yang BELUM diverifikasi: apakah `app/tentang-kami/page.tsx`
+  dan sub-rutenya (jika ada) berisi konten final atau perlu `noindex`.
 
-### 7.4 `app/sitemap.ts` ditulis ulang
+### 7.4 `app/sitemap.ts` ditulis ulang (kondisi saat ini; memuat `/kontraktor` — lihat §8)
 
 Sebelumnya berisi rute statis hardcode yang sudah basi sejak Fase 2 (5 rute
 `/kontraktor/<slug-lama>` yang sudah dihapus) dan `proyekEntries` ke
@@ -343,3 +386,47 @@ detail). Ditulis ulang supaya cuma memuat rute yang benar-benar punya
 konten: `/`, `/kontraktor` + 5 `layananList`, `/portofolio`, `/berita` +
 `beritaPublishedList` (2 slug non-draft), `/kontak`. Rute stub (alat-berat,
 trading, agribisnis, tentang-kami) sengaja belum dimasukkan — lihat 7.3.
+
+---
+
+## 8. Pekerjaan lanjutan akibat koreksi scope (di luar tugas dokumentasi)
+
+> Ditambahkan 21 Oktober 2026. Daftar ini **hanya mencatat** sisa kode/konten
+> yang masih mengikuti scope lama (holding Cakra, 4 unit usaha). Tidak ada
+> satu pun yang dikerjakan pada tugas dokumentasi; source code tidak diubah.
+> Sebelum menghapus/mengubah route apa pun, nilai dampak SEO/redirect dan
+> putuskan paritas URL dengan situs resmi (PRD §9 poin 1). Hasil grep di
+> bawah adalah daftar awal, bukan inventori lengkap.
+
+### 8.1 Route dan konten dari scope lama
+- Route: `app/kontraktor/` (+ `[layanan]`), `app/alat-berat/` (+ `penjualan`,
+  `sewa`, `sewa/[kategori]`), `app/trading/`, `app/portofolio/`.
+- Content: `content/kontraktor/*`, `content/alat-berat/*`, `content/trading/brand.ts`,
+  `content/klien.ts`, lokasi Palembang + `jamOperasionalCakra` di `content/kontak.ts`,
+  pilar/linimasa/keunggulan Cakra di `content/tentang-kami.ts` (`profilHoldingData`,
+  `pilarBisnisList`, `linimasaList` item 1999 & "Integrasi Holding", `keunggulanHoldingData`).
+  Entri Ostindo (1995, 1996, 2014–2015, pilar Agribisnis) di file yang sama adalah KEEP.
+- `app/sitemap.ts` masih memuat `/kontraktor` dan `layananList`; `/portofolio` juga terdaftar.
+
+### 8.2 Identitas, copy, dan SEO yang masih memuat Cakra
+- `lib/seo/metadata.ts`: `SITE_NAME = "PT Cakra Prima Nusantara"`, fallback `SITE_URL = https://cakraprimanusantara.co.id` — domain final belum ditetapkan (PRD §9 poin 1).
+- `lib/seo/structured-data.ts`: `organizationSchema` dan `serviceSchema` memakai `SITE_NAME` → Organization JSON-LD di `app/layout.tsx` mengklaim Cakra.
+- `app/kontak/page.tsx` (baris ~139–157): `localBusinessSchema` dirender untuk **seluruh** `lokasiList`, termasuk 3 lokasi Palembang (Cakra). Schema bisnis di luar scope tidak boleh dipasang.
+- `app/kontraktor/[layanan]/page.tsx` memasang `serviceSchema` (provider = `SITE_NAME`); `app/portofolio/page.tsx` memasang `itemListSchema`.
+- `components/layout/Footer.tsx`: 3 alamat Palembang, tautan Kontraktor/Alat Berat/Trading, copyright "PT Cakra Prima Nusantara".
+- `components/layout/Navbar.tsx`: alt logo "PT Cakra Prima Nusantara" (asal logo Ostindo `VERIFY`, DESIGN.md §2).
+- `components/sections/HeroSection.tsx`, `AboutSection.tsx` (stat "100+ Unit Armada Alat Berat" — tidak bersumber untuk Ostindo), `UnitSelector.tsx`, `PortfolioHighlight.tsx`, `app/page.tsx` (meta: "holding korporat… Kontraktor, Alat Berat, Trading, dan Agribisnis").
+- `app/kontak/ContactForm.tsx` (opsi unit & email `info@cakraindopratama.com`), `app/kontak/FaqSection.tsx` (jawaban tentang empat bidang usaha & Palembang).
+- `app/layout.tsx`: komentar font menyebut "konstruksi/alat berat" (konflik font, lihat §4).
+- Tema navy/orange & `data-theme` agri di `app/globals.css` (token masih ada; DESIGN.md §4 menetapkan tema tunggal hijau).
+
+### 8.3 Temuan baru audit dokumentasi (21 Okt 2026)
+- `content/agribisnis/studi-kasus.ts`: tidak ditemukan sumber di CONTENT-SOURCE/VERBATIM — `VERIFY`, jangan ditampilkan sebagai fakta sebelum ada sumber.
+- `content/agribisnis/produk.ts`: bagian ringkasan bukan verbatim (CONTENT-VERBATIM tetap menang). Komposisi NPK "+TE" `VERIFY`. Brosur produk di situs resmi belum dicek.
+- Jumlah mitra riset: 17 vs 23 vs 12 muncul di dokumen/kode berbeda — `VERIFY` (PRD §10 bagian Riset & Inovasi).
+- Klaim "lebih dari 25 tahun" vs kemasan "20 tahun" vs berdiri Juli 1995 — `VERIFY` (PRD §9 poin 3).
+- Copy homepage "disetujui" (CONTENT-VERBATIM aturan #5) adalah copy holding → tidak berlaku untuk Ostindo; copy baru belum ada (PRD §9 poin 6).
+- Typo sumber bagian Agribisnis wajib dicatat di TYPO-LOG.md; saat audit belum ada entri Agribisnis selain artikel berita — `VERIFY`.
+- `PROMPT-LANJUTAN.md` dirujuk di STRUCTURE.md tetapi tidak ditemukan di repo.
+- Foto lokal di `public/` vs aturan strategi gambar Vercel Blob (STRUCTURE.md §7) — selaraskan saat implementasi.
+- Lampiran tugas berformat CRLF sedangkan repo LF (isi identik) — hanya perhatian line-ending saat menyalin file.

@@ -1,6 +1,8 @@
 # CONTENT-VERBATIM.md
 ## Kerangka Konten Terisi per Halaman — Teks Asli dari Sumber
 
+> **KOREKSI SCOPE (21 Oktober 2026).** Proyek ini hanya **redesign website PT Anugerah Mustika Ostindo** (https://www.ostindo.co.id). Bagian **A (Kontraktor), B (Portofolio Cakra), C (Alat Berat), D (Trading)**, profil Cakra di G1, serta **H2 dan H3 (kontak/footer Cakra)** diberi label **`OUT OF SCOPE`**: teks asli **tidak dihapus** (jejak historis dan bahan bila scope berubah lagi), tetapi **jangan dipakai untuk mengisi halaman** redesain Ostindo. Bagian **E (Agribisnis/Ostindo), F (Berita), G2–G7, H1** tetap aktif dan tidak diubah. Aturan "disalin persis" tetap berlaku untuk bagian aktif.
+
 **Ini sumber teks utama.** Jika ada beda dengan `CONTENT-SOURCE.md`, file ini yang menang. `CONTENT-SOURCE.md` tetap dipakai hanya untuk data terstruktur (tabel kontak, daftar pelanggan, daftar kategori).
 
 ### Aturan pakai (wajib)
@@ -8,16 +10,16 @@
 2. Satu-satunya perubahan yang diperbolehkan: typo yang jelas keliru secara ejaan (mis. "harta" yang seharusnya "hara"). Setiap perbaikan wajib dicatat di `TYPO-LOG.md` (teks asli → teks baru → lokasi). Kalau ragu, biarkan apa adanya.
 3. Elemen UI (label tombol, breadcrumb, aria-label, judul navigasi) boleh ditulis sendiri. **Kalimat deskriptif tidak boleh.** Jika halaman butuh deskripsi dan tidak ada kalimatnya di sumber, pakai kalimat pertama dari teks sumber halaman itu, atau kosongkan.
 4. Tanda `[GAP]` = tidak ada di sumber. Jangan diisi. Tanda `[VERIFIKASI]` = bacaan dari screenshot kecil, cek ke situs hidup.
-5. Copy homepage (hero dan seluruh section homepage) sudah disetujui dan **tidak berubah** oleh file ini.
+5. Copy homepage (hero dan seluruh section homepage) sudah disetujui dan **tidak berubah** oleh file ini. *(Catatan koreksi scope: persetujuan ini menyangkut copy homepage versi holding Cakra — `OUT OF SCOPE`. Untuk redesain Ostindo, copy homepage baru belum ada/belum disetujui; lihat PRD §9 poin 6. Jangan menganggap copy holding sebagai copy Ostindo yang final.)*
 6. Pemolesan bahasa (mengurangi kata klise seperti "terintegrasi", "profesional", "terpercaya") adalah tahap TERPISAH setelah semua halaman terisi dan disetujui. Saat ini teks tampil apa adanya.
-7. Sumber jaringan untuk melengkapi `[GAP]` / `[VERIFIKASI]` (coba WebFetch, laporkan kalau diblokir): `https://www.ostindo.co.id/`, `https://cakraindopratamagroup.co.id/`, `https://rentalalatberatpalembang.com/`. Teks dari situs hidup menggantikan bacaan screenshot bila beda, dan perbedaannya dicatat.
+7. Sumber jaringan untuk melengkapi `[GAP]` / `[VERIFIKASI]` (coba WebFetch, laporkan kalau diblokir): `https://www.ostindo.co.id/` (aktif); `https://cakraindopratamagroup.co.id/` dan `https://rentalalatberatpalembang.com/` (`OUT OF SCOPE`, histori). Teks dari situs hidup menggantikan bacaan screenshot bila beda, dan perbedaannya dicatat.
 
 ### Sampah template yang dilarang terbawa
 Lorem Ipsum, "ACCORDION TITLE", kalender, tab "Popular/Recent/Comments", kotak search sidebar, "DROPP A LINE HERE", "Your Email Will be kept Safe and Sound", tautan sosmed generik (Facebook, Twitter, Google+, Path, Pinterest, Linkedin). Satu-satunya sosmed terverifikasi: Instagram `@pupukkebun`.
 
 ---
 
-# BAGIAN A — UNIT KONTRAKTOR
+# BAGIAN A — UNIT KONTRAKTOR — `OUT OF SCOPE (histori)`
 Sumber: cakraindopratamagroup.co.id
 
 ## A1. /kontraktor (landing)
@@ -112,7 +114,7 @@ Media: 3 foto (excavator Kobelco di area perkebunan sawit) + 1 video YouTube ber
 
 ---
 
-# BAGIAN B — PORTOFOLIO
+# BAGIAN B — PORTOFOLIO — `OUT OF SCOPE (histori)` (23 proyek Cakra); butir Best Fertilizer 2016 = Ostindo (KEEP)
 Sumber: cakraindopratamagroup.co.id, halaman "Pengalaman Kami" (judul disalin persis dari tile; 23 item).
 
 Judul halaman sumber: `Pengalaman Kami`
@@ -145,7 +147,7 @@ Tidak ada di sumber: deskripsi, tanggal, nilai, kategori. Kategori untuk filter 
 
 ---
 
-# BAGIAN C — UNIT ALAT BERAT
+# BAGIAN C — UNIT ALAT BERAT — `OUT OF SCOPE (histori)`
 Sumber: rentalalatberatpalembang.com
 
 ## C1. /alat-berat (landing)
@@ -210,7 +212,7 @@ Menu "PENJUALAN" ada di sumber, isi halamannya tidak terlihat `[GAP]`. Satu-satu
 
 ---
 
-# BAGIAN D — UNIT TRADING
+# BAGIAN D — UNIT TRADING — `OUT OF SCOPE (histori)`
 Sumber: cakraindopratamagroup.co.id, halaman "Distributor & Agen"
 
 Judul: `Distributor & Agen`
@@ -528,12 +530,12 @@ Aturan: kalimat ini adalah deskripsi perusahaan, **bukan** ringkasan artikel. Di
 ---
 
 # BAGIAN G — TENTANG KAMI
-Sumber: ostindo.co.id/tentang-kami, PDF, dan rentalalatberatpalembang.com
+Sumber: ostindo.co.id/tentang-kami dan PDF (aktif); rentalalatberatpalembang.com (`OUT OF SCOPE`, histori)
 
-Tahun berdiri **grup** PT Cakra Prima Nusantara: `[GAP]`. Jangan ditulis.
+Tahun berdiri **grup** PT Cakra Prima Nusantara: `[GAP]` — `OUT OF SCOPE` (grup tidak lagi menjadi identitas situs). Jangan ditulis. Tahun berdiri Ostindo yang berlaku: Juli 1995.
 
 ## G1. Profil unit (disalin dari §E1 dan §C1)
-Dua entitas ditampilkan terpisah dengan label sumber: "PT Anugerah Mustika Ostindo (Agribisnis)" memakai teks §E1; "PT Cakra Indo Pratama / Cakra Rental Alat Berat" memakai paragraf pertama §C1 dan footer.
+Dua entitas ditampilkan terpisah dengan label sumber: "PT Anugerah Mustika Ostindo (Agribisnis)" memakai teks §E1 (**aktif**); ~~"PT Cakra Indo Pratama / Cakra Rental Alat Berat" memakai paragraf pertama §C1 dan footer~~ (`OUT OF SCOPE` — pada redesain Ostindo hanya profil Ostindo yang ditampilkan).
 
 ## G2. Legalitas (web Ostindo)
 
@@ -607,7 +609,7 @@ Field form sumber: `Nama Anda`, `Alamat Email`, `Nomor Telp`, `Subjek`, `Pesan`,
 
 PDF hal. terakhir: `Office: Kompleks Rukan Bojong Indah, Jalan Pakis Raya No. 88B, Jakarta Barat, 11740`; `Factory: Jalan Waru Doyong No. 59, Jayanti, Tangerang, Banten`.
 
-## H2. Halaman "Hubungi Kami" Cakra Rental
+## H2. Halaman "Hubungi Kami" Cakra Rental — `OUT OF SCOPE (histori)`
 Judul: `HUBUNGI KAMI`
 
 **HEAD OFFICE**: Jl. Veteran No.318 Kel. Kuto Batu Kec. IT II Palembang; info@cakraindopratama.com
@@ -615,7 +617,7 @@ Judul: `HUBUNGI KAMI`
 **WORKSHOP/POOL**: Jl. Talang Keramat Raya No. 77 RT.08 Kel. Talang Keramat, Kec. Talang Kelapa – Banyuasin, Palembang; info@cakraindopratama.com
 Pembuka: `We're on call 24/7` (0711 – 824980, 0811-783-675, 0813-6891-8599) `[VERIFIKASI]`; `Operating Hours Mon - Fri 09:00 - 17:00`; `Write To Us` info@cakraindopratama.com.
 
-## H3. Footer situs Cakra Indo Pratama
+## H3. Footer situs Cakra Indo Pratama — `OUT OF SCOPE (histori)`
 
 > PT. Cakra Indo Pratama
 > General Contractor, Trading & Rental Heavy Equipment
@@ -628,6 +630,8 @@ Pembuka: `We're on call 24/7` (0711 – 824980, 0811-783-675, 0813-6891-8599) `[
 ---
 
 # BAGIAN I — KEBERADAAN DATA: RINGKASAN COVERAGE
+
+> Baris `/kontraktor`, `/portofolio` (proyek Cakra), `/alat-berat`, `/trading`, serta lokasi Palembang pada `/kontak` dan visi-misi/tahun berdiri grup pada `/tentang-kami` = `OUT OF SCOPE (histori)`. Baris `/agribisnis`, `/agribisnis/riset-inovasi`, `/berita`, `/tentang-kami` (konten Ostindo), dan `/kontak` (Jakarta Barat & Tangerang) tetap aktif. Nama route di tabel mengikuti struktur kode saat ini; padanan di situs resmi Ostindo ada di PRD §6.1.
 
 | Halaman | Terisi dari sumber | Masih kosong |
 |---|---|---|
