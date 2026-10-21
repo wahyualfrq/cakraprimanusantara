@@ -21,6 +21,17 @@
   transform: translateY(-1px);
 }
 
+.pill:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill:hover {
+    transform: none;
+  }
+}
+
 .solid {
   background-color: var(--cpn-color-primary);
   color: var(--cpn-color-on-primary);
@@ -28,6 +39,16 @@
 
 .solid:hover {
   background-color: var(--cpn-color-primary-hover);
+}
+
+/* Putih solid di atas foto — teks hijau tua, kontras ±10:1 (WCAG AA). */
+.light {
+  background-color: var(--cpn-color-bg);
+  color: var(--cpn-color-primary-hover);
+}
+
+.light:hover {
+  background-color: var(--cpn-green-50);
 }
 
 .glass {

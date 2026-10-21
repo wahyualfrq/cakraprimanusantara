@@ -1,32 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { MobileNav } from "./MobileNav";
-import { kontakLink, navLinks } from "./navLinks";
+import { ariaCurrentFor, kontakLink, navLinks } from "./navLinks";
 import { PillButton } from "@/components/ui/PillButton";
 import { cn } from "@/lib/utils";
 import styles from "./Navbar.module.css";
 
 /**
- * Navbar full-width — background tipis transparan, baru menebal + blur
- * begitu halaman discroll (bukan floating pill/liquid glass).
+ * Navbar bar putih membulat mengambang (keputusan D10, DESIGN.md §10.2):
+ * logo di kiri, menu ringkas dengan item aktif berbentuk pill, CTA pill.
  */
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 8);
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const pathname = usePathname();
 
   return (
-    <header className={cn(styles.navbar, scrolled && styles.scrolled)}>
+    <header className={styles.navbar}>
       <div className={styles.inner}>
         {/* INTERIM — logo (D3a). Gambar logo yang ada memuat tulisan PT Cakra Prima
             Nusantara, jadi dipakai sebagai dekoratif (alt kosong) dan nama aksesibel
@@ -44,15 +35,28 @@ export function Navbar() {
         </Link>
 
         <nav className={styles.links} aria-label="Navigasi utama">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href}>
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const current = ariaCurrentFor(pathname, link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={current}
+                className={cn(styles.link, current && styles.linkActive)}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className={styles.right}>
-          <PillButton href={kontakLink.href} variant="solid" className={styles.ctaDesktop}>
+          <PillButton
+            href={kontakLink.href}
+            variant="solid"
+            aria-current={ariaCurrentFor(pathname, kontakLink.href)}
+            className={styles.ctaDesktop}
+          >
             {kontakLink.label}
           </PillButton>
           <MobileNav />

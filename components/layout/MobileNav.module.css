@@ -3,19 +3,47 @@
   position: relative;
 }
 
+/* Kartu tarik-turun di bawah bar mengambang — bar (logo + tombol tutup) tetap
+   terlihat dan bisa dijangkau saat menu terbuka. */
 .panel {
   position: fixed;
-  inset: 0;
-  top: 0;
+  top: calc(var(--cpn-navbar-height) + var(--cpn-space-sm));
+  left: var(--cpn-space-md);
+  right: var(--cpn-space-md);
+  max-height: calc(100dvh - var(--cpn-navbar-height) - 2 * var(--cpn-space-md));
   z-index: 60;
   background-color: var(--cpn-color-bg);
-  padding: calc(var(--cpn-space-xl) + var(--cpn-space-lg)) var(--cpn-space-lg) var(--cpn-space-lg);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-lg);
+  box-shadow: var(--cpn-shadow-card);
+  padding: var(--cpn-space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-md);
+  gap: var(--cpn-space-xs);
   overflow-y: auto;
-  font-weight: 600;
-  font-size: 1.0625rem;
+  font-weight: var(--cpn-font-weight-semibold);
+  font-size: var(--cpn-text-lead);
+}
+
+.link {
+  padding: var(--cpn-space-sm) var(--cpn-space-md);
+  border-radius: var(--cpn-radius-md);
+  color: var(--cpn-color-text);
+}
+
+.link:hover {
+  background-color: var(--cpn-gray-100);
+}
+
+.linkActive,
+.linkActive:hover {
+  background-color: var(--cpn-green-100);
+  color: var(--cpn-color-primary-hover);
+}
+
+.link:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
 }
 
 .accordion {
@@ -72,7 +100,7 @@
 }
 
 .cta {
-  margin-top: var(--cpn-space-md);
+  margin-top: var(--cpn-space-sm);
   width: 100%;
 }
 

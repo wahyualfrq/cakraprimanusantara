@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { IconButton } from "@/components/ui/IconButton";
 import { PillButton } from "@/components/ui/PillButton";
-import { kontakLink, navLinks } from "./navLinks";
+import { cn } from "@/lib/utils";
+import { ariaCurrentFor, kontakLink, navLinks } from "./navLinks";
 import styles from "./MobileNav.module.css";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className={styles.wrapper}>
@@ -40,11 +43,20 @@ export function MobileNav() {
 
       {open && (
         <nav className={styles.panel} aria-label="Navigasi mobile">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const current = ariaCurrentFor(pathname, link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={current}
+                className={cn(styles.link, current && styles.linkActive)}
+                onClick={() => setOpen(false)}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
 
           <PillButton
             href={kontakLink.href}

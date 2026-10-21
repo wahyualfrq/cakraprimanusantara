@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./PillButton.module.css";
 import { cn } from "@/lib/utils";
 
-type Variant = "solid" | "outline-glass" | "glass";
+type Variant = "solid" | "light" | "outline-glass" | "glass";
 
 type CommonProps = {
   children: ReactNode;
@@ -25,8 +25,9 @@ type PillButtonProps = PillButtonAsButton | PillButtonAsLink;
 
 /**
  * Tombol pill (radius-full) — dipakai untuk CTA hero & section penutup.
- * Varian "glass"/"outline-glass" untuk di atas foto, "solid" untuk di atas
- * background terang. Semua warna lewat var(--cpn-*), lihat DESIGN.md §7.
+ * "solid" untuk di atas background terang; "light" (putih solid) untuk di atas
+ * foto — kontras tidak bergantung pada foto; "glass"/"outline-glass" dibatasi
+ * DESIGN.md §8.1. Semua warna lewat var(--cpn-*), lihat DESIGN.md §7.
  */
 export function PillButton({ children, variant = "solid", className, href, ...rest }: PillButtonProps) {
   const classes = cn(styles.pill, styles[variant], className);

@@ -17,6 +17,17 @@
   transform: translateY(-2px);
 }
 
+.button:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover {
+    transform: none;
+  }
+}
+
 .glass {
   background-color: var(--cpn-glass-bg);
   border-color: var(--cpn-glass-border);

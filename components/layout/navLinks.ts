@@ -10,3 +10,13 @@ export const navLinks = [
 ];
 
 export const kontakLink = { label: "Hubungi Kami", href: "/kontak" };
+
+/**
+ * aria-current untuk item navigasi: "page" bila URL persis sama, "true" bila
+ * URL berada di bawah item itu (mis. detail produk di bawah "Produk").
+ */
+export function ariaCurrentFor(pathname: string, href: string): "page" | "true" | undefined {
+  if (pathname === href) return "page";
+  if (pathname.startsWith(`${href}/`)) return "true";
+  return undefined;
+}

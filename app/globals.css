@@ -121,10 +121,19 @@
 
   --cpn-container-max: 1200px;
 
-  /* Tinggi navbar fixed (= tinggi logoImage, components/layout/Navbar.module.css)
-     — dipakai komponen halaman dalam (mis. PageHeader) untuk reserve clearance,
-     karena navbar position:fixed tidak mendorong <main> lewat document flow. */
-  --cpn-navbar-height: 4rem;
+  /* Navbar bar putih membulat mengambang (keputusan D10, DESIGN.md §10.2).
+     Tinggi bar = tinggi logo + padding; --cpn-navbar-height = ruang total yang
+     ditempati navbar dari tepi atas (jarak + bar) — dipakai komponen halaman
+     dalam (mis. PageHeader) untuk clearance, karena navbar position:fixed tidak
+     mendorong <main> lewat document flow. */
+  --cpn-navbar-logo-height: 4rem;
+  --cpn-navbar-offset: var(--cpn-space-sm);
+  --cpn-navbar-bar-height: calc(var(--cpn-navbar-logo-height) + 2 * var(--cpn-space-xs));
+  --cpn-navbar-height: calc(var(--cpn-navbar-offset) + var(--cpn-navbar-bar-height));
+
+  /* Cincin fokus keyboard — ganda (putih lalu hijau) supaya terlihat di atas
+     latar terang maupun foto gelap. Dipakai lewat :focus-visible. */
+  --cpn-focus-ring: 0 0 0 2px var(--cpn-color-bg), 0 0 0 4px var(--cpn-color-primary);
 
   /* Breakpoint rujukan (konvensi, STRUCTURE.md): 640px / 900px / 1200px.
      Catatan: @media tidak bisa membaca var(), jadi nilai ini hanya rujukan untuk
@@ -132,6 +141,18 @@
   --cpn-bp-sm: 640px;
   --cpn-bp-md: 900px;
   --cpn-bp-lg: 1200px;
+}
+
+/* Hormati preferensi pengguna yang mengurangi gerak: transisi/animasi jadi instan. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Ritme vertikal section di layar kecil — satu token, nilai lebih rapat (≤ --cpn-bp-sm). */

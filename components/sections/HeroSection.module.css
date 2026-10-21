@@ -8,8 +8,9 @@
 .frame {
   position: relative;
   isolation: isolate;
-  min-height: 100svh;
+  /* 100vh sebagai fallback, lalu 100svh (tinggi viewport kecil di mobile) menimpanya. */
   min-height: 100vh;
+  min-height: 100svh;
   height: auto;
   max-height: none;
   display: flex;
@@ -18,8 +19,8 @@
   justify-content: center;
   overflow: hidden;
   box-sizing: border-box;
-  /* Clearance navbar fixed (4rem) + 0.5rem — nilai sama dengan 4.5rem sebelumnya. */
-  padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-sm) + var(--cpn-space-md));
+  /* Clearance navbar mengambang (--cpn-navbar-height sudah termasuk jarak atas). */
+  padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-md));
   padding-bottom: var(--cpn-space-xl);
 }
 
@@ -59,7 +60,7 @@
 
 .headline {
   font-size: clamp(1.85rem, 6.5vw, 2.35rem);
-  font-weight: 800;
+  font-weight: var(--cpn-font-weight-semibold);
   line-height: 1.2;
   letter-spacing: -0.01em;
   text-wrap: balance;
@@ -86,8 +87,39 @@
   text-wrap: pretty;
 }
 
-.cta {
+/* Pasangan CTA: pill putih solid + tautan teks (DESIGN.md §10.2). */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cpn-space-sm) var(--cpn-space-lg);
   margin-top: var(--cpn-space-xs);
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+  padding: var(--cpn-space-sm) var(--cpn-space-xs);
+  border-radius: var(--cpn-radius-full);
+  color: var(--cpn-color-text-on-dark);
+  font-weight: var(--cpn-font-weight-semibold);
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3em;
+  text-shadow: var(--cpn-text-shadow-on-photo);
+  transition: text-decoration-color 0.15s ease;
+}
+
+.ctaSecondary:hover {
+  text-decoration-color: currentColor;
+}
+
+.ctaSecondary:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
 }
 
 .trustBar {
@@ -137,7 +169,7 @@
 
 @media (min-width: 601px) {
   .frame {
-    padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-sm) + var(--cpn-space-xl));
+    padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-xl));
     padding-bottom: var(--cpn-space-2xl);
   }
 
@@ -160,7 +192,7 @@
     max-width: 34rem;
   }
 
-  .cta {
+  .actions {
     margin-top: var(--cpn-space-sm);
   }
 
@@ -200,13 +232,14 @@
   }
 
   .copy {
-    max-width: 54rem;
+    max-width: 60rem;
     gap: var(--cpn-space-md);
   }
 
+  /* Maksimal 2 baris (DESIGN.md §7): tiap baris headline satu span blok. */
   .headline {
-    font-size: clamp(2.5rem, 6vw, 4.25rem);
-    line-height: 1.15;
+    font-size: clamp(2.5rem, 4.4vw, 4rem);
+    line-height: 1.12;
   }
 
   .subheadline {
