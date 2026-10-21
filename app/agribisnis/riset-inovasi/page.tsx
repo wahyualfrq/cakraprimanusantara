@@ -3,11 +3,11 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { DefinitionList } from "@/components/ui/DefinitionList";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { narasiRisetList } from "@/content/agribisnis/riset";
 import { milestoneList } from "@/content/agribisnis/milestone";
 import { sertifikasiList } from "@/content/agribisnis/sertifikasi";
+import styles from "./page.module.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
@@ -21,11 +21,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // Narasi §E3, milestone §E4, sertifikat & penghargaan (judul section sumber:
-// "Sertifikat & Penghargaan"). Daftar mitra riset (mitraRisetList) TIDAK
-// ditampilkan sampai direkonsiliasi (label kategori tak bersumber, catatan
-// provenans, 17 entri vs 23 baris sumber) — keputusan pemilik proyek. Karena
-// itu `pengantarDaftarMitra` juga tidak dirender (lihat content/agribisnis/riset.ts).
-// Hanya komponen yang sudah ada — tampilan V3.
+// "Sertifikat & Penghargaan"; keputusan D9: section di halaman ini, bukan halaman
+// terpisah). Daftar mitra riset (mitraRisetList) TIDAK ditampilkan sampai
+// direkonsiliasi (label kategori tak bersumber, catatan provenans, 17 entri vs
+// 23 baris sumber) — keputusan pemilik proyek. Karena itu `pengantarDaftarMitra`
+// juga tidak dirender (lihat content/agribisnis/riset.ts).
 export default function RisetInovasiPage() {
   return (
     <>
@@ -38,39 +38,54 @@ export default function RisetInovasiPage() {
         title="Riset & Inovasi"
       />
 
-      {narasiRisetList.map((bagian) => (
-        <Section key={bagian.judul}>
-          <Container>
-            <SectionHeading title={bagian.judul} />
-            {bagian.paragraf.map((paragraf) => (
-              <p key={paragraf}>{paragraf}</p>
-            ))}
-          </Container>
-        </Section>
-      ))}
-
+      {/* 1. Narasi §E3 */}
       <Section>
         <Container>
-          <SectionHeading title="Milestone" />
-          <DefinitionList
-            items={milestoneList.map((item) => ({
-              label: String(item.tahun),
-              description: item.deskripsi,
-            }))}
-          />
+          <div className={styles.narrative}>
+            {narasiRisetList.map((bagian) => (
+              <section key={bagian.judul}>
+                <SectionHeading title={bagian.judul} />
+                <div className={styles.prose}>
+                  {bagian.paragraf.map((paragraf) => (
+                    <p key={paragraf}>{paragraf}</p>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
         </Container>
       </Section>
 
+      {/* 2. Milestone §E4 */}
+      <Section className={styles.timelineSection}>
+        <Container>
+          <SectionHeading title="Milestone" />
+          <ol className={styles.timeline}>
+            {milestoneList.map((item) => (
+              <li key={item.tahun} className={styles.timelineItem}>
+                <span className={styles.year}>{item.tahun}</span>
+                <p className={styles.timelineDesc}>{item.deskripsi}</p>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </Section>
+
+      {/* 3. Sertifikat & Penghargaan — D9. Nomor & masa berlaku tidak ada di sumber. */}
       <Section>
         <Container>
           <SectionHeading title="Sertifikat & Penghargaan" />
-          {/* Nomor & masa berlaku sertifikat tidak ada di sumber — tidak ditampilkan. */}
-          <DefinitionList
-            items={sertifikasiList.map((item) => ({
-              label: item.nama,
-              description: item.deskripsi ?? (item.tahun ? String(item.tahun) : undefined),
-            }))}
-          />
+          <ul className={styles.certList}>
+            {sertifikasiList.map((item) => {
+              const meta = item.deskripsi ?? (item.tahun ? String(item.tahun) : undefined);
+              return (
+                <li key={item.slug} className={styles.certItem}>
+                  <p className={styles.certName}>{item.nama}</p>
+                  {meta && <p className={styles.certMeta}>{meta}</p>}
+                </li>
+              );
+            })}
+          </ul>
         </Container>
       </Section>
     </>

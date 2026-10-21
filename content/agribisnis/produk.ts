@@ -22,6 +22,8 @@ export type Produk = {
   deskripsiLengkap: string[];
   /** Butir daftar di halaman produk web Ostindo, verbatim. */
   poin?: string[];
+  /** Kalimat pengantar daftar `poin` dari sumber, bila ada. */
+  judulPoin?: string;
   gambar?: string;
   faktaKunci?: FaktaKunci[];
   dosisAnjuran?: BarisDosis[];
@@ -169,7 +171,10 @@ export const produkList: Produk[] = [
     deskripsiSingkat:
       'Produk pupuk NPK disesuaikan berdasarkan pesanan baik berupa NPK "Blending" maupun NPK "Compound"',
     deskripsiLengkap: [],
-    // "Jenis yang telah dipasarkan" — komposisi "+TE" [VERIFIKASI] (GAP-REPORT.md §8.3).
+    // Sumber §E2: "Jenis yang telah dipasarkan (klik untuk lihat brosur) :" —
+    // instruksi "(klik untuk lihat brosur)" dilepas karena file brosur [GAP].
+    judulPoin: "Jenis yang telah dipasarkan",
+    // Komposisi "+TE" [VERIFIKASI] (GAP-REPORT.md §8.3).
     poin: ["NPK 12.6.22.3+TE", "NPK 12.12.17.2+TE", "NPK 15.15.6.4", "NPK 16.16.16"],
     faktaKunci: [{ label: "Kemasan", nilai: "50 kg", perluVerifikasi: true }],
     // Verbatim CONTENT-VERBATIM.md §E2 (milestone PDF 2010).

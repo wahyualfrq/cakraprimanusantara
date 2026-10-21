@@ -86,18 +86,30 @@ export function articleSchema(input: ArticleInput) {
 type ProductInput = {
   name: string;
   description: string;
+  /** Path halaman produk (mis. /agribisnis/produk/ostindo). */
+  path?: string;
   image?: string;
   sku?: string;
 };
 
+/**
+ * Product tanpa harga, penawaran, maupun rating (DESIGN.md §8.11) — hanya fakta
+ * bersumber. Produsen = organisasi situs (PT Anugerah Mustika Ostindo).
+ */
 export function productSchema(input: ProductInput) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     name: input.name,
     description: input.description,
+    ...(input.path ? { url: `${SITE_URL}${input.path}` } : {}),
     image: input.image,
     sku: input.sku,
+    manufacturer: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
   };
 }
 

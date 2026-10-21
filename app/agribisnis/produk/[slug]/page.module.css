@@ -1,0 +1,111 @@
+/* Lembar produk (DESIGN.md §8.11): isi sumber di kiri, fakta kunci di kanan. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-xl);
+}
+
+/* Teks verbatim panjang — kolom baca terbatas supaya tetap nyaman dibaca. */
+.prose {
+  max-width: 68ch;
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
+}
+
+.prose p + p,
+.points + p {
+  margin-top: var(--cpn-space-md);
+}
+
+.pointsTitle {
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-text);
+  margin-bottom: var(--cpn-space-sm);
+}
+
+.points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-sm);
+  color: var(--cpn-color-text);
+}
+
+.points li {
+  position: relative;
+  padding-left: var(--cpn-space-lg);
+}
+
+/* Penanda bulat kecil, bukan ikon centang (DESIGN.md §8.3). */
+.points li::before {
+  content: "";
+  position: absolute;
+  left: var(--cpn-space-xs);
+  top: 0.6em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--cpn-radius-full);
+  background-color: var(--cpn-color-primary);
+}
+
+.aside {
+  padding: var(--cpn-space-lg);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-lg);
+  background-color: var(--cpn-color-surface);
+}
+
+.asideTitle {
+  font-family: var(--cpn-font-heading);
+  font-size: 1.25rem;
+  font-weight: var(--cpn-font-weight-semibold);
+  margin-bottom: var(--cpn-space-md);
+}
+
+.note {
+  max-width: 68ch;
+  margin-top: var(--cpn-space-md);
+  color: var(--cpn-color-text-muted);
+}
+
+.tableWrap {
+  margin-top: var(--cpn-space-lg);
+}
+
+.footerNav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cpn-space-md);
+  padding-top: var(--cpn-space-lg);
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.backLink {
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-primary);
+  border-radius: var(--cpn-radius-md);
+}
+
+.backLink:hover {
+  color: var(--cpn-color-primary-hover);
+}
+
+.backLink:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .aside {
+    position: sticky;
+    top: calc(var(--cpn-navbar-height) + var(--cpn-space-md));
+  }
+}

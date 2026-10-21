@@ -1,0 +1,104 @@
+/* Riset & Inovasi (DESIGN.md §8.11): narasi → lini waktu milestone → daftar
+   sertifikat & penghargaan. Tiga struktur berbeda (§8.2); satu section ber-tint. */
+
+/* 1. Narasi — satu kolom baca. */
+.narrative {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xl);
+  max-width: 68ch;
+}
+
+.prose {
+  margin-top: var(--cpn-space-md);
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
+}
+
+.prose p + p {
+  margin-top: var(--cpn-space-md);
+}
+
+/* 2. Milestone — lini waktu tahun | deskripsi. */
+.timelineSection {
+  background-color: var(--cpn-color-surface-tint);
+}
+
+.timeline {
+  list-style: none;
+  margin-top: var(--cpn-space-lg);
+  border-left: 2px solid var(--cpn-green-200);
+}
+
+.timelineItem {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-xs);
+  padding: var(--cpn-space-md) 0 var(--cpn-space-md) var(--cpn-space-lg);
+}
+
+/* Titik penanda di garis lini waktu. */
+.timelineItem::before {
+  content: "";
+  position: absolute;
+  left: calc(-0.4375rem - 1px);
+  top: calc(var(--cpn-space-md) + 0.45em);
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: var(--cpn-radius-full);
+  background-color: var(--cpn-color-primary);
+  box-shadow: 0 0 0 3px var(--cpn-color-surface-tint);
+}
+
+.year {
+  font-family: var(--cpn-font-heading);
+  font-size: 1.5rem;
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: 1.2;
+  color: var(--cpn-color-primary);
+}
+
+.timelineDesc {
+  max-width: 68ch;
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text);
+}
+
+/* 3. Sertifikat & penghargaan — daftar berbaris. */
+.certList {
+  list-style: none;
+  margin-top: var(--cpn-space-lg);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--cpn-space-xl);
+}
+
+.certItem {
+  padding-block: var(--cpn-space-md);
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.certName {
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-text);
+}
+
+.certMeta {
+  margin-top: var(--cpn-space-xs);
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
+}
+
+@media (min-width: 900px) {
+  .timelineItem {
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: var(--cpn-space-lg);
+  }
+
+  .certList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
