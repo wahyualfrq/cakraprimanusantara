@@ -6,7 +6,8 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Sertifikasi",
-    description: "Sertifikasi produk unit Agribisnis PT Cakra Prima Nusantara (SNI, dll).",
+    // INTERIM — belum disetujui (D2). Halaman stub noindex; tidak ada kalimat sumber, label faktual pendek.
+    description: "Sertifikat dan penghargaan PT Anugerah Mustika Ostindo.",
     path: "/agribisnis/sertifikasi",
     noindex: true,
   });

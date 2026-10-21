@@ -4,42 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { IconButton } from "@/components/ui/IconButton";
 import { PillButton } from "@/components/ui/PillButton";
+import { kontakLink, navLinks } from "./navLinks";
 import styles from "./MobileNav.module.css";
-
-const unitGroups = [
-  {
-    title: "Kontraktor",
-    href: "/kontraktor",
-    links: [
-      { label: "Civil Project", href: "/kontraktor/civil-project" },
-      { label: "Building Project", href: "/kontraktor/building-project" },
-      { label: "Concrete Repair", href: "/kontraktor/concrete-repair" },
-      { label: "Mechanical & Electrical", href: "/kontraktor/mechanical-electrical" },
-      { label: "Chipping Kelapa Sawit", href: "/kontraktor/chipping-kelapa-sawit" },
-    ],
-  },
-  {
-    title: "Alat Berat",
-    href: "/alat-berat",
-    links: [
-      { label: "Sewa Alat", href: "/alat-berat/sewa" },
-      { label: "Penjualan Alat", href: "/alat-berat/penjualan" },
-    ],
-  },
-  {
-    title: "Agribisnis",
-    href: "/agribisnis",
-    links: [
-      { label: "Produk", href: "/agribisnis/produk" },
-      { label: "Riset & Inovasi", href: "/agribisnis/riset-inovasi" },
-      { label: "Sertifikasi", href: "/agribisnis/sertifikasi" },
-    ],
-  },
-];
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
-  const [unitOpen, setUnitOpen] = useState(false);
 
   return (
     <div className={styles.wrapper}>
@@ -71,73 +40,19 @@ export function MobileNav() {
 
       {open && (
         <nav className={styles.panel} aria-label="Navigasi mobile">
-          <Link href="/tentang-kami" onClick={() => setOpen(false)}>
-            Tentang Kami
-          </Link>
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
+              {link.label}
+            </Link>
+          ))}
 
-          <div className={styles.accordion}>
-            <button
-              type="button"
-              className={styles.accordionTrigger}
-              aria-expanded={unitOpen}
-              onClick={() => setUnitOpen((value) => !value)}
-            >
-              Unit Usaha
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden="true"
-                className={unitOpen ? styles.chevronOpen : undefined}
-              >
-                <path
-                  d="M6 9l6 6 6-6"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-
-            {unitOpen && (
-              <div className={styles.accordionPanel}>
-                {unitGroups.map((group) => (
-                  <div key={group.title} className={styles.unitGroup}>
-                    <Link href={group.href} className={styles.unitGroupTitle} onClick={() => setOpen(false)}>
-                      {group.title}
-                    </Link>
-                    <ul>
-                      {group.links.map((link) => (
-                        <li key={link.href}>
-                          <Link href={link.href} onClick={() => setOpen(false)}>
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-                <Link href="/trading" className={styles.unitGroupTitle} onClick={() => setOpen(false)}>
-                  Trading
-                </Link>
-              </div>
-            )}
-          </div>
-
-          <Link href="/portofolio" onClick={() => setOpen(false)}>
-            Portofolio
-          </Link>
-          <Link href="/berita" onClick={() => setOpen(false)}>
-            Berita
-          </Link>
-          <Link href="/kontak" onClick={() => setOpen(false)}>
-            Kontak
-          </Link>
-
-          <PillButton href="/kontak" variant="solid" className={styles.cta} onClick={() => setOpen(false)}>
-            Hubungi Kami
+          <PillButton
+            href={kontakLink.href}
+            variant="solid"
+            className={styles.cta}
+            onClick={() => setOpen(false)}
+          >
+            {kontakLink.label}
           </PillButton>
         </nav>
       )}

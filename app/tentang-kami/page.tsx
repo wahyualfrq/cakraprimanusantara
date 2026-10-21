@@ -18,8 +18,9 @@ import styles from "./page.module.css";
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Tentang Kami",
+    // INTERIM — belum disetujui (D2). Kalimat pertama sejarah & profil, CONTENT-VERBATIM.md §E1 (PDF hal. 3).
     description:
-      "Profil korporat PT Cakra Prima Nusantara — holding terintegrasi yang menaungi pilar jasa konstruksi, armada alat berat, perdagangan industri, dan agribisnis hayati.",
+      "PT. Anugerah Mustika Ostindo merupakan perusahaan swasta nasional yang didirikan pada Juli 1995 dengan tujuan awal untuk mengembangkan produk pupuk berbasis bioteknologi yang ramah lingkungan.",
     path: "/tentang-kami",
   });
 }

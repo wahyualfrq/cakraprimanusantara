@@ -3,18 +3,13 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PillButton } from "@/components/ui/PillButton";
+import { kontakLink, navLinks } from "@/components/layout/navLinks";
 import styles from "./not-found.module.css";
 
 export const metadata: Metadata = {
   title: "Halaman Tidak Ditemukan",
   robots: { index: false, follow: true },
 };
-
-const tautanUnit = [
-  { label: "Kontraktor", href: "/kontraktor" },
-  { label: "Alat Berat", href: "/alat-berat" },
-  { label: "Agribisnis", href: "/agribisnis" },
-];
 
 export default function NotFound() {
   return (
@@ -23,18 +18,18 @@ export default function NotFound() {
         <p className={styles.code}>404</p>
         <h1 className={styles.title}>Halaman tidak ditemukan</h1>
         <p className={styles.description}>
-          Halaman yang kamu cari mungkin sudah dipindah atau belum tersedia. Coba mulai dari salah
-          satu unit usaha kami, atau hubungi kami langsung.
+          Halaman yang Anda cari mungkin sudah dipindah atau belum tersedia. Coba mulai dari salah
+          satu halaman di bawah ini, atau hubungi kami langsung.
         </p>
-        <nav aria-label="Tautan unit usaha" className={styles.unitLinks}>
-          {tautanUnit.map((item) => (
+        <nav aria-label="Halaman utama" className={styles.unitLinks}>
+          {navLinks.map((item) => (
             <PillButton key={item.href} href={item.href} variant="solid">
               {item.label}
             </PillButton>
           ))}
         </nav>
-        <Link href="/kontak" className={styles.kontakLink}>
-          Hubungi Kami →
+        <Link href={kontakLink.href} className={styles.kontakLink}>
+          {kontakLink.label} →
         </Link>
       </Container>
     </Section>

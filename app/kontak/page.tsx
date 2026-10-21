@@ -40,8 +40,9 @@ const kontakLabel: Record<KontakItem["tipe"], string> = {
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Hubungi Kami",
+    // INTERIM — belum disetujui (D2). Kalimat CONTENT-VERBATIM.md §H1 (titik ganda sumber diperbaiki — TYPO-LOG.md).
     description:
-      "Kontak resmi dan lokasi seluruh fasilitas operasional PT Cakra Prima Nusantara — konstruksi, alat berat, trading, dan agribisnis.",
+      "Anda dapat mengirimkan pertanyaan mengenai produk maupun layanan dan kami akan berusaha menjawab dengan sebaik mungkin.",
     path: "/kontak",
   });
 }

@@ -6,7 +6,9 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Riset & Inovasi",
-    description: "Riset, inovasi, dan mitra riset unit Agribisnis PT Cakra Prima Nusantara.",
+    // INTERIM — belum disetujui (D2). Kalimat pertama CONTENT-VERBATIM.md §E3 (typo "tana" diperbaiki — TYPO-LOG.md).
+    description:
+      "OSTINDO merupakan suatu produk penyubur tanah hayati dengan formula unggulan yang mengkombinasikan bahan organik berkualitas dengan mikroba terseleksi sehingga berperan dalam meningkatkan kehidupan tanah secara alami melalui proses biologi tanah.",
     path: "/agribisnis/riset-inovasi",
     noindex: true,
   });

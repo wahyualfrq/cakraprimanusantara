@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MegaMenu } from "./MegaMenu";
 import { MobileNav } from "./MobileNav";
+import { kontakLink, navLinks } from "./navLinks";
 import { PillButton } from "@/components/ui/PillButton";
 import { cn } from "@/lib/utils";
 import styles from "./Navbar.module.css";
@@ -28,10 +28,14 @@ export function Navbar() {
   return (
     <header className={cn(styles.navbar, scrolled && styles.scrolled)}>
       <div className={styles.inner}>
-        <Link href="/" className={styles.logoLink}>
+        {/* INTERIM — logo (D3a). Gambar logo yang ada memuat tulisan PT Cakra Prima
+            Nusantara, jadi dipakai sebagai dekoratif (alt kosong) dan nama aksesibel
+            diberikan lewat tautan. Rilis publik diblokir sampai aset/status logo
+            dikonfirmasi. */}
+        <Link href="/" className={styles.logoLink} aria-label="Beranda">
           <Image
             src="/images/LogosG.png"
-            alt="PT Cakra Prima Nusantara"
+            alt=""
             width={76}
             height={76}
             priority
@@ -40,16 +44,16 @@ export function Navbar() {
         </Link>
 
         <nav className={styles.links} aria-label="Navigasi utama">
-          <Link href="/tentang-kami">Tentang Kami</Link>
-          <MegaMenu />
-          <Link href="/portofolio">Portofolio</Link>
-          <Link href="/berita">Berita</Link>
-          <Link href="/kontak">Kontak</Link>
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
         <div className={styles.right}>
-          <PillButton href="/kontak" variant="solid" className={styles.ctaDesktop}>
-            Hubungi Kami
+          <PillButton href={kontakLink.href} variant="solid" className={styles.ctaDesktop}>
+            {kontakLink.label}
           </PillButton>
           <MobileNav />
         </div>

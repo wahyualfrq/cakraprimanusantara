@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -19,6 +20,8 @@ const PENCAPAIAN_PORTOFOLIO = sertifikasiList.filter((s) =>
 );
 
 export async function generateMetadata(): Promise<Metadata> {
+  // Route dinonaktifkan (keputusan D7) — metadata lama tidak ikut diserialisasi.
+  notFound();
   return buildMetadata({
     title: "Portofolio",
     description: `${proyekList.length} proyek konstruksi dari unit usaha Kontraktor PT Cakra Indo Pratama, dan studi kasus reklamasi lahan agribisnis oleh ${studiKasusBelitung.entitasPelaksana}.`,
@@ -27,6 +30,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function PortofolioPage() {
+  // Route dinonaktifkan (keputusan D7) — notFound() di page juga, supaya konten
+  // tidak ikut diserialisasi ke payload RSC. Kode di bawah dipertahankan.
+  notFound();
   // JSON-LD: gabungkan proyek konstruksi + pencapaian agribisnis
   const schema = itemListSchema([
     ...proyekList.map((p) => ({ name: p.judul })),

@@ -52,3 +52,13 @@ OSTINDO Pupuk Bless Cari" → "Produk Baru dari OSTINDO Pupuk Bless **Cair**"
 
 [Kontak] Kalimat pembuka form — sumber menulis dua titik di akhir:
 "...dengan sebaik mungkin.." → "...dengan sebaik mungkin." (satu titik).
+Kalimat yang sama juga dipakai sebagai meta description `/kontak` (K1).
+
+---
+
+## K1 — Meta description (Ostindo)
+
+[Riset & Inovasi] §E3 paragraf pertama, dipakai sebagai meta description
+`/agribisnis/riset-inovasi`: "meningkatkan kehidupan tana secara alami" →
+"meningkatkan kehidupan **tanah** secara alami" (typo sumber yang dicatat di
+CONTENT-VERBATIM.md §E3).

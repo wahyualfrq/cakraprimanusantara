@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
@@ -16,6 +17,8 @@ import styles from "./page.module.css";
 const taglineSumber = "General Contractor, Trading & Rental Heavy Equipment";
 
 export async function generateMetadata(): Promise<Metadata> {
+  // Route dinonaktifkan (keputusan D7) — metadata lama tidak ikut diserialisasi.
+  notFound();
   return buildMetadata({
     title: "Kontraktor",
     description: taglineSumber,
@@ -34,6 +37,9 @@ const kategoriProyekLabel: Record<KategoriProyek, string> = {
 };
 
 export default function KontraktorPage() {
+  // Route dinonaktifkan (keputusan D7) — notFound() di page juga, supaya konten
+  // tidak ikut diserialisasi ke payload RSC. Kode di bawah dipertahankan.
+  notFound();
   const editorialItems = layananList.map((layanan) => ({
     href: `/kontraktor/${layanan.slug}`,
     title: layanan.nama,

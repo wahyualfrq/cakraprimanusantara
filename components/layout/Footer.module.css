@@ -6,7 +6,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1.4fr 1fr 1fr;
   gap: var(--cpn-space-lg);
   padding-bottom: var(--cpn-space-xl);
 }
@@ -61,6 +61,11 @@
 @media (max-width: 1024px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Visi Perusahaan selebar baris; dua lokasi berdampingan di bawahnya. */
+  .grid > :first-child {
+    grid-column: 1 / -1;
   }
 }
 

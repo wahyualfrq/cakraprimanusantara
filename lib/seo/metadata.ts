@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 
-// TODO: konfirmasi domain final dengan klien (lihat PRD.md §9 poin 3)
-export const SITE_NAME = "PT Cakra Prima Nusantara";
+export const SITE_NAME = "PT Anugerah Mustika Ostindo";
+// Fallback = satu-satunya domain Ostindo yang dikenal (PRD.md §1). Domain
+// final belum diputuskan (PRD.md §9 poin 1, keputusan D5) — env tetap diutamakan.
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://cakraprimanusantara.co.id";
-export const DEFAULT_OG_IMAGE = "/images/og-default.jpg";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.ostindo.co.id";
 
 export type BuildMetadataOptions = {
   title: string;
   description: string;
   path: string;
+  /** Kosongkan sampai ada aset OG asli — jangan rujuk file yang tidak ada di public/. */
   ogImage?: string;
   /**
    * Jika true, halaman diberi tag robots `noindex, follow`.
@@ -32,10 +33,11 @@ export function buildMetadata({
   title,
   description,
   path,
-  ogImage = DEFAULT_OG_IMAGE,
+  ogImage,
   noindex = false,
 }: BuildMetadataOptions): Metadata {
   const canonicalUrl = `${SITE_URL}${path}`;
+  const images = ogImage ? { images: [ogImage] } : {};
   const fullTitle = `${title} | ${SITE_NAME}`;
   // Di Next.js App Router, template `%s | ...` dari root layout hanya berlaku
   // untuk child route segments, bukan untuk root page (`/`). Gunakan fullTitle
@@ -61,15 +63,15 @@ export function buildMetadata({
       description,
       url: canonicalUrl,
       siteName: SITE_NAME,
-      images: [ogImage],
+      ...images,
       locale: "id_ID",
       type: "website",
     },
     twitter: {
-      card: "summary_large_image",
+      card: ogImage ? "summary_large_image" : "summary",
       title: fullTitle,
       description,
-      images: [ogImage],
+      ...images,
     },
   };
 }

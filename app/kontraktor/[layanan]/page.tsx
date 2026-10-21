@@ -29,7 +29,14 @@ function getLayanan(slug: string) {
   return layananList.find((item) => item.slug === slug);
 }
 
+// Route dinonaktifkan (keputusan D7) — notFound() di generateMetadata dan page juga,
+// supaya metadata & konten lama tidak ikut diserialisasi ke payload RSC. Lewat
+// konstanta (bukan panggilan langsung) agar kode di bawah tetap ter-typecheck dan
+// mudah diaktifkan kembali.
+const ROUTE_DINONAKTIFKAN: boolean = true;
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  if (ROUTE_DINONAKTIFKAN) notFound();
   const { layanan: slug } = await params;
   const layanan = getLayanan(slug);
   if (!layanan) return {};
@@ -77,6 +84,7 @@ function LayananMedia({ layanan }: { layanan: Layanan }) {
 }
 
 export default async function LayananDetailPage({ params }: PageProps) {
+  if (ROUTE_DINONAKTIFKAN) notFound();
   const { layanan: slug } = await params;
   const layanan = getLayanan(slug);
   if (!layanan) notFound();

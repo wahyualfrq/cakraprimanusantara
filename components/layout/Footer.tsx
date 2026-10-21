@@ -1,73 +1,58 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { lokasiList, type KontakItem } from "@/content/kontak";
+import { kontakLink, navLinks } from "./navLinks";
 import styles from "./Footer.module.css";
 
-type LokasiFooter = {
-  label: string;
-  alamat: string;
-  kontak?: string;
+// Visi Perusahaan — teks footer situs Ostindo, verbatim (CONTENT-VERBATIM.md §G5).
+const visiPerusahaan =
+  "Menjadi perusahaan utama yang mampu memberikan kesejahteraan bagi seluruh pemangku kepentingan, khususnya masyarakat petani dengan berpegang teguh pada prinsip-prinsip ramah lingkungan";
+
+// Hanya lokasi Ostindo; lokasi lain di content/kontak.ts di luar scope.
+const lokasiOstindo = lokasiList.filter((lokasi) => lokasi.unitUsaha.includes("agribisnis"));
+
+const kontakLabel: Record<KontakItem["tipe"], string> = {
+  telepon: "Telepon",
+  whatsapp: "WhatsApp",
+  fax: "Fax",
+  instagram: "Instagram",
 };
-
-// TODO: pindahkan ke content/kontak.ts begitu migrasi konten berjalan.
-const lokasiList: LokasiFooter[] = [
-  {
-    label: "Kantor Pusat (Palembang)",
-    alamat: "Jl. Veteran No. 318, Kel. Kuto Batu, Kec. Ilir Timur II, Palembang 30111",
-  },
-  {
-    label: "Kantor Operasional (Palembang)",
-    alamat: "Komp. Griya Maju, Jl. Sako Baru Blok A No. 1-8, Palembang 30165",
-    kontak: "0711-824980 / 0811-783675",
-  },
-  {
-    label: "Workshop/Pool (Palembang)",
-    alamat: "Jl. Talang Keramat Raya No. 77, Talang Kelapa, Banyuasin",
-  },
-  {
-    label: "Office Agribisnis (Jakarta)",
-    alamat: "Kompleks Bojong Indah, Jl. Pakis Raya 88B, Jakarta Barat 11740",
-    kontak: "WA +62 819 2922 6666",
-  },
-  {
-    label: "Factory Agribisnis (Tangerang)",
-    alamat: "Jl. Waru Doyong No. 59, Jayanti, Tangerang, Banten",
-  },
-];
-
-const quickLinks = [
-  { label: "Tentang Kami", href: "/tentang-kami" },
-  { label: "Kontraktor", href: "/kontraktor" },
-  { label: "Alat Berat", href: "/alat-berat" },
-  { label: "Trading", href: "/trading" },
-  { label: "Agribisnis", href: "/agribisnis" },
-  { label: "Portofolio", href: "/portofolio" },
-  { label: "Berita", href: "/berita" },
-  { label: "Kontak", href: "/kontak" },
-];
 
 export function Footer() {
   return (
     <footer className={styles.footer}>
       <Container>
         <div className={styles.grid}>
-          {lokasiList.map((lokasi) => (
-            <div key={lokasi.label} className={styles.column}>
-              <h3 className={styles.columnTitle}>{lokasi.label}</h3>
+          <div className={styles.column}>
+            <h3 className={styles.columnTitle}>Visi Perusahaan</h3>
+            <p className={styles.address}>{visiPerusahaan}</p>
+          </div>
+
+          {lokasiOstindo.map((lokasi) => (
+            <div key={lokasi.slug} className={styles.column}>
+              <h3 className={styles.columnTitle}>{lokasi.nama}</h3>
               <p className={styles.address}>{lokasi.alamat}</p>
-              {lokasi.kontak && <p className={styles.contact}>{lokasi.kontak}</p>}
+              {(lokasi.kontak ?? [])
+                .filter((item) => !item.perluVerifikasi)
+                .map((item) => (
+                  <p key={`${item.tipe}-${item.nilai}`} className={styles.contact}>
+                    {kontakLabel[item.tipe]}: {item.nilai}
+                  </p>
+                ))}
+              {lokasi.email && <p className={styles.contact}>Email: {lokasi.email}</p>}
             </div>
           ))}
         </div>
 
         <nav className={styles.quickLinks} aria-label="Tautan cepat">
-          {quickLinks.map((link) => (
+          {[...navLinks, kontakLink].map((link) => (
             <Link key={link.href} href={link.href}>
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <p className={styles.copyright}>© 2026 PT Cakra Prima Nusantara. All Rights Reserved.</p>
+        <p className={styles.copyright}>© 2026 PT Anugerah Mustika Ostindo. All Rights Reserved.</p>
       </Container>
     </footer>
   );

@@ -14,7 +14,14 @@ export function generateStaticParams() {
   return kategoriAlatList.map((k) => ({ kategori: k.slug }));
 }
 
+// Route dinonaktifkan (keputusan D7) — notFound() di generateMetadata dan page juga,
+// supaya metadata & konten lama tidak ikut diserialisasi ke payload RSC. Lewat
+// konstanta (bukan panggilan langsung) agar kode di bawah tetap ter-typecheck dan
+// mudah diaktifkan kembali.
+const ROUTE_DINONAKTIFKAN: boolean = true;
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  if (ROUTE_DINONAKTIFKAN) notFound();
   const { kategori } = await params;
   const found = kategoriAlatList.find((k) => k.slug === kategori);
   if (!found) return {};
@@ -28,6 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function SewaKategoriPage({ params }: PageProps) {
+  if (ROUTE_DINONAKTIFKAN) notFound();
   const { kategori } = await params;
   const found = kategoriAlatList.find((k) => k.slug === kategori);
   if (!found) notFound();

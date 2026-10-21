@@ -5,13 +5,16 @@ import { SITE_NAME, SITE_URL } from "./metadata";
  * di-render lewat <script type="application/ld+json"> (STRUCTURE.md §6.2).
  */
 
+/** Hanya fakta bersumber: berdiri = Akta Pendirian No. 361 Tanggal 31 Juli 1995 (CONTENT-VERBATIM.md §E1); Instagram = satu-satunya sosmed terverifikasi. */
 export function organizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE_NAME,
     url: SITE_URL,
-    // TODO: isi logo, sameAs (social media) setelah aset final tersedia
+    foundingDate: "1995-07-31",
+    sameAs: ["https://instagram.com/pupukkebun"],
+    // TODO: isi logo setelah URL aset final ditetapkan (Tahap S)
   };
 }
 
@@ -72,6 +75,11 @@ export function articleSchema(input: ArticleInput) {
     "@type": "Article",
     headline: input.headline,
     ...(input.datePublished ? { datePublished: input.datePublished } : {}),
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
   };
 }
 

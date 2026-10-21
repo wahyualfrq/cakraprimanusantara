@@ -13,8 +13,8 @@ import styles from "./page.module.css";
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Berita",
-    description:
-      "Warta resmi seputar kemitraan riset agribisnis, inovasi produk, dan perkembangan unit usaha PT Cakra Prima Nusantara.",
+    // INTERIM — belum disetujui (D2). Sumber tidak punya kalimat deskripsi halaman Berita; label faktual pendek.
+    description: "Berita PT Anugerah Mustika Ostindo.",
     path: "/berita",
   });
 }
