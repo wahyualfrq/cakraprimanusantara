@@ -102,6 +102,8 @@ export const produkList: Produk[] = [
         metode: "ditabur di bawah tajuk tanaman",
       },
       {
+        // VERIFY: sumber menulis "TBM (Tanaman Menghasilkan)"; dikoreksi ke "TM"
+        // sesuai instruksi CONTENT-VERBATIM.md §E2 (TYPO-LOG.md) — konfirmasi klien.
         fase: "TM (Tanaman Menghasilkan)",
         dosis: "500 - 1000 gram/pohon",
         frekuensi: "2 kali setahun",
@@ -122,7 +124,9 @@ export const produkList: Produk[] = [
       "Futricho merupakan sebuah inovasi praktis dalam dunia biofungisida. Kombinasi Trichoderma koningii dan Trichoderma harzianum dalam satu formulasi untuk melawan agen penyakit pathogen pada tanaman. Trichoderma koningii sudah lama diketahui dapat mengendalikan penyakit busuk pangkal batang pada tanaman sawit yang disebabkan oleh Ganoderma boniense sedangkan Trichoderma harzianum mencegah pertumbuhan fungi pathogen Botrytis, Sklerotium, dan Fusarium.",
     ],
     faktaKunci: [
-      { label: "Kemasan", nilai: "25 kg" },
+      // VERIFY: kemasan 25 kg hanya di CONTENT-SOURCE.md §7, tidak ada di
+      // CONTENT-VERBATIM.md §E2 ("25 kg" di §E2 milik Actifert) — tidak dirender.
+      { label: "Kemasan", nilai: "25 kg", perluVerifikasi: true },
       { label: "Kandungan spora", nilai: "10^6 per gram", perluVerifikasi: true },
     ],
     // CONTENT-SOURCE.md §7. Pasangan label ↔ metode ↔ dosis di PDF bercampur —
@@ -168,7 +172,8 @@ export const produkList: Produk[] = [
     // "Jenis yang telah dipasarkan" — komposisi "+TE" [VERIFIKASI] (GAP-REPORT.md §8.3).
     poin: ["NPK 12.6.22.3+TE", "NPK 12.12.17.2+TE", "NPK 15.15.6.4", "NPK 16.16.16"],
     faktaKunci: [{ label: "Kemasan", nilai: "50 kg", perluVerifikasi: true }],
-    sertifikasi: ["Sertifikat SNI (diperoleh 2010)"],
+    // Verbatim CONTENT-VERBATIM.md §E2 (milestone PDF 2010).
+    sertifikasi: ["Pupuk NPK BLESS memperoleh sertifikat SNI"],
   },
   {
     slug: "bless-cair",

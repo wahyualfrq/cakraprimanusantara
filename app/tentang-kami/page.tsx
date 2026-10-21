@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { DefinitionList } from "@/components/ui/DefinitionList";
 import { buildMetadata } from "@/lib/seo/metadata";
-import {
-  profilHoldingData,
-  pilarBisnisList,
-  linimasaList,
-  keunggulanHoldingData,
-} from "@/content/tentang-kami";
-import { StatsSection } from "./StatsSection";
+import { profil } from "@/content/profil";
+import { milestoneList } from "@/content/agribisnis/milestone";
+import { ilustrasi } from "@/content/ilustrasi";
 import styles from "./page.module.css";
+
+// Isi bersumber dari content/profil.ts (CONTENT-VERBATIM.md §E1, §G2, §G3,
+// §G5, §G6) dan milestoneList (§E4). content/tentang-kami.ts (profil holding)
+// dan StatsSection (angka tanpa sumber) dilepas dari render — file dipertahankan.
+// Sekapur Sirih (§G7) opsional, belum ditampilkan sampai disetujui.
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
@@ -37,14 +38,15 @@ export default function TentangKamiPage() {
         title="Tentang Kami"
       />
 
-      {/* 1. Pengenalan Holding & Profil Perusahaan */}
+      {/* 1. Profil perusahaan — §E1 */}
       <Section className={styles.overviewSection}>
         <Container>
           <div className={styles.overviewGrid}>
             <div className={styles.overviewMedia}>
+              {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
               <Image
-                src="/images/gambar-5.png"
-                alt="Tim operasional dan manajemen terintegrasi PT Cakra Prima Nusantara"
+                src={ilustrasi.rumahKaca.src}
+                alt={ilustrasi.rumahKaca.alt}
                 fill
                 sizes="(max-width: 900px) 100vw, 50vw"
                 className={styles.overviewImage}
@@ -52,84 +54,51 @@ export default function TentangKamiPage() {
             </div>
 
             <div className={styles.overviewCopy}>
-              <SectionHeading
-                title={profilHoldingData.nama}
+              <SectionHeading title={profil.nama} />
+              <DefinitionList
+                items={[
+                  { label: "Berdiri", description: profil.berdiri.teks },
+                  { label: "Kantor", description: profil.kedudukan.kantor },
+                  { label: "Pabrik", description: profil.kedudukan.pabrik },
+                ]}
               />
-              <p className={styles.overviewLead}>
-                {/* {profilHoldingData.ringkasan} */}
-              </p>
-              {profilHoldingData.paragraf.map((p, idx) => (
-                <p key={idx} className={styles.overviewText}>
-                  {p}
+              {profil.narasi.map((paragraf) => (
+                <p key={paragraf} className={styles.overviewText}>
+                  {paragraf}
                 </p>
               ))}
-
-              {/* <div className={styles.holdingNote}>
-                <strong>Sinergi Terpadu:</strong> Menyatukan rekayasa
-                infrastruktur fisik dan perbaikan beton di wilayah Sumatera
-                dengan riset bioteknologi pemupukan hayati berkelanjutan di
-                tingkat nasional.
-              </div> */}
             </div>
           </div>
         </Container>
       </Section>
 
-      {/* 2. CPN dalam Angka (Statistik Korporat) */}
-      <StatsSection />
-
-      {/* 3. Empat Pilar Unit Usaha */}
+      {/* 2. Nilai — §G3 (label sesuai catatan sumber) */}
       <Section className={styles.pillarsSection}>
         <Container>
-          <SectionHeading
-            title="Ekosistem Bisnis"
-          />
+          <SectionHeading title={`Nilai ${profil.nama}`} />
 
           <div className={styles.pillarsGrid}>
-            {pilarBisnisList.map((pilar) => (
-              <div key={pilar.id} className={styles.pillarCard}>
+            {profil.nilai.map((nilai) => (
+              <div key={nilai.label} className={styles.pillarCard}>
                 <div className={styles.pillarHeader}>
-                  {/* <span className={styles.pillarBadge}>Pilar Layanan</span> */}
-                  <h3 className={styles.pillarTitle}>{pilar.judul}</h3>
-                  {/* <span className={styles.pillarEntity}>{pilar.entitas}</span> */}
+                  <h3 className={styles.pillarTitle}>{nilai.label}</h3>
                 </div>
-
-                <p className={styles.pillarDesc}>{pilar.deskripsi}</p>
-
-                <ul className={styles.pillarFeatures}>
-                  {pilar.fiturUtama.map((fitur, fIdx) => (
-                    <li key={fIdx} className={styles.pillarFeatureItem}>
-                      <span className={styles.pillarFeatureBullet}>•</span>
-                      <span>{fitur}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className={styles.pillarFooter}>
-                  <span className={styles.pillarLocation}>{pilar.lokasi}</span>
-                  <Link href={pilar.href} className={styles.pillarLink}>
-                    Lihat Layanan →
-                  </Link>
-                </div>
+                <p className={styles.pillarDesc}>{nilai.deskripsi}</p>
               </div>
             ))}
           </div>
         </Container>
       </Section>
 
-      {/* 3. Linimasa & Rekam Jejak Entitas */}
+      {/* 3. Milestone — §E4 */}
       <Section className={styles.timelineSection}>
         <Container>
-          <SectionHeading
-            title="Rekam Jejak & Milestone"
-          />
+          <SectionHeading title="Milestone" />
           <div className={styles.timelineList}>
-            {linimasaList.map((item, idx) => (
-              <div key={idx} className={styles.timelineItem}>
+            {milestoneList.map((item) => (
+              <div key={item.tahun} className={styles.timelineItem}>
                 <div className={styles.timelineHeader}>
                   <span className={styles.timelineYear}>{item.tahun}</span>
-                  <h3 className={styles.timelineTitle}>{item.judul}</h3>
-                  <span className={styles.timelineEntity}>{item.entitas}</span>
                 </div>
                 <p className={styles.timelineDesc}>{item.deskripsi}</p>
               </div>
@@ -138,45 +107,69 @@ export default function TentangKamiPage() {
         </Container>
       </Section>
 
-      {/* 4. Keunggulan CPN sebagai Holding */}
+      {/* 4. Misi dan visi — §G5 */}
       <Section className={styles.holdingAdvantageSection}>
         <Container>
-          <SectionHeading title={keunggulanHoldingData.judul} />
-
-          <div className={styles.holdingIntroWrapper}>
-            {keunggulanHoldingData.paragraf.map((p, idx) => (
-              <p key={idx} className={styles.holdingIntroText}>
-                {p}
-              </p>
-            ))}
-          </div>
+          <SectionHeading title="Misi dan Visi" />
 
           <div className={styles.holdingPillarsGrid}>
-            {keunggulanHoldingData.pilarStrategis.map((pillar, idx) => (
-              <div key={idx} className={styles.holdingPillarCard}>
-                <span className={styles.holdingPillarIndex}>0{idx + 1}</span>
-                <h3 className={styles.holdingPillarTitle}>{pillar.judul}</h3>
-                <p className={styles.holdingPillarDesc}>{pillar.deskripsi}</p>
-              </div>
-            ))}
-          </div>
+            <div className={styles.holdingPillarCard}>
+              <h3 className={styles.holdingPillarTitle}>Misi Kami</h3>
+              <ul className={styles.pillarFeatures}>
+                {profil.misi.map((butir) => (
+                  <li key={butir} className={styles.pillarFeatureItem}>
+                    <span className={styles.pillarFeatureBullet} aria-hidden="true">
+                      •
+                    </span>
+                    <span>{butir}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className={styles.holdingScopeWrapper}>
-            <h3 className={styles.holdingScopeHeading}>
-              Cakupan Bidang Usaha & Entitas Terintegrasi
-            </h3>
-            <div className={styles.holdingScopeGrid}>
-              {keunggulanHoldingData.bidangUsaha.map((item) => (
-                <div key={item.id} className={styles.holdingScopeCard}>
-                  <div className={styles.holdingScopeHeader}>
-                    <h4 className={styles.holdingScopeTitle}>{item.bidang}</h4>
-                    <span className={styles.holdingScopeEntity}>{item.entitas}</span>
-                  </div>
-                  <p className={styles.holdingScopeDesc}>{item.deskripsi}</p>
-                </div>
-              ))}
+            <div className={styles.holdingPillarCard}>
+              <h3 className={styles.holdingPillarTitle}>Visi Kami</h3>
+              <ul className={styles.pillarFeatures}>
+                {profil.visi.map((butir) => (
+                  <li key={butir} className={styles.pillarFeatureItem}>
+                    <span className={styles.pillarFeatureBullet} aria-hidden="true">
+                      •
+                    </span>
+                    <span>{butir}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className={styles.holdingPillarCard}>
+              <h3 className={styles.holdingPillarTitle}>Visi Perusahaan</h3>
+              <p className={styles.holdingPillarDesc}>{profil.visiPerusahaan}</p>
             </div>
           </div>
+        </Container>
+      </Section>
+
+      {/* 5. Inovasi perusahaan — §G6; Legalitas — §G2 (jenis dokumen saja) */}
+      <Section>
+        <Container>
+          <SectionHeading title="Inovasi Perusahaan" />
+          <p className={styles.overviewText}>{profil.inovasi}</p>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <SectionHeading title="Legalitas" description={profil.legalitas.pengantar} />
+          <ul className={styles.pillarFeatures}>
+            {profil.legalitas.daftar.map((dokumen) => (
+              <li key={dokumen} className={styles.pillarFeatureItem}>
+                <span className={styles.pillarFeatureBullet} aria-hidden="true">
+                  •
+                </span>
+                <span>{dokumen}</span>
+              </li>
+            ))}
+          </ul>
         </Container>
       </Section>
     </>

@@ -4,6 +4,7 @@ import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { getBeritaBySlug } from "@/lib/content/berita";
 import { formatTanggalIndonesia } from "@/lib/tanggal";
+import { ilustrasi } from "@/content/ilustrasi";
 import styles from "./NewsHighlight.module.css";
 
 // Tanpa label kategori: sumber tidak memberi kategori per artikel ("Pencapaian"
@@ -21,18 +22,18 @@ type NewsHighlightSlot = {
 const slots: NewsHighlightSlot[] = [
   {
     slug: "kerjasama-brin-teknologi-pestisida",
-    image: "/images/gambar-9.png",
-    imageAlt: "Ilustrasi riset agronomi — pengujian tanaman di laboratorium",
+    image: ilustrasi.laboratorium.src,
+    imageAlt: ilustrasi.laboratorium.alt,
   },
   {
     slug: "kerjasama-dengan-lipi",
-    image: "/images/gambar-11.png",
-    imageAlt: "Ilustrasi pengujian produk pertanian di lapangan",
+    image: ilustrasi.rumahKaca.src,
+    imageAlt: ilustrasi.rumahKaca.alt,
   },
   {
     slug: "penghargaan-best-fertilizer-2016",
-    image: "/images/gambar-12.png",
-    imageAlt: "Ilustrasi piala penghargaan dan produk pupuk",
+    image: ilustrasi.pialaPupuk.src,
+    imageAlt: ilustrasi.pialaPupuk.alt,
   },
 ];
 

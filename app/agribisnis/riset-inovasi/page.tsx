@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { DefinitionList } from "@/components/ui/DefinitionList";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { narasiRisetList } from "@/content/agribisnis/riset";
+import { milestoneList } from "@/content/agribisnis/milestone";
+import { sertifikasiList } from "@/content/agribisnis/sertifikasi";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
@@ -14,12 +20,59 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
+// Narasi §E3, milestone §E4, sertifikat & penghargaan (judul section sumber:
+// "Sertifikat & Penghargaan"). Daftar mitra riset (mitraRisetList) TIDAK
+// ditampilkan sampai direkonsiliasi (label kategori tak bersumber, catatan
+// provenans, 17 entri vs 23 baris sumber) — keputusan pemilik proyek. Karena
+// itu `pengantarDaftarMitra` juga tidak dirender (lihat content/agribisnis/riset.ts).
+// Hanya komponen yang sudah ada — tampilan V3.
 export default function RisetInovasiPage() {
   return (
-    <Section>
-      <Container>
-        <h1>Riset &amp; Inovasi</h1>
-      </Container>
-    </Section>
+    <>
+      <PageHeader
+        variant="solid"
+        breadcrumb={[
+          { label: "Beranda", href: "/" },
+          { label: "Riset & Inovasi", href: "/agribisnis/riset-inovasi" },
+        ]}
+        title="Riset & Inovasi"
+      />
+
+      {narasiRisetList.map((bagian) => (
+        <Section key={bagian.judul}>
+          <Container>
+            <SectionHeading title={bagian.judul} />
+            {bagian.paragraf.map((paragraf) => (
+              <p key={paragraf}>{paragraf}</p>
+            ))}
+          </Container>
+        </Section>
+      ))}
+
+      <Section>
+        <Container>
+          <SectionHeading title="Milestone" />
+          <DefinitionList
+            items={milestoneList.map((item) => ({
+              label: String(item.tahun),
+              description: item.deskripsi,
+            }))}
+          />
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <SectionHeading title="Sertifikat & Penghargaan" />
+          {/* Nomor & masa berlaku sertifikat tidak ada di sumber — tidak ditampilkan. */}
+          <DefinitionList
+            items={sertifikasiList.map((item) => ({
+              label: item.nama,
+              description: item.deskripsi ?? (item.tahun ? String(item.tahun) : undefined),
+            }))}
+          />
+        </Container>
+      </Section>
+    </>
   );
 }

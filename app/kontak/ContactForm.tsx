@@ -3,23 +3,15 @@
 import { useRef, useState, type FormEvent } from "react";
 import { PillButton } from "@/components/ui/PillButton";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { lokasiList } from "@/content/kontak";
 import styles from "./ContactForm.module.css";
 
-type UnitUsaha = "kontraktor" | "alat-berat" | "trading" | "agribisnis";
-
-const unitLabel: Record<UnitUsaha, string> = {
-  kontraktor: "Kontraktor",
-  "alat-berat": "Alat Berat",
-  trading: "Trading",
-  agribisnis: "Agribisnis",
-};
-
-// Routing kontak per unit — CONTENT-VERBATIM.md §H / brief Fase 6+7+8.
-const routingByUnit: Record<UnitUsaha, { nomor: string; email: string }> = {
-  kontraktor: { nomor: "0811-783-675", email: "info@cakraindopratama.com" },
-  "alat-berat": { nomor: "0811-783-675", email: "info@cakraindopratama.com" },
-  trading: { nomor: "0811-783-675", email: "info@cakraindopratama.com" },
-  agribisnis: { nomor: "+62 819 2922 6666", email: "ostindo_mail@yahoo.com" },
+// Tujuan tunggal: kontak Office Ostindo (CONTENT-VERBATIM.md §H1) — WhatsApp dan
+// email dibaca dari content/kontak.ts, bukan di-hardcode.
+const office = lokasiList.find((lokasi) => lokasi.slug === "office-agribisnis-jakarta");
+const tujuan = {
+  nomor: office?.kontak?.find((item) => item.tipe === "whatsapp")?.nilai ?? "",
+  email: office?.email ?? "",
 };
 
 type FormState = {
@@ -28,7 +20,6 @@ type FormState = {
   telepon: string;
   subjek: string;
   pesan: string;
-  unit: UnitUsaha;
 };
 
 const initialState: FormState = {
@@ -37,7 +28,6 @@ const initialState: FormState = {
   telepon: "",
   subjek: "",
   pesan: "",
-  unit: "kontraktor",
 };
 
 function buildMessageBody(form: FormState): string {
@@ -45,7 +35,6 @@ function buildMessageBody(form: FormState): string {
     `Nama: ${form.nama}`,
     `Email: ${form.email}`,
     `Telepon: ${form.telepon}`,
-    `Unit usaha: ${unitLabel[form.unit]}`,
     `Subjek: ${form.subjek}`,
     "",
     form.pesan,
@@ -66,17 +55,16 @@ export function ContactForm() {
     event.preventDefault();
   }
 
-  function handleKirim(tujuan: "whatsapp" | "email") {
+  function handleKirim(kanal: "whatsapp" | "email") {
     if (!formRef.current?.reportValidity()) return;
 
-    const routing = routingByUnit[form.unit];
     const body = buildMessageBody(form);
 
-    if (tujuan === "whatsapp") {
-      window.open(buildWhatsAppUrl(routing.nomor, body), "_blank", "noopener,noreferrer");
+    if (kanal === "whatsapp") {
+      window.open(buildWhatsAppUrl(tujuan.nomor, body), "_blank", "noopener,noreferrer");
     } else {
       const subject = encodeURIComponent(form.subjek || "Pertanyaan dari website");
-      window.location.href = `mailto:${routing.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:${tujuan.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
     }
   }
 
@@ -116,22 +104,6 @@ export function ContactForm() {
           value={form.telepon}
           onChange={(event) => updateField("telepon", event.target.value)}
         />
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="kontak-unit">Unit usaha</label>
-        <select
-          id="kontak-unit"
-          name="unit"
-          value={form.unit}
-          onChange={(event) => updateField("unit", event.target.value as UnitUsaha)}
-        >
-          {Object.entries(unitLabel).map(([value, label]) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
       </div>
 
       <div className={styles.field}>

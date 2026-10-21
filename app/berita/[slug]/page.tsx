@@ -10,6 +10,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { beritaPublishedList, getBeritaBySlug } from "@/lib/content/berita";
 import { formatTanggalIndonesia } from "@/lib/tanggal";
+import { ilustrasi, type Ilustrasi } from "@/content/ilustrasi";
 import styles from "./page.module.css";
 
 type PageProps = {
@@ -34,17 +35,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
 }
 
-// Pemetaan aset gambar terverifikasi untuk artikel aktif.
-// Seluruh aset merupakan gambar pendukung relevan tanpa klaim palsu dokumentasi kegiatan fisik.
-const ARTIKEL_MEDIA: Record<string, { src: string; alt: string }> = {
-  "kerjasama-brin-teknologi-pestisida": {
-    src: "/images/gambar-9.png",
-    alt: "Ilustrasi riset agronomi — pengujian mikrobiologi terapan di laboratorium",
-  },
-  "kerjasama-dengan-lipi": {
-    src: "/images/gambar-11.png",
-    alt: "Ilustrasi pengujian dan evaluasi agronomi produk di lapangan",
-  },
+// Ilustrasi sementara (D4) untuk artikel terbit — bukan dokumentasi kegiatan.
+const ARTIKEL_MEDIA: Record<string, Ilustrasi> = {
+  "kerjasama-brin-teknologi-pestisida": ilustrasi.laboratorium,
+  "kerjasama-dengan-lipi": ilustrasi.rumahKaca,
 };
 
 export default async function BeritaDetailPage({ params }: PageProps) {
@@ -101,9 +95,7 @@ export default async function BeritaDetailPage({ params }: PageProps) {
 
           {/* 3. Informasi Entitas dan Tanggal Publikasi */}
           <div className={styles.metaGroup}>
-            <span className={styles.metaEntity}>
-              Agribisnis · PT Anugerah Mustika Ostindo
-            </span>
+            <span className={styles.metaEntity}>PT Anugerah Mustika Ostindo</span>
             {meta.tanggal && (
               <>
                 <span className={styles.metaDot} aria-hidden="true">·</span>
@@ -130,11 +122,9 @@ export default async function BeritaDetailPage({ params }: PageProps) {
           {/* 7. Footer: CTA & Tautan Kembali ke Semua Berita */}
           <footer className={styles.articleFooter}>
             <div className={styles.ctaBox}>
+              {/* Tanpa kalimat deskriptif karangan (aturan CONTENT-VERBATIM.md #3). */}
               <div className={styles.ctaContent}>
-                <h3 className={styles.ctaHeading}>Kemitraan & Informasi Unit Agribisnis</h3>
-                <p className={styles.ctaDescription}>
-                  Untuk kolaborasi riset, pengujian formulasi agronomi, atau informasi produk PT Anugerah Mustika Ostindo, silakan hubungi tim kami.
-                </p>
+                <h3 className={styles.ctaHeading}>Hubungi Kami</h3>
               </div>
               <Link href="/kontak" className={styles.ctaButton}>
                 Hubungi Kami

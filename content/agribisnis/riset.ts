@@ -146,13 +146,18 @@ export const mitraRisetList: MitraRiset[] = [
 export type BagianNarasiRiset = {
   judul: string;
   paragraf: string[];
+  /**
+   * Kalimat verbatim yang di sumber langsung diikuti daftar lembaga mitra.
+   * Disimpan terpisah dari `paragraf` dan TIDAK dirender selama daftar mitra
+   * (mitraRisetList) belum direkonsiliasi — supaya kalimatnya tidak menggantung.
+   */
+  pengantarDaftarMitra?: string;
 };
 
 // Narasi halaman Riset & Inovasi web Ostindo, verbatim (CONTENT-VERBATIM.md §E3),
-// urutan sumber. Paragraf terakhir bagian "Kerjasama Penelitian dan
-// Pengembangan" ditutup "antara lain :" — di sumber diikuti daftar lembaga
-// (lihat mitraRisetList; rekonsiliasi 17 entri vs 23 baris sumber masih
-// [VERIFIKASI]). Koreksi typo: TYPO-LOG.md.
+// urutan sumber. Kalimat pengantar daftar lembaga ("… antara lain :") ada di
+// `pengantarDaftarMitra`, bukan di `paragraf` (rekonsiliasi 17 entri
+// mitraRisetList vs 23 baris sumber masih [VERIFIKASI]). Koreksi typo: TYPO-LOG.md.
 export const narasiRisetList: BagianNarasiRiset[] = [
   {
     judul: "Ostindo",
@@ -173,7 +178,8 @@ export const narasiRisetList: BagianNarasiRiset[] = [
     judul: "Kerjasama Penelitian dan Pengembangan",
     paragraf: [
       "Sebagai produk yang mempunyai nilai tambah spesifik dan mengutamakan kualitas, penyubur tanah OSTINDO telah melalui serangkaian pengujian dengan berbagai lembaga penelitian, Ujicoba dilakukan dengan evaluasi secara berkelanjutan. Untuk menjamin akurasi data pengamatan lapang (baik vegetatif maupun generatif) yang diperoleh tersebut ditunjang dengan data-data analisa tanah, daun dari lembaga penelitian yang bersangkutan.",
-      "Kerjasama penelitian dilakukan dengan berbagai institusi/lembaga penelitian terkemuka pada berbagai komoditas pertanian/perkebunan dan kehutanan secara komprehensif, antara lain :",
     ],
+    pengantarDaftarMitra:
+      "Kerjasama penelitian dilakukan dengan berbagai institusi/lembaga penelitian terkemuka pada berbagai komoditas pertanian/perkebunan dan kehutanan secara komprehensif, antara lain :",
   },
 ];

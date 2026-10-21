@@ -58,7 +58,8 @@ export const lokasiList: Lokasi[] = [
   },
   {
     slug: "office-agribisnis-jakarta",
-    nama: "Office Agribisnis Jakarta",
+    // Istilah sumber: "OFFICE" (CONTENT-VERBATIM.md §H1).
+    nama: "Office",
     jenis: "office",
     alamat: "Kompleks Bojong Indah, Jl. Pakis Raya 88 B, Jakarta Barat 11740",
     kontak: [
@@ -72,7 +73,8 @@ export const lokasiList: Lokasi[] = [
   },
   {
     slug: "pabrik-agribisnis-tangerang",
-    nama: "Pabrik Agribisnis Tangerang",
+    // Istilah sumber: "FACTORY" (CONTENT-VERBATIM.md §H1).
+    nama: "Factory",
     jenis: "pabrik",
     alamat: "Waru Doyong 59, Jl. Raya Balaraja-Serang Km 35, Jayanti, Tangerang, Banten",
     // Kontak ikut lokasi Office Jakarta — sumber tidak punya kontak terpisah untuk pabrik.

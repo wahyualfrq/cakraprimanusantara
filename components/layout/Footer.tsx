@@ -1,12 +1,9 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { lokasiList, type KontakItem } from "@/content/kontak";
+import { profil } from "@/content/profil";
 import { kontakLink, navLinks } from "./navLinks";
 import styles from "./Footer.module.css";
-
-// Visi Perusahaan — teks footer situs Ostindo, verbatim (CONTENT-VERBATIM.md §G5).
-const visiPerusahaan =
-  "Menjadi perusahaan utama yang mampu memberikan kesejahteraan bagi seluruh pemangku kepentingan, khususnya masyarakat petani dengan berpegang teguh pada prinsip-prinsip ramah lingkungan";
 
 // Hanya lokasi Ostindo; lokasi lain di content/kontak.ts di luar scope.
 const lokasiOstindo = lokasiList.filter((lokasi) => lokasi.unitUsaha.includes("agribisnis"));
@@ -25,7 +22,8 @@ export function Footer() {
         <div className={styles.grid}>
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>Visi Perusahaan</h3>
-            <p className={styles.address}>{visiPerusahaan}</p>
+            {/* Teks footer situs Ostindo, verbatim (CONTENT-VERBATIM.md §G5). */}
+            <p className={styles.address}>{profil.visiPerusahaan}</p>
           </div>
 
           {lokasiOstindo.map((lokasi) => (

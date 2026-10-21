@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { PillButton } from "@/components/ui/PillButton";
 import { heroInterim } from "@/content/profil";
 import { pelangganList } from "@/content/agribisnis/pelanggan";
+import { ilustrasi } from "@/content/ilustrasi";
 import styles from "./HeroSection.module.css";
 
 // Nama dari strip lama yang tercantum di Daftar Konsumen/Pelanggan Ostindo
@@ -23,8 +24,8 @@ export function HeroSection() {
         <div className={styles.media}>
           {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
           <Image
-            src="/images/gambar-4.png"
-            alt="Ilustrasi kebun kelapa sawit dan lahan tanaman pertanian"
+            src={ilustrasi.kebunSawit.src}
+            alt={ilustrasi.kebunSawit.alt}
             fill
             priority
             sizes="100vw"
