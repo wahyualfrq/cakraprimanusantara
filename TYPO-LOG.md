@@ -62,3 +62,57 @@ Kalimat yang sama juga dipakai sebagai meta description `/kontak` (K1).
 `/agribisnis/riset-inovasi`: "meningkatkan kehidupan tana secara alami" →
 "meningkatkan kehidupan **tanah** secara alami" (typo sumber yang dicatat di
 CONTENT-VERBATIM.md §E3).
+
+---
+
+## K3 — Data konten bersumber (Ostindo)
+
+Format: teks asli → teks baru (lokasi sumber → lokasi data).
+
+[Profil] §E1 PDF hal. 3: "PT. Anuerah Mustika Ostindo" → "PT. Anugerah Mustika
+Ostindo" (typo dicatat di CONTENT-VERBATIM.md §E1) → `content/profil.ts` `sejarah`.
+
+[Profil] §G5 misi ke-2: "produk PT. AMO" → "produk PT Anugerah Mustika Ostindo"
+(bukan typo; singkatan dijabarkan sesuai catatan CONTENT-VERBATIM.md §G5) →
+`content/profil.ts` `misi`.
+
+[Milestone] §E4 2015: "Penggunaanya" → "Penggunaannya" →
+`content/agribisnis/milestone.ts` dan `content/agribisnis/sertifikasi.ts`
+(`alih-teknologi-lipi-2015`).
+
+[Produk Ostindo] §E2 tabel dosis baris terakhir: "TBM (Tanaman Menghasilkan)" →
+"TM (Tanaman Menghasilkan)" (diinstruksikan CONTENT-VERBATIM.md §E2) →
+`content/agribisnis/produk.ts`.
+
+[Produk Ostindo] §E2 PDF hal. 6: "pemanfaat harta" → "pemanfaatan hara"
+(contoh typo yang disebut eksplisit di aturan CONTENT-VERBATIM.md #2).
+
+[Produk Ostindo] §E2 PDF hal. 7: "SIfat" → "Sifat" (kapitalisasi keliru).
+
+[Produk Futricho] §E2 PDF hal. 10: "sedangakan" → "sedangkan".
+
+[Produk Futricho] §E2 catatan penyimpanan: "simpan pada tempat yang kerin" →
+"Simpan pada tempat yang kering" ("kerin" → "kering"; label "Catatan :" dilepas
+karena menjadi label UI, huruf awal dikapitalkan).
+
+[Produk Bless Cair] §E2 PDF hal. 11: "Pupuk organic cair", "100% organic hayati"
+→ "Pupuk organik cair", "100% organik hayati"; "pengunaan pupuk kimia" →
+"penggunaan pupuk kimia".
+
+[Produk Rizafert] §E2 web: "Myccorhiza" → "Mycorrhiza" (ejaan yang sama dipakai
+butir web di bawahnya). PDF hal. 11: "terseeksi" → "terseleksi"; "Rhizafert" →
+"Rizafert" ×2 (ejaan merek mengikuti kemasan, diinstruksikan CONTENT-VERBATIM.md §E2).
+
+[Riset & Inovasi] §E3: "perkebunan,sejumlah" → "perkebunan, sejumlah";
+"Lembaga- lembaga" → "Lembaga-lembaga"; "P3GI Pasuruan ( Gula)" → "P3GI
+Pasuruan (Gula)"; "secara komfrehensif" → "secara komprehensif" →
+`content/agribisnis/riset.ts` `narasiRisetList`. ("tana" → "tanah" sudah
+dicatat di bagian K1.)
+
+Dibiarkan verbatim (ragu / bukan salah ejaan bahasa Indonesia yang jelas):
+nama ilmiah "Azospirillium", "Mycorrhizha" (PDF hal. 6), "Ganoderma boniense",
+"Sklerotium" (PDF hal. 10); "Puslit Koka" (§E3, mungkin "Kakao" — butuh
+konfirmasi); singkatan "yg" (PDF Rizafert); "Akte", "Perijinan", "Ijin",
+"dibidang", "kedalam", "didalam", "Disisi", "issu", "mycorrhyza"; tanda kutip
+tidak seimbang pada kalimat filosofi PDF hal. 3; angka pH ditulis "6.5-7.5"
+sesuai kemasan.

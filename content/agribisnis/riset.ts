@@ -142,3 +142,38 @@ export const mitraRisetList: MitraRiset[] = [
     deskripsi: "Disebut di PDF Company Profile saja, tidak ada di web — tahun kerja sama tidak tercantum.",
   },
 ];
+
+export type BagianNarasiRiset = {
+  judul: string;
+  paragraf: string[];
+};
+
+// Narasi halaman Riset & Inovasi web Ostindo, verbatim (CONTENT-VERBATIM.md §E3),
+// urutan sumber. Paragraf terakhir bagian "Kerjasama Penelitian dan
+// Pengembangan" ditutup "antara lain :" — di sumber diikuti daftar lembaga
+// (lihat mitraRisetList; rekonsiliasi 17 entri vs 23 baris sumber masih
+// [VERIFIKASI]). Koreksi typo: TYPO-LOG.md.
+export const narasiRisetList: BagianNarasiRiset[] = [
+  {
+    judul: "Ostindo",
+    paragraf: [
+      "OSTINDO merupakan suatu produk penyubur tanah hayati dengan formula unggulan yang mengkombinasikan bahan organik berkualitas dengan mikroba terseleksi sehingga berperan dalam meningkatkan kehidupan tanah secara alami melalui proses biologi tanah. OSTINDO mengandung 100% bahan organik yang terdiri atas mikroorganisme (Azotobacter, Azospirillum, Rhizobium, Trichoderma, Aspergillus, dll), humus konsentrat, enzim, protein, tepung fosil, dan mineral alami.",
+      "OSTINDO berperan dalam memperbaiki dan meningkatkan kesuburan tanah secara alami karena mengandung bahan-bahan yang bersifat organik, mikroba tanah, humus konsentrat, enzim, protein dan tepung fosil serta unsur hara makro (N, P, K, Mg, S, Ca) dan mikro (Mn, Fe, Cu, Zn), serta asam humat.",
+      "OSTINDO tidak hanya sekedar menstimulasi proses biologis di dalam tanah untuk menghasilkan mineral tetapi juga meningkatkan agregat tanah dan membuat lapisan topsoil menjadi lebih stabil. Memperbaiki aerasi pada tanah sehingga penggunaan pupuk lebih efisien.",
+    ],
+  },
+  {
+    judul: "Ostindo Dan Penggunaannya Dalam Pengelolaan Perkebunan",
+    paragraf: [
+      "OSTINDO sebagai sebuah produk penyubur tanah yang mengkombinasikan bahan organik dengan mikroba Penyubur Tanah Selektif dan Unggul, merupakan suatu produk terobosan baru dalam teknologi pemupukan. Produk ini dirancang selain memberikan tambahan bahan organik tanah dan mengandung asam organik, yang dapat mengembalikan dan menjaga kesuburan tanah melalui fasilitas pelepasan hara secara terkendali. Peningkatan kehidupan mikroba tanah, Pelarutan bahan anorganik, perbaikan pH dan aerasi tanah.",
+      "Sejalan dengan upaya sosialisasi dan implementasi penggunaan OSTINDO dalam pengelolaan perkebunan, sejumlah penelitian dan kajian manfaat OSTINDO telah dilakukan oleh Lembaga-lembaga Penelitian Nasional antara lain : PPKS Medan (Kelapa Sawit), Puslit Karet Medan (Karet), P3GI Pasuruan (Gula), Puslit Koka (Kopi-Kakao), LPT Tanah Bogor dan LIPI (Mikroba) sejak tahun 1999-2008 dengan hasil yang sangat baik sehingga pada akhirnya produk OSTINDO secara luas pula telah dipergunakan oleh perkebunan-perkebunan besar termasuk pada Perkebunan dilingkungan PT. Perkebunan Nusantara (PTPN I, PTPN III, PTPN IV, PTPN V, PTPN VI, PTPN VII, PTPN VIII, PTPN IX, PTPN X dan PTPN XIII), pada komoditas-komoditas Kelapa Sawit, Karet dan tebu sejak tahun 2000-sekarang.",
+    ],
+  },
+  {
+    judul: "Kerjasama Penelitian dan Pengembangan",
+    paragraf: [
+      "Sebagai produk yang mempunyai nilai tambah spesifik dan mengutamakan kualitas, penyubur tanah OSTINDO telah melalui serangkaian pengujian dengan berbagai lembaga penelitian, Ujicoba dilakukan dengan evaluasi secara berkelanjutan. Untuk menjamin akurasi data pengamatan lapang (baik vegetatif maupun generatif) yang diperoleh tersebut ditunjang dengan data-data analisa tanah, daun dari lembaga penelitian yang bersangkutan.",
+      "Kerjasama penelitian dilakukan dengan berbagai institusi/lembaga penelitian terkemuka pada berbagai komoditas pertanian/perkebunan dan kehutanan secara komprehensif, antara lain :",
+    ],
+  },
+];

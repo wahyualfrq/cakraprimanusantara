@@ -9,19 +9,17 @@ export type Sertifikasi = {
 };
 
 // Sumber: CONTENT-SOURCE.md §7 "Sertifikasi & penghargaan" (ostindo.co.id +
-// PDF Company Profile) + §4 (item "Pencapaian" dari halaman Pengalaman Kami,
-// dipakai lagi di /portofolio kategori Pencapaian — Fase 6). Nomor dan masa
-// berlaku sertifikat: [GAP], tidak ditampilkan.
+// PDF Company Profile) + CONTENT-VERBATIM.md §B (item "Pencapaian" Best
+// Fertilizer 2016). Nomor dan masa berlaku sertifikat: [GAP], tidak
+// ditampilkan. `deskripsi` hanya diisi kalimat sumber — dikosongkan kalau tidak ada.
 export const sertifikasiList: Sertifikasi[] = [
   {
     slug: "sni",
     nama: "Sertifikat SNI",
-    deskripsi: "Sertifikat Standar Nasional Indonesia untuk produk Agribisnis.",
   },
   {
     slug: "sni-terbaru",
     nama: "Sertifikat SNI Terbaru",
-    deskripsi: "Pembaruan sertifikat SNI produk Agribisnis.",
   },
   {
     slug: "iopc-2014",
@@ -34,18 +32,17 @@ export const sertifikasiList: Sertifikasi[] = [
     nama: "Penghargaan Alih Teknologi LIPI",
     // penerbit: "LIPI",
     tahun: 2015,
+    // Milestone 2015, verbatim (CONTENT-VERBATIM.md §E4).
     deskripsi:
-      "Penghargaan atas lisensi invensi \"Komposisi Pembenah Tanah dan Penggunaannya untuk Lahan Kritis\".",
+      "Penghargaan Alih Teknologi (LISENSI) dari LIPI sebagai perusahaan penerima dan pengguna invensi : Komposisi Pembenah Tanah dan Penggunaannya untuk Lahan Kritis (produk OSTINDO)",
   },
   {
     slug: "iso-9001-2008",
     nama: "Sertifikat SNI ISO 9001:2008",
-    deskripsi: "Sertifikat sistem manajemen mutu, sumber: PDF Company Profile Ostindo.",
   },
   {
     slug: "best-fertilizer-2016",
     nama: "OSTINDO Kembali Mendapatkan Penghargaan Best Fertilizer 2016",
     tahun: 2016,
-    deskripsi: "Dicatat sebagai pencapaian, bukan proyek konstruksi — lihat /portofolio kategori Pencapaian.",
   },
 ];
