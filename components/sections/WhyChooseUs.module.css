@@ -1,25 +1,19 @@
-.section {
-  padding-block: var(--cpn-space-section);
-}
-
-.heading {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  font-weight: 800;
-  margin-bottom: var(--cpn-space-lg);
-}
-
+/* Nilai §G3 — baris tiga kolom: ikon + label + satu kalimat (DESIGN.md §7
+   "Value Prop Row"). Bukan kartu: tanpa latar/bayangan, dipisah garis tipis. */
 .row {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--cpn-space-xl);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-lg);
+  margin-top: var(--cpn-space-lg);
 }
 
 .item {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--cpn-space-sm);
-  flex: 1 1 12rem;
+  padding-top: var(--cpn-space-lg);
+  border-top: 1px solid var(--cpn-color-border);
 }
 
 .icon {
@@ -30,11 +24,26 @@
   height: 2.75rem;
   flex-shrink: 0;
   border-radius: var(--cpn-radius-full);
-  background-color: var(--cpn-glass-tint-bg);
-  border: 1px solid var(--cpn-glass-tint-border);
+  background-color: var(--cpn-green-100);
   color: var(--cpn-color-primary);
 }
 
 .label {
-  font-weight: 600;
+  font-family: var(--cpn-font-heading);
+  font-size: 1.25rem;
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: 1.25;
+}
+
+.description {
+  max-width: 36ch;
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
+}
+
+@media (min-width: 768px) {
+  .row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--cpn-space-xl);
+  }
 }

@@ -1,21 +1,17 @@
+import type { ComponentType } from "react";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { profil } from "@/content/profil";
 import styles from "./WhyChooseUs.module.css";
 
-// Sumber: "Jujur & Dipercaya" = nilai Ostindo (CONTENT-VERBATIM.md §G3);
-// "Sertifikat SNI" = nama dokumen di sumber (CONTENT-SOURCE.md §7; nomor dan
-// masa berlaku tidak ada di sumber); "Mitra Riset LIPI & BRIN" = kerja sama
-// LIPI (§E3, §E4) dan BRIN (§F).
-// Item "100+ Unit Armada" (tidak bersumber untuk Ostindo) dilepas di K4.
-// VERIFY: "Jujur & Dipercaya" vs larangan adjective kosong DESIGN.md §8.7.
-const values = [
-  { label: "Jujur & Dipercaya", Icon: ShieldCheckIcon },
-  { label: "Sertifikat SNI", Icon: CertificateIcon },
-  { label: "Mitra Riset LIPI & BRIN", Icon: MicroscopeIcon },
-];
+// Nilai PT Anugerah Mustika Ostindo — tiga nilai + deskripsi verbatim dari
+// CONTENT-VERBATIM.md §G3 (label judul sesuai catatan sumber).
+// VERIFY: "Jujur & Dipercaya" vs larangan adjective kosong DESIGN.md §8.7 —
+// label ini verbatim dari sumber, tidak diubah.
 
-// 1 icon style konsisten (outline, stroke-width 2, round cap/join) — tiap
-// icon representasi literal dari isi label di sebelahnya (DESIGN.md §8.3).
+// 1 icon style konsisten (outline, stroke-width 2, round cap/join) — tiap ikon
+// representasi literal dari nilainya (DESIGN.md §8.3).
 function ShieldCheckIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -37,65 +33,70 @@ function ShieldCheckIcon() {
   );
 }
 
-function CertificateIcon() {
+/** Peduli Lingkungan — daun. */
+function LeafIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="8" r="5" stroke="currentColor" strokeWidth="2" />
       <path
-        d="M9 12.5L7.5 21l4.5-2.5 4.5 2.5-1.5-8.5"
+        d="M5 19c0-8 5-14 15-15-1 10-7 15-15 15z"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+      <path d="M5 19c3-4 6-7 10-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/** Saling Membangun — dua orang (pelanggan dan mitra). */
+function PartnersIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="3" stroke="currentColor" strokeWidth="2" />
+      <circle cx="16.5" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
       <path
-        d="M9.5 8l1.5 1.5 3-3"
+        d="M2.5 19c0-3 2.5-5.5 5.5-5.5s5.5 2.5 5.5 5.5"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="2"
         strokeLinecap="round"
-        strokeLinejoin="round"
+      />
+      <path
+        d="M14.5 14.2c.6-.4 1.3-.7 2-.7 2.5 0 5 2 5 5"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
     </svg>
   );
 }
 
-function MicroscopeIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M9 21h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M12 21v-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path
-        d="M7.5 17.5a4.5 4.5 0 1 1 9 0"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M10 14V7a2 2 0 1 1 4 0v7"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path d="M9 7h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
+const ikonNilai: Record<string, ComponentType> = {
+  "Jujur & Dipercaya": ShieldCheckIcon,
+  "Peduli Lingkungan": LeafIcon,
+  "Saling Membangun": PartnersIcon,
+};
 
 export function WhyChooseUs() {
   return (
-    <Section className={styles.section}>
+    <Section>
       <Container>
-        <h2 className={styles.heading}>Kenapa Memilih Kami</h2>
+        <SectionHeading title={`Nilai ${profil.nama}`} />
         <ul className={styles.row}>
-          {values.map((item) => (
-            <li key={item.label} className={styles.item}>
-              <span className={styles.icon}>
-                <item.Icon />
-              </span>
-              <span className={styles.label}>{item.label}</span>
-            </li>
-          ))}
+          {profil.nilai.map((nilai) => {
+            const Icon = ikonNilai[nilai.label];
+            return (
+              <li key={nilai.label} className={styles.item}>
+                {Icon && (
+                  <span className={styles.icon}>
+                    <Icon />
+                  </span>
+                )}
+                <h3 className={styles.label}>{nilai.label}</h3>
+                <p className={styles.description}>{nilai.deskripsi}</p>
+              </li>
+            );
+          })}
         </ul>
       </Container>
     </Section>

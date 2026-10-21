@@ -1,0 +1,72 @@
+/* Split asimetris: judul + tautan di kiri, lini waktu di kanan (DESIGN.md §8.2). */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-lg);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cpn-space-md);
+}
+
+.link {
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-primary);
+  border-radius: var(--cpn-radius-md);
+}
+
+.link:hover {
+  color: var(--cpn-color-primary-hover);
+}
+
+.link:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+.timeline {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-xs);
+  padding-block: var(--cpn-space-md);
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.item:last-child {
+  border-bottom: 1px solid var(--cpn-color-border);
+}
+
+.year {
+  font-family: var(--cpn-font-heading);
+  font-size: 1.75rem;
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: 1.1;
+  color: var(--cpn-color-primary);
+}
+
+.desc {
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: var(--cpn-space-xl);
+  }
+
+  .item {
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: var(--cpn-space-lg);
+    align-items: baseline;
+  }
+}

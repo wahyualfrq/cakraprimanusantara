@@ -25,7 +25,7 @@ function LogoStrip({ label, items }: { label: string; items: string[] }) {
 
 export function ClientLogos() {
   return (
-    <Section className={styles.section}>
+    <Section>
       <Container className={styles.stack}>
         <LogoStrip label="Konsumen/Pelanggan" items={pelangganRow} />
       </Container>

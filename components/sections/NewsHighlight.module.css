@@ -1,245 +1,101 @@
-.section {
-  padding-block: var(--cpn-space-section);
-  background-color: var(--cpn-color-bg);
-}
-
 .header {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: var(--cpn-space-md);
-  margin-bottom: var(--cpn-space-xl);
+  gap: var(--cpn-space-sm) var(--cpn-space-lg);
+  margin-bottom: var(--cpn-space-lg);
 }
 
-.headerTitleGroup {
+.viewAll {
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-primary);
+  border-radius: var(--cpn-radius-md);
+}
+
+.viewAll:hover {
+  color: var(--cpn-color-primary-hover);
+}
+
+.viewAll:focus-visible,
+.titleLink:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+/* Daftar baris vertikal — bukan grid kartu (DESIGN.md §7, §8.11). */
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-md);
+  padding-block: var(--cpn-space-lg);
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.list li:last-child .row {
+  border-bottom: 1px solid var(--cpn-color-border);
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--cpn-radius-md);
+  overflow: hidden;
+  background-color: var(--cpn-color-surface);
+}
+
+.thumbImage {
+  object-fit: cover;
+}
+
+.body {
   display: flex;
   flex-direction: column;
   gap: var(--cpn-space-xs);
+}
+
+.date {
+  font-size: var(--cpn-text-small);
+  color: var(--cpn-color-text-muted);
 }
 
 .title {
   font-family: var(--cpn-font-heading);
-  font-size: clamp(1.75rem, 3vw, 2.375rem);
-  font-weight: 800;
+  font-size: 1.25rem;
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: 1.3;
+}
+
+.titleLink {
   color: var(--cpn-color-text);
-  line-height: 1.25;
+  border-radius: var(--cpn-radius-sm);
 }
 
-.viewAll {
-  font-weight: 600;
-  font-size: 0.9375rem;
-  color: var(--cpn-color-primary);
-  text-decoration: none;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: color 0.15s ease, transform 0.15s ease;
-  padding-bottom: 4px;
-}
-
-.viewAll:hover {
-  text-decoration: underline;
-  transform: translateX(2px);
-}
-
-/* ── GRID LAYOUT ────────────────────────────────────────────────────── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--cpn-space-lg);
-}
-
-/* ── CARD AKTIF ─────────────────────────────────────────────────────── */
-.cardActive {
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  border: 1px solid var(--cpn-color-border);
-  border-radius: var(--cpn-radius-md);
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.cardActive:hover {
-  border-color: var(--cpn-green-600);
-  box-shadow: 0 8px 24px rgba(1, 102, 37, 0.08);
-  transform: translateY(-3px);
-}
-
-.mediaFrame {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  background-color: var(--cpn-gray-100);
-  overflow: hidden;
-}
-
-.cardImage {
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.cardActive:hover .cardImage {
-  transform: scale(1.05);
-}
-
-.cardImageMuted {
-  object-fit: cover;
-  filter: grayscale(20%) opacity(85%);
-}
-
-.cardBody {
-  padding: var(--cpn-space-md) var(--cpn-space-md) var(--cpn-space-lg);
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: var(--cpn-space-xs);
-}
-
-.metaRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--cpn-space-xs);
-  margin-bottom: 4px;
-}
-
-/* Tipografi teks biasa, bukan badge/pill */
-.categoryText {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--cpn-color-primary);
-}
-
-.date {
-  font-size: 0.8125rem;
-  color: var(--cpn-color-text-muted);
-}
-
-.cardTitle {
-  font-family: var(--cpn-font-heading);
-  font-size: 1.0625rem;
-  font-weight: 700;
-  line-height: 1.4;
-  color: var(--cpn-color-text);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.cardTitleLink {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-.cardTitleLink:hover {
+.titleLink:hover {
   color: var(--cpn-color-primary);
 }
 
 .excerpt {
-  font-size: 0.875rem;
-  line-height: 1.55;
-  color: var(--cpn-gray-600);
+  max-width: 68ch;
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin-top: 2px;
-}
-
-.footer {
-  margin-top: auto;
-  padding-top: var(--cpn-space-sm);
-  border-top: 1px solid var(--cpn-gray-100);
-}
-
-.ctaLink {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--cpn-color-primary);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: transform 0.15s ease;
-}
-
-.ctaLink:hover {
-  text-decoration: underline;
-  transform: translateX(2px);
-}
-
-/* ── CARD DRAFT ─────────────────────────────────────────────────────── */
-.cardDraft {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--cpn-gray-50);
-  border: 1px solid var(--cpn-gray-200);
-  border-radius: var(--cpn-radius-md);
-  overflow: hidden;
-}
-
-/* Label status teks biasa, bukan pill */
-.statusDraftText {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--cpn-gray-500);
-}
-
-.cardTitleDraft {
-  font-family: var(--cpn-font-heading);
-  font-size: 1.0625rem;
-  font-weight: 700;
-  line-height: 1.4;
-  color: var(--cpn-gray-800);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.draftNotice {
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  color: var(--cpn-gray-500);
-  font-style: italic;
-  margin-top: 2px;
-}
-
-.draftNoticeFooter {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--cpn-gray-500);
-  font-style: italic;
-  display: inline-block;
-}
-
-/* ── RESPONSIVE BREAKPOINTS ─────────────────────────────────────────── */
-@media (max-width: 960px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .mediaFrame {
-    height: 180px;
+@media (min-width: 640px) {
+  .row {
+    grid-template-columns: 13.75rem minmax(0, 1fr);
+    gap: var(--cpn-space-lg);
+    align-items: center;
   }
 }

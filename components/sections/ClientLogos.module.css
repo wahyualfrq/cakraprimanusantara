@@ -1,12 +1,11 @@
-.section {
-  padding-block: var(--cpn-space-section);
-  background-color: var(--cpn-color-bg);
-}
-
+/* Client Logo Strip (DESIGN.md §7): wordmark teks grayscale, tanpa chip/pill,
+   dibatasi garis tipis — kesan trust bar editorial, bukan daftar besar. */
 .stack {
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-xl);
+  gap: var(--cpn-space-md);
+  padding-block: var(--cpn-space-lg);
+  border-block: 1px solid var(--cpn-color-border);
 }
 
 .row {
@@ -16,11 +15,11 @@
 }
 
 .rowLabel {
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
   color: var(--cpn-color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .list {
@@ -28,13 +27,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--cpn-space-lg) var(--cpn-space-xl);
+  gap: var(--cpn-space-sm) var(--cpn-space-lg);
 }
 
 .wordmark {
   color: var(--cpn-gray-500);
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: 0.8125rem;
+  font-weight: var(--cpn-font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
