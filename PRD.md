@@ -128,7 +128,7 @@ Dicatat di sini supaya tidak hilang dari radar. Daftar v0.1 (Trading, tahun berd
 2. **Nasib `/portofolio` dan studi kasus reklamasi Belitung.** Situs lama tidak punya halaman Portofolio. Isi saat ini: proyek Kontraktor (`OUT OF SCOPE`) dan studi kasus reklamasi lahan bekas tambang timah 114 ha, 2021–2023 (`content/agribisnis/studi-kasus.ts`) yang tidak ditemukan di sumber dokumen maupun situs resmi. Dari mana data studi kasus berasal, dan apakah halamannya dipertahankan?
 3. **Klaim lama usaha.** "Berdiri Juli 1995" bersumber (Akta No. 361, 31 Juli 1995). Klaim "lebih dari 25 tahun" (PDF) bertentangan dengan "20 tahun" (kemasan produk) dan tidak dipakai sampai dikonfirmasi (`CONTENT-SOURCE.md` §7).
 4. **Aset logo dan asal warna brand.** `DESIGN.md` mencatat `#016625` diambil dari logo (gear dan daun), yang tampaknya logo PT Cakra Prima Nusantara. Perlu aset logo Ostindo untuk memverifikasi. Nilai warna dipertahankan sampai ada bukti lain.
-5. **Font heading:** Fraunces (`DESIGN.md` §6, "final") atau Manrope (`app/layout.tsx`) — lihat `GAP-REPORT.md` §4.
+5. ~~**Font heading:** Fraunces (`DESIGN.md` §6, "final") atau Manrope (`app/layout.tsx`)~~ — **terselesaikan** (22 Oktober 2026, keputusan D1): Fraunces (heading) + Inter (body) di-load di `app/layout.tsx` pada tahap V1. Lihat `GAP-REPORT.md` §4.
 6. **Copy homepage.** Copy lama yang tercatat "disetujui" berisi copy holding dan tidak berlaku. Copy Ostindo belum ditulis atau disetujui (§11).
 7. **Isi asli 5 artikel berita draft** (`GAP-REPORT.md` §3, §7.1).
 

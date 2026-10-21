@@ -1,5 +1,6 @@
 :root {
-  /* Green scale — brand utama, dari logo (#016625 = green-700). DESIGN.md §2, sudah final. */
+  /* Green scale — brand utama (#016625 = green-700), nilai dipertahankan. Asal
+     "dari logo": VERIFY (DESIGN.md §2). Satu tema hijau untuk seluruh situs (§4). */
   --cpn-green-50: #f3fcf6;
   --cpn-green-100: #e2f9ea;
   --cpn-green-200: #bef4d1;
@@ -25,15 +26,10 @@
   --cpn-gray-900: #181d19;
   --cpn-gray-950: #0d110e;
 
-  /* Navy & orange — pendukung tema "konstruksi" (Kontraktor/Alat Berat/Trading).
-     MASIH PROPOSAL, belum di-approve eksplisit — lihat DESIGN.md §4 & §8. */
-  --cpn-navy-700: #16324f;
-  --cpn-navy-800: #0f2338;
-  --cpn-navy-100: #e7ecf1;
-  --cpn-orange-500: #f2994a;
-  --cpn-orange-600: #db7f2b;
+  /* Token navy & orange (tema "konstruksi") — dilepas dari pemakaian, lihat arsip
+     di bawah blok :root (DESIGN.md §4, OUT OF SCOPE). */
 
-  /* Token semantik — default Hub (Home, Tentang Kami, Kontak, Portofolio, Berita). */
+  /* Token semantik — satu tema hijau untuk seluruh halaman (DESIGN.md §4). */
   --cpn-color-primary: var(--cpn-green-700);
   --cpn-color-primary-hover: var(--cpn-green-800);
   --cpn-color-on-primary: #ffffff;
@@ -76,8 +72,38 @@
      (mis. link navbar glass) — lapisan kontras tambahan selain scrim. */
   --cpn-text-shadow-on-photo: 0 1px 3px rgba(0, 0, 0, 0.35);
 
-  --cpn-font-heading: var(--font-heading, system-ui, sans-serif);
+  /* Scrim hero full-bleed — gelap atas, lebih terang di tengah, paling gelap di
+     bawah (trust bar). Dipindah dari HeroSection.module.css, nilai sama (§5.3). */
+  --cpn-scrim-hero: linear-gradient(
+    180deg,
+    rgba(12, 20, 16, 0.55) 0%,
+    rgba(12, 20, 16, 0.4) 40%,
+    rgba(12, 20, 16, 0.75) 100%
+  );
+
+  /* Garis pemisah tipis di atas latar gelap/foto. */
+  --cpn-color-border-on-dark-subtle: rgba(255, 255, 255, 0.12);
+
+  /* Tipografi — DESIGN.md §6 (keputusan D1): heading Fraunces, body Inter, di-load
+     via next/font (app/layout.tsx). Fallback generik serif/sans, tanpa Georgia. */
+  --cpn-font-heading: var(--font-heading, ui-serif, serif);
   --cpn-font-body: var(--font-body, system-ui, sans-serif);
+
+  /* Skala ukuran teks. h1/h2 = nilai yang sudah dipakai PageHeader & SectionHeading. */
+  --cpn-text-h1: clamp(2rem, 1.6rem + 1.6vw, 2.75rem);
+  --cpn-text-h2: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
+  --cpn-text-lead: 1.0625rem;
+  --cpn-text-body: 1rem;
+  --cpn-text-small: 0.875rem;
+  --cpn-text-caption: 0.75rem;
+
+  --cpn-font-weight-regular: 400;
+  --cpn-font-weight-medium: 500;
+  --cpn-font-weight-semibold: 600;
+  --cpn-font-weight-bold: 700;
+
+  --cpn-line-height-heading: 1.15;
+  --cpn-line-height-body: 1.6;
 
   --cpn-space-xs: 0.25rem;
   --cpn-space-sm: 0.5rem;
@@ -85,7 +111,7 @@
   --cpn-space-lg: 2rem;
   --cpn-space-xl: 4rem;
   --cpn-space-2xl: 6rem;
-  --cpn-space-section: 6rem; /* padding vertikal standar tiap section, desktop — DESIGN.md §8.10 */
+  --cpn-space-section: 6rem; /* padding vertikal standar tiap section, desktop — DESIGN.md §8.10; versi mobile di bawah */
 
   --cpn-radius-sm: 4px;
   --cpn-radius-md: 8px;
@@ -99,23 +125,46 @@
      — dipakai komponen halaman dalam (mis. PageHeader) untuk reserve clearance,
      karena navbar position:fixed tidak mendorong <main> lewat document flow. */
   --cpn-navbar-height: 4rem;
+
+  /* Breakpoint rujukan (konvensi, STRUCTURE.md): 640px / 900px / 1200px.
+     Catatan: @media tidak bisa membaca var(), jadi nilai ini hanya rujukan untuk
+     menulis media query; penyeragaman media query yang ada dikerjakan di V6. */
+  --cpn-bp-sm: 640px;
+  --cpn-bp-md: 900px;
+  --cpn-bp-lg: 1200px;
 }
 
-/* Tema per unit usaha — di-scope lewat data-theme di layout.tsx masing-masing.
-   Hub & Agribisnis satu keluarga hijau; Kontraktor/Alat Berat/Trading pakai
-   navy+orange sebagai pembeda (masih proposal, DESIGN.md §4 & §8). */
-[data-theme="konstruksi"] {
-  --cpn-color-primary: var(--cpn-navy-700);
-  --cpn-color-primary-hover: var(--cpn-navy-800);
-  --cpn-color-accent: var(--cpn-orange-500);
-  --cpn-color-surface-tint: var(--cpn-navy-100);
+/* Ritme vertikal section di layar kecil — satu token, nilai lebih rapat (≤ --cpn-bp-sm). */
+@media (max-width: 640px) {
+  :root {
+    --cpn-space-section: 4rem;
+  }
 }
 
-[data-theme="agri"] {
-  --cpn-color-primary: var(--cpn-green-600);
-  --cpn-color-primary-hover: var(--cpn-green-700);
-  --cpn-color-accent: var(--cpn-green-400);
-}
+/* ARSIP — tema per unit usaha v0.1, TIDAK dipakai (DESIGN.md §4: satu tema hijau).
+   Disimpan sebagai komentar; dihapus hanya dengan persetujuan (Tahap H).
+
+   :root {
+     --cpn-navy-700: #16324f;
+     --cpn-navy-800: #0f2338;
+     --cpn-navy-100: #e7ecf1;
+     --cpn-orange-500: #f2994a;
+     --cpn-orange-600: #db7f2b;
+   }
+
+   [data-theme="konstruksi"] {
+     --cpn-color-primary: var(--cpn-navy-700);
+     --cpn-color-primary-hover: var(--cpn-navy-800);
+     --cpn-color-accent: var(--cpn-orange-500);
+     --cpn-color-surface-tint: var(--cpn-navy-100);
+   }
+
+   [data-theme="agri"] {
+     --cpn-color-primary: var(--cpn-green-600);
+     --cpn-color-primary-hover: var(--cpn-green-700);
+     --cpn-color-accent: var(--cpn-green-400);
+   }
+*/
 
 html {
   height: 100%;

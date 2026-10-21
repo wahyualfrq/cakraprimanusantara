@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
-import { Manrope, Inter } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SITE_NAME, SITE_URL } from "@/lib/seo/metadata";
 import { organizationSchema } from "@/lib/seo/structured-data";
 
-// Manrope (heading) + Inter (body) — sans-serif tegas & profesional, lebih
-// sesuai untuk company profile konstruksi/alat berat dibanding serif italic.
-const fontHeading = Manrope({
+// Tipografi DESIGN.md §6 (keputusan D1): Fraunces untuk heading, Inter untuk
+// body. Fraunces di-load sebagai variable font dengan style italic ASLI dan axis
+// optical size (opsz) — italic aksen tidak boleh fake/synthetic (§6.1).
+const fontHeading = Fraunces({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
 });
 
 const fontBody = Inter({

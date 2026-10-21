@@ -18,7 +18,8 @@
   justify-content: center;
   overflow: hidden;
   box-sizing: border-box;
-  padding-top: calc(4.5rem + var(--cpn-space-md));
+  /* Clearance navbar fixed (4rem) + 0.5rem — nilai sama dengan 4.5rem sebelumnya. */
+  padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-sm) + var(--cpn-space-md));
   padding-bottom: var(--cpn-space-xl);
 }
 
@@ -36,12 +37,7 @@
 .scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(12, 20, 16, 0.55) 0%,
-    rgba(12, 20, 16, 0.4) 40%,
-    rgba(12, 20, 16, 0.75) 100%
-  );
+  background: var(--cpn-scrim-hero);
 }
 
 .content {
@@ -74,8 +70,9 @@
   display: block;
 }
 
+/* Satu kata aksen per headline hero, italic ASLI Fraunces (DESIGN.md §6.1). */
 .accentWord {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--cpn-font-heading);
   font-style: italic;
   font-weight: 500;
 }
@@ -100,7 +97,7 @@
   margin-top: var(--cpn-space-xl);
   padding-top: var(--cpn-space-md);
   padding-bottom: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--cpn-color-border-on-dark-subtle);
 }
 
 .trust {
@@ -140,7 +137,7 @@
 
 @media (min-width: 601px) {
   .frame {
-    padding-top: calc(4.5rem + var(--cpn-space-xl));
+    padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-sm) + var(--cpn-space-xl));
     padding-bottom: var(--cpn-space-2xl);
   }
 

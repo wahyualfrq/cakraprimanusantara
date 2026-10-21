@@ -19,15 +19,16 @@
   color: var(--cpn-color-primary);
 }
 
+/* H2 Fraunces semibold, tanpa italic (DESIGN.md §6.1). */
 .title {
   font-family: var(--cpn-font-heading);
-  font-size: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
-  font-weight: 600;
+  font-size: var(--cpn-text-h2);
+  font-weight: var(--cpn-font-weight-semibold);
   line-height: 1.2;
   color: var(--cpn-color-text);
 }
 
 .description {
-  font-size: 1rem;
+  font-size: var(--cpn-text-body);
   color: var(--cpn-color-text-muted);
 }

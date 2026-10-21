@@ -50,9 +50,9 @@
 
 .title {
   font-family: var(--cpn-font-heading);
-  font-size: clamp(2rem, 1.6rem + 1.6vw, 2.75rem);
-  font-weight: 700;
-  line-height: 1.15;
+  font-size: var(--cpn-text-h1);
+  font-weight: var(--cpn-font-weight-bold);
+  line-height: var(--cpn-line-height-heading);
 }
 
 .title em {
@@ -61,7 +61,7 @@
 
 .description {
   max-width: 48ch;
-  font-size: 1.0625rem;
+  font-size: var(--cpn-text-lead);
   opacity: 0.85;
 }
 

@@ -12,11 +12,9 @@ type PageHeaderProps = {
   /**
    * Satu kata di `title` yang dapat treatment italic aksen (DESIGN.md §6.1,
    * maks. satu kata, hanya kalau maknanya organik/tumbuh — bukan struktural).
-   * PERHATIAN: font heading aktif saat ini Manrope (app/layout.tsx), bukan
-   * Fraunces seperti ditulis DESIGN.md §6 — Manrope di-load tanpa style
-   * italic asli, jadi prop ini untuk sekarang akan render fake/synthetic
-   * italic yang dilarang §6.1. Lihat GAP-REPORT.md. Jangan dipakai sebelum
-   * konflik font ini diselesaikan.
+   * Font heading Fraunces di-load dengan style italic asli (app/layout.tsx,
+   * keputusan D1), jadi italic di sini bukan fake italic. Aturan §6.1 tetap
+   * berlaku: hanya headline utama halaman, bukan judul section (H2).
    */
   accentWord?: string;
   description?: string;

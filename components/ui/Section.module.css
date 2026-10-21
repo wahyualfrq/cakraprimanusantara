@@ -1,3 +1,4 @@
+/* Ritme vertikal default — satu token untuk semua section (DESIGN.md §8.10). */
 .section {
-  padding-block: var(--cpn-space-xl);
+  padding-block: var(--cpn-space-section);
 }

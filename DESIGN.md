@@ -126,7 +126,7 @@ Liquid glass butuh radius lebih besar dari default UI biasa:
 - **Heading**: **Fraunces** (variable serif, tersedia di Google Fonts, punya italic asli). Dipilih karena karakter "soft serif"-nya: cukup terstruktur untuk terasa solid dan profesional sebagai website perusahaan, tapi bentuk hurufnya organik/hangat sehingga sejalan dengan bidang usaha Ostindo (pupuk hayati, pertanian). Referensi visual yang dilampirkan pemilik proyek (LawnBuster) juga memakai aksen serif italic pada headline-nya (§10). Alasan lama "echo dualitas gear+daun di logo" dan "cocok sisi konstruksi & industrial" `OUT OF SCOPE`.
 - **Body**: **Inter** — tidak berubah, tetap dipakai untuk body text, UI label, caption.
 
-> **Konflik dokumen vs kode (belum diputuskan):** `app/layout.tsx` memuat **Manrope** (tanpa style italic) untuk heading, dengan komentar yang merujuk "konstruksi/alat berat". Keputusan "final" di atas **tidak diubah** dalam revisi ini. Selama konflik belum diputuskan, prop `accentWord` di `PageHeader` tidak boleh dipakai karena akan menghasilkan fake-italic (dilarang §6.1). Lihat `GAP-REPORT.md` §4 dan `PRD.md` §9 poin 5.
+> **Konflik dokumen vs kode — selesai (22 Oktober 2026, keputusan D1, tahap V1):** `app/layout.tsx` kini memuat **Fraunces** (variable, style normal + italic asli, axis `opsz`) untuk heading dan **Inter** untuk body; Manrope dan fallback Georgia di aksen hero dihapus. `accentWord` di `PageHeader` boleh dipakai sesuai aturan §6.1. Riwayat konflik: `GAP-REPORT.md` §4.
 
 ### 6.1 Headline Typographic Treatment (wajib dipakai di semua headline besar)
 
@@ -265,7 +265,7 @@ Setiap tipe halaman punya struktur sendiri, supaya website tidak terasa seperti 
 - [x] Konsep visual — clean, modern, liquid glass
 - [x] Tema tunggal hijau (§4), menggantikan strategi tema per unit usaha v0.1
 - [x] Prinsip anti-AI-slop visual — §8, berlaku untuk semua halaman
-- [x] **Tipografi** — Fraunces (heading, italic accent §6.1) + Inter (body) tetap menjadi keputusan di dokumen ini. Konflik dengan kode (Manrope) **belum diputuskan** (§6)
+- [x] **Tipografi** — Fraunces (heading, italic accent §6.1) + Inter (body). Konflik dengan kode (Manrope) **selesai** di tahap V1 (keputusan D1, §6)
 - [ ] Aset logo Ostindo untuk memverifikasi warna brand (`PRD.md` §9 poin 4)
 - [ ] Scope italic accent: hanya headline hero (aturan saat ini, §6.1) atau juga judul section seperti pada gambar referensi (§10)
 - [ ] Nasib `/portofolio` dan pola *Portfolio Card* (`PRD.md` §9 poin 2)

@@ -154,7 +154,12 @@ kemungkinan tanggal "terakhir diubah" CMS, bukan tanggal terbit asli. Field
 
 ## 4. Catatan teknis untuk fase berikutnya
 
-- **Konflik font** (tetap aktif; relevan untuk Ostindo — lihat juga PRD §9
+- **Konflik font** — **SELESAI (22 Oktober 2026, keputusan D1, tahap V1):**
+  `app/layout.tsx` kini memuat Fraunces (variable, style normal + italic asli,
+  axis `opsz`) + Inter; Manrope dan fallback Georgia dihapus; `accentWord`
+  boleh dipakai sesuai DESIGN.md §6.1. Catatan asli dipertahankan di bawah
+  sebagai riwayat.
+  *(Riwayat)* (relevan untuk Ostindo — lihat juga PRD §9
   poin 5 dan DESIGN.md §6): `app/layout.tsx` (tidak boleh diedit di fase ini) memakai
   **Manrope** untuk `--font-heading`, dengan komentar "lebih sesuai untuk
   company profile konstruksi/alat berat dibanding serif italic". Ini
