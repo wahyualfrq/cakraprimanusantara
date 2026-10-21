@@ -1,18 +1,12 @@
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
+import { pelangganList } from "@/content/agribisnis/pelanggan";
 import styles from "./ClientLogos.module.css";
 
-// TODO: ganti dengan logo asli (foto) begitu aset tersedia — pindahkan ke content/klien.ts.
-const klienRow = [
-  "Astra Agro Lestari",
-  "PTPN",
-  "Perhutani",
-  "PT Sampoerna Agro",
-  "PT Bukit Asam",
-  "PT PP Persero",
-];
-
-const mitraRow = ["Komatsu", "Caterpillar", "Jotun", "BASF", "Eneos", "LiuGong"];
+// Daftar Konsumen/Pelanggan Ostindo (PDF Company Profile, CONTENT-SOURCE.md §7)
+// sebagai wordmark teks, bukan logo (DESIGN.md §7). Baris "Mitra Distribusi"
+// (merek trading di luar scope) dilepas di K4.
+const pelangganRow = pelangganList.map((p) => p.nama);
 
 function LogoStrip({ label, items }: { label: string; items: string[] }) {
   return (
@@ -33,8 +27,7 @@ export function ClientLogos() {
   return (
     <Section className={styles.section}>
       <Container className={styles.stack}>
-        <LogoStrip label="Dipercaya oleh" items={klienRow} />
-        <LogoStrip label="Mitra Distribusi" items={mitraRow} />
+        <LogoStrip label="Konsumen/Pelanggan" items={pelangganRow} />
       </Container>
     </Section>
   );

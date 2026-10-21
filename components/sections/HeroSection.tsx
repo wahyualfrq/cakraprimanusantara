@@ -1,16 +1,16 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { PillButton } from "@/components/ui/PillButton";
+import { heroInterim } from "@/content/profil";
+import { pelangganList } from "@/content/agribisnis/pelanggan";
 import styles from "./HeroSection.module.css";
 
-// TODO: pindahkan ke content/klien.ts begitu migrasi konten berjalan.
-const trustLogos = [
-  "Astra Agro Lestari",
-  "PTPN",
-  "Perhutani",
-  "PT Sampoerna Agro",
-  "PT Bukit Asam",
-];
+// Nama dari strip lama yang tercantum di Daftar Konsumen/Pelanggan Ostindo
+// (content/agribisnis/pelanggan.ts), dengan ejaan sumber. Pilihan nama final
+// mengikuti copy beranda (D2).
+// VERIFY: izin klien untuk menampilkan nama pelanggan pada strip "Dipercaya oleh".
+const NAMA_STRIP = ["Astra Agro Lestari Group", "PT Perkebunan Nusantara", "Perhutani"];
+const trustLogos = pelangganList.filter((p) => NAMA_STRIP.includes(p.nama)).map((p) => p.nama);
 
 /**
  * Hero full-bleed, layout centered — headline + sub-headline + 1 CTA +
@@ -21,9 +21,10 @@ export function HeroSection() {
     <section className={styles.hero}>
       <div className={styles.frame}>
         <div className={styles.media}>
+          {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
           <Image
-            src="/images/hero-section.png"
-            alt="Proyek konstruksi dan alat berat PT Cakra Prima Nusantara"
+            src="/images/gambar-4.png"
+            alt="Ilustrasi kebun kelapa sawit dan lahan tanaman pertanian"
             fill
             priority
             sizes="100vw"
@@ -34,20 +35,19 @@ export function HeroSection() {
 
         <Container className={styles.content}>
           <div className={styles.copy}>
+            {/* INTERIM — copy belum disetujui (D2), dibaca dari content/profil.ts. */}
             <h1 className={styles.headline}>
-              <span className={styles.headlineLine}>Membangun Infrastruktur.</span>
+              <span className={styles.headlineLine}>{heroInterim.judulAwal}</span>
               <span className={styles.headlineLine}>
-                <em className={styles.accentWord}>Menumbuhkan</em> Agribisnis.
+                <em className={styles.accentWord}>{heroInterim.kataAksen}</em>{" "}
+                {heroInterim.judulAkhir}
               </span>
             </h1>
 
-            <p className={styles.subheadline}>
-              Beroperasi dari Sumatera Selatan dan Jakarta, dengan produk agribisnis yang telah
-              menjangkau seluruh Indonesia sejak 1995.
-            </p>
+            <p className={styles.subheadline}>{heroInterim.subjudul}</p>
 
-            <PillButton href="#unit-usaha" variant="glass" className={styles.cta}>
-              Lihat Unit Usaha
+            <PillButton href={heroInterim.ctaUtama.href} variant="glass" className={styles.cta}>
+              {heroInterim.ctaUtama.label}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M5 12h14M13 6l6 6-6 6"

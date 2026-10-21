@@ -6,91 +6,57 @@ import { getBeritaBySlug } from "@/lib/content/berita";
 import { formatTanggalIndonesia } from "@/lib/tanggal";
 import styles from "./NewsHighlight.module.css";
 
-type ActiveNewsItem = {
-  isDraft: false;
+// Tanpa label kategori: sumber tidak memberi kategori per artikel ("Pencapaian"
+// di CONTENT-VERBATIM.md §B hanya label navigasi usulan; "Riset & Pengembangan"
+// hanya judul section §E3).
+type NewsHighlightSlot = {
   slug: string;
-  judul: string;
-  tanggal: string;
-  kategori: string;
-  excerpt: string;
+  /** Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */
   image: string;
   imageAlt: string;
 };
 
-type DraftNewsItem = {
-  isDraft: true;
-  slug: string;
-  judul: string;
-  kategori: string;
-  statusLabel: string;
-  notice: string;
-  image: string;
-  imageAlt: string;
-};
-
-type NewsHighlightItem = ActiveNewsItem | DraftNewsItem;
+// Judul, tanggal, dan excerpt diambil dari MDX (lib/content/berita.ts) — tidak
+// ada teks cadangan karangan. Artikel draft tampil judulnya saja, tanpa tautan.
+const slots: NewsHighlightSlot[] = [
+  {
+    slug: "kerjasama-brin-teknologi-pestisida",
+    image: "/images/gambar-9.png",
+    imageAlt: "Ilustrasi riset agronomi — pengujian tanaman di laboratorium",
+  },
+  {
+    slug: "kerjasama-dengan-lipi",
+    image: "/images/gambar-11.png",
+    imageAlt: "Ilustrasi pengujian produk pertanian di lapangan",
+  },
+  {
+    slug: "penghargaan-best-fertilizer-2016",
+    image: "/images/gambar-12.png",
+    imageAlt: "Ilustrasi piala penghargaan dan produk pupuk",
+  },
+];
 
 export function NewsHighlight() {
-  const brinEntry = getBeritaBySlug("kerjasama-brin-teknologi-pestisida");
-  const lipiEntry = getBeritaBySlug("kerjasama-dengan-lipi");
-  const awardEntry = getBeritaBySlug("penghargaan-best-fertilizer-2016");
-
-  // Komposisi 3 kartu warta korporat di homepage:
-  // 1 & 2: Artikel aktif dengan link menuju slug detail masing-masing.
-  // 3: Arsip penghargaan Best Fertilizer 2016 sebagai catatan arsip/persiapan (tanpa link 404).
-  const items: NewsHighlightItem[] = [
-    {
-      isDraft: false,
-      slug: "kerjasama-brin-teknologi-pestisida",
-      judul: brinEntry?.meta.judul ?? "Kolaborasi BRIN & OSTINDO dalam Formulasi Biopestisida",
-      tanggal: brinEntry?.meta.tanggal ? formatTanggalIndonesia(brinEntry.meta.tanggal) : "5 Juni 2023",
-      kategori: "Agribisnis · Kemitraan",
-      excerpt:
-        brinEntry?.meta.excerpt ??
-        "Kerja sama Pusat Riset Mikrobiologi Terapan BRIN dengan PT Anugerah Mustika Ostindo dalam pengembangan pestisida ramah lingkungan.",
-      image: "/images/gambar-9.png",
-      imageAlt: "Ilustrasi riset agronomi — pengujian tanaman di laboratorium",
-    },
-    {
-      isDraft: false,
-      slug: "kerjasama-dengan-lipi",
-      judul: lipiEntry?.meta.judul ?? "Kerjasama dengan LIPI",
-      tanggal: lipiEntry?.meta.tanggal ? formatTanggalIndonesia(lipiEntry.meta.tanggal) : "22 Agustus 2016",
-      kategori: "Agribisnis · Litbang",
-      excerpt:
-        lipiEntry?.meta.excerpt ??
-        "Penyubur tanah OSTINDO melalui serangkaian kerja sama pengujian berkelanjutan bersama lembaga penelitian nasional.",
-      image: "/images/gambar-11.png",
-      imageAlt: "Ilustrasi pengujian produk pertanian di lapangan",
-    },
-    {
-      isDraft: true,
-      slug: "penghargaan-best-fertilizer-2016",
-      judul: awardEntry?.meta.judul ?? "OSTINDO kembali Mendapatkan Penghargaan Best Fertilizer 2016",
-      kategori: "Pencapaian · Agribisnis",
-      statusLabel: "Dokumentasi Arsip",
-      notice:
-        "Dokumentasi arsip penghargaan unit agribisnis OSTINDO. Naskah rilis pers lengkap sedang dipersiapkan.",
-      image: "/images/gambar-12.png",
-      imageAlt: "Ilustrasi piala penghargaan Best Fertilizer 2016 dan produk pupuk OSTINDO",
-    },
-  ];
+  const items = slots.flatMap((slot) => {
+    const entry = getBeritaBySlug(slot.slug);
+    return entry ? [{ ...slot, meta: entry.meta }] : [];
+  });
 
   return (
     <Section className={styles.section}>
       <Container>
         <div className={styles.header}>
           <div className={styles.headerTitleGroup}>
-            <h2 className={styles.title}>Berita & Inovasi Terkini</h2>
+            <h2 className={styles.title}>Berita</h2>
           </div>
           <Link href="/berita" className={styles.viewAll}>
-            Lihat Semua Berita (7) →
+            Lihat Semua Berita →
           </Link>
         </div>
 
         <div className={styles.grid}>
           {items.map((item) => {
-            if (!item.isDraft) {
+            if (!item.meta.draft) {
               return (
                 <article key={item.slug} className={styles.cardActive}>
                   <div className={styles.mediaFrame}>
@@ -104,18 +70,21 @@ export function NewsHighlight() {
                   </div>
 
                   <div className={styles.cardBody}>
-                    <div className={styles.metaRow}>
-                      <span className={styles.categoryText}>{item.kategori}</span>
-                      <time className={styles.date}>{item.tanggal}</time>
-                    </div>
+                    {item.meta.tanggal && (
+                      <div className={styles.metaRow}>
+                        <time dateTime={item.meta.tanggal} className={styles.date}>
+                          {formatTanggalIndonesia(item.meta.tanggal)}
+                        </time>
+                      </div>
+                    )}
 
                     <h3 className={styles.cardTitle}>
                       <Link href={`/berita/${item.slug}`} className={styles.cardTitleLink}>
-                        {item.judul}
+                        {item.meta.judul}
                       </Link>
                     </h3>
 
-                    <p className={styles.excerpt}>{item.excerpt}</p>
+                    {item.meta.excerpt && <p className={styles.excerpt}>{item.meta.excerpt}</p>}
 
                     <div className={styles.footer}>
                       <Link href={`/berita/${item.slug}`} className={styles.ctaLink}>
@@ -127,7 +96,7 @@ export function NewsHighlight() {
               );
             }
 
-            // Kartu Draft / Arsip: Tipografi murni, tanpa link 404, status informatif
+            // Kartu draft: judul saja, tanpa tautan (halaman detail draft = 404).
             return (
               <article key={item.slug} className={styles.cardDraft}>
                 <div className={styles.mediaFrame}>
@@ -141,20 +110,11 @@ export function NewsHighlight() {
                 </div>
 
                 <div className={styles.cardBody}>
-                  <div className={styles.metaRow}>
-                    <span className={styles.categoryText}>{item.kategori}</span>
-                    <span className={styles.statusDraftText}>Dalam Persiapan</span>
-                  </div>
+                  <h3 className={styles.cardTitleDraft}>{item.meta.judul}</h3>
 
-                  <h3 className={styles.cardTitleDraft}>{item.judul}</h3>
+                  <p className={styles.draftNotice}>Naskah belum tersedia.</p>
 
-                  <p className={styles.draftNotice}>{item.notice}</p>
-
-                  <div className={styles.footer}>
-                    <span className={styles.draftNoticeFooter}>
-                      Naskah Sedang Dipersiapkan
-                    </span>
-                  </div>
+                  <div className={styles.footer} />
                 </div>
               </article>
             );

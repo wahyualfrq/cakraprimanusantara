@@ -1,25 +1,23 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
+import { heroInterim, penutupInterim } from "@/content/profil";
 import styles from "./ClosingCta.module.css";
 
 export function ClosingCta() {
   return (
     <Section className={styles.ctaSection}>
       <Container>
+        {/* INTERIM — copy belum disetujui (D2), dibaca dari content/profil.ts. */}
         <div className={styles.ctaCard}>
-          <h2 className={styles.ctaTitle}>
-            Siap Bermitra untuk Solusi Proyek & Industri Anda
-          </h2>
-          <p className={styles.ctaText}>
-            Tim kami siap membantu kebutuhan konstruksi, alat berat, distribusi material, atau agribisnis Anda.
-          </p>
+          <h2 className={styles.ctaTitle}>{penutupInterim.judul}</h2>
+          <p className={styles.ctaText}>{penutupInterim.teks}</p>
           <div className={styles.ctaActions}>
-            <Link href="/portofolio" className={styles.ctaPrimary}>
-              Lihat Portofolio Proyek
+            <Link href={heroInterim.ctaUtama.href} className={styles.ctaPrimary}>
+              {heroInterim.ctaUtama.label}
             </Link>
-            <Link href="/kontak" className={styles.ctaSecondary}>
-              Hubungi Kami
+            <Link href={heroInterim.ctaSekunder.href} className={styles.ctaSecondary}>
+              {heroInterim.ctaSekunder.label}
             </Link>
           </div>
         </div>

@@ -2,12 +2,16 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import styles from "./WhyChooseUs.module.css";
 
-// TODO: pindahkan ke content/ begitu migrasi konten berjalan.
+// Sumber: "Jujur & Dipercaya" = nilai Ostindo (CONTENT-VERBATIM.md §G3);
+// "Sertifikat SNI" = nama dokumen di sumber (CONTENT-SOURCE.md §7; nomor dan
+// masa berlaku tidak ada di sumber); "Mitra Riset LIPI & BRIN" = kerja sama
+// LIPI (§E3, §E4) dan BRIN (§F).
+// Item "100+ Unit Armada" (tidak bersumber untuk Ostindo) dilepas di K4.
+// VERIFY: "Jujur & Dipercaya" vs larangan adjective kosong DESIGN.md §8.7.
 const values = [
   { label: "Jujur & Dipercaya", Icon: ShieldCheckIcon },
-  { label: "Bersertifikasi SNI", Icon: CertificateIcon },
+  { label: "Sertifikat SNI", Icon: CertificateIcon },
   { label: "Mitra Riset LIPI & BRIN", Icon: MicroscopeIcon },
-  { label: "100+ Unit Armada Siap Kerja", Icon: TruckIcon },
 ];
 
 // 1 icon style konsisten (outline, stroke-width 2, round cap/join) — tiap
@@ -74,29 +78,6 @@ function MicroscopeIcon() {
         strokeLinejoin="round"
       />
       <path d="M9 7h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function TruckIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M2.5 7.5h10v9h-10z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M12.5 10.5h4l3.5 3.5v3h-7.5z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="6.5" cy="18" r="1.7" stroke="currentColor" strokeWidth="2" />
-      <circle cx="17" cy="18" r="1.7" stroke="currentColor" strokeWidth="2" />
     </svg>
   );
 }
