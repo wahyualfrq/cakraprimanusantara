@@ -21,8 +21,20 @@
   opacity: 0.7;
 }
 
+.item a {
+  border-radius: var(--cpn-radius-sm);
+}
+
 .item a:hover {
   opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.item a:focus-visible {
+  opacity: 1;
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
 }
 
 .item span[aria-current="page"] {

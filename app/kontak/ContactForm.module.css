@@ -1,14 +1,16 @@
-
+/* Form kontak — label di atas field, border field kontras ≥ 3:1 (WCAG 1.4.11),
+   error per field (teks + border), cincin fokus token. Tanpa backend. */
 .form {
   display: flex;
   flex-direction: column;
   gap: var(--cpn-space-md);
   width: 100%;
-  max-width: 40rem;
-  margin-inline: auto;
-  box-sizing: border-box;
 }
 
+.hint {
+  font-size: var(--cpn-text-small);
+  color: var(--cpn-color-text-muted);
+}
 
 .field {
   display: flex;
@@ -17,31 +19,65 @@
 }
 
 .field label {
-  font-weight: 600;
-  font-size: 0.875rem;
+  font-weight: var(--cpn-font-weight-semibold);
+  font-size: var(--cpn-text-small);
   color: var(--cpn-color-text);
 }
 
 .field input,
-.field select,
 .field textarea {
   font: inherit;
   padding: var(--cpn-space-sm) var(--cpn-space-md);
-  border: 1px solid var(--cpn-color-border);
-  border-radius: var(--cpn-radius-sm);
+  border: 1px solid var(--cpn-color-border-field);
+  border-radius: var(--cpn-radius-md);
   background-color: var(--cpn-color-bg);
   color: var(--cpn-color-text);
 }
 
+.field input:hover,
+.field textarea:hover {
+  border-color: var(--cpn-color-text-muted);
+}
+
 .field input:focus-visible,
-.field select:focus-visible,
 .field textarea:focus-visible {
-  outline: 2px solid var(--cpn-color-primary);
-  outline-offset: 1px;
+  outline: 2px solid transparent;
+  border-color: var(--cpn-color-primary);
+  box-shadow: var(--cpn-focus-ring);
 }
 
 .field textarea {
   resize: vertical;
+}
+
+/* Field tidak valid: border merah + pesan teks (tidak hanya warna). */
+.field .invalid {
+  border-color: var(--cpn-color-danger);
+}
+
+.error {
+  font-size: var(--cpn-text-small);
+  font-weight: var(--cpn-font-weight-medium);
+  color: var(--cpn-color-danger);
+}
+
+.summary {
+  font-size: var(--cpn-text-small);
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-danger);
+}
+
+/* Tetap dibaca pembaca layar, tidak tampil saat kosong. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .actions {
@@ -58,7 +94,7 @@
   padding: var(--cpn-space-sm) var(--cpn-space-lg);
   border-radius: var(--cpn-radius-full);
   font: inherit;
-  font-weight: 600;
+  font-weight: var(--cpn-font-weight-semibold);
   font-size: 0.9375rem;
   cursor: pointer;
   background-color: transparent;
@@ -71,7 +107,12 @@
   background-color: var(--cpn-color-surface-tint);
 }
 
+.btnSecondary:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
 .note {
-  font-size: 0.8125rem;
+  font-size: var(--cpn-text-caption);
   color: var(--cpn-color-text-muted);
 }

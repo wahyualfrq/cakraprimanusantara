@@ -60,12 +60,13 @@ export default async function BeritaDetailPage({ params }: PageProps) {
 
       <article className={styles.articlePage}>
         <Container className={styles.articleContainer}>
-          {/* 1. Breadcrumb Beranda / Berita */}
+          {/* 1. Breadcrumb Beranda / Berita / judul artikel (item aktif = halaman ini) */}
           <div className={styles.breadcrumbWrapper}>
             <Breadcrumb
               items={[
                 { label: "Beranda", href: "/" },
                 { label: "Berita", href: "/berita" },
+                { label: meta.judul, href: `/berita/${meta.slug}` },
               ]}
             />
           </div>
@@ -124,7 +125,8 @@ export default async function BeritaDetailPage({ params }: PageProps) {
             <div className={styles.ctaBox}>
               {/* Tanpa kalimat deskriptif karangan (aturan CONTENT-VERBATIM.md #3). */}
               <div className={styles.ctaContent}>
-                <h3 className={styles.ctaHeading}>Hubungi Kami</h3>
+                {/* h2: heading pertama setelah h1 (isi MDX tidak memakai heading). */}
+                <h2 className={styles.ctaHeading}>Hubungi Kami</h2>
               </div>
               <Link href="/kontak" className={styles.ctaButton}>
                 Hubungi Kami

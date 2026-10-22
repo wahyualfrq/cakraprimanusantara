@@ -134,34 +134,26 @@ export default function KontakPage() {
         ]}
         title="Hubungi Kami"
         description={profil.pembukaKontak}
-        align="center"
       />
 
-      {/* 2. Formulir Kirim Pesan */}
-      <Section className={styles.formSection}>
-        <Container>
-          <div className={styles.formSectionHeader}>
-            <h2 className={styles.formSectionTitle}>Kirim Pesan kepada Kami</h2>
+      {/* 2. Form + direktori lokasi Ostindo (DESIGN.md §8.11 "Kontak") */}
+      <Section>
+        <Container className={styles.layout}>
+          <div className={styles.formColumn}>
+            <SectionHeading title="Kirim Pesan kepada Kami" />
+            <ContactForm />
           </div>
 
-          <ContactForm />
-        </Container>
-      </Section>
-
-      {/* 3. Lokasi Ostindo: Office & Factory */}
-      <Section className={styles.locationsSection}>
-        <Container>
-          <div className={styles.locationsHeader}>
-            <SectionHeading title="Lokasi" />
-          </div>
-
-          <div className={styles.group}>
-            <div className={styles.cardGrid}>
+          <aside className={styles.locations} aria-labelledby="lokasi-ostindo">
+            <h2 id="lokasi-ostindo" className={styles.locationsTitle}>
+              Lokasi
+            </h2>
+            <div className={styles.cardList}>
               {lokasiOstindo.map((lokasi) => (
                 <LokasiCard key={lokasi.slug} lokasi={lokasi} />
               ))}
             </div>
-          </div>
+          </aside>
         </Container>
       </Section>
     </>

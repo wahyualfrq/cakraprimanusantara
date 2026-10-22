@@ -131,9 +131,21 @@
   --cpn-navbar-bar-height: calc(var(--cpn-navbar-logo-height) + 2 * var(--cpn-space-xs));
   --cpn-navbar-height: calc(var(--cpn-navbar-offset) + var(--cpn-navbar-bar-height));
 
+  /* Clearance awal halaman dalam — satu token untuk PageHeader, artikel, dan
+     404, supaya jarak di bawah navbar mengambang disengaja dan seragam. */
+  --cpn-page-top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
+
+  /* Lebar baca teks panjang (paragraf, artikel). */
+  --cpn-measure: 68ch;
+
   /* Cincin fokus keyboard — ganda (putih lalu hijau) supaya terlihat di atas
      latar terang maupun foto gelap. Dipakai lewat :focus-visible. */
   --cpn-focus-ring: 0 0 0 2px var(--cpn-color-bg), 0 0 0 4px var(--cpn-color-primary);
+
+  /* Pesan error form — kontras 6.57:1 di atas putih (WCAG AA). */
+  --cpn-color-danger: #b42318;
+  /* Border field form — kontras ±4:1 terhadap putih (WCAG 1.4.11, ≥ 3:1). */
+  --cpn-color-border-field: var(--cpn-gray-500);
 
   /* Breakpoint rujukan (konvensi, STRUCTURE.md): 640px / 900px / 1200px.
      Catatan: @media tidak bisa membaca var(), jadi nilai ini hanya rujukan untuk

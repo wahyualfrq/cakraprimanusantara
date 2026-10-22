@@ -1,24 +1,28 @@
+/* 404 — clearance navbar memakai token bersama halaman dalam (--cpn-page-top);
+   tipografi selaras dengan H1 halaman dalam. */
 .section {
-  padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-xl));
+  padding-top: var(--cpn-page-top);
 }
 
 .code {
   font-family: var(--cpn-font-heading);
   font-size: 0.9375rem;
-  font-weight: 700;
+  font-weight: var(--cpn-font-weight-semibold);
   color: var(--cpn-color-primary);
 }
 
 .title {
   font-family: var(--cpn-font-heading);
-  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
-  font-weight: 700;
+  font-size: var(--cpn-text-h1);
+  font-weight: var(--cpn-font-weight-bold);
+  line-height: var(--cpn-line-height-heading);
   margin-block: var(--cpn-space-sm) var(--cpn-space-md);
 }
 
 .description {
+  max-width: var(--cpn-measure);
+  line-height: var(--cpn-line-height-body);
   color: var(--cpn-color-text-muted);
-  max-width: 40rem;
   margin-bottom: var(--cpn-space-lg);
 }
 
@@ -30,6 +34,16 @@
 }
 
 .kontakLink {
+  font-weight: var(--cpn-font-weight-semibold);
   color: var(--cpn-color-primary);
-  font-weight: 600;
+  border-radius: var(--cpn-radius-sm);
+}
+
+.kontakLink:hover {
+  color: var(--cpn-color-primary-hover);
+}
+
+.kontakLink:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
 }

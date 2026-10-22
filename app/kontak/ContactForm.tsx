@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { PillButton } from "@/components/ui/PillButton";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { lokasiList } from "@/content/kontak";
@@ -22,6 +22,9 @@ type FormState = {
   pesan: string;
 };
 
+type Kolom = keyof FormState;
+type Errors = Partial<Record<Kolom, string>>;
+
 const initialState: FormState = {
   nama: "",
   email: "",
@@ -29,6 +32,29 @@ const initialState: FormState = {
   subjek: "",
   pesan: "",
 };
+
+// Label field = istilah form sumber (CONTENT-VERBATIM.md §H1).
+const LABEL: Record<Kolom, string> = {
+  nama: "Nama Anda",
+  email: "Alamat Email",
+  telepon: "Nomor Telp",
+  subjek: "Subjek",
+  pesan: "Pesan",
+};
+
+const URUTAN: Kolom[] = ["nama", "email", "telepon", "subjek", "pesan"];
+
+// Validasi sederhana di sisi klien (tanpa backend) — pesan error = teks UI.
+function validasi(form: FormState): Errors {
+  const errors: Errors = {};
+  for (const kolom of URUTAN) {
+    if (!form[kolom].trim()) errors[kolom] = `${LABEL[kolom]} wajib diisi.`;
+  }
+  if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+    errors.email = "Format alamat email belum benar.";
+  }
+  return errors;
+}
 
 function buildMessageBody(form: FormState): string {
   return [
@@ -41,25 +67,41 @@ function buildMessageBody(form: FormState): string {
   ].join("\n");
 }
 
-export function ContactForm() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [form, setForm] = useState<FormState>(initialState);
+const fieldId = (kolom: Kolom) => `kontak-${kolom}`;
+const errorId = (kolom: Kolom) => `kontak-${kolom}-error`;
 
-  function updateField<K extends keyof FormState>(key: K, value: FormState[K]) {
-    setForm((prev) => ({ ...prev, [key]: value }));
+export function ContactForm() {
+  const [form, setForm] = useState<FormState>(initialState);
+  const [errors, setErrors] = useState<Errors>({});
+  const [pernahKirim, setPernahKirim] = useState(false);
+  const [status, setStatus] = useState("");
+
+  function updateField(kolom: Kolom, value: string) {
+    const next = { ...form, [kolom]: value };
+    setForm(next);
+    // Setelah percobaan kirim pertama, error diperbarui saat pengguna mengetik.
+    if (pernahKirim) setErrors(validasi(next));
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    // Tombol pengirim sebenarnya ada di luar <form> submit default — ini
-    // hanya guard supaya Enter di field teks tidak men-submit browser-native.
+    // Tombol kirim ada di luar submit default — guard supaya Enter tidak men-submit.
     event.preventDefault();
   }
 
   function handleKirim(kanal: "whatsapp" | "email") {
-    if (!formRef.current?.reportValidity()) return;
+    setPernahKirim(true);
+    const hasil = validasi(form);
+    setErrors(hasil);
+
+    const salah = URUTAN.filter((kolom) => hasil[kolom]);
+    if (salah.length > 0) {
+      setStatus(`Ada ${salah.length} kolom yang perlu diperbaiki.`);
+      document.getElementById(fieldId(salah[0]))?.focus();
+      return;
+    }
+    setStatus("");
 
     const body = buildMessageBody(form);
-
     if (kanal === "whatsapp") {
       window.open(buildWhatsAppUrl(tujuan.nomor, body), "_blank", "noopener,noreferrer");
     } else {
@@ -68,67 +110,49 @@ export function ContactForm() {
     }
   }
 
+  function renderField(kolom: Kolom, input: "input" | "textarea", type = "text") {
+    const error = errors[kolom];
+    const common = {
+      id: fieldId(kolom),
+      name: kolom,
+      required: true,
+      value: form[kolom],
+      "aria-invalid": error ? true : undefined,
+      "aria-describedby": error ? errorId(kolom) : undefined,
+      className: error ? styles.invalid : undefined,
+    };
+
+    return (
+      <div className={styles.field}>
+        <label htmlFor={fieldId(kolom)}>{LABEL[kolom]}</label>
+        {input === "textarea" ? (
+          <textarea {...common} rows={5} onChange={(event) => updateField(kolom, event.target.value)} />
+        ) : (
+          <input {...common} type={type} onChange={(event) => updateField(kolom, event.target.value)} />
+        )}
+        {error && (
+          <p id={errorId(kolom)} className={styles.error}>
+            {error}
+          </p>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className={styles.form} noValidate={false}>
-      <div className={styles.field}>
-        <label htmlFor="kontak-nama">Nama Anda</label>
-        <input
-          id="kontak-nama"
-          name="nama"
-          type="text"
-          required
-          value={form.nama}
-          onChange={(event) => updateField("nama", event.target.value)}
-        />
-      </div>
+    <form onSubmit={handleSubmit} className={styles.form} noValidate>
+      <p className={styles.hint}>Semua kolom wajib diisi.</p>
 
-      <div className={styles.field}>
-        <label htmlFor="kontak-email">Alamat Email</label>
-        <input
-          id="kontak-email"
-          name="email"
-          type="email"
-          required
-          value={form.email}
-          onChange={(event) => updateField("email", event.target.value)}
-        />
-      </div>
+      {renderField("nama", "input")}
+      {renderField("email", "input", "email")}
+      {renderField("telepon", "input", "tel")}
+      {renderField("subjek", "input")}
+      {renderField("pesan", "textarea")}
 
-      <div className={styles.field}>
-        <label htmlFor="kontak-telepon">Nomor Telp</label>
-        <input
-          id="kontak-telepon"
-          name="telepon"
-          type="tel"
-          required
-          value={form.telepon}
-          onChange={(event) => updateField("telepon", event.target.value)}
-        />
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="kontak-subjek">Subjek</label>
-        <input
-          id="kontak-subjek"
-          name="subjek"
-          type="text"
-          required
-          value={form.subjek}
-          onChange={(event) => updateField("subjek", event.target.value)}
-        />
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="kontak-pesan">Pesan</label>
-        <textarea
-          id="kontak-pesan"
-          name="pesan"
-          required
-          rows={5}
-          value={form.pesan}
-          onChange={(event) => updateField("pesan", event.target.value)}
-        />
-      </div>
+      {/* Ringkasan error dibacakan pembaca layar (aria-live). */}
+      <p role="status" aria-live="polite" className={status ? styles.summary : styles.srOnly}>
+        {status}
+      </p>
 
       <div className={styles.actions}>
         <PillButton type="button" onClick={() => handleKirim("whatsapp")}>

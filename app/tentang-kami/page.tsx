@@ -4,7 +4,6 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { DefinitionList } from "@/components/ui/DefinitionList";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { profil } from "@/content/profil";
 import { milestoneList } from "@/content/agribisnis/milestone";
@@ -15,6 +14,8 @@ import styles from "./page.module.css";
 // §G5, §G6) dan milestoneList (§E4). content/tentang-kami.ts (profil holding)
 // dan StatsSection (angka tanpa sumber) dilepas dari render — file dipertahankan.
 // Sekapur Sirih (§G7) opsional, belum ditampilkan sampai disetujui.
+// Struktur (DESIGN.md §8.11 "Tentang"): tiap section beda struktur dari
+// tetangganya; satu section ber-tint (Milestone).
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
@@ -26,7 +27,23 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
+function DaftarButir({ items }: { items: string[] }) {
+  return (
+    <ul className={styles.bullets}>
+      {items.map((butir) => (
+        <li key={butir}>{butir}</li>
+      ))}
+    </ul>
+  );
+}
+
 export default function TentangKamiPage() {
+  const fakta = [
+    { label: "Berdiri", nilai: profil.berdiri.teks },
+    { label: "Kantor", nilai: profil.kedudukan.kantor },
+    { label: "Pabrik", nilai: profil.kedudukan.pabrik },
+  ];
+
   return (
     <>
       <PageHeader
@@ -39,33 +56,32 @@ export default function TentangKamiPage() {
       />
 
       {/* 1. Profil perusahaan — §E1 */}
-      <Section className={styles.overviewSection}>
-        <Container>
-          <div className={styles.overviewGrid}>
-            <div className={styles.overviewMedia}>
-              {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
-              <Image
-                src={ilustrasi.rumahKaca.src}
-                alt={ilustrasi.rumahKaca.alt}
-                fill
-                sizes="(max-width: 900px) 100vw, 50vw"
-                className={styles.overviewImage}
-              />
-            </div>
+      <Section>
+        <Container className={styles.profileGrid}>
+          <div className={styles.profileMedia}>
+            {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
+            <Image
+              src={ilustrasi.rumahKaca.src}
+              alt={ilustrasi.rumahKaca.alt}
+              fill
+              sizes="(max-width: 900px) 100vw, 40vw"
+              className={styles.cover}
+            />
+          </div>
 
-            <div className={styles.overviewCopy}>
-              <SectionHeading title={profil.nama} />
-              <DefinitionList
-                items={[
-                  { label: "Berdiri", description: profil.berdiri.teks },
-                  { label: "Kantor", description: profil.kedudukan.kantor },
-                  { label: "Pabrik", description: profil.kedudukan.pabrik },
-                ]}
-              />
+          <div className={styles.profileCopy}>
+            <SectionHeading title={profil.nama} />
+            <dl className={styles.facts}>
+              {fakta.map((item) => (
+                <div key={item.label}>
+                  <dt className={styles.factLabel}>{item.label}</dt>
+                  <dd className={styles.factValue}>{item.nilai}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className={styles.prose}>
               {profil.narasi.map((paragraf) => (
-                <p key={paragraf} className={styles.overviewText}>
-                  {paragraf}
-                </p>
+                <p key={paragraf}>{paragraf}</p>
               ))}
             </div>
           </div>
@@ -73,100 +89,84 @@ export default function TentangKamiPage() {
       </Section>
 
       {/* 2. Nilai — §G3 (label sesuai catatan sumber) */}
-      <Section className={styles.pillarsSection}>
+      <Section>
         <Container>
           <SectionHeading title={`Nilai ${profil.nama}`} />
-
-          <div className={styles.pillarsGrid}>
+          <ul className={styles.values}>
             {profil.nilai.map((nilai) => (
-              <div key={nilai.label} className={styles.pillarCard}>
-                <div className={styles.pillarHeader}>
-                  <h3 className={styles.pillarTitle}>{nilai.label}</h3>
-                </div>
-                <p className={styles.pillarDesc}>{nilai.deskripsi}</p>
-              </div>
+              <li key={nilai.label} className={styles.value}>
+                <h3 className={styles.valueTitle}>{nilai.label}</h3>
+                <p className={styles.valueText}>{nilai.deskripsi}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </Container>
       </Section>
 
-      {/* 3. Milestone — §E4 */}
-      <Section className={styles.timelineSection}>
+      {/* 3. Milestone — §E4 (satu-satunya section ber-tint) */}
+      <Section className={styles.milestoneSection}>
         <Container>
           <SectionHeading title="Milestone" />
-          <div className={styles.timelineList}>
+          <ol className={styles.timeline}>
             {milestoneList.map((item) => (
-              <div key={item.tahun} className={styles.timelineItem}>
-                <div className={styles.timelineHeader}>
-                  <span className={styles.timelineYear}>{item.tahun}</span>
-                </div>
-                <p className={styles.timelineDesc}>{item.deskripsi}</p>
-              </div>
+              <li key={item.tahun} className={styles.timelineItem}>
+                <span className={styles.year}>{item.tahun}</span>
+                <p className={styles.timelineText}>{item.deskripsi}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </Container>
       </Section>
 
       {/* 4. Misi dan visi — §G5 */}
-      <Section className={styles.holdingAdvantageSection}>
+      <Section>
         <Container>
           <SectionHeading title="Misi dan Visi" />
-
-          <div className={styles.holdingPillarsGrid}>
-            <div className={styles.holdingPillarCard}>
-              <h3 className={styles.holdingPillarTitle}>Misi Kami</h3>
-              <ul className={styles.pillarFeatures}>
-                {profil.misi.map((butir) => (
-                  <li key={butir} className={styles.pillarFeatureItem}>
-                    <span className={styles.pillarFeatureBullet} aria-hidden="true">
-                      •
-                    </span>
-                    <span>{butir}</span>
-                  </li>
-                ))}
-              </ul>
+          <div className={styles.missionGrid}>
+            <div>
+              <h3 className={styles.subTitle}>Misi Kami</h3>
+              <DaftarButir items={profil.misi} />
             </div>
-
-            <div className={styles.holdingPillarCard}>
-              <h3 className={styles.holdingPillarTitle}>Visi Kami</h3>
-              <ul className={styles.pillarFeatures}>
-                {profil.visi.map((butir) => (
-                  <li key={butir} className={styles.pillarFeatureItem}>
-                    <span className={styles.pillarFeatureBullet} aria-hidden="true">
-                      •
-                    </span>
-                    <span>{butir}</span>
-                  </li>
-                ))}
-              </ul>
+            <div>
+              <h3 className={styles.subTitle}>Visi Kami</h3>
+              <DaftarButir items={profil.visi} />
             </div>
-
-            <div className={styles.holdingPillarCard}>
-              <h3 className={styles.holdingPillarTitle}>Visi Perusahaan</h3>
-              <p className={styles.holdingPillarDesc}>{profil.visiPerusahaan}</p>
-            </div>
+          </div>
+          <div className={styles.vision}>
+            <h3 className={styles.subTitle}>Visi Perusahaan</h3>
+            <p className={styles.visionText}>{profil.visiPerusahaan}</p>
           </div>
         </Container>
       </Section>
 
-      {/* 5. Inovasi perusahaan — §G6; Legalitas — §G2 (jenis dokumen saja) */}
+      {/* 5. Inovasi perusahaan — §G6 */}
       <Section>
-        <Container>
-          <SectionHeading title="Inovasi Perusahaan" />
-          <p className={styles.overviewText}>{profil.inovasi}</p>
+        <Container className={styles.innovationGrid}>
+          <div className={styles.innovationCopy}>
+            <SectionHeading title="Inovasi Perusahaan" />
+            <p className={styles.prose}>{profil.inovasi}</p>
+          </div>
+          <div className={styles.innovationMedia}>
+            {/* Ilustrasi sementara (D4) — bukan dokumentasi fasilitas Ostindo. */}
+            <Image
+              src={ilustrasi.laboratorium.src}
+              alt={ilustrasi.laboratorium.alt}
+              fill
+              sizes="(max-width: 900px) 100vw, 40vw"
+              className={styles.cover}
+            />
+          </div>
         </Container>
       </Section>
 
+      {/* 6. Legalitas — §G2 (jenis dokumen saja) */}
       <Section>
         <Container>
           <SectionHeading title="Legalitas" description={profil.legalitas.pengantar} />
-          <ul className={styles.pillarFeatures}>
+          <ul className={styles.legalList}>
             {profil.legalitas.daftar.map((dokumen) => (
-              <li key={dokumen} className={styles.pillarFeatureItem}>
-                <span className={styles.pillarFeatureBullet} aria-hidden="true">
-                  •
-                </span>
-                <span>{dokumen}</span>
+              <li key={dokumen} className={styles.legalItem}>
+                {dokumen}
               </li>
             ))}
           </ul>

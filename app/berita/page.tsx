@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ContentImage } from "@/components/ui/ContentImage";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBeritaInSourceOrder, getBeritaBySlug } from "@/lib/content/berita";
@@ -26,10 +27,11 @@ const ILUSTRASI_BERITA: Record<string, Ilustrasi> = {
   "kerjasama-dengan-lipi": ilustrasi.rumahKaca,
 };
 
+// Struktur Berita (DESIGN.md §8.11): artikel utama + arsip berbaris — bukan grid
+// kartu. Hanya artikel yang isinya genuine (bukan draft), urutan sumber; artikel
+// draft tetap notFound() di halaman detail dan tidak masuk sitemap.
 export default function BeritaPage() {
   const featured = getBeritaBySlug("kerjasama-brin-teknologi-pestisida");
-  // Hanya artikel yang isinya genuine (bukan draft), urutan sumber. Artikel draft
-  // tetap notFound() di halaman detail dan tidak masuk sitemap.
   const terbit = getBeritaInSourceOrder().filter((entry) => !entry.meta.draft);
   const ilustrasiUnggulan = featured ? ILUSTRASI_BERITA[featured.meta.slug] : undefined;
 
@@ -44,25 +46,33 @@ export default function BeritaPage() {
         title="Berita"
       />
 
-      {/* ── ARTIKEL UNGGULAN ───────────────────────────────────────────── */}
+      {/* ── ARTIKEL UNGGULAN ─────────────────────────────────────────── */}
       {featured && !featured.meta.draft && (
-        <Section className={styles.featuredSection}>
+        <Section>
           <Container>
-            <article className={styles.featuredCard}>
-              <div className={styles.featuredContent}>
+            <article className={styles.featured}>
+              {ilustrasiUnggulan && (
+                <div className={styles.featuredMedia}>
+                  <Image
+                    src={ilustrasiUnggulan.src}
+                    alt={ilustrasiUnggulan.alt}
+                    fill
+                    sizes="(min-width: 900px) 560px, 100vw"
+                    className={styles.cover}
+                    priority
+                  />
+                </div>
+              )}
+
+              <div className={styles.featuredBody}>
                 {featured.meta.tanggal && (
-                  <div className={styles.featuredMetaRow}>
-                    <time dateTime={featured.meta.tanggal} className={styles.featuredDate}>
-                      {formatTanggalIndonesia(featured.meta.tanggal)}
-                    </time>
-                  </div>
+                  <time dateTime={featured.meta.tanggal} className={styles.date}>
+                    {formatTanggalIndonesia(featured.meta.tanggal)}
+                  </time>
                 )}
 
                 <h2 className={styles.featuredTitle}>
-                  <Link
-                    href={`/berita/${featured.meta.slug}`}
-                    className={styles.featuredTitleLink}
-                  >
+                  <Link href={`/berita/${featured.meta.slug}`} className={styles.titleLink}>
                     {featured.meta.judul}
                   </Link>
                 </h2>
@@ -71,101 +81,68 @@ export default function BeritaPage() {
                   <p className={styles.featuredExcerpt}>{featured.meta.excerpt}</p>
                 )}
 
-                <div className={styles.featuredCtaRow}>
-                  <Link
-                    href={`/berita/${featured.meta.slug}`}
-                    className={styles.featuredButton}
-                  >
-                    Baca Artikel Lengkap →
-                  </Link>
-                </div>
+                <Link href={`/berita/${featured.meta.slug}`} className={styles.readMore}>
+                  Baca Artikel Lengkap →
+                </Link>
               </div>
-
-              {ilustrasiUnggulan && (
-                <div className={styles.featuredMedia}>
-                  <figure className={styles.featuredFigure}>
-                    <div className={styles.featuredMediaFrame}>
-                      <Image
-                        src={ilustrasiUnggulan.src}
-                        alt={ilustrasiUnggulan.alt}
-                        fill
-                        sizes="(min-width: 1024px) 540px, 100vw"
-                        className={styles.featuredImage}
-                        priority
-                      />
-                    </div>
-                  </figure>
-                </div>
-              )}
             </article>
           </Container>
         </Section>
       )}
 
-      {/* ── SEMUA ARTIKEL TERBIT ───────────────────────────────────────── */}
-      <Section className={styles.archiveSection}>
+      {/* ── SEMUA ARTIKEL TERBIT — arsip berbaris ────────────────────── */}
+      <Section>
         <Container>
-          <div className={styles.archiveHeader}>
-            <div>
-              <h2 className={styles.sectionTitle}>Semua Berita</h2>
-            </div>
-          </div>
+          <SectionHeading title="Semua Berita" />
 
-          <div className={styles.archiveGrid}>
+          <ul className={styles.list}>
             {terbit.map((entry) => {
               const { meta } = entry;
-              const ilustrasi = ILUSTRASI_BERITA[meta.slug];
+              const gambar = ILUSTRASI_BERITA[meta.slug];
 
               return (
-                <article key={meta.slug} className={styles.cardActive}>
-                  <div className={styles.cardMedia}>
-                    {ilustrasi ? (
-                      <div className={styles.mediaWrapper}>
+                <li key={meta.slug}>
+                  <article className={styles.row}>
+                    <div className={styles.thumb}>
+                      {gambar ? (
                         <Image
-                          src={ilustrasi.src}
-                          alt={ilustrasi.alt}
+                          src={gambar.src}
+                          alt={gambar.alt}
                           fill
-                          sizes="(min-width: 900px) 400px, 100vw"
-                          className={styles.cardImage}
+                          sizes="(min-width: 640px) 220px, 100vw"
+                          className={styles.cover}
                         />
-                      </div>
-                    ) : (
-                      <ContentImage
-                        alt={meta.fotoAlt ?? meta.judul}
-                        variant="berita"
-                        fill
-                        sizes="(min-width: 900px) 400px, 100vw"
-                      />
-                    )}
-                  </div>
+                      ) : (
+                        <ContentImage
+                          alt={meta.fotoAlt ?? meta.judul}
+                          variant="berita"
+                          fill
+                          sizes="(min-width: 640px) 220px, 100vw"
+                        />
+                      )}
+                    </div>
 
-                  <div className={styles.cardBody}>
-                    {meta.tanggal && (
-                      <div className={styles.cardMeta}>
-                        <time dateTime={meta.tanggal} className={styles.cardDate}>
+                    <div className={styles.rowBody}>
+                      {meta.tanggal && (
+                        <time dateTime={meta.tanggal} className={styles.date}>
                           {formatTanggalIndonesia(meta.tanggal)}
                         </time>
-                      </div>
-                    )}
-
-                    <h3 className={styles.cardTitle}>
-                      <Link href={`/berita/${meta.slug}`} className={styles.cardTitleLink}>
-                        {meta.judul}
-                      </Link>
-                    </h3>
-
-                    {meta.excerpt && <p className={styles.cardExcerpt}>{meta.excerpt}</p>}
-
-                    <div className={styles.cardFooter}>
-                      <Link href={`/berita/${meta.slug}`} className={styles.readMoreLink}>
+                      )}
+                      <h3 className={styles.rowTitle}>
+                        <Link href={`/berita/${meta.slug}`} className={styles.titleLink}>
+                          {meta.judul}
+                        </Link>
+                      </h3>
+                      {meta.excerpt && <p className={styles.rowExcerpt}>{meta.excerpt}</p>}
+                      <Link href={`/berita/${meta.slug}`} className={styles.readMore}>
                         Baca Selengkapnya →
                       </Link>
                     </div>
-                  </div>
-                </article>
+                  </article>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </Container>
       </Section>
     </>

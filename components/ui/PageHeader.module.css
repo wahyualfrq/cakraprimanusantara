@@ -1,6 +1,7 @@
 .header {
   position: relative;
-  padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
+  /* Clearance navbar mengambang — token bersama halaman dalam. */
+  padding-top: var(--cpn-page-top);
   padding-bottom: var(--cpn-space-xl);
   overflow: hidden;
 }
