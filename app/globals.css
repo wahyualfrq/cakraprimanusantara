@@ -208,6 +208,13 @@
   }
 }
 
+/* Ritme vertikal section di layar kecil — satu token, nilai lebih rapat (≤ --cpn-bp-sm). */
+@media (max-width: 640px) {
+  :root {
+    --cpn-space-section: 4rem;
+  }
+}
+
 html {
   height: 100%;
   /* Elemen yang di-scroll ke tampilan (Tab, anchor) tidak berhenti di balik
