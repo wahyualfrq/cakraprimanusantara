@@ -4,12 +4,16 @@ import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ContentImage } from "@/components/ui/ContentImage";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
+import { kontakLink } from "@/components/layout/navLinks";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getBeritaInSourceOrder, getBeritaBySlug } from "@/lib/content/berita";
+import { getBeritaInSourceOrder } from "@/lib/content/berita";
+import { ilustrasiBerita } from "@/lib/content/berita-ilustrasi";
 import { formatTanggalIndonesia } from "@/lib/tanggal";
-import { ilustrasi, type Ilustrasi } from "@/content/ilustrasi";
+import { lokasiList } from "@/content/kontak";
 import styles from "./page.module.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -21,23 +25,19 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-// Ilustrasi sementara (D4) — bukan dokumentasi kegiatan; tanpa caption. Hanya untuk
-// artikel unggulan (DESIGN.md §12.6 INTERIM); baris arsip tanpa thumbnail.
-const ILUSTRASI_UNGGULAN: Record<string, Ilustrasi> = {
-  "kerjasama-brin-teknologi-pestisida": ilustrasi.laboratorium,
-};
-const SLUG_UNGGULAN = "kerjasama-brin-teknologi-pestisida";
+// Instagram resmi = satu-satunya sosmed terverifikasi (content/kontak.ts, Office).
+const instagram = lokasiList
+  .flatMap((lokasi) => lokasi.kontak ?? [])
+  .find((item) => item.tipe === "instagram" && !item.perluVerifikasi)?.nilai;
 
-// Struktur DESIGN.md v0.4 §13.6: artikel unggulan (split-media 5:7) → "Berita lainnya"
-// (baris S5, tanpa artikel unggulan; disembunyikan bila kosong). Hanya artikel terbit,
-// urutan sumber; draft tetap notFound() di halaman detail dan tidak masuk sitemap.
+// Berita (DESIGN.md v0.4 §13.6, diperkaya): komposisi majalah — artikel unggulan besar
+// dengan teks di atas gambar | artikel lain sebagai card vertikal. Hanya artikel terbit,
+// urutan sumber; tiap artikel tampil sekali. Tanpa kategori/penulis (tidak ada di sumber).
+// Empty state bila belum ada artikel terbit.
 export default function BeritaPage() {
-  const featured = getBeritaBySlug(SLUG_UNGGULAN);
-  const tampilkanUnggulan = Boolean(featured && !featured.meta.draft);
-  const lainnya = getBeritaInSourceOrder().filter(
-    (entry) => !entry.meta.draft && !(tampilkanUnggulan && entry.meta.slug === SLUG_UNGGULAN),
-  );
-  const gambarUnggulan = featured ? ILUSTRASI_UNGGULAN[featured.meta.slug] : undefined;
+  const terbit = getBeritaInSourceOrder().filter((entry) => !entry.meta.draft);
+  const [unggulan, ...lainnya] = terbit;
+  const gambarUnggulan = unggulan ? ilustrasiBerita[unggulan.meta.slug] : undefined;
 
   return (
     <>
@@ -50,67 +50,111 @@ export default function BeritaPage() {
         title="Berita"
       />
 
-      {featured && tampilkanUnggulan && (
-        <Section aria-label="Artikel unggulan">
-          <Container>
-            <article className={styles.featured}>
-              <Link href={`/berita/${featured.meta.slug}`} className={styles.featuredLink}>
-                {gambarUnggulan && (
+      <Section aria-label="Daftar berita">
+        <Container>
+          {unggulan ? (
+            <div className={styles.magazine}>
+              <article className={styles.featured}>
+                <Link href={`/berita/${unggulan.meta.slug}`} className={styles.featuredLink}>
                   <span className={styles.featuredMedia}>
-                    <Image
-                      src={gambarUnggulan.src}
-                      alt={gambarUnggulan.alt}
-                      fill
-                      sizes="(min-width: 1200px) 450px, (min-width: 900px) 38vw, calc(100vw - 2rem)"
-                      className={styles.cover}
-                      // Elemen LCP /berita/ di 360 & 1440 → preload + prioritas tinggi (diukur Tahap O).
-                      preload
-                      fetchPriority="high"
-                    />
+                    {gambarUnggulan ? (
+                      <Image
+                        src={gambarUnggulan.src}
+                        alt={gambarUnggulan.alt}
+                        fill
+                        sizes="(min-width: 1200px) 740px, (min-width: 900px) 62vw, calc(100vw - 2rem)"
+                        className={styles.cover}
+                        // Elemen LCP /berita/ di 360 & 1440 → preload + prioritas tinggi (diukur Tahap O).
+                        preload
+                        fetchPriority="high"
+                      />
+                    ) : (
+                      <ContentImage alt="" variant="berita" fill sizes="62vw" />
+                    )}
+                    <span className={styles.featuredScrim} aria-hidden="true" />
                   </span>
-                )}
-
-                <span className={styles.featuredBody}>
-                  {featured.meta.tanggal && (
-                    <time dateTime={featured.meta.tanggal} className={styles.date}>
-                      {formatTanggalIndonesia(featured.meta.tanggal)}
-                    </time>
-                  )}
-                  <h2 className={styles.featuredTitle}>{featured.meta.judul}</h2>
-                  {featured.meta.excerpt && <span className={styles.featuredExcerpt}>{featured.meta.excerpt}</span>}
-                  <span className={styles.readMore}>
-                    Baca artikel lengkap <span aria-hidden="true">→</span>
-                  </span>
-                </span>
-              </Link>
-            </article>
-          </Container>
-        </Section>
-      )}
-
-      {lainnya.length > 0 && (
-        <Section aria-labelledby="berita-lainnya">
-          <Container className={styles.archive}>
-            <SectionHeading title="Berita lainnya" id="berita-lainnya" />
-            <Reveal as="ul" stagger className={styles.list}>
-              {lainnya.map(({ meta }) => (
-                <li key={meta.slug}>
-                  <Link href={`/berita/${meta.slug}`} className={styles.row}>
-                    {meta.tanggal && (
-                      <time dateTime={meta.tanggal} className={styles.date}>
-                        {formatTanggalIndonesia(meta.tanggal)}
+                  <span className={styles.featuredBody}>
+                    <span className={styles.badge}>Artikel unggulan</span>
+                    {unggulan.meta.tanggal && (
+                      <time dateTime={unggulan.meta.tanggal} className={styles.featuredDate}>
+                        {formatTanggalIndonesia(unggulan.meta.tanggal)}
                       </time>
                     )}
-                    <span className={styles.rowMain}>
-                      <h3 className={styles.rowTitle}>{meta.judul}</h3>
-                      {meta.excerpt && <span className={styles.rowExcerpt}>{meta.excerpt}</span>}
-                    </span>
-                    <span className={styles.arrow} aria-hidden="true">
-                      →
-                    </span>
-                  </Link>
-                </li>
-              ))}
+                    <h2 className={styles.featuredTitle}>{unggulan.meta.judul}</h2>
+                    {unggulan.meta.excerpt && (
+                      <span className={styles.featuredExcerpt}>{unggulan.meta.excerpt}</span>
+                    )}
+                    <span className={styles.featuredMore}>Baca artikel lengkap</span>
+                  </span>
+                </Link>
+              </article>
+
+              {lainnya.length > 0 && (
+                <Reveal as="ul" stagger className={styles.side} aria-label="Berita lainnya">
+                  {lainnya.map(({ meta }) => {
+                    const gambar = ilustrasiBerita[meta.slug];
+                    return (
+                      <li key={meta.slug}>
+                        <article>
+                          <Link href={`/berita/${meta.slug}`} className={styles.card}>
+                            <span className={styles.cardMedia}>
+                              {gambar ? (
+                                <Image
+                                  src={gambar.src}
+                                  alt={gambar.alt}
+                                  fill
+                                  sizes="(min-width: 1200px) 380px, (min-width: 900px) 30vw, calc(100vw - 2rem)"
+                                  className={styles.cover}
+                                />
+                              ) : (
+                                <ContentImage alt="" variant="berita" fill sizes="30vw" />
+                              )}
+                            </span>
+                            <span className={styles.cardBody}>
+                              {meta.tanggal && (
+                                <time dateTime={meta.tanggal} className={styles.date}>
+                                  {formatTanggalIndonesia(meta.tanggal)}
+                                </time>
+                              )}
+                              <h2 className={styles.cardTitle}>{meta.judul}</h2>
+                              {meta.excerpt && <span className={styles.cardExcerpt}>{meta.excerpt}</span>}
+                              <span className={styles.cardMore}>Baca artikel</span>
+                            </span>
+                          </Link>
+                        </article>
+                      </li>
+                    );
+                  })}
+                </Reveal>
+              )}
+            </div>
+          ) : (
+            <Card className={styles.empty}>
+              <h2 className={styles.emptyTitle}>Belum ada berita yang diterbitkan.</h2>
+              <Button href={kontakLink.href}>{kontakLink.label}</Button>
+            </Card>
+          )}
+        </Container>
+      </Section>
+
+      {instagram && (
+        <Section tone="muted" aria-labelledby="instagram-judul">
+          <Container>
+            <Reveal className={styles.follow}>
+              <div className={styles.followText}>
+                <p className={styles.followLabel}>Instagram</p>
+                <h2 id="instagram-judul" className={styles.followTitle}>
+                  Ikuti {instagram} di Instagram
+                </h2>
+              </div>
+              <Button
+                href={`https://instagram.com/${instagram.replace(/^@/, "")}`}
+                variant="outline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Buka Instagram
+              </Button>
             </Reveal>
           </Container>
         </Section>
@@ -118,3 +162,4 @@ export default function BeritaPage() {
     </>
   );
 }
+

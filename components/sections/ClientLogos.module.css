@@ -1,5 +1,4 @@
-/* Strip pelanggan tepat di bawah hero: rapat, di antara garis tipis atas-bawah
-   (DESIGN.md §11.2). < 900 px: dua baris yang bisa digeser; ≥ 900 px: alur kata. */
+/* Strip pelanggan tepat di bawah hero, di antara garis tipis atas-bawah. */
 .strip {
   padding-top: var(--cpn-space-block);
 }
@@ -24,64 +23,100 @@
   color: var(--cpn-color-text-muted);
 }
 
+/* Jendela marquee: konten yang keluar dipotong (tidak menambah lebar halaman), tepi
+   kiri-kanan memudar lewat mask. */
+.viewport {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  mask-image: linear-gradient(90deg, transparent 0, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, black 6%, black 94%, transparent 100%);
+}
+
+/* Dua salinan berdampingan; geser -50% = tepat satu salinan → loop tanpa lompatan. */
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--cpn-duration-marquee) linear infinite;
+}
+
+.viewport:hover .track,
+.viewport:focus-within .track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .list {
   list-style: none;
-  display: grid;
-  grid-template-rows: repeat(2, auto);
-  grid-auto-flow: column;
-  gap: var(--cpn-space-sm) var(--cpn-space-lg);
-  overflow-x: auto;
-  scrollbar-width: none;
-  /* Bleed ke tepi layar supaya terlihat bisa digeser. */
-  margin-right: calc(-1 * var(--cpn-container-padding));
-  padding-right: var(--cpn-container-padding);
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
 }
 
-.list::-webkit-scrollbar {
-  display: none;
-}
-
-/* Wordmark teks gray-600 (kontras 6,3:1, §6.4). */
+/* Jarak konsisten: tiap wordmark membawa padding kanan + titik pemisah yang sama,
+   termasuk item terakhir, supaya sambungan antarsalinan tidak terlihat. */
 .wordmark {
   display: inline-flex;
   align-items: center;
+  gap: var(--cpn-space-lg);
+  padding-right: var(--cpn-space-lg);
   white-space: nowrap;
   font-family: var(--cpn-font-heading);
-  font-size: var(--cpn-text-body);
+  font-size: var(--cpn-text-lead);
   font-weight: var(--cpn-font-weight-medium);
   line-height: var(--cpn-line-height-title);
   color: var(--cpn-color-text-muted);
+  transition: color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.wordmark::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: var(--cpn-radius-full);
+  background-color: var(--cpn-green-200);
+}
+
+.wordmark:hover {
+  color: var(--cpn-color-text);
 }
 
 @media (min-width: 900px) {
   .inner {
     grid-template-columns: max-content minmax(0, 1fr);
     gap: var(--cpn-space-xl);
-    align-items: baseline;
+    align-items: center;
+  }
+}
+
+/* Reduced motion: tanpa gerak, daftar lengkap terbungkus; salinan kedua disembunyikan. */
+@media (prefers-reduced-motion: reduce) {
+  .viewport {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .track {
+    width: auto;
+    animation: none;
   }
 
   .list {
-    display: flex;
     flex-wrap: wrap;
-    gap: var(--cpn-space-sm) 0;
-    overflow: visible;
-    margin-right: 0;
-    padding-right: 0;
+    flex-shrink: 1;
+    row-gap: var(--cpn-space-sm);
   }
 
-  /* Pemisah titik dekoratif di antara nama. */
-  .wordmark:not(:last-child)::after {
-    content: "";
-    width: 4px;
-    height: 4px;
-    margin-inline: 0.75rem;
-    border-radius: var(--cpn-radius-full);
-    background-color: var(--cpn-color-border-strong);
+  .list[aria-hidden] {
+    display: none;
   }
 }
 
-.list:focus-visible {
-  outline: 2px solid transparent;
-  box-shadow: var(--cpn-focus-ring);
-  border-radius: var(--cpn-radius-sm);
-}

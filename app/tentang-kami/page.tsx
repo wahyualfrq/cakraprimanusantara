@@ -6,13 +6,13 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { DefinitionList } from "@/components/ui/DefinitionList";
 import { Timeline } from "@/components/ui/Timeline";
-import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
 import { NilaiList } from "@/components/sections/WhyChooseUs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { profil } from "@/content/profil";
 import { milestoneList } from "@/content/agribisnis/milestone";
 import { ilustrasi } from "@/content/ilustrasi";
+import { cn } from "@/lib/utils";
 import styles from "./page.module.css";
 
 // Isi bersumber dari content/profil.ts (CONTENT-VERBATIM.md §E1, §G2, §G3,
@@ -31,20 +31,104 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-function DaftarBernomor({ items }: { items: string[] }) {
+function LicenseIcon({ type }: { type: "siup" | "tdp" | "industri" | "npwp" }) {
+  if (type === "siup") {
+    return (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <path d="m9 15 2 2 4-4" />
+      </svg>
+    );
+  }
+  if (type === "tdp") {
+    return (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <line x1="9" y1="6" x2="15" y2="6" />
+        <line x1="9" y1="10" x2="15" y2="10" />
+        <line x1="9" y1="14" x2="15" y2="14" />
+        <path d="M9 18h3" />
+      </svg>
+    );
+  }
+  if (type === "industri") {
+    return (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H2v18z" />
+        <path d="M17 18h1" />
+        <path d="M12 18h1" />
+        <path d="M7 18h1" />
+      </svg>
+    );
+  }
   return (
-    <ol className={styles.numbered}>
-      {items.map((butir, index) => (
-        <li key={butir}>
-          <span className={styles.number} aria-hidden="true">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <span>{butir}</span>
-        </li>
-      ))}
-    </ol>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
   );
 }
+
+function MissionIcon({ index }: { index: number }) {
+  if (index === 0) {
+    return (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M10 2v7.31M14 2v7.31M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0" />
+        <path d="M5.52 16h12.96" />
+      </svg>
+    );
+  }
+  if (index === 1) {
+    return (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    );
+  }
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="8" r="6" />
+      <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+    </svg>
+  );
+}
+
+const misiMeta = [
+  { tema: "Riset & Pengembangan", sub: "Kebutuhan Lapangan" },
+  { tema: "Pemasaran & Kepercayaan", sub: "Kesadaran Merek" },
+  { tema: "Standar Mutu Pertanian", sub: "Tolok Ukur Mutu" },
+];
+
+const legalitasMeta: Record<string, { tipe: "siup" | "tdp" | "industri" | "npwp"; kategori: string; abbr: string; featured: boolean }> = {
+  "Surat Ijin Usaha Perdagangan (SIUP)": {
+    tipe: "siup",
+    kategori: "Perizinan Usaha Dagang",
+    abbr: "SIUP",
+    featured: true,
+  },
+  "Tanda Daftar Perusahaan (TDP)": {
+    tipe: "tdp",
+    kategori: "Registrasi Korporasi",
+    abbr: "TDP",
+    featured: true,
+  },
+  "Ijin Industri": {
+    tipe: "industri",
+    kategori: "Operasional Pabrikasi",
+    abbr: "INDUSTRI",
+    featured: false,
+  },
+  "Nomor Pokok Wajib Pajak (NPWP)": {
+    tipe: "npwp",
+    kategori: "Kepatuhan Perpajakan",
+    abbr: "NPWP",
+    featured: false,
+  },
+};
 
 export default function TentangKamiPage() {
   const fakta = [
@@ -114,24 +198,66 @@ export default function TentangKamiPage() {
         </Container>
       </Section>
 
-      {/* 4. Misi dan visi — §G5: dua daftar bernomor + panel S1 Visi Perusahaan */}
+      {/* 4. Visi dan misi — §G5, teks verbatim.
+          Visi Perusahaan & Visi Kami = card unggulan editorial gelap dengan pilar terstruktur;
+          Misi = 3 card berfokus topik dengan ikon, nomor besar, dan top accent line. */}
       <Section aria-labelledby="misi-judul">
         <Container>
-          <SectionHeading title="Misi dan Visi" id="misi-judul" />
-          <Reveal className={styles.missionGrid} stagger>
-            <div>
-              <h3 className={styles.subTitle}>Misi Kami</h3>
-              <DaftarBernomor items={profil.misi} />
+          <SectionHeading title="Visi dan Misi" id="misi-judul" />
+          <div className={styles.vmContainer}>
+            {/* Visi Perusahaan & Visi Kami — Card Unggulan Utama */}
+            <article className={styles.visionFeatured} aria-labelledby="visi-utama-heading">
+              <div className={styles.visionHeader}>
+                <span className={styles.visionTag}>Visi Perusahaan</span>
+                <p id="visi-utama-heading" className={styles.visionQuote}>
+                  &ldquo;{profil.visiPerusahaan}&rdquo;
+                </p>
+              </div>
+
+              <div className={styles.visionPillarsWrap}>
+                <h3 className={styles.visionPillarsTitle}>Pilar Komitmen Visi</h3>
+                <div className={styles.visionPillars}>
+                  {profil.visi.map((butir, index) => (
+                    <div key={butir} className={styles.visionPillarCard}>
+                      <span className={styles.visionPillarIndex}>Pilar {String(index + 1).padStart(2, "0")}</span>
+                      <p className={styles.visionPillarText}>{butir}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
+
+            {/* Misi Kami — Grid 3 Card Terstruktur */}
+            <div className={styles.missionSection}>
+              <div className={styles.missionHeaderRow}>
+                <h3 className={styles.missionSectionTitle}>Misi Kami</h3>
+                <span className={styles.missionSectionSubtitle}>Tiga pilar operasional berkesinambungan</span>
+              </div>
+              <Reveal as="div" stagger className={styles.missionGrid}>
+                {profil.misi.map((butir, index) => {
+                  const meta = misiMeta[index];
+                  return (
+                    <article key={butir} className={styles.missionCardModern}>
+                      <div className={styles.missionCardTop}>
+                        <div className={styles.missionBadgeWrap}>
+                          <span className={styles.missionIconBox} aria-hidden="true">
+                            <MissionIcon index={index} />
+                          </span>
+                          <span className={styles.missionIndexBadge}>Misi {String(index + 1).padStart(2, "0")}</span>
+                        </div>
+                        {meta && (
+                          <span className={styles.missionMetaTag}>
+                            {meta.tema}
+                          </span>
+                        )}
+                      </div>
+                      <p className={styles.missionCardText}>{butir}</p>
+                    </article>
+                  );
+                })}
+              </Reveal>
             </div>
-            <div>
-              <h3 className={styles.subTitle}>Visi Kami</h3>
-              <DaftarBernomor items={profil.visi} />
-            </div>
-          </Reveal>
-          <Card className={styles.vision}>
-            <h3 className={styles.visionLabel}>Visi Perusahaan</h3>
-            <p className={styles.visionText}>{profil.visiPerusahaan}</p>
-          </Card>
+          </div>
         </Container>
       </Section>
 
@@ -155,7 +281,8 @@ export default function TentangKamiPage() {
         </Container>
       </Section>
 
-      {/* 6. Legalitas — §G2 (jenis dokumen saja), S0 dua kolom */}
+      {/* 6. Legalitas — §G2: jenis dokumen terdaftar resmi, disajikan dengan grid kartu dokumen editorial,
+          ikon kategori, status terverifikasi, dan hover transition halus. */}
       <Section aria-labelledby="legalitas-judul">
         <Container className={styles.railGrid}>
           <div className={styles.rail}>
@@ -165,13 +292,43 @@ export default function TentangKamiPage() {
               id="legalitas-judul"
               className={styles.railHeading}
             />
+            <div className={styles.legalTrustBadge}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+              <span>Perusahaan Nasional Terdaftar Sejak 1995</span>
+            </div>
           </div>
-          <Reveal as="ul" stagger className={styles.legalList}>
-            {profil.legalitas.daftar.map((dokumen) => (
-              <li key={dokumen} className={styles.legalItem}>
-                {dokumen}
-              </li>
-            ))}
+          <Reveal as="ul" stagger className={styles.legalGrid}>
+            {profil.legalitas.daftar.map((dokumen) => {
+              const meta = legalitasMeta[dokumen] || {
+                tipe: "siup" as const,
+                kategori: "Legalitas Resmi",
+                abbr: "LEGAL",
+                featured: false,
+              };
+              return (
+                <li key={dokumen} className={cn(styles.legalCardModern, meta.featured && styles.legalCardFeatured)}>
+                  <div className={styles.legalCardHeader}>
+                    <span className={styles.legalCardIcon} aria-hidden="true">
+                      <LicenseIcon type={meta.tipe} />
+                    </span>
+                    <span className={styles.legalStatusTag}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      Terdaftar Resmi
+                    </span>
+                  </div>
+                  <div className={styles.legalCardContent}>
+                    <span className={styles.legalCardCategory}>{meta.kategori}</span>
+                    <h3 className={styles.legalCardAbbr}>{meta.abbr}</h3>
+                    <p className={styles.legalCardFullName}>{dokumen}</p>
+                  </div>
+                </li>
+              );
+            })}
           </Reveal>
         </Container>
       </Section>
