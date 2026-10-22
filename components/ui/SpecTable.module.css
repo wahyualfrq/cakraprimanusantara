@@ -21,7 +21,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--cpn-color-text-muted);
-  font-weight: 600;
+  font-weight: var(--cpn-font-weight-semibold);
 }
 
 @media (max-width: 640px) {
@@ -62,7 +62,7 @@
 
   .table td::before {
     content: attr(data-label);
-    font-weight: 600;
+    font-weight: var(--cpn-font-weight-semibold);
     font-size: 0.8125rem;
     color: var(--cpn-color-text-muted);
     flex-shrink: 0;

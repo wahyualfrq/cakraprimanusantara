@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, ReactNode } from "react";
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 import styles from "./IconButton.module.css";
 import { cn } from "@/lib/utils";
@@ -20,6 +20,9 @@ type IconButtonAsLink = CommonProps &
 type IconButtonAsButton = CommonProps & {
   href?: undefined;
   onClick?: () => void;
+  /** Untuk tombol disclosure (mis. menu mobile). */
+  "aria-expanded"?: boolean;
+  "aria-controls"?: string;
 };
 
 type IconButtonProps = IconButtonAsLink | IconButtonAsButton;
@@ -40,7 +43,7 @@ export function IconButton({ children, variant = "glass", className, href, ...re
   }
 
   return (
-    <button type="button" className={classes} {...(rest as { onClick?: () => void })}>
+    <button type="button" className={classes} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
       {children}
     </button>
   );

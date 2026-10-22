@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IconButton } from "@/components/ui/IconButton";
@@ -9,14 +9,31 @@ import { cn } from "@/lib/utils";
 import { ariaCurrentFor, kontakLink, navLinks } from "./navLinks";
 import styles from "./MobileNav.module.css";
 
+const PANEL_ID = "navigasi-mobile";
+
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  // Pola disclosure: Escape menutup panel dan fokus kembali ke tombol menu.
+  useEffect(() => {
+    if (!open) return;
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      wrapperRef.current?.querySelector("button")?.focus();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} ref={wrapperRef}>
       <IconButton
         aria-label={open ? "Tutup menu" : "Buka menu"}
+        aria-expanded={open}
+        aria-controls={PANEL_ID}
         variant="solid"
         onClick={() => setOpen((value) => !value)}
       >
@@ -42,7 +59,7 @@ export function MobileNav() {
       </IconButton>
 
       {open && (
-        <nav className={styles.panel} aria-label="Navigasi mobile">
+        <nav id={PANEL_ID} className={styles.panel} aria-label="Navigasi mobile">
           {navLinks.map((link) => {
             const current = ariaCurrentFor(pathname, link.href);
             return (

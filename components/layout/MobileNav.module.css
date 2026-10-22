@@ -59,7 +59,7 @@
   background: none;
   border: none;
   font: inherit;
-  font-weight: 600;
+  font-weight: var(--cpn-font-weight-semibold);
   color: inherit;
   cursor: pointer;
   padding: 0;
@@ -85,7 +85,7 @@
 }
 
 .unitGroupTitle {
-  font-weight: 700;
+  font-weight: var(--cpn-font-weight-bold);
 }
 
 .unitGroup ul {
@@ -94,7 +94,7 @@
   flex-direction: column;
   gap: var(--cpn-space-xs);
   font-size: 0.9375rem;
-  font-weight: 400;
+  font-weight: var(--cpn-font-weight-regular);
   color: var(--cpn-color-text-muted);
   margin-top: var(--cpn-space-xs);
 }

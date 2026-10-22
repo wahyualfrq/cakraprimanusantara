@@ -41,8 +41,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
+        {/* Skip link — elemen fokus pertama, melompati navigasi (WCAG 2.4.1). */}
+        <a href="#konten-utama" className="skipLink">
+          Langsung ke konten utama
+        </a>
         <Navbar />
-        <main>{children}</main>
+        <main id="konten-utama" tabIndex={-1}>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

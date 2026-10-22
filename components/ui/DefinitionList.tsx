@@ -20,16 +20,18 @@ export function DefinitionList({ items, numbered = false, className }: Definitio
   return (
     <dl className={cn(styles.list, className)}>
       {items.map((item, index) => (
-        <div key={item.label} className={styles.item}>
-          {numbered && (
-            <span className={styles.number} aria-hidden="true">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-          )}
-          <div>
-            <dt className={styles.label}>{item.label}</dt>
-            {item.description && <dd className={styles.description}>{item.description}</dd>}
-          </div>
+        // <div> di dalam <dl> hanya boleh berisi <dt>/<dd> (axe: definition-list,
+        // dlitem) — nomor dekoratif ikut di dalam <dt>.
+        <div key={item.label} className={cn(styles.item, numbered && styles.itemNumbered)}>
+          <dt className={styles.label}>
+            {numbered && (
+              <span className={styles.number} aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            )}
+            {item.label}
+          </dt>
+          {item.description && <dd className={styles.description}>{item.description}</dd>}
         </div>
       ))}
     </dl>

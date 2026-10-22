@@ -75,7 +75,7 @@
 .accentWord {
   font-family: var(--cpn-font-heading);
   font-style: italic;
-  font-weight: 500;
+  font-weight: var(--cpn-font-weight-medium);
 }
 
 .subheadline {
@@ -157,7 +157,7 @@
   gap: var(--cpn-space-xs) var(--cpn-space-md);
   font-size: 0.8125rem;
   line-height: 1.4;
-  font-weight: 700;
+  font-weight: var(--cpn-font-weight-bold);
   color: var(--cpn-color-text-on-dark);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -165,9 +165,9 @@
   margin-inline: auto;
 }
 
-/* ─── TABLET BREAKPOINT (601px - 900px) ─────────────────────────── */
+/* ─── TABLET BREAKPOINT (640px - 900px) ─────────────────────────── */
 
-@media (min-width: 601px) {
+@media (min-width: 640px) {
   .frame {
     padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-xl));
     padding-bottom: var(--cpn-space-2xl);

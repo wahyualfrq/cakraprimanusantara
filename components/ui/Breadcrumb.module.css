@@ -1,3 +1,6 @@
+/* Warna lewat token, bukan opacity — opacity di atas teks muted jatuh di bawah
+   4,5:1 (mis. artikel: 3,2:1). Header berfoto mengganti nilai lewat custom
+   property --cpn-breadcrumb-link / --cpn-breadcrumb-current. */
 .nav {
   font-size: 0.8125rem;
 }
@@ -17,31 +20,29 @@
 }
 
 .item a {
-  color: inherit;
-  opacity: 0.7;
-}
-
-.item a {
+  color: var(--cpn-breadcrumb-link, var(--cpn-color-text-muted));
   border-radius: var(--cpn-radius-sm);
 }
 
 .item a:hover {
-  opacity: 1;
+  color: var(--cpn-breadcrumb-current, var(--cpn-color-text));
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
 
 .item a:focus-visible {
-  opacity: 1;
+  color: var(--cpn-breadcrumb-current, var(--cpn-color-text));
   outline: 2px solid transparent;
   box-shadow: var(--cpn-focus-ring);
 }
 
 .item span[aria-current="page"] {
-  opacity: 0.95;
-  font-weight: 600;
+  color: var(--cpn-breadcrumb-current, var(--cpn-color-text));
+  font-weight: var(--cpn-font-weight-semibold);
 }
 
+/* Pemisah dekoratif (aria-hidden). */
 .separator {
-  opacity: 0.4;
+  color: var(--cpn-breadcrumb-link, var(--cpn-color-text-muted));
+  opacity: 0.6;
 }

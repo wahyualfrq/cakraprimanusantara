@@ -46,12 +46,11 @@ export function ContentImage(props: ContentImageProps) {
   const { src, alt, variant, className } = props;
 
   if (!src) {
+    // alt kosong = dekoratif: sembunyikan dari pembaca layar, jangan role="img"
+    // tanpa nama (sama seperti <img alt="">).
+    const a11y = alt ? { role: "img", "aria-label": alt } : { "aria-hidden": true };
     return (
-      <div
-        className={cn(styles.wrap, props.fill && styles.fill, className)}
-        role="img"
-        aria-label={alt}
-      >
+      <div className={cn(styles.wrap, props.fill && styles.fill, className)} {...a11y}>
         <div className={cn(styles.placeholder, placeholderClassByVariant[variant])} />
       </div>
     );

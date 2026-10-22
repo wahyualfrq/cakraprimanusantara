@@ -83,6 +83,8 @@
 
   /* Garis pemisah tipis di atas latar gelap/foto. */
   --cpn-color-border-on-dark-subtle: rgba(255, 255, 255, 0.12);
+  /* Garis pemisah footer (hijau tua) — nilai dipindah dari Footer.module.css. */
+  --cpn-color-border-on-dark: rgba(255, 255, 255, 0.16);
 
   /* Tipografi — DESIGN.md §6 (keputusan D1): heading Fraunces, body Inter, di-load
      via next/font (app/layout.tsx). Fallback generik serif/sans, tanpa Georgia. */
@@ -147,9 +149,10 @@
   /* Border field form — kontras ±4:1 terhadap putih (WCAG 1.4.11, ≥ 3:1). */
   --cpn-color-border-field: var(--cpn-gray-500);
 
-  /* Breakpoint rujukan (konvensi, STRUCTURE.md): 640px / 900px / 1200px.
-     Catatan: @media tidak bisa membaca var(), jadi nilai ini hanya rujukan untuk
-     menulis media query; penyeragaman media query yang ada dikerjakan di V6. */
+  /* Breakpoint rujukan (konvensi, STRUCTURE.md §5.1): 640px / 900px / 1200px.
+     @media tidak bisa membaca var(), jadi nilai ini rujukan untuk menulis media
+     query. Pengecualian terdokumentasi: navbar (max-width: 900px) dan hero
+     (min-width: 901px) berpasangan di titik 900px. */
   --cpn-bp-sm: 640px;
   --cpn-bp-md: 900px;
   --cpn-bp-lg: 1200px;
@@ -201,6 +204,9 @@
 
 html {
   height: 100%;
+  /* Elemen yang di-scroll ke tampilan (Tab, anchor) tidak berhenti di balik
+     navbar fixed (WCAG 2.4.11 Focus Not Obscured). */
+  scroll-padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-md));
 }
 
 html,
@@ -246,4 +252,30 @@ h6 {
 
 main {
   flex: 1;
+}
+
+/* Target skip link menerima fokus programatik; tidak perlu cincin di seluruh <main>. */
+main:focus {
+  outline: none;
+}
+
+/* Skip link — tersembunyi di luar layar, muncul di atas navbar saat difokus. */
+.skipLink {
+  position: fixed;
+  top: var(--cpn-space-sm);
+  left: var(--cpn-space-sm);
+  z-index: 1000;
+  padding: var(--cpn-space-sm) var(--cpn-space-md);
+  border-radius: var(--cpn-radius-full);
+  background-color: var(--cpn-color-primary);
+  color: var(--cpn-color-on-primary);
+  font-size: var(--cpn-text-small);
+  font-weight: var(--cpn-font-weight-semibold);
+  transform: translateY(calc(-100% - var(--cpn-space-md)));
+}
+
+.skipLink:focus-visible {
+  transform: none;
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
 }

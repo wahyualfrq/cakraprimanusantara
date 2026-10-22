@@ -258,6 +258,25 @@ export default function AgribisnisLayout({ children }: { children: React.ReactNo
 - Semua warna, spacing, radius harus lewat `var(--cpn-*)`.
 - Komponen harus terlihat benar (secara struktur/layout) walau semua token diganti nilai lain — ini acceptance test struktur, supaya komponen tidak bergantung pada nilai warna tertentu.
 
+### 5.1 Breakpoint & aksesibilitas (V6, 22 Oktober 2026)
+
+**Breakpoint** — tiga titik saja, mobile-first (`min-width`), dirujuk sebagai `--cpn-bp-sm/md/lg` di `globals.css` (`@media` tidak bisa membaca `var()`, jadi angkanya ditulis langsung):
+
+| Token | Nilai | Pemakaian |
+|---|---|---|
+| `--cpn-bp-sm` | 640px | 1 → 2 kolom, ukuran tablet |
+| `--cpn-bp-md` | 900px | layout desktop (grid 3 kolom, dua kolom konten + aside) |
+| `--cpn-bp-lg` | 1200px | cadangan, = `--cpn-container-max` |
+
+`max-width` hanya bila komponen memang desktop-first (navbar `max-width: 900px` berpasangan dengan hero `min-width: 901px`; tabel spesifikasi dan artikel `max-width: 640px`). Nilai lain (560, 601, 768, 1024) tidak dipakai.
+
+**Aksesibilitas (wajib untuk komponen baru):**
+- Fokus keyboard: `:focus-visible { outline: 2px solid transparent; box-shadow: var(--cpn-focus-ring); }` — `outline` transparan tetap muncul di mode kontras tinggi Windows. Jangan andalkan ring bawaan browser atau perubahan warna saja.
+- Kontras: teks ≥ 4,5:1 (teks besar ≥ 3:1), border field dan ikon fungsional ≥ 3:1. Pasangan token yang lolos: lihat laporan V6.
+- Navbar fixed: `html { scroll-padding-top }` menjaga elemen terfokus tidak tertutup navbar; jangan dihapus.
+- Skip link (`.skipLink` di `globals.css`) menuju `<main id="konten-utama">`.
+- Gerak: aturan global `prefers-reduced-motion` mematikan transisi/animasi; transform hover yang ikut "melompat" dimatikan per komponen.
+
 ---
 
 ## 6. Implementasi SEO (Pola Wajib)

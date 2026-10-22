@@ -13,7 +13,7 @@
 
 .eyebrow {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: var(--cpn-font-weight-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--cpn-color-primary);

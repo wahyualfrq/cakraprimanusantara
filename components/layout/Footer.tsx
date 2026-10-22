@@ -21,14 +21,14 @@ export function Footer() {
       <Container>
         <div className={styles.grid}>
           <div className={styles.column}>
-            <h3 className={styles.columnTitle}>Visi Perusahaan</h3>
+            <h2 className={styles.columnTitle}>Visi Perusahaan</h2>
             {/* Teks footer situs Ostindo, verbatim (CONTENT-VERBATIM.md §G5). */}
             <p className={styles.address}>{profil.visiPerusahaan}</p>
           </div>
 
           {lokasiOstindo.map((lokasi) => (
             <div key={lokasi.slug} className={styles.column}>
-              <h3 className={styles.columnTitle}>{lokasi.nama}</h3>
+              <h2 className={styles.columnTitle}>{lokasi.nama}</h2>
               <p className={styles.address}>{lokasi.alamat}</p>
               {(lokasi.kontak ?? [])
                 .filter((item) => !item.perluVerifikasi)

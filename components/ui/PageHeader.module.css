@@ -13,6 +13,8 @@
 
 .photo {
   color: var(--cpn-color-text-on-dark);
+  --cpn-breadcrumb-link: var(--cpn-color-text-on-dark-muted);
+  --cpn-breadcrumb-current: var(--cpn-color-text-on-dark);
   min-height: 20rem;
   display: flex;
   align-items: flex-end;
