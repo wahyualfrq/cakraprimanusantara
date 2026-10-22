@@ -86,3 +86,16 @@
     );
   background-color: var(--cpn-color-surface-tint);
 }
+
+.wrapContain {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageContain {
+  object-fit: contain !important;
+  object-position: center center !important;
+  padding: var(--cpn-space-sm);
+}

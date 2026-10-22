@@ -238,3 +238,30 @@
     min-height: 10rem;
   }
 }
+
+/* ── Entrance saat artikel dibuka (murni CSS): metadata → judul → ringkasan bertahap.
+   Sampul (kandidat LCP) dan isi artikel tidak dianimasikan demi keterbacaan. */
+@keyframes articleIn {
+  from {
+    opacity: 0;
+    transform: translateY(var(--cpn-reveal-shift));
+  }
+}
+
+.header > * {
+  animation: articleIn var(--cpn-duration-reveal) var(--cpn-ease-reveal) backwards;
+}
+
+.header > :nth-child(2) {
+  animation-delay: var(--cpn-stagger);
+}
+
+.header > :nth-child(n + 3) {
+  animation-delay: calc(2 * var(--cpn-stagger));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header > * {
+    animation: none;
+  }
+}

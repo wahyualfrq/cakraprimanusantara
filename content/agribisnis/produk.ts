@@ -12,6 +12,12 @@ export type FaktaKunci = {
   perluVerifikasi?: boolean;
 };
 
+export type DokumenProduk = {
+  judul: string;
+  url: string;
+  tipe: "pdf" | "gambar";
+};
+
 export type Produk = {
   slug: string;
   nama: string;
@@ -25,6 +31,7 @@ export type Produk = {
   /** Kalimat pengantar daftar `poin` dari sumber, bila ada. */
   judulPoin?: string;
   gambar?: string;
+  dokumen?: DokumenProduk[];
   faktaKunci?: FaktaKunci[];
   dosisAnjuran?: BarisDosis[];
   /** true kalau susunan tabel dosis di sumber masih [VERIFIKASI] — jangan render tabel sebelum dikonfirmasi. */
@@ -46,6 +53,11 @@ export const produkList: Produk[] = [
     slug: "ostindo",
     nama: "Ostindo",
     kategori: "penyubur-tanah",
+    gambar: "/images/produk/Ostindo.png",
+    dokumen: [
+      { judul: "Brosur Ostindo (Halaman 1)", url: "/produk/ostindo1.jpg", tipe: "gambar" },
+      { judul: "Brosur Ostindo (Halaman 2)", url: "/produk/ostindo2.jpg", tipe: "gambar" },
+    ],
     deskripsiSingkat:
       "OSTINDO merupakan pupuk penyubur tanah organik yang diperkaya dengan mikroba lengkap sesuai kebutuhan tanah untuk mengembalikan serta menjaga kesuburan tanah.",
     poin: [
@@ -117,6 +129,11 @@ export const produkList: Produk[] = [
     slug: "futricho",
     nama: "Futricho",
     kategori: "bio-pestisida",
+    gambar: "/images/produk/Futricho.png",
+    dokumen: [
+      { judul: "Brosur Futricho (PDF)", url: "/produk/futricho.pdf", tipe: "pdf" },
+      { judul: "Diagram Cara Kerja Futricho", url: "/produk/cara-kerja-futricho.jpg", tipe: "gambar" },
+    ],
     deskripsiSingkat:
       "Biofungisida alami Trichoderma yang berfungsi untuk mencegah penyakit jamur pada tanaman dengan merk Futricho.",
     deskripsiLengkap: [
@@ -168,6 +185,11 @@ export const produkList: Produk[] = [
     slug: "bless-npk",
     nama: "Bless NPK",
     kategori: "pupuk-npk",
+    gambar: "/images/produk/npk-new.png",
+    dokumen: [
+      { judul: "Brosur NPK 12.6.22.3+TE", url: "/produk/brosur-npk-12-6-22-3.jpg", tipe: "gambar" },
+      { judul: "Brosur NPK 16.16.16", url: "/produk/brosur-NPK-161616.jpg", tipe: "gambar" },
+    ],
     deskripsiSingkat:
       'Produk pupuk NPK disesuaikan berdasarkan pesanan baik berupa NPK "Blending" maupun NPK "Compound"',
     deskripsiLengkap: [],
@@ -184,6 +206,10 @@ export const produkList: Produk[] = [
     slug: "bless-cair",
     nama: "Bless Cair",
     kategori: "pupuk-cair",
+    gambar: "/images/produk/bless-cair-cut-bg.jpg",
+    dokumen: [
+      { judul: "Brosur Bless Cair (PDF)", url: "/produk/brosurblesscair.pdf", tipe: "pdf" },
+    ],
     deskripsiSingkat:
       "Pupuk organik cair Bless adalah suatu konsep penyubur tanah dan tanaman secara alami yang terdiri dari 100% organik hayati mengandung unsur hara Makro (C, N, P, K) dan Mikro (Cu, Co, Fe, Mn, Mo, Zn), zat pengatur Tumbuh dan mikroba tanah terseleksi.",
     poin: [
@@ -204,6 +230,7 @@ export const produkList: Produk[] = [
     slug: "rizafert",
     nama: "Rizafert",
     kategori: "mikoriza",
+    gambar: "/images/produk/Rizafert.png",
     deskripsiSingkat: "Perangsang akar dengan menggunakan Mycorrhiza dengan merk Rizafert.",
     poin: [
       "Mycorrhiza aktif yang dapat terlihat dengan kasat mata sehingga dapat dipertanggungjawabkan kualitasnya.",
@@ -223,6 +250,7 @@ export const produkList: Produk[] = [
     slug: "actifert",
     nama: "Actifert",
     kategori: "bio-activator",
+    gambar: "/images/produk/activert.jpg",
     deskripsiSingkat: "Merupakan suatu produk Bio Activator.",
     deskripsiLengkap: [
       "Merupakan suatu produk Bio Activator. Actifert mengandung unsur hara makro/mikro yang seimbang dalam bentuk yang tersedia untuk penyerapan mikroba didalamnya. Produk ini bekerja dengan cara meningkatkan perpindahan oksigen terlarut dan mempercepat degradasi dengan cara mempercepat proses pembusukan. Actifert mengandung campuran nutrisi dan mikroba terseleksi, campuran ini proporsional dengan kebutuhan biologis tanaman.",

@@ -1,10 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { IconButton } from "@/components/ui/IconButton";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
 import styles from "./ProductCarousel.module.css";
 
 export type ProductCard = {
@@ -12,6 +14,7 @@ export type ProductCard = {
   nama: string;
   kategori: string;
   deskripsi: string;
+  gambar?: string;
 };
 
 type ProductCarouselProps = {
@@ -114,31 +117,43 @@ export function ProductCarousel({ items, title, accent, description }: ProductCa
       </div>
 
       <div role="group" aria-labelledby="produk-judul" className={styles.viewport}>
-        <ul id={TRACK_ID} ref={trackRef} className={styles.track}>
+        {/* Kartu muncul berurutan (fade, tanpa geser vertikal — track adalah scroll container). */}
+        <Reveal as="ul" variant="fade" stagger id={TRACK_ID} ref={trackRef} className={styles.track}>
           {items.map((item, index) => (
             <li key={item.href} className={styles.slide}>
               <Link href={item.href} className={styles.card}>
-                <span className={styles.pattern} aria-hidden="true" />
                 <span className={styles.top}>
                   <span className={styles.label}>{item.kategori}</span>
-                  <span className={styles.icon} aria-hidden="true">
-                    <Arrow direction="right" />
+                  <span className={styles.numeral} aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </span>
-                <span className={styles.numeral} aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className={styles.bottom}>
-                  <span className={styles.name}>{item.nama}</span>
-                  <span className={styles.desc}>{item.deskripsi}</span>
+
+                <div className={styles.mediaSlot}>
+                  {item.gambar ? (
+                    <Image
+                      src={item.gambar}
+                      alt={`Kemasan ${item.nama}`}
+                      fill
+                      sizes="(max-width: 640px) 72vw, 320px"
+                      className={styles.productImage}
+                    />
+                  ) : (
+                    <span className={styles.fallbackText}>{item.nama}</span>
+                  )}
+                </div>
+
+                <div className={styles.bottom}>
+                  <h3 className={styles.name}>{item.nama}</h3>
+                  <p className={styles.desc}>{item.deskripsi}</p>
                   <span className={styles.more}>
-                    Selengkapnya <span aria-hidden="true">→</span>
+                    Detail produk
                   </span>
-                </span>
+                </div>
               </Link>
             </li>
           ))}
-        </ul>
+        </Reveal>
       </div>
     </>
   );

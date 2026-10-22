@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ContentImage, type ContentImageVariant } from "@/components/ui/ContentImage";
+import { type ContentImageVariant } from "@/components/ui/ContentImage";
 import { Reveal } from "@/components/ui/Reveal";
 import styles from "./EditorialIndex.module.css";
 import { cn } from "@/lib/utils";
@@ -10,6 +11,8 @@ export type EditorialIndexItem = {
   deskripsi: string;
   /** Label kecil di bawah judul (mis. kategori produk bersumber). */
   meta?: string;
+  /** Gambar produk/item asli. */
+  image?: string;
 };
 
 type EditorialIndexProps = {
@@ -25,7 +28,7 @@ type EditorialIndexProps = {
  * Daftar editorial bernomor S6 (DESIGN.md §11.2) — baris berlink, bukan grid kartu.
  * Seluruh baris satu tautan dengan nama aksesibel = judul (sisanya aria-hidden).
  */
-export function EditorialIndex({ items, thumbnailVariant, start = 1, className }: EditorialIndexProps) {
+export function EditorialIndex({ items, start = 1, className }: EditorialIndexProps) {
   return (
     <Reveal as="ol" stagger className={cn(styles.list, className)}>
       {items.map((item, index) => (
@@ -34,16 +37,22 @@ export function EditorialIndex({ items, thumbnailVariant, start = 1, className }
             <span className={styles.number} aria-hidden="true">
               {String(index + start).padStart(2, "0")}
             </span>
+            {item.image && (
+              <span className={styles.thumbWrap} aria-hidden="true">
+                <Image
+                  src={item.image}
+                  alt={`Kemasan ${item.title}`}
+                  fill
+                  sizes="(max-width: 900px) 72px, 96px"
+                  className={styles.thumbImage}
+                />
+              </span>
+            )}
             <span className={styles.title}>{item.title}</span>
             <span aria-hidden="true" className={styles.decorative}>
               {item.meta && <span className={styles.meta}>{item.meta}</span>}
               <span className={styles.description}>{item.deskripsi}</span>
-              {thumbnailVariant && (
-                <span className={styles.thumbnail}>
-                  <ContentImage alt="" variant={thumbnailVariant} fill sizes="144px" />
-                </span>
-              )}
-              {/* <span className={styles.arrow}>→</span> */}
+              <span className={styles.arrow}>→</span>
             </span>
           </Link>
         </li>

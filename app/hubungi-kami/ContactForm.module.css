@@ -106,3 +106,55 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* ── Penyempurnaan UX ──────────────────────────────────────────────── */
+.required {
+  margin-left: 0.2em;
+  color: var(--cpn-color-danger);
+}
+
+.field textarea {
+  min-height: 9rem;
+}
+
+/* Info setelah aplikasi tujuan dibuka — bukan klaim "terkirim". */
+.info {
+  padding: var(--cpn-space-md) var(--cpn-space-row);
+  border-left: 3px solid var(--cpn-color-primary);
+  border-radius: 0 var(--cpn-radius-md) var(--cpn-radius-md) 0;
+  background-color: var(--cpn-color-surface-tint);
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-green-800);
+}
+
+.summary {
+  padding: var(--cpn-space-md) var(--cpn-space-row);
+  border-left: 3px solid var(--cpn-color-danger);
+  border-radius: 0 var(--cpn-radius-md) var(--cpn-radius-md) 0;
+  background-color: var(--cpn-color-bg);
+}
+
+.noticeLink {
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  border-radius: var(--cpn-radius-sm);
+}
+
+.noticeLink:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+/* Mobile: tombol selebar form, mudah disentuh. */
+@media (max-width: 639px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+}

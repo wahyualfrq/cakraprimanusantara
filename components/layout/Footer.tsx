@@ -23,7 +23,6 @@ export function Footer() {
         <Reveal stagger className={styles.grid}>
           <div className={styles.brand}>
             <p className={styles.name}>{profil.nama}</p>
-            <h2 className={styles.columnTitle}>Visi Perusahaan</h2>
             {/* Teks footer situs Ostindo, verbatim (CONTENT-VERBATIM.md §G5). */}
             <p className={styles.text}>{profil.visiPerusahaan}</p>
           </div>

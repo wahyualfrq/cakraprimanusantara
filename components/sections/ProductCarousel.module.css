@@ -40,32 +40,40 @@
 
 .slide {
   flex: 0 0 auto;
-  width: min(72vw, 20rem);
+  width: min(80vw, 21.5rem);
   scroll-snap-align: start;
 }
 
-/* Kartu tinggi S2 (§11.1): rasio 3:4, min 22rem, radius lg, satu tautan penuh. */
+/* Kartu tinggi S2: rasio teratur, packshot otentik, radius lg, satu tautan penuh. */
 .card {
   position: relative;
-  isolation: isolate;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  aspect-ratio: 3 / 4;
-  min-height: 22rem;
-  padding: var(--cpn-space-row);
+  height: 100%;
+  min-height: 27rem;
+  padding: var(--cpn-space-md);
   border-radius: var(--cpn-radius-lg);
   overflow: hidden;
-  background-color: var(--cpn-green-800);
+  background-color: #0b2e13;
   color: var(--cpn-color-text-on-dark);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition:
+    transform var(--cpn-duration-base) var(--cpn-ease),
+    border-color var(--cpn-duration-base) var(--cpn-ease),
+    box-shadow var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.slide:nth-child(3n + 1) .card {
+  background-color: #0b2e13;
 }
 
 .slide:nth-child(3n + 2) .card {
-  background-color: var(--cpn-green-900);
+  background-color: #08240f;
 }
 
 .slide:nth-child(3n + 3) .card {
-  background-color: var(--cpn-green-700);
+  background-color: #0e3717;
 }
 
 .card:focus-visible {
@@ -73,86 +81,90 @@
   box-shadow: var(--cpn-focus-ring);
 }
 
-/* Latar: pola ringan di atas nada hijau (pengganti foto produk asli, §11.2) + scrim. */
-.pattern {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    var(--cpn-scrim),
-    radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--cpn-green-300) 22%, transparent) 0, transparent 46%),
-    radial-gradient(color-mix(in srgb, var(--cpn-color-text-on-dark) 12%, transparent) 1px, transparent 1px);
-  background-size:
-    auto,
-    auto,
-    14px 14px;
-  transition: transform var(--cpn-duration-slow) var(--cpn-ease);
-}
-
-@media (hover: hover) {
-  .card:hover .pattern {
-    transform: scale(1.04);
-  }
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cpn-green-300);
+  box-shadow: 0 16px 32px -8px rgba(1, 102, 37, 0.3);
 }
 
 .top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: var(--cpn-space-md);
+  gap: var(--cpn-space-sm);
 }
 
 .label {
-  padding: var(--cpn-space-xs) 0.75rem;
+  padding: 0.25rem 0.65rem;
   border: 1px solid var(--cpn-glass-border);
   border-radius: var(--cpn-radius-full);
-  font-size: var(--cpn-text-caption);
+  font-size: 0.6875rem;
   font-weight: var(--cpn-font-weight-semibold);
   letter-spacing: var(--cpn-letter-spacing-caps);
   line-height: var(--cpn-line-height-title);
   text-transform: uppercase;
+  color: var(--cpn-color-text-on-dark);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
-.icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--cpn-touch-target);
-  height: var(--cpn-touch-target);
-  flex-shrink: 0;
-  border-radius: var(--cpn-radius-md);
-  background-color: var(--cpn-color-bg);
-  color: var(--cpn-green-800);
-  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
-}
-
-.card:hover .icon,
-.card:focus-visible .icon {
-  transform: translateX(4px);
-}
-
-/* Nomor urut sumber — dekoratif, tipografis. */
+/* Nomor urut sumber */
 .numeral {
   font-family: var(--cpn-font-heading);
-  font-size: var(--cpn-text-display);
-  font-style: italic;
-  font-weight: var(--cpn-font-weight-regular);
-  font-variant-numeric: lining-nums tabular-nums;
-  line-height: 1;
+  font-size: var(--cpn-text-caption);
+  font-weight: 700;
+  letter-spacing: 0.05em;
   color: var(--cpn-green-300);
+  opacity: 0.85;
+}
+
+/* Area kemasan / packshot produk resmi */
+.mediaSlot {
+  position: relative;
+  width: 100%;
+  height: 195px;
+  border-radius: var(--cpn-radius-md);
+  overflow: hidden;
+  background: radial-gradient(circle at center, #ffffff 65%, var(--cpn-green-50) 100%);
+  margin-block: var(--cpn-space-md) var(--cpn-space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.productImage {
+  object-fit: contain !important;
+  object-position: center center !important;
+  padding: 10px;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.08));
+  transition: transform var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.card:hover .productImage {
+  transform: scale(1.05);
+}
+
+.fallbackText {
+  font-size: var(--cpn-text-small);
+  color: var(--cpn-color-text-muted);
+  font-weight: 500;
 }
 
 .bottom {
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-sm);
+  gap: var(--cpn-space-xs);
+  padding-top: var(--cpn-space-xs);
 }
 
 .name {
   font-family: var(--cpn-font-heading);
-  font-size: var(--cpn-text-h2);
+  font-size: var(--cpn-text-h3);
   font-weight: var(--cpn-font-weight-semibold);
-  line-height: var(--cpn-line-height-heading);
+  line-height: var(--cpn-line-height-title);
+  color: #ffffff;
+  margin: 0;
 }
 
 .desc {
@@ -161,15 +173,25 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-size: var(--cpn-text-small);
-  line-height: var(--cpn-line-height-lead);
+  line-height: 1.45;
   color: var(--cpn-color-text-on-dark-muted);
+  margin: 0;
 }
 
 .more {
+  align-self: flex-start;
   margin-top: var(--cpn-space-xs);
-  font-size: var(--cpn-text-ui);
+  font-size: var(--cpn-text-caption);
   font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cpn-green-300);
   text-decoration: underline;
-  text-decoration-color: var(--cpn-glass-border);
-  text-underline-offset: 0.3em;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.card:hover .more {
+  text-decoration-color: currentColor;
 }

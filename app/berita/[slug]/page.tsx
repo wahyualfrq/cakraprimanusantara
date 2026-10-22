@@ -35,7 +35,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return buildMetadata({
     title: entry.meta.judul,
-    description: entry.meta.excerpt,
+    // Artikel yang hanya bersumber judul + foto tidak punya excerpt → judul sebagai description.
+    description: entry.meta.excerpt || entry.meta.judul,
     path: `/berita/${slug}`,
   });
 }
@@ -110,7 +111,7 @@ export default async function BeritaDetailPage({ params }: PageProps) {
             <Content />
           </div>
 
-          <footer className={styles.articleFooter}>
+          <Reveal as="footer" stagger className={styles.articleFooter}>
             {/* Tanpa kalimat deskriptif karangan (aturan CONTENT-VERBATIM.md #3). */}
             <Card className={styles.ctaBox}>
               {/* h2: heading pertama setelah h1 (isi MDX tidak memakai heading). */}
@@ -122,7 +123,7 @@ export default async function BeritaDetailPage({ params }: PageProps) {
             <Button href="/berita" variant="text-link">
               <span aria-hidden="true">←</span> Semua berita
             </Button>
-          </footer>
+          </Reveal>
         </Container>
       </article>
 

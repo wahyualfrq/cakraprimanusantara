@@ -1,12 +1,38 @@
-/* Bar putih sticky rata (DESIGN.md §9.1): latar putih solid, border bawah 1 px,
-   tanpa shadow/radius, tidak menimpa hero. Tinggi 64 px / 56 px (< 900 px). */
+/* Bar sticky rata (DESIGN.md §9.1), tinggi 64 px / 56 px (< 900 px), tanpa radius.
+   Default (sudah di-scroll, atau tanpa JS): putih semi-transparan + blur. Di posisi paling
+   atas (data-nav-state="top"): transparan penuh — tanpa latar, blur, border, dan shadow.
+   Tinggi tidak pernah berubah → tidak ada layout shift. */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 50;
+  width: 100%;
   height: var(--cpn-navbar-height);
-  background-color: var(--cpn-color-bg);
-  border-bottom: 1px solid var(--cpn-color-border);
+  background-color: var(--cpn-navbar-glass-bg);
+  -webkit-backdrop-filter: var(--cpn-navbar-glass-blur);
+  backdrop-filter: var(--cpn-navbar-glass-blur);
+  border-bottom: 1px solid var(--cpn-navbar-glass-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition:
+    background-color var(--cpn-duration-base) var(--cpn-ease),
+    border-color var(--cpn-duration-base) var(--cpn-ease),
+    box-shadow var(--cpn-duration-base) var(--cpn-ease);
+}
+
+/* Fallback tanpa backdrop-filter: latar hampir solid supaya teks tetap terbaca. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .navbar {
+    background-color: var(--cpn-navbar-solid-bg);
+  }
+}
+
+/* Posisi paling atas — kecuali saat menu mobile terbuka (panel butuh bar yang terbaca). */
+.navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) {
+  background-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+  box-shadow: none;
 }
 
 .inner {
@@ -22,6 +48,7 @@
 }
 
 .logoLink {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -35,6 +62,16 @@
   display: block;
   height: var(--cpn-navbar-logo-height);
   width: auto;
+  transition: opacity var(--cpn-duration-base) var(--cpn-ease);
+}
+
+/* Logo putih ditumpuk tepat di atas logo hijau; hanya terlihat di atas hero foto. */
+.logoOnPhoto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
 }
 
 .links {
@@ -47,23 +84,17 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   height: var(--cpn-control-sm);
   padding-inline: 0.875rem;
-  border-radius: var(--cpn-radius-md);
-  font-size: var(--cpn-text-ui);
-  font-weight: var(--cpn-font-weight-medium);
-  color: var(--cpn-color-text);
-  white-space: nowrap;
-  transition: color var(--cpn-duration-fast) var(--cpn-ease);
 }
 
-/* Indikator 2 px di tepi bawah bar: hover memanjang (scaleX), aktif instan (§9.3, §16.2). */
 .link::after {
   content: "";
   position: absolute;
   left: 0.875rem;
   right: 0.875rem;
-  bottom: calc((var(--cpn-control-sm) - var(--cpn-navbar-height) + 1px) / 2);
+  bottom: 0.35rem;
   height: 2px;
   background-color: var(--cpn-color-primary);
   transform: scaleX(0);
@@ -127,8 +158,31 @@
 }
 
 @media (max-width: 899px) {
+
   .links,
   .ctaDesktop {
     display: none;
   }
+}
+
+/* ── Di atas hero foto (halaman bertanda data-nav-overlay) & navbar transparan ──────────
+   Teks, indikator, dan logo putih supaya terbaca di atas scrim foto. Halaman berlatar
+   terang tidak terkena aturan ini (teks tetap gelap). */
+:global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .link,
+:global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .link:hover,
+:global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .linkActive {
+  color: var(--cpn-color-text-on-dark);
+  text-shadow: var(--cpn-text-shadow-on-photo);
+}
+
+:global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .link::after {
+  background-color: var(--cpn-color-text-on-dark);
+}
+
+:global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .logoDefault {
+  opacity: 0;
+}
+
+:global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .logoOnPhoto {
+  opacity: 1;
 }

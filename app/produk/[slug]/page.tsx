@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
@@ -116,11 +117,12 @@ export default async function ProdukDetailPage({ params }: PageProps) {
             )}
 
             {found.deskripsiLengkap.length > 0 && (
-              <div className={styles.prose}>
+              // Satu blok fade-up — paragraf tidak dianimasikan satu per satu (keterbacaan).
+              <Reveal className={styles.prose}>
                 {found.deskripsiLengkap.map((paragraf) => (
                   <p key={paragraf}>{renderInlineEmphasis(paragraf)}</p>
                 ))}
-              </div>
+              </Reveal>
             )}
 
             {(tampilkanTabelDosis || found.catatanDosis) && (
@@ -131,6 +133,117 @@ export default async function ProdukDetailPage({ params }: PageProps) {
                 ) : (
                   <p className={styles.note}>{found.catatanDosis}</p>
                 )}
+              </Reveal>
+            )}
+
+            {/* Visual pendukung otentik jika tersedia */}
+            {found.slug === "futricho" && (
+              <Reveal className={styles.block}>
+                <SectionHeading title="Mekanisme Kerja Futricho" id="mekanisme-kerja" className={styles.blockHeading} />
+                <div className={styles.diagramWrapper}>
+                  <div className={styles.diagramImageContainer}>
+                    <Image
+                      src="/produk/cara-kerja-futricho.jpg"
+                      alt="Diagram Mekanisme Kerja Futricho Trichoderma koningii mengendalikan Ganoderma"
+                      width={860}
+                      height={480}
+                      className={styles.diagramImage}
+                    />
+                  </div>
+                  <p className={styles.diagramCaption}>
+                    Ilustrasi mekanisme kerja isolat aktif <em>Trichoderma koningii</em> dalam Futricho mengkolonisasi perakaran dan menekan perkembangan jamur patogen <em>Ganoderma</em> pada kelapa sawit.
+                  </p>
+                </div>
+              </Reveal>
+            )}
+
+            {found.slug === "bless-npk" && (
+              <Reveal className={styles.block}>
+                <SectionHeading title="Lembar Brosur Formula Bless NPK" id="brosur-formula" className={styles.blockHeading} />
+                <div className={styles.brochureGrid}>
+                  <div className={styles.brochureCard}>
+                    <div className={styles.brochureThumb}>
+                      <Image
+                        src="/produk/brosur-npk-12-6-22-3.jpg"
+                        alt="Brosur Pupuk Bless NPK 12-6-22-3+TE"
+                        width={600}
+                        height={420}
+                        className={styles.brochureImg}
+                      />
+                    </div>
+                    <div className={styles.brochureMeta}>
+                      <span className={styles.brochureLabel}>Formula TBM & TM</span>
+                      <h4 className={styles.brochureName}>Bless NPK 12-6-22-3+TE</h4>
+                      <a href="/produk/brosur-npk-12-6-22-3.jpg" target="_blank" rel="noopener noreferrer" className={styles.brochureBtn}>
+                        Buka Brosur Formula
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className={styles.brochureCard}>
+                    <div className={styles.brochureThumb}>
+                      <Image
+                        src="/produk/brosur-NPK-161616.jpg"
+                        alt="Brosur Pupuk Bless NPK 16-16-16"
+                        width={600}
+                        height={420}
+                        className={styles.brochureImg}
+                      />
+                    </div>
+                    <div className={styles.brochureMeta}>
+                      <span className={styles.brochureLabel}>Formula Seimbang</span>
+                      <h4 className={styles.brochureName}>Bless NPK 16-16-16</h4>
+                      <a href="/produk/brosur-NPK-161616.jpg" target="_blank" rel="noopener noreferrer" className={styles.brochureBtn}>
+                        Buka Brosur Formula
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            )}
+
+            {found.slug === "ostindo" && (
+              <Reveal className={styles.block}>
+                <SectionHeading title="Lembar Brosur Resmi Ostindo" id="brosur-resmi" className={styles.blockHeading} />
+                <div className={styles.brochureGrid}>
+                  <div className={styles.brochureCard}>
+                    <div className={styles.brochureThumb}>
+                      <Image
+                        src="/produk/ostindo1.jpg"
+                        alt="Brosur Resmi Pupuk Organik Ostindo Halaman 1"
+                        width={600}
+                        height={420}
+                        className={styles.brochureImg}
+                      />
+                    </div>
+                    <div className={styles.brochureMeta}>
+                      <span className={styles.brochureLabel}>Dokumen Resmi</span>
+                      <h4 className={styles.brochureName}>Brosur Ostindo — Hal 1</h4>
+                      <a href="/produk/ostindo1.jpg" target="_blank" rel="noopener noreferrer" className={styles.brochureBtn}>
+                        Buka Brosur Hal 1
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className={styles.brochureCard}>
+                    <div className={styles.brochureThumb}>
+                      <Image
+                        src="/produk/ostindo2.jpg"
+                        alt="Brosur Resmi Pupuk Organik Ostindo Halaman 2"
+                        width={600}
+                        height={420}
+                        className={styles.brochureImg}
+                      />
+                    </div>
+                    <div className={styles.brochureMeta}>
+                      <span className={styles.brochureLabel}>Dokumen Resmi</span>
+                      <h4 className={styles.brochureName}>Brosur Ostindo — Hal 2</h4>
+                      <a href="/produk/ostindo2.jpg" target="_blank" rel="noopener noreferrer" className={styles.brochureBtn}>
+                        Buka Brosur Hal 2
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </Reveal>
             )}
           </div>
@@ -149,12 +262,40 @@ export default async function ProdukDetailPage({ params }: PageProps) {
               Informasi Produk
             </h2>
             <DefinitionList items={infoProduk} />
+
+            {/* Dokumen & Brosur Otentik Produk */}
+            {found.dokumen && found.dokumen.length > 0 && (
+              <div className={styles.asideDocs}>
+                <h3 className={styles.asideDocsTitle}>Dokumen & Brosur</h3>
+                <ul className={styles.docList}>
+                  {found.dokumen.map((doc) => (
+                    <li key={doc.url}>
+                      <a
+                        href={doc.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.docItem}
+                      >
+                        <span className={styles.docBadge}>{doc.tipe === "pdf" ? "PDF" : "Brosur"}</span>
+                        <div className={styles.docInfo}>
+                          <span className={styles.docTitle}>{doc.judul}</span>
+                          <span className={styles.docActionText}>
+                            {doc.tipe === "pdf" ? "Unduh / Buka Dokumen" : "Lihat Brosur"}
+                          </span>
+                        </div>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <div className={styles.asideActions}>
               <Button href={kontakLink.href} block>
                 {kontakLink.label}
               </Button>
               <Button href="/produk" variant="text-link">
-                <span aria-hidden="true">←</span> Semua produk
+                Semua produk
               </Button>
             </div>
           </Card>
@@ -169,10 +310,21 @@ export default async function ProdukDetailPage({ params }: PageProps) {
             {lainnya.map((produk) => (
               <li key={produk.slug}>
                 <Link href={`/produk/${produk.slug}`} className={styles.otherCard}>
+                  {produk.gambar && (
+                    <div className={styles.otherThumb}>
+                      <Image
+                        src={produk.gambar}
+                        alt={`Kemasan ${produk.nama}`}
+                        fill
+                        sizes="120px"
+                        className={styles.otherThumbImage}
+                      />
+                    </div>
+                  )}
                   <span className={styles.otherMeta}>{kategoriLabel[produk.kategori]}</span>
                   <span className={styles.otherName}>{produk.nama}</span>
-                  <span className={styles.otherArrow} aria-hidden="true">
-                    →
+                  <span className={styles.otherAction}>
+                    Detail produk
                   </span>
                 </Link>
               </li>

@@ -7,23 +7,28 @@ import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { beritaPublishedList, getBeritaBySlug } from "@/lib/content/berita";
 import { formatTanggalIndonesia } from "@/lib/tanggal";
-import { ilustrasi } from "@/content/ilustrasi";
+import { ilustrasiBerita } from "@/lib/content/berita-ilustrasi";
 import styles from "./NewsHighlight.module.css";
 
-// Berita Beranda (DESIGN.md §13.1): satu artikel unggulan besar + baris S5 untuk
-// artikel terbit lainnya. Judul, tanggal, excerpt dari MDX; tanpa kategori (sumber
-// tidak memberi). Ilustrasi hanya pada unggulan (§12.6 INTERIM), baris tanpa thumbnail.
+// Berita Beranda (DESIGN.md §13.1): satu artikel unggulan besar + kartu visual untuk
+// artikel terbit lainnya. Menggunakan foto riil dari public/berita/ dan tata letak yang mudah dipindai.
 const SLUG_UNGGULAN = "kerjasama-brin-teknologi-pestisida";
 
 export function NewsHighlight() {
   const unggulan = getBeritaBySlug(SLUG_UNGGULAN);
-  const lainnya = beritaPublishedList.filter((entry) => entry.meta.slug !== SLUG_UNGGULAN);
+  const lainnya = beritaPublishedList.filter((entry) => entry.meta.slug !== SLUG_UNGGULAN).slice(0, 3);
+  const featuredImg = ilustrasiBerita[SLUG_UNGGULAN] ?? {
+    src: "/berita/Picture2.jpg",
+    alt: "Penandatanganan kerja sama Pusat Riset Mikrobiologi Terapan BRIN dengan PT Anugerah Mustika Ostindo",
+  };
 
   return (
     <Section aria-labelledby="berita-judul">
       <Container>
         <SectionHeading
-          title="Berita"
+          eyebrow="Kabar Terkini"
+          title="Berita &amp; Publikasi"
+          accent="Publikasi"
           layout="split"
           id="berita-judul"
           actions={
@@ -38,10 +43,9 @@ export function NewsHighlight() {
             <Reveal as="article" className={styles.featured}>
               <Link href={`/berita/${unggulan.meta.slug}`} className={styles.featuredLink}>
                 <span className={styles.featuredMedia}>
-                  {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
                   <Image
-                    src={ilustrasi.laboratorium.src}
-                    alt={ilustrasi.laboratorium.alt}
+                    src={featuredImg.src}
+                    alt={featuredImg.alt}
                     fill
                     sizes="(min-width: 1200px) 640px, (min-width: 900px) 55vw, calc(100vw - 2rem)"
                     className={styles.image}
@@ -56,7 +60,7 @@ export function NewsHighlight() {
                   <h3 className={styles.featuredTitle}>{unggulan.meta.judul}</h3>
                   {unggulan.meta.excerpt && <span className={styles.excerpt}>{unggulan.meta.excerpt}</span>}
                   <span className={styles.more}>
-                    Baca artikel <span aria-hidden="true"></span>
+                    Baca artikel lengkap
                   </span>
                 </span>
               </Link>
@@ -65,22 +69,40 @@ export function NewsHighlight() {
 
           {lainnya.length > 0 && (
             <Reveal as="ul" stagger className={styles.list}>
-              {lainnya.map(({ meta }) => (
-                <li key={meta.slug}>
-                  <Link href={`/berita/${meta.slug}`} className={styles.row}>
-                    {meta.tanggal && (
-                      <time dateTime={meta.tanggal} className={styles.date}>
-                        {formatTanggalIndonesia(meta.tanggal)}
-                      </time>
-                    )}
-                    <h3 className={styles.rowTitle}>{meta.judul}</h3>
-                    {meta.excerpt && <span className={styles.excerpt}>{meta.excerpt}</span>}
-                    <span className={styles.arrow} aria-hidden="true">
-                      →
-                    </span>
-                  </Link>
-                </li>
-              ))}
+              {lainnya.map(({ meta }) => {
+                const thumb = ilustrasiBerita[meta.slug];
+                return (
+                  <li key={meta.slug}>
+                    <Link href={`/berita/${meta.slug}`} className={styles.cardItem}>
+                      {thumb && (
+                        <div className={styles.thumbWrapper}>
+                          <Image
+                            src={thumb.src}
+                            alt={thumb.alt}
+                            fill
+                            sizes="140px"
+                            className={styles.thumbImage}
+                          />
+                        </div>
+                      )}
+                      <div className={styles.cardItemContent}>
+                        {meta.tanggal && (
+                          <time dateTime={meta.tanggal} className={styles.date}>
+                            {formatTanggalIndonesia(meta.tanggal)}
+                          </time>
+                        )}
+                        <h4 className={styles.cardItemTitle}>{meta.judul}</h4>
+                        {meta.excerpt && (
+                          <p className={styles.cardItemExcerpt}>{meta.excerpt}</p>
+                        )}
+                        <span className={styles.cardItemMore}>
+                          Baca artikel
+                        </span>
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
             </Reveal>
           )}
         </div>
@@ -88,3 +110,4 @@ export function NewsHighlight() {
     </Section>
   );
 }
+

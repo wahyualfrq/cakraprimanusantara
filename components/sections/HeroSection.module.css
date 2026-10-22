@@ -8,11 +8,9 @@
 .frame {
   position: relative;
   isolation: isolate;
-  /* 100vh sebagai fallback, lalu 100svh (tinggi viewport kecil di mobile) menimpanya.
-     Adaptasi v0.4: navbar sticky tidak lagi menimpa foto, jadi tinggi navbar dikurangi
-     supaya hero tetap mengisi sisa layar seperti versi fe-lanjutan. */
-  min-height: calc(100vh - var(--cpn-navbar-height));
-  min-height: calc(100svh - var(--cpn-navbar-height));
+  /* 100vh sebagai fallback, lalu 100svh (tinggi viewport kecil di mobile) menimpanya. */
+  min-height: 100vh;
+  min-height: 100svh;
   height: auto;
   max-height: none;
   display: flex;
@@ -21,8 +19,8 @@
   justify-content: center;
   overflow: hidden;
   box-sizing: border-box;
-  /* Clearance navbar mengambang dilepas (navbar sticky berada di atas hero). */
-  padding-top: var(--cpn-space-md);
+  /* Clearance navbar mengambang (--cpn-navbar-height sudah termasuk jarak atas). */
+  padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-md));
   padding-bottom: var(--cpn-space-xl);
 }
 
@@ -171,7 +169,7 @@
 
 @media (min-width: 640px) {
   .frame {
-    padding-top: var(--cpn-space-xl);
+    padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-xl));
     padding-bottom: var(--cpn-space-2xl);
   }
 
@@ -223,7 +221,7 @@
 @media (min-width: 901px) {
   .frame {
     min-height: 44rem;
-    height: calc(100vh - var(--cpn-navbar-height));
+    height: 100vh;
     max-height: 56rem;
     padding-top: 0;
     padding-bottom: 0;

@@ -61,6 +61,8 @@ export function PageHeader({
   return (
     <header
       data-page-header=""
+      // Header foto = hero halaman dalam: navbar transparan di atasnya (app/globals.css).
+      data-nav-overlay={isPhoto ? "" : undefined}
       className={cn(
         styles.header,
         isPhoto && styles.photo,

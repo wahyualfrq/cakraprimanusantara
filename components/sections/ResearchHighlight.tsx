@@ -26,16 +26,18 @@ export function ResearchHighlight() {
             {bagianKerjasama?.judul ?? "Riset & Inovasi"}
           </h2>
           <Button href="/riset-dan-inovasi" variant="text-link">
-            Riset &amp; Inovasi
+            Lihat semua riset
           </Button>
         </Reveal>
 
         <div className={styles.body}>
-          {bagianKerjasama?.paragraf.map((paragraf) => (
-            <p key={paragraf} className={styles.lead}>
-              {paragraf}
-            </p>
-          ))}
+          <Reveal>
+            {bagianKerjasama?.paragraf.map((paragraf) => (
+              <p key={paragraf} className={styles.lead}>
+                {paragraf}
+              </p>
+            ))}
+          </Reveal>
           <Timeline items={sorotan} />
         </div>
       </Container>

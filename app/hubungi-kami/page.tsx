@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -7,10 +8,11 @@ import { Reveal } from "@/components/ui/Reveal";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { localBusinessSchema } from "@/lib/seo/structured-data";
-import { kontakHref, kontakLabel, mapsUrl } from "@/lib/kontak";
-import { lokasiList, type Lokasi } from "@/content/kontak";
+import { kontakHref, mapsUrl } from "@/lib/kontak";
+import { lokasiList, type KontakItem } from "@/content/kontak";
 import { profil } from "@/content/profil";
 import { ContactForm } from "./ContactForm";
+import { CopyAddress } from "./CopyAddress";
 import styles from "./page.module.css";
 
 // Hanya lokasi Ostindo (Office & Factory, CONTENT-VERBATIM.md §H1). Lokasi lain
@@ -28,51 +30,40 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-/** Satu lokasi sebagai baris direktori S0: nama, alamat, Maps, pasangan label | nilai. */
-function LokasiRow({ lokasi }: { lokasi: Lokasi }) {
-  const kontak = (lokasi.kontak ?? []).filter((item) => !item.perluVerifikasi);
+// Ikon pengenal jenis kanal (outline 24 px, gaya ikon proyek) — dekoratif, label tetap teks.
+const IKON: Record<string, ReactNode> = {
+  whatsapp: (
+    <path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1zM9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2L9 9.5z" />
+  ),
+  telepon: (
+    <path d="M5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z" />
+  ),
+  email: <path d="M3 6h18v12H3zM3 7l9 6 9-6" />,
+  instagram: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="0.6" />
+    </>
+  ),
+};
 
-  return (
-    <li className={styles.location}>
-      <h3 className={styles.locationName}>{lokasi.nama}</h3>
-      <address className={styles.address}>{lokasi.alamat}</address>
-      <a href={mapsUrl(lokasi.alamat)} target="_blank" rel="noopener noreferrer" className={styles.mapsLink}>
-        Buka di Google Maps <span aria-hidden="true">↗</span>
-      </a>
+type Kanal = { tipe: string; label: string; nilai: string; aksi: string; href: string; external: boolean };
 
-      {(kontak.length > 0 || lokasi.email) && (
-        <dl className={styles.contacts}>
-          {kontak.map((item) => {
-            const href = kontakHref(item, pesanWhatsApp);
-            const external = item.tipe === "whatsapp" || item.tipe === "instagram";
-            return (
-              <div key={`${item.tipe}-${item.nilai}`} className={styles.contact}>
-                <dt>{kontakLabel[item.tipe]}</dt>
-                <dd>
-                  {href ? (
-                    <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-                      {item.nilai}
-                    </a>
-                  ) : (
-                    item.nilai
-                  )}
-                  {item.label && <span className={styles.pic}> ({item.label})</span>}
-                </dd>
-              </div>
-            );
-          })}
-          {lokasi.email && (
-            <div className={styles.contact}>
-              <dt>Email</dt>
-              <dd>
-                <a href={`mailto:${lokasi.email}`}>{lokasi.email}</a>
-              </dd>
-            </div>
-          )}
-        </dl>
-      )}
-    </li>
-  );
+/** Kanal kontak utama dari data Office (content/kontak.ts) — tanpa item perluVerifikasi. */
+function kanalKontak(): { kanal: Kanal[]; fax?: string } {
+  const office = lokasiOstindo.find((lokasi) => (lokasi.kontak ?? []).length > 0);
+  const items = (office?.kontak ?? []).filter((item) => !item.perluVerifikasi);
+  const cari = (tipe: KontakItem["tipe"]) => items.find((item) => item.tipe === tipe);
+  const kanal: Kanal[] = [];
+  const wa = cari("whatsapp");
+  if (wa) kanal.push({ tipe: "whatsapp", label: "WhatsApp", nilai: wa.nilai, aksi: "Mulai chat", href: kontakHref(wa, pesanWhatsApp)!, external: true });
+  const tel = cari("telepon");
+  if (tel) kanal.push({ tipe: "telepon", label: "Telepon", nilai: tel.nilai, aksi: "Telepon kantor", href: kontakHref(tel, pesanWhatsApp)!, external: false });
+  if (office?.email) kanal.push({ tipe: "email", label: "Email", nilai: office.email, aksi: "Kirim email", href: `mailto:${office.email}`, external: false });
+  const ig = cari("instagram");
+  if (ig) kanal.push({ tipe: "instagram", label: "Instagram", nilai: ig.nilai, aksi: "Lihat profil", href: kontakHref(ig, pesanWhatsApp)!, external: true });
+  return { kanal, fax: cari("fax")?.nilai };
 }
 
 export default function KontakPage() {
@@ -85,6 +76,7 @@ export default function KontakPage() {
       telephone: teleponUtama?.nilai,
     });
   });
+  const { kanal, fax } = kanalKontak();
 
   return (
     <>
@@ -92,11 +84,11 @@ export default function KontakPage() {
         <JsonLd key={lokasiOstindo[index].slug} data={schema} />
       ))}
 
-      {/* Header — banner foto fasilitas operasional & pengantar kontak */}
+      {/* Header ringkas — ilustrasi kebun (D4, dekoratif) + kalimat pembuka verbatim §H1. */}
       <PageHeader
         variant="photo"
-        photoSrc="/images/gambar-1.png"
-        photoPosition="center 40%"
+        photoSrc="/images/gambar-4.png"
+        photoPosition="center 45%"
         breadcrumb={[
           { label: "Beranda", href: "/" },
           { label: "Hubungi Kami", href: "/hubungi-kami" },
@@ -105,26 +97,93 @@ export default function KontakPage() {
         description={profil.pembukaKontak}
       />
 
-      {/* Direktori lokasi (S0) + form (S1) — DESIGN.md v0.4 §13.8. */}
-      <Section>
+      {/* 1. Kanal kontak utama — satu tautan per kanal, langsung bisa dipakai. */}
+      <Section aria-labelledby="kanal-kontak">
+        <Container>
+          <h2 id="kanal-kontak" className={styles.channelsTitle}>
+            Kontak langsung
+          </h2>
+          <Reveal as="ul" stagger className={styles.channels}>
+            {kanal.map((item) => (
+              <li key={item.tipe}>
+                <a
+                  href={item.href}
+                  className={styles.channel}
+                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  <svg className={styles.channelIcon} viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                    {IKON[item.tipe]}
+                  </svg>
+                  <span className={styles.channelLabel}>{item.label}</span>
+                  {/* <wbr> setelah "@": email panjang terpotong rapi di layar sempit. */}
+                  <span className={styles.channelValue}>
+                    {item.nilai.includes("@") && item.tipe === "email" ? (
+                      <>
+                        {item.nilai.split("@")[0]}@<wbr />
+                        {item.nilai.split("@")[1]}
+                      </>
+                    ) : (
+                      item.nilai
+                    )}
+                  </span>
+                  <span className={styles.channelAction}>
+                    {item.aksi}
+                    {item.external && <span className={styles.srOnly}> (tab baru)</span>}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </Reveal>
+          {fax && (
+            <p className={styles.fax}>
+              <span className={styles.faxLabel}>Fax</span> {fax}
+            </p>
+          )}
+        </Container>
+      </Section>
+
+      {/* 2. Form (fokus utama) | lokasi. Mobile: form dulu, lalu lokasi. */}
+      <Section aria-label="Kirim pesan dan lokasi">
         <Container className={styles.layout}>
+          <Reveal variant="fade" className={styles.formColumn}>
+            <Card as="section" className={styles.formPanel} aria-labelledby="form-kontak">
+              <div className={styles.formHead}>
+                <h2 id="form-kontak" className={styles.sectionTitle}>
+                  Kirim Pesan kepada Kami
+                </h2>
+                <p className={styles.formIntro}>
+                  Isi form di bawah, lalu pilih kirim lewat WhatsApp atau email. Pesan Anda akan dibuka
+                  di aplikasi tersebut untuk dikirim.
+                </p>
+              </div>
+              <ContactForm />
+            </Card>
+          </Reveal>
+
           <section className={styles.directory} aria-labelledby="lokasi-ostindo">
             <h2 id="lokasi-ostindo" className={styles.sectionTitle}>
               Lokasi
             </h2>
             <Reveal as="ul" stagger className={styles.locations}>
               {lokasiOstindo.map((lokasi) => (
-                <LokasiRow key={lokasi.slug} lokasi={lokasi} />
+                <li key={lokasi.slug} className={styles.location}>
+                  <h3 className={styles.locationName}>{lokasi.nama}</h3>
+                  <address className={styles.address}>{lokasi.alamat}</address>
+                  <div className={styles.locationActions}>
+                    <a
+                      href={mapsUrl(lokasi.alamat)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.actionLink}
+                    >
+                      Buka di Google Maps<span className={styles.srOnly}> (tab baru)</span>
+                    </a>
+                    <CopyAddress alamat={lokasi.alamat} label={lokasi.nama} />
+                  </div>
+                </li>
               ))}
             </Reveal>
           </section>
-
-          <Card as="section" className={styles.formPanel} aria-labelledby="form-kontak">
-            <h2 id="form-kontak" className={styles.sectionTitle}>
-              Kirim Pesan kepada Kami
-            </h2>
-            <ContactForm />
-          </Card>
         </Container>
       </Section>
     </>

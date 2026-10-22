@@ -17,11 +17,11 @@
 .row {
   position: relative;
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr) var(--cpn-space-lg);
+  grid-template-columns: 2.5rem 4.5rem minmax(0, 1fr) var(--cpn-space-lg);
   grid-template-areas:
-    "number title arrow"
-    "number meta arrow"
-    "number description arrow";
+    "number thumb title arrow"
+    "number thumb meta arrow"
+    "number thumb description arrow";
   column-gap: var(--cpn-space-md);
   row-gap: var(--cpn-space-xs);
   align-items: start;
@@ -48,6 +48,33 @@
   font-variant-numeric: lining-nums tabular-nums;
   line-height: var(--cpn-line-height-title);
   color: var(--cpn-color-primary);
+}
+
+.thumbWrap {
+  grid-area: thumb;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--cpn-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--cpn-color-border-subtle);
+  background-color: #ffffff;
+  box-shadow: var(--cpn-shadow-xs);
+  transition:
+    transform var(--cpn-duration-base) var(--cpn-ease),
+    box-shadow var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.thumbImage {
+  object-fit: contain !important;
+  object-position: center center !important;
+  padding: 6px;
+}
+
+.row:hover .thumbWrap,
+.row:focus-visible .thumbWrap {
+  transform: translateY(-2px);
+  box-shadow: var(--cpn-shadow-md);
 }
 
 .title {
@@ -101,45 +128,15 @@
 
 @media (min-width: 900px) {
   .row {
-    grid-template-columns: 3rem minmax(0, 5fr) minmax(0, 6fr) var(--cpn-space-lg);
+    grid-template-columns: 3rem 5.5rem minmax(0, 4fr) minmax(0, 6fr) var(--cpn-space-lg);
     grid-template-areas:
-      "number title description arrow"
-      "number meta description arrow";
+      "number thumb title description arrow"
+      "number thumb meta description arrow";
     column-gap: var(--cpn-space-lg);
     padding-block: var(--cpn-space-lg);
   }
 
   .description {
     padding-top: var(--cpn-space-sm);
-  }
-}
-
-/* Thumbnail hover — hanya perangkat dengan pointer halus, tidak memakan ruang di sentuh. */
-.thumbnail {
-  display: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .thumbnail {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: var(--cpn-space-xl);
-    width: 9rem;
-    aspect-ratio: 3 / 2;
-    border-radius: var(--cpn-radius-lg);
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-50%) scale(0.96);
-    transition:
-      opacity var(--cpn-duration-base) var(--cpn-ease),
-      transform var(--cpn-duration-base) var(--cpn-ease);
-  }
-
-  .row:hover .thumbnail,
-  .row:focus-visible .thumbnail {
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
   }
 }

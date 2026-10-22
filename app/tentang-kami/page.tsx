@@ -156,7 +156,8 @@ export default function TentangKamiPage() {
       {/* 1. Profil perusahaan — §E1, split-media 5:7 dengan gambar sticky */}
       <Section aria-labelledby="profil-judul">
         <Container className={styles.profileGrid}>
-          <div className={styles.profileMedia}>
+          {/* Split entrance: gambar fade-in, teks fade-up bertahap sedikit sesudahnya. */}
+          <Reveal variant="fade" className={styles.profileMedia}>
             {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
             <Image
               src={ilustrasi.rumahKaca.src}
@@ -168,9 +169,9 @@ export default function TentangKamiPage() {
               sizes="(min-width: 1200px) 450px, (min-width: 900px) 38vw, calc(100vw - 2rem)"
               className={styles.cover}
             />
-          </div>
+          </Reveal>
 
-          <div className={styles.profileCopy}>
+          <Reveal stagger delay={120} className={styles.profileCopy}>
             <h2 id="profil-judul" className={styles.profileTitle}>
               {profil.nama}
             </h2>
@@ -181,7 +182,7 @@ export default function TentangKamiPage() {
                 <p key={paragraf}>{paragraf}</p>
               ))}
             </div>
-          </div>
+          </Reveal>
         </Container>
       </Section>
 
@@ -208,7 +209,7 @@ export default function TentangKamiPage() {
           Misi = 3 card berfokus topik dengan ikon, nomor besar, dan top accent line. */}
       <Section aria-labelledby="misi-judul">
         <Container>
-          <SectionHeading title="Visi dan Misi" id="misi-judul" />
+          <SectionHeading title="Visi Perusahaan" id="misi-judul" />
           <div className={styles.vmContainer}>
             {/* Card Visi Unggulan — Reveal saat masuk viewport */}
             <Reveal>
@@ -220,11 +221,9 @@ export default function TentangKamiPage() {
                 </div>
 
                 <div className={styles.visionPillarsWrap}>
-                  <h3 className={styles.visionPillarsTitle}>Pilar Komitmen Visi</h3>
                   <div className={styles.visionPillars}>
                     {profil.visi.map((butir, index) => (
                       <div key={butir} className={styles.visionPillarCard}>
-                        <span className={styles.visionPillarIndex}>Pilar {String(index + 1).padStart(2, "0")}</span>
                         <p className={styles.visionPillarText}>{butir}</p>
                       </div>
                     ))}
@@ -250,11 +249,6 @@ export default function TentangKamiPage() {
                           </span>
                           <span className={styles.missionIndexBadge}>Misi 0{index + 1}</span>
                         </div>
-                        {meta && (
-                          <span className={styles.missionMetaTag}>
-                            {meta.tema}
-                          </span>
-                        )}
                       </div>
                       <p className={styles.missionCardText}>{butir}</p>
                     </Card>
@@ -273,7 +267,7 @@ export default function TentangKamiPage() {
             <SectionHeading title="Inovasi Perusahaan" id="inovasi-judul" />
             <p className={styles.lead}>{profil.inovasi}</p>
           </Reveal>
-          <div className={styles.innovationMedia}>
+          <Reveal variant="fade" delay={120} className={styles.innovationMedia}>
             {/* Ilustrasi sementara (D4) — bukan dokumentasi fasilitas Ostindo. */}
             <Image
               src={ilustrasi.laboratorium.src}
@@ -282,7 +276,7 @@ export default function TentangKamiPage() {
               sizes="(min-width: 1200px) 450px, (min-width: 900px) 38vw, calc(100vw - 2rem)"
               className={styles.cover}
             />
-          </div>
+          </Reveal>
         </Container>
       </Section>
 
@@ -318,12 +312,6 @@ export default function TentangKamiPage() {
                   <div className={styles.legalCardHeader}>
                     <span className={styles.legalCardIcon} aria-hidden="true">
                       <LicenseIcon type={meta.tipe} />
-                    </span>
-                    <span className={styles.legalStatusTag}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      Terdaftar Resmi
                     </span>
                   </div>
                   <div className={styles.legalCardContent}>

@@ -269,19 +269,21 @@
 }
 
 @media (min-width: 900px) {
+  /* Kartu unggulan tidak meregang mengikuti tinggi kolom samping (yang bertambah seiring
+     jumlah artikel): rasio tetap 4:3 supaya foto sumber 600×400 tidak ter-crop berat atau
+     di-upscale buram; sticky agar tetap terlihat saat kartu samping digulir. */
   .magazine {
     grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
-    align-items: stretch;
+    align-items: start;
   }
 
-  .featuredLink,
-  .featuredMedia {
-    height: 100%;
+  .featured {
+    position: sticky;
+    top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
   }
 
   .featuredMedia {
-    min-height: 34rem;
-    aspect-ratio: auto;
+    aspect-ratio: 4 / 3;
   }
 }
 

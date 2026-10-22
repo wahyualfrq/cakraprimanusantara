@@ -43,6 +43,7 @@ export default function BeritaPage() {
     <>
       <PageHeader
         variant="photo"
+        fullScreen
         photoSrc="/images/gambar-11.png"
         photoPosition="center 30%"
         breadcrumb={[
@@ -57,7 +58,7 @@ export default function BeritaPage() {
         <Container>
           {unggulan ? (
             <div className={styles.magazine}>
-              <article className={styles.featured}>
+              <Reveal as="article" className={styles.featured}>
                 <Link href={`/berita/${unggulan.meta.slug}`} className={styles.featuredLink}>
                   <span className={styles.featuredMedia}>
                     {gambarUnggulan ? (
@@ -90,7 +91,7 @@ export default function BeritaPage() {
                     <span className={styles.featuredMore}>Baca artikel lengkap</span>
                   </span>
                 </Link>
-              </article>
+              </Reveal>
 
               {lainnya.length > 0 && (
                 <Reveal as="ul" stagger className={styles.side} aria-label="Berita lainnya">

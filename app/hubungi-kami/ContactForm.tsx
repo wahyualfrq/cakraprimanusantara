@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type InputHTMLAttributes } from "react";
 import { Button } from "@/components/ui/Button";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { lokasiList } from "@/content/kontak";
@@ -25,6 +25,9 @@ type FormState = {
 type Kolom = keyof FormState;
 type Errors = Partial<Record<Kolom, string>>;
 
+/** Umpan balik setelah tombol kirim: error validasi, atau info bahwa aplikasi tujuan dibuka. */
+type Notice = { tipe: "error" | "info"; teks: string; href?: string; hrefLabel?: string };
+
 const initialState: FormState = {
   nama: "",
   email: "",
@@ -40,6 +43,14 @@ const LABEL: Record<Kolom, string> = {
   telepon: "Nomor Telp",
   subjek: "Subjek",
   pesan: "Pesan",
+};
+
+// Bantuan pengisian browser (autofill) dan keyboard yang sesuai di perangkat sentuh.
+const INPUT_ATTR: Partial<Record<Kolom, InputHTMLAttributes<HTMLInputElement>>> = {
+  nama: { autoComplete: "name" },
+  email: { autoComplete: "email", inputMode: "email" },
+  telepon: { autoComplete: "tel", inputMode: "tel" },
+  subjek: { autoComplete: "off" },
 };
 
 const URUTAN: Kolom[] = ["nama", "email", "telepon", "subjek", "pesan"];
@@ -70,11 +81,16 @@ function buildMessageBody(form: FormState): string {
 const fieldId = (kolom: Kolom) => `kontak-${kolom}`;
 const errorId = (kolom: Kolom) => `kontak-${kolom}-error`;
 
+/**
+ * Form kontak tanpa backend: menyusun pesan lalu membukanya di WhatsApp (tab baru) atau
+ * aplikasi email pengguna. Website tidak mengirim maupun menyimpan pesan — umpan balik
+ * tidak pernah menyatakan pesan "terkirim".
+ */
 export function ContactForm() {
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<Errors>({});
   const [pernahKirim, setPernahKirim] = useState(false);
-  const [status, setStatus] = useState("");
+  const [notice, setNotice] = useState<Notice | null>(null);
 
   function updateField(kolom: Kolom, value: string) {
     const next = { ...form, [kolom]: value };
@@ -95,17 +111,36 @@ export function ContactForm() {
 
     const salah = URUTAN.filter((kolom) => hasil[kolom]);
     if (salah.length > 0) {
-      setStatus(`Ada ${salah.length} kolom yang perlu diperbaiki.`);
+      setNotice({ tipe: "error", teks: `Ada ${salah.length} kolom yang perlu diperbaiki.` });
       document.getElementById(fieldId(salah[0]))?.focus();
       return;
     }
-    setStatus("");
 
     const body = buildMessageBody(form);
     if (kanal === "whatsapp") {
-      window.open(buildWhatsAppUrl(tujuan.nomor, body), "_blank", "noopener,noreferrer");
+      const url = buildWhatsAppUrl(tujuan.nomor, body);
+      const tab = window.open(url, "_blank");
+      if (tab) {
+        tab.opener = null;
+        setNotice({
+          tipe: "info",
+          teks: "WhatsApp dibuka di tab baru dengan pesan Anda. Tekan kirim di WhatsApp untuk mengirimkannya.",
+        });
+      } else {
+        // Pop-up diblokir browser → beri tautan langsung.
+        setNotice({
+          tipe: "info",
+          teks: "Tab WhatsApp tidak dapat dibuka otomatis.",
+          href: url,
+          hrefLabel: "Buka WhatsApp",
+        });
+      }
     } else {
       const subject = encodeURIComponent(form.subjek || "Pertanyaan dari website");
+      setNotice({
+        tipe: "info",
+        teks: "Aplikasi email Anda dibuka dengan pesan yang sudah terisi. Kirim pesan dari aplikasi email tersebut.",
+      });
       window.location.href = `mailto:${tujuan.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
     }
   }
@@ -124,11 +159,21 @@ export function ContactForm() {
 
     return (
       <div className={styles.field}>
-        <label htmlFor={fieldId(kolom)}>{LABEL[kolom]}</label>
+        <label htmlFor={fieldId(kolom)}>
+          {LABEL[kolom]}
+          <span className={styles.required} aria-hidden="true">
+            *
+          </span>
+        </label>
         {input === "textarea" ? (
-          <textarea {...common} rows={5} onChange={(event) => updateField(kolom, event.target.value)} />
+          <textarea {...common} rows={6} onChange={(event) => updateField(kolom, event.target.value)} />
         ) : (
-          <input {...common} type={type} onChange={(event) => updateField(kolom, event.target.value)} />
+          <input
+            {...common}
+            {...INPUT_ATTR[kolom]}
+            type={type}
+            onChange={(event) => updateField(kolom, event.target.value)}
+          />
         )}
         {error && (
           <p id={errorId(kolom)} className={styles.error}>
@@ -141,7 +186,9 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form} noValidate>
-      <p className={styles.hint}>Semua kolom wajib diisi.</p>
+      <p className={styles.hint}>
+        <span aria-hidden="true">* </span>Semua kolom wajib diisi.
+      </p>
 
       <div className={styles.grid}>
         {renderField("nama", "input")}
@@ -151,10 +198,22 @@ export function ContactForm() {
       </div>
       {renderField("pesan", "textarea")}
 
-      {/* Ringkasan error dibacakan pembaca layar (aria-live). */}
-      <p role="status" aria-live="polite" className={status ? styles.summary : styles.srOnly}>
-        {status}
-      </p>
+      {/* Ringkasan error / info dibacakan pembaca layar (aria-live). */}
+      <div
+        role="status"
+        aria-live="polite"
+        className={notice ? (notice.tipe === "error" ? styles.summary : styles.info) : styles.srOnly}
+      >
+        {notice?.teks}
+        {notice?.href && (
+          <>
+            {" "}
+            <a href={notice.href} target="_blank" rel="noopener noreferrer" className={styles.noticeLink}>
+              {notice.hrefLabel}
+            </a>
+          </>
+        )}
+      </div>
 
       <div className={styles.actions}>
         <Button type="button" onClick={() => handleKirim("whatsapp")}>

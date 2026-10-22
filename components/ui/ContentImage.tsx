@@ -13,11 +13,12 @@ const placeholderClassByVariant: Record<ContentImageVariant, string> = {
 };
 
 type BaseProps = {
-  /** URL foto asli (Vercel Blob). Kosongkan kalau belum tersedia — jangan karang URL. */
+  /** URL foto asli. Kosongkan kalau belum tersedia — jangan karang URL. */
   src?: string;
   alt: string;
   variant: ContentImageVariant;
   className?: string;
+  objectFit?: "cover" | "contain";
 };
 
 type FillProps = BaseProps & {
@@ -39,11 +40,12 @@ type ContentImageProps = FillProps | FixedProps;
 
 /**
  * next/image dengan placeholder berpola (DESIGN.md §8.9) selama foto asli
- * belum di-upload ke Vercel Blob. `variant` menentukan treatment pattern
+ * belum di-upload. `variant` menentukan treatment pattern
  * supaya tiap tipe konten terasa beda struktur, bukan "box yang sama".
  */
 export function ContentImage(props: ContentImageProps) {
-  const { src, alt, variant, className } = props;
+  const { src, alt, variant, className, objectFit } = props;
+  const isContain = objectFit === "contain" || (objectFit === undefined && variant === "produk");
 
   if (!src) {
     // alt kosong = dekoratif: sembunyikan dari pembaca layar, jangan role="img"
@@ -58,21 +60,27 @@ export function ContentImage(props: ContentImageProps) {
 
   if (props.fill) {
     return (
-      <div className={cn(styles.wrap, styles.fill, className)}>
-        <Image src={src} alt={alt} fill sizes={props.sizes} className={styles.image} />
+      <div className={cn(styles.wrap, styles.fill, isContain && styles.wrapContain, className)}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes={props.sizes}
+          className={cn(styles.image, isContain && styles.imageContain)}
+        />
       </div>
     );
   }
 
   return (
-    <div className={cn(styles.wrap, className)}>
+    <div className={cn(styles.wrap, isContain && styles.wrapContain, className)}>
       <Image
         src={src}
         alt={alt}
         width={props.width}
         height={props.height}
         sizes={props.sizes}
-        className={styles.image}
+        className={cn(styles.image, isContain && styles.imageContain)}
       />
     </div>
   );

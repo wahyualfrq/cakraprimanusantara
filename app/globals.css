@@ -138,6 +138,12 @@
   /* Navbar bar putih rata, sticky (§9.2): 64 px desktop / 56 px < 900 px. */
   --cpn-navbar-height: 4rem;
   --cpn-navbar-logo-height: 2.5rem;
+  /* Navbar setelah di-scroll: putih semi-transparan + blur; fallback hampir solid bila
+     backdrop-filter tidak didukung. */
+  --cpn-navbar-glass-bg: rgba(255, 255, 255, 0.78);
+  --cpn-navbar-glass-blur: blur(14px) saturate(160%);
+  --cpn-navbar-solid-bg: rgba(255, 255, 255, 0.97);
+  --cpn-navbar-glass-border: rgba(24, 29, 25, 0.08);
 
   /* Target sentuh minimum kontrol mandiri (§17.3). */
   --cpn-touch-target: 2.75rem;
@@ -154,7 +160,10 @@
      garis timeline yang tergambar sekali saat masuk layar. */
   --cpn-duration-marquee: 120s;
   --cpn-duration-draw: 900ms;
-  --cpn-reveal-shift: 12px;
+  /* Entrance section (Reveal + header halaman): fade-up 20 px, 650 ms, ease-out halus. */
+  --cpn-reveal-shift: 20px;
+  --cpn-duration-reveal: 650ms;
+  --cpn-ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Cincin fokus keyboard — ganda (putih lalu hijau), terlihat di atas terang maupun gelap. */
   --cpn-focus-ring: 0 0 0 2px var(--cpn-color-bg), 0 0 0 4px var(--cpn-color-primary);
@@ -305,4 +314,11 @@ main:focus {
   transform: none;
   outline: 2px solid transparent;
   box-shadow: var(--cpn-focus-ring);
+}
+
+/* Navbar overlay: halaman yang dibuka dengan hero foto (elemen bertanda data-nav-overlay)
+   menarik konten ke belakang navbar sticky, sehingga navbar transparan menyatu dengan foto.
+   Halaman berlatar terang (tanpa penanda) tidak berubah. */
+body:has(#konten-utama > [data-nav-overlay]) #konten-utama {
+  margin-top: calc(-1 * var(--cpn-navbar-height));
 }

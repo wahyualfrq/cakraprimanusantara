@@ -1,16 +1,12 @@
-.stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-block);
-}
+/* ── Halaman Produk: Editorial Natural (DESIGN.md v0.4 §13.3) ── */
 
-/* Blok unggulan S4: green-800, radius lg, pola ringan (bukan foto), satu tautan. */
+/* ── 1. Blok Unggulan S4: Ostindo (Flagship Core Business) ── */
 .featured {
   position: relative;
   isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-block);
+  gap: var(--cpn-space-xl);
   padding: var(--cpn-space-band);
   border-radius: var(--cpn-radius-lg);
   overflow: hidden;
@@ -18,39 +14,41 @@
   color: var(--cpn-color-text-on-dark);
 }
 
-.featured:focus-visible {
-  outline: 2px solid transparent;
-  box-shadow: var(--cpn-focus-ring);
-}
-
 .featuredPattern {
   position: absolute;
   inset: 0;
   z-index: -1;
   background-image:
-    radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--cpn-green-300) 20%, transparent) 0, transparent 45%),
-    radial-gradient(color-mix(in srgb, var(--cpn-color-text-on-dark) 10%, transparent) 1px, transparent 1px);
+    radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--cpn-green-300) 18%, transparent) 0, transparent 48%),
+    radial-gradient(circle at 15% 85%, color-mix(in srgb, var(--cpn-green-500) 12%, transparent) 0, transparent 40%),
+    radial-gradient(color-mix(in srgb, var(--cpn-color-text-on-dark) 8%, transparent) 1px, transparent 1px);
   background-size:
     auto,
-    16px 16px;
+    auto,
+    18px 18px;
   transition: transform var(--cpn-duration-slow) var(--cpn-ease);
 }
 
-@media (hover: hover) {
-  .featured:hover .featuredPattern {
-    transform: scale(1.04);
-  }
+.featured:hover .featuredPattern {
+  transform: scale(1.03);
 }
 
-.featuredTop {
+.featuredLeft {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  justify-content: center;
+}
+
+.featuredBadgeRow {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: var(--cpn-space-md);
 }
 
-.label {
-  padding: var(--cpn-space-xs) 0.75rem;
+.featuredCategory {
+  padding: var(--cpn-space-xs) 0.875rem;
   border: 1px solid var(--cpn-glass-border);
   border-radius: var(--cpn-radius-full);
   font-size: var(--cpn-text-caption);
@@ -58,9 +56,11 @@
   letter-spacing: var(--cpn-letter-spacing-caps);
   line-height: var(--cpn-line-height-title);
   text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
 }
 
-.numeral {
+.featuredNumeral {
   font-family: var(--cpn-font-heading);
   font-size: var(--cpn-text-display);
   font-style: italic;
@@ -69,67 +69,444 @@
   color: var(--cpn-green-300);
 }
 
-.featuredBody {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--cpn-space-md);
-}
-
 .featuredName {
   font-family: var(--cpn-font-heading);
   font-size: var(--cpn-text-display);
   font-weight: var(--cpn-font-weight-semibold);
   line-height: var(--cpn-line-height-display);
+  letter-spacing: -0.01em;
 }
 
 .featuredDesc {
-  max-width: var(--cpn-measure-short);
+  max-width: var(--cpn-measure);
   font-size: var(--cpn-text-lead);
   line-height: var(--cpn-line-height-lead);
   color: var(--cpn-color-text-on-dark-muted);
 }
 
-.featuredMore {
+.featuredSpecs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cpn-space-xs) var(--cpn-space-sm);
+  margin-block: var(--cpn-space-xs);
+}
+
+.specItem {
   display: inline-flex;
   align-items: center;
   gap: var(--cpn-space-xs);
-  font-size: var(--cpn-text-ui);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--cpn-radius-md);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: var(--cpn-text-caption);
+}
+
+.specLabel {
+  color: var(--cpn-green-300);
+  font-weight: var(--cpn-font-weight-medium);
+}
+
+.specValue {
+  color: #ffffff;
   font-weight: var(--cpn-font-weight-semibold);
-  text-decoration: underline;
-  text-decoration-color: var(--cpn-glass-border);
-  text-underline-offset: 0.3em;
 }
 
-.arrow {
-  display: inline-block;
-  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+.featuredActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cpn-space-sm);
+  padding-top: var(--cpn-space-sm);
 }
 
-.featured:hover .arrow {
-  transform: translateX(4px);
+.featuredRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.featuredMore span {
-  display: inline-block;
-  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+.featuredMediaContainer {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.featured:hover .featuredMore span {
-  transform: translateX(4px);
+.featuredGlow {
+  position: absolute;
+  inset: 10%;
+  border-radius: var(--cpn-radius-full);
+  background: radial-gradient(circle at center, rgba(130, 237, 168, 0.22) 0%, transparent 68%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.featuredMedia {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.featured:hover .featuredMedia {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.featuredImage {
+  object-fit: contain !important;
+  object-position: center center !important;
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.35));
 }
 
 @media (min-width: 900px) {
   .featured {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    align-items: end;
+    grid-template-columns: minmax(0, 6.8fr) minmax(0, 5.2fr);
+    align-items: center;
+    padding: var(--cpn-space-xl);
   }
+}
 
-  .featuredTop {
-    order: 2;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
-    align-self: stretch;
+/* ── 2. Katalog Produk: Grid Card Terstruktur dan Rapi ── */
+.sectionHeader {
+  margin-bottom: var(--cpn-space-lg);
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-lg);
+}
+
+@media (min-width: 640px) {
+  .productGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+@media (min-width: 1024px) {
+  .productGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Setiap Card Mengikuti Urutan:
+   1. Area Gambar
+   2. Judul Produk
+   3. Deskripsi Singkat
+   4. Informasi Pendukung
+   5. Aksi Utama (margin-top: auto) */
+.productCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--cpn-color-bg);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-lg);
+  overflow: hidden;
+  transition:
+    transform var(--cpn-duration-base) var(--cpn-ease),
+    border-color var(--cpn-duration-base) var(--cpn-ease),
+    box-shadow var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.productCard:hover {
+  transform: translateY(-3px);
+  border-color: var(--cpn-green-300);
+  box-shadow:
+    0 12px 24px -6px rgba(1, 102, 37, 0.1),
+    0 4px 10px rgba(24, 29, 25, 0.04);
+}
+
+/* 1. Area Gambar Produk (Tinggi Seragam pada Seluruh Card) */
+.cardMediaSlot {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  background: radial-gradient(circle at center, #ffffff 45%, var(--cpn-green-50) 100%);
+  border-bottom: 1px solid var(--cpn-color-border);
+  padding: var(--cpn-space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardImageLink {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cardImage {
+  object-fit: contain !important;
+  object-position: center center !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+  transition: transform var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.productCard:hover .cardImage {
+  transform: scale(1.03);
+}
+
+.cardContent {
+  padding: var(--cpn-space-lg);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* 2. Nama / Judul Produk (Mulai pada Garis Vertikal yang Sama) */
+.cardTitle {
+  font-family: var(--cpn-font-heading);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: var(--cpn-space-xs);
+}
+
+.titleLink {
+  color: var(--cpn-color-text);
+  text-decoration: none;
+  transition: color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.titleLink:hover {
+  color: var(--cpn-color-primary);
+}
+
+/* 3. Deskripsi Singkat (Tinggi Konsisten, Dibatasi 3 Baris) */
+.cardDesc {
+  font-size: var(--cpn-text-small);
+  line-height: 1.6;
+  color: var(--cpn-color-text-muted);
+  min-height: 4.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 4. Informasi Pendukung yang Relevan */
+.cardInfoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cpn-space-sm);
+  margin-top: var(--cpn-space-sm);
+  padding-top: var(--cpn-space-xs);
+}
+
+.cardCategory {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--cpn-color-primary);
+}
+
+.cardDocTag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--cpn-radius-full);
+  background-color: var(--cpn-color-surface-muted);
+  color: var(--cpn-gray-700);
+  border: 1px solid var(--cpn-color-border);
+}
+
+/* 5. Aksi Utama (Terapit Rata di Bawah Setiap Card) */
+.cardActions {
+  margin-top: auto;
+  padding-top: var(--cpn-space-md);
+  border-top: 1px solid var(--cpn-color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--cpn-space-sm);
+}
+
+.btnDetail {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--cpn-radius-md);
+  font-size: var(--cpn-text-small);
+  font-weight: 600;
+  background-color: var(--cpn-color-primary);
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.btnDetail:hover {
+  background-color: var(--cpn-color-primary-hover);
+}
+
+.btnDoc {
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--cpn-radius-md);
+  font-size: var(--cpn-text-small);
+  font-weight: 600;
+  background-color: transparent;
+  border: 1px solid var(--cpn-color-border);
+  color: var(--cpn-color-text);
+  text-decoration: none;
+  transition:
+    border-color var(--cpn-duration-fast) var(--cpn-ease),
+    color var(--cpn-duration-fast) var(--cpn-ease);
+  white-space: nowrap;
+}
+
+.btnDoc:hover {
+  border-color: var(--cpn-color-primary);
+  color: var(--cpn-color-primary);
+}
+
+/* ── 3. Jaminan Standar Mutu & Pengujian Ilmiah ── */
+.qualitySplit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xl);
+}
+
+@media (min-width: 900px) {
+  .qualitySplit {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--cpn-space-2xl);
+    align-items: center;
+  }
+}
+
+.qualityMediaSide {
+  display: flex;
+  justify-content: center;
+}
+
+.qualityCardsStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  width: 100%;
+  max-width: 440px;
+}
+
+.qualityCertCard,
+.qualityCertCardSecondary {
+  display: flex;
+  align-items: center;
+  gap: var(--cpn-space-md);
+  padding: var(--cpn-space-md);
+  background-color: var(--cpn-color-bg);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform var(--cpn-duration-base) var(--cpn-ease),
+    border-color var(--cpn-duration-base) var(--cpn-ease),
+    box-shadow var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.qualityCertCard:hover,
+.qualityCertCardSecondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--cpn-green-300);
+  box-shadow: var(--cpn-shadow-md);
+}
+
+.certThumbWrap,
+.certThumbWrapSmall {
+  position: relative;
+  width: 4.5rem;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--cpn-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--cpn-color-border);
+  flex-shrink: 0;
+  background-color: #ffffff;
+}
+
+.certThumbImg {
+  object-fit: cover !important;
+  object-position: top center !important;
+}
+
+.certInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.certCategory {
+  font-size: 0.6875rem;
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--cpn-color-primary);
+}
+
+.certTitle {
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-body);
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-text);
+  line-height: var(--cpn-line-height-title);
+}
+
+.certActionText {
+  font-size: var(--cpn-text-caption);
+  font-weight: 500;
+  color: var(--cpn-color-text-muted);
+}
+
+.qualityTextSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-lg);
+}
+
+.qualityPillars {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  margin: 0;
+  padding: 0;
+}
+
+.pillarItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+}
+
+.pillarBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pillarTitle {
+  font-size: var(--cpn-text-body);
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-text);
+}
+
+.pillarText {
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
+}
+
+.qualityActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cpn-space-md);
+  padding-top: var(--cpn-space-xs);
 }

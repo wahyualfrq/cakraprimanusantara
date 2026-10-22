@@ -20,7 +20,8 @@ const trustLogos = pelangganList.filter((p) => NAMA_STRIP.includes(p.nama)).map(
  */
 export function HeroSection() {
   return (
-    <section className={styles.hero}>
+    // data-nav-overlay: navbar transparan menyatu dengan foto hero (lihat app/globals.css).
+    <section className={styles.hero} data-nav-overlay="">
       <div className={styles.frame}>
         <div className={styles.media}>
           {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}

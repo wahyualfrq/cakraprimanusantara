@@ -1,20 +1,35 @@
-/* Reveal saat scroll (DESIGN.md §16.2–16.3): opacity + translateY 12px, sekali.
+/* Entrance section (DESIGN.md §16.2–16.3): fade-up 20 px / fade-in, 650 ms, sekali.
    State tersembunyi hanya dipasang oleh JS untuk elemen yang masih di bawah layar,
    jadi tanpa JS / sebelum hidrasi konten tetap terlihat. */
+.root {
+  --reveal-delay: 0ms;
+}
+
 .root[data-reveal="hidden"] {
   opacity: 0;
   transform: translateY(var(--cpn-reveal-shift));
+}
+
+.fade[data-reveal="hidden"] {
+  transform: none;
+}
+
+/* Wadah hanya membawa state — tidak pernah disembunyikan. */
+.none[data-reveal="hidden"] {
+  opacity: 1;
+  transform: none;
 }
 
 .root[data-reveal="shown"] {
   opacity: 1;
   transform: none;
   transition:
-    opacity var(--cpn-duration-slow) var(--cpn-ease),
-    transform var(--cpn-duration-slow) var(--cpn-ease);
+    opacity var(--cpn-duration-reveal) var(--cpn-ease-reveal) var(--reveal-delay),
+    transform var(--cpn-duration-reveal) var(--cpn-ease-reveal) var(--reveal-delay);
 }
 
-/* Stagger: anak langsung tertunda 80 ms, maks. 4 anak — sisanya muncul bersamaan. */
+/* Stagger: wadah tetap terlihat; anak langsung muncul berurutan 80 ms, maks. 5 anak
+   (total jeda ≤ 320 ms) — sisanya muncul bersama anak ke-5. */
 .stagger[data-reveal="hidden"] {
   opacity: 1;
   transform: none;
@@ -25,6 +40,10 @@
   transform: translateY(var(--cpn-reveal-shift));
 }
 
+.fade.stagger[data-reveal="hidden"] > * {
+  transform: none;
+}
+
 .stagger[data-reveal="shown"] {
   transition: none;
 }
@@ -33,20 +52,24 @@
   opacity: 1;
   transform: none;
   transition:
-    opacity var(--cpn-duration-slow) var(--cpn-ease),
-    transform var(--cpn-duration-slow) var(--cpn-ease);
+    opacity var(--cpn-duration-reveal) var(--cpn-ease-reveal) var(--reveal-delay),
+    transform var(--cpn-duration-reveal) var(--cpn-ease-reveal) var(--reveal-delay);
 }
 
 .stagger[data-reveal="shown"] > :nth-child(2) {
-  transition-delay: var(--cpn-stagger);
+  transition-delay: calc(var(--reveal-delay) + var(--cpn-stagger));
 }
 
 .stagger[data-reveal="shown"] > :nth-child(3) {
-  transition-delay: calc(2 * var(--cpn-stagger));
+  transition-delay: calc(var(--reveal-delay) + 2 * var(--cpn-stagger));
 }
 
-.stagger[data-reveal="shown"] > :nth-child(n + 4) {
-  transition-delay: calc(3 * var(--cpn-stagger));
+.stagger[data-reveal="shown"] > :nth-child(4) {
+  transition-delay: calc(var(--reveal-delay) + 3 * var(--cpn-stagger));
+}
+
+.stagger[data-reveal="shown"] > :nth-child(n + 5) {
+  transition-delay: calc(var(--reveal-delay) + 4 * var(--cpn-stagger));
 }
 
 @media (prefers-reduced-motion: reduce) {

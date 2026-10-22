@@ -38,7 +38,7 @@ export function AboutSection() {
           </div>
         </Reveal>
 
-        <Reveal className={styles.media}>
+        <Reveal variant="fade" delay={120} className={styles.media}>
           {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
           <Image
             src={ilustrasi.rumahKaca.src}

@@ -1,6 +1,8 @@
-/* Riset & Inovasi (DESIGN.md v0.4 §13.5). */
+/* Riset & Inovasi (DESIGN.md v0.4 §13.5). Semua nilai lewat token. */
 
-/* ── 1. Narasi: split-rail 4:8 per bagian, jarak antarbagian --cpn-space-block ── */
+/* ── 1. Narasi: split-rail 4:8 per bagian ──────────────────────────────
+   Mobile: judul → teks → dokumentasi. ≥ 900 px: judul + dokumentasi di kolom kiri
+   (mengisi rail yang sebelumnya kosong), teks di kolom kanan. */
 .narrative {
   display: flex;
   flex-direction: column;
@@ -10,15 +12,26 @@
 .part {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "head"
+    "prose";
   gap: var(--cpn-space-md);
 }
 
-.part+.part {
+.partWithMedia {
+  grid-template-areas:
+    "head"
+    "prose"
+    "media";
+}
+
+.part + .part {
   padding-top: var(--cpn-space-block);
   border-top: 1px solid var(--cpn-color-border);
 }
 
 .rail {
+  grid-area: head;
   display: flex;
   flex-direction: column;
   gap: var(--cpn-space-sm);
@@ -40,6 +53,7 @@
 }
 
 .prose {
+  grid-area: prose;
   display: flex;
   flex-direction: column;
   gap: var(--cpn-space-md);
@@ -55,37 +69,137 @@
   color: var(--cpn-gray-700);
 }
 
+/* Dokumentasi: tampil utuh (rasio asli, tanpa crop) — kolase berlabel tetap terbaca. */
+.figure {
+  grid-area: media;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-sm);
+  margin-top: var(--cpn-space-sm);
+}
+
+.imageBox {
+  overflow: hidden;
+  border-radius: var(--cpn-radius-lg);
+  background-color: var(--cpn-color-bg);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  max-width: 44ch;
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-color-text-muted);
+}
+
 /* ── 2. Milestone: rail 4:8 ─────────────────────────────────────────── */
 .railGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
 }
 
-/* ── 3. Sertifikat & Penghargaan: S0 dua kolom ──────────────────────── */
-.certList {
+/* Garis kontur lahan: hanya ≥ 900 px untuk mengisi rail yang kosong; tipis, satu warna. */
+.contour {
+  display: none;
+}
+
+.contour svg {
+  display: block;
+  width: 100%;
+  max-width: 15rem;
+  height: auto;
+}
+
+.contour path {
+  stroke: var(--cpn-green-200);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 320;
+  stroke-dashoffset: 0;
+}
+
+/* Tergambar sekali saat Reveal aktif; tanpa JS / reduced motion garis langsung utuh. */
+.contour[data-reveal="hidden"] path {
+  stroke-dashoffset: 320;
+}
+
+.contour[data-reveal="shown"] path {
+  transition: stroke-dashoffset var(--cpn-duration-draw) var(--cpn-ease-reveal);
+}
+
+.contour[data-reveal="shown"] path:nth-child(2) {
+  transition-delay: var(--cpn-stagger);
+}
+
+.contour[data-reveal="shown"] path:nth-child(3) {
+  transition-delay: calc(2 * var(--cpn-stagger));
+}
+
+.contour[data-reveal="shown"] path:nth-child(n + 4) {
+  transition-delay: calc(3 * var(--cpn-stagger));
+}
+
+/* ── 3. Sertifikat & Penghargaan ────────────────────────────────────── */
+
+/* Galeri dokumen: scan tampil utuh di atas "meja" surface-muted; satu tautan per dokumen. */
+.docGrid {
   list-style: none;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  column-gap: var(--cpn-space-xl);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cpn-space-lg) var(--cpn-space-md);
+  align-items: start;
 }
 
-.certItem {
-  display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr);
+.docWide {
+  grid-column: 1 / -1;
+}
+
+.docLink {
+  display: flex;
+  flex-direction: column;
   gap: var(--cpn-space-md);
-  padding: var(--cpn-space-row);
-  border-top: 1px solid var(--cpn-color-border);
-  border-radius: var(--cpn-radius-md);
-  transition:
-    background-color var(--cpn-duration-base) var(--cpn-ease),
-    border-color var(--cpn-duration-base) var(--cpn-ease);
+  border-radius: var(--cpn-radius-lg);
 }
 
-.certItem:hover {
-  background-color: var(--cpn-color-surface-tint);
-  border-top-color: var(--cpn-green-300);
+.docLink:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
 }
 
+.docFrame {
+  display: block;
+  padding: var(--cpn-space-md);
+  border-radius: var(--cpn-radius-lg);
+  background-color: var(--cpn-color-surface-muted);
+  overflow: hidden;
+}
+
+.docImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform var(--cpn-duration-slow) var(--cpn-ease);
+}
+
+@media (hover: hover) {
+  .docLink:hover .docImage {
+    transform: scale(1.02);
+  }
+}
+
+.docBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cpn-space-xs);
+}
+
+.docYear,
 .certYear {
   font-family: var(--cpn-font-heading);
   font-size: var(--cpn-text-body);
@@ -95,43 +209,120 @@
   color: var(--cpn-color-primary);
 }
 
-.certBody {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-xs);
-}
-
+.docName,
 .certName {
   font-family: var(--cpn-font-heading);
   font-size: var(--cpn-text-h3);
   font-weight: var(--cpn-font-weight-semibold);
   line-height: var(--cpn-line-height-title);
+  color: var(--cpn-color-text);
+  transition: color var(--cpn-duration-fast) var(--cpn-ease);
 }
 
+.docLink:hover .docName {
+  color: var(--cpn-color-primary);
+}
+
+.docMeta,
 .certMeta {
+  max-width: 60ch;
   font-size: var(--cpn-text-small);
   line-height: var(--cpn-line-height-body);
   color: var(--cpn-color-text-muted);
 }
 
+.docOpen {
+  margin-top: var(--cpn-space-xs);
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-primary);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.docLink:hover .docOpen {
+  text-decoration-color: currentColor;
+}
+
+/* Sertifikat/penghargaan tanpa scan: daftar ringkas S0 (tahun di atas nama). */
+.certList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--cpn-space-lg);
+  margin-top: var(--cpn-space-block);
+}
+
+.certItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+  padding-block: var(--cpn-space-row);
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.certItem .certYear:empty {
+  display: none;
+}
+
 @media (min-width: 640px) {
   .certList {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Tiga kolom: baris tahun kosong tetap memakan tempat supaya nama sejajar. */
+  .certItem .certYear:empty {
+    display: block;
+    min-height: calc(var(--cpn-text-body) * var(--cpn-line-height-title));
   }
 }
 
 @media (min-width: 900px) {
+  .part {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    grid-template-areas: "head prose";
+    gap: var(--cpn-space-lg) var(--cpn-space-xl);
+    align-items: start;
+  }
 
-  .part,
+  .partWithMedia {
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "head prose"
+      "media prose";
+  }
+
+  .figure {
+    margin-top: 0;
+  }
+
   .railGrid {
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
     gap: var(--cpn-space-xl);
     align-items: start;
   }
 
-  .rail,
   .stickyRail {
     position: sticky;
     top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
+  }
+
+  .contour {
+    display: block;
+  }
+
+  .docGrid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--cpn-space-lg);
+  }
+
+  .docItem {
+    grid-column: span 3;
+  }
+
+  .docWide {
+    grid-column: span 6;
   }
 }

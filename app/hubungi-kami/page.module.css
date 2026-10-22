@@ -1,4 +1,120 @@
-/* Kontak (DESIGN.md v0.4 §13.8): direktori lokasi S0 | panel form S1. */
+/* Kontak (DESIGN.md v0.4 §13.8): kanal kontak langsung → form (fokus) | lokasi. */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── 1. Kanal kontak langsung ───────────────────────────────────────── */
+.channelsTitle {
+  margin-bottom: var(--cpn-space-md);
+  font-family: var(--cpn-font-body);
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  line-height: var(--cpn-line-height-title);
+  text-transform: uppercase;
+  color: var(--cpn-color-text-muted);
+}
+
+/* Baris kanal dengan divider, bukan card: 1 kolom < 640, 2 kolom 640–899, 4 kolom ≥ 900. */
+.channels {
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-block: 1px solid var(--cpn-color-border);
+}
+
+.channels > li + li {
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.channel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "icon label"
+    "icon value"
+    "icon action";
+  column-gap: var(--cpn-space-md);
+  row-gap: var(--cpn-space-xs);
+  align-items: start;
+  height: 100%;
+  padding: var(--cpn-space-row) var(--cpn-space-sm);
+  border-radius: var(--cpn-radius-md);
+  transition: background-color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.channel:hover {
+  background-color: var(--cpn-color-surface-tint);
+}
+
+.channel:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+.channelIcon {
+  grid-area: icon;
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+  stroke: var(--cpn-color-primary);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.channelLabel {
+  grid-area: label;
+  font-size: var(--cpn-text-small);
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-text-muted);
+}
+
+.channelValue {
+  grid-area: value;
+  font-size: var(--cpn-text-body);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-title);
+  color: var(--cpn-color-text);
+  overflow-wrap: break-word;
+}
+
+.channelAction {
+  grid-area: action;
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-primary);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.channel:hover .channelAction {
+  text-decoration-color: currentColor;
+}
+
+.fax {
+  margin-top: var(--cpn-space-md);
+  font-size: var(--cpn-text-small);
+  color: var(--cpn-color-text-muted);
+}
+
+.faxLabel {
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-text);
+}
+
+/* ── 2. Form | lokasi ───────────────────────────────────────────────── */
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -11,10 +127,29 @@
   line-height: var(--cpn-line-height-heading);
 }
 
-.directory {
+.formPanel {
   display: flex;
   flex-direction: column;
   gap: var(--cpn-space-lg);
+}
+
+.formHead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-sm);
+}
+
+.formIntro {
+  max-width: var(--cpn-measure-short);
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
+}
+
+.directory {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
 }
 
 .locations {
@@ -48,80 +183,91 @@
   font-style: normal;
   line-height: var(--cpn-line-height-body);
   color: var(--cpn-gray-700);
+  overflow-wrap: anywhere;
+  user-select: all;
 }
 
-.mapsLink {
+.locationActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--cpn-space-lg);
+}
+
+/* Aksi teks (Maps, salin): tinggi sentuh 44 px, tanpa kotak. */
+.actionLink {
   display: inline-flex;
   align-items: center;
-  gap: var(--cpn-space-xs);
   min-height: var(--cpn-touch-target);
+  padding: 0;
+  border: 0;
   border-radius: var(--cpn-radius-sm);
+  background: none;
+  font: inherit;
   font-size: var(--cpn-text-ui);
   font-weight: var(--cpn-font-weight-semibold);
   color: var(--cpn-color-primary);
-}
-
-.mapsLink:hover {
-  color: var(--cpn-color-primary-hover);
+  cursor: pointer;
   text-decoration: underline;
+  text-decoration-color: transparent;
   text-underline-offset: 0.25em;
+  transition:
+    color var(--cpn-duration-fast) var(--cpn-ease),
+    text-decoration-color var(--cpn-duration-fast) var(--cpn-ease);
 }
 
-.contacts {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-xs);
-  width: 100%;
-  font-size: var(--cpn-text-small);
-  line-height: var(--cpn-line-height-body);
-}
-
-/* Pasangan label | nilai. */
-.contact {
-  display: grid;
-  grid-template-columns: 5.5rem minmax(0, 1fr);
-  gap: var(--cpn-space-sm);
-}
-
-.contact dt {
-  color: var(--cpn-color-text-muted);
-}
-
-.contact dd {
-  color: var(--cpn-color-text);
-  overflow-wrap: anywhere;
-}
-
-.contact a {
-  color: var(--cpn-color-primary);
-  border-radius: var(--cpn-radius-sm);
-}
-
-.contact a:hover {
+.actionLink:hover {
   color: var(--cpn-color-primary-hover);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration-color: currentColor;
 }
 
-.mapsLink:focus-visible,
-.contact a:focus-visible {
+.actionLink:focus-visible {
   outline: 2px solid transparent;
   box-shadow: var(--cpn-focus-ring);
 }
 
-.pic {
-  color: var(--cpn-color-text-muted);
-}
+@media (min-width: 640px) {
+  .channels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-.formPanel {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-lg);
+  .channels > li + li {
+    border-top: 0;
+  }
+
+  .channels > li:nth-child(n + 3) {
+    border-top: 1px solid var(--cpn-color-border);
+  }
+
+  .channels > li:nth-child(even) {
+    border-left: 1px solid var(--cpn-color-border);
+  }
+
+  .channel {
+    padding-inline: var(--cpn-space-row);
+  }
 }
 
 @media (min-width: 900px) {
+  .channels {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .channels > li:nth-child(n + 3) {
+    border-top: 0;
+  }
+
+  .channels > li + li {
+    border-left: 1px solid var(--cpn-color-border);
+  }
+
+  /* Empat kolom: ruang dalam lebih rapat supaya nilai (mis. email) muat satu baris. */
+  .channel {
+    column-gap: var(--cpn-space-sm);
+    padding-inline: var(--cpn-space-md);
+  }
+
   .layout {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: var(--cpn-space-xl);
     align-items: start;
   }
