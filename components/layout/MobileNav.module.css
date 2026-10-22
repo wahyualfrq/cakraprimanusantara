@@ -46,59 +46,6 @@
   box-shadow: var(--cpn-focus-ring);
 }
 
-.accordion {
-  display: flex;
-  flex-direction: column;
-}
-
-.accordionTrigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  background: none;
-  border: none;
-  font: inherit;
-  font-weight: var(--cpn-font-weight-semibold);
-  color: inherit;
-  cursor: pointer;
-  padding: 0;
-}
-
-.chevronOpen {
-  transform: rotate(180deg);
-}
-
-.accordionPanel {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-md);
-  margin-top: var(--cpn-space-md);
-  padding-left: var(--cpn-space-md);
-  border-left: 2px solid var(--cpn-color-border);
-}
-
-.unitGroup {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-xs);
-}
-
-.unitGroupTitle {
-  font-weight: var(--cpn-font-weight-bold);
-}
-
-.unitGroup ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-xs);
-  font-size: 0.9375rem;
-  font-weight: var(--cpn-font-weight-regular);
-  color: var(--cpn-color-text-muted);
-  margin-top: var(--cpn-space-xs);
-}
-
 .cta {
   margin-top: var(--cpn-space-sm);
   width: 100%;

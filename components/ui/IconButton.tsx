@@ -28,8 +28,7 @@ type IconButtonAsButton = CommonProps & {
 type IconButtonProps = IconButtonAsLink | IconButtonAsButton;
 
 /**
- * Tombol bulat kecil — dipakai untuk scroll-down indicator di hero dan
- * tombol panah di pojok kartu portofolio (DESIGN.md §7).
+ * Tombol bulat kecil berisi ikon (mis. tombol menu MobileNav) (DESIGN.md §7).
  */
 export function IconButton({ children, variant = "glass", className, href, ...rest }: IconButtonProps) {
   const classes = cn(styles.button, styles[variant], className);

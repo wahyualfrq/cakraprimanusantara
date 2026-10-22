@@ -14,7 +14,6 @@ import styles from "./page.module.css";
 
 // Hanya lokasi Ostindo (Office & Factory, CONTENT-VERBATIM.md §H1). Lokasi lain
 // di content/kontak.ts di luar scope — tidak dirender dan tidak masuk JSON-LD.
-// FAQ (app/kontak/FaqSection.tsx) dilepas dari render: tidak ada FAQ di sumber (D8).
 const lokasiOstindo = lokasiList.filter((lokasi) => lokasi.unitUsaha.includes("agribisnis"));
 
 const kontakLabel: Record<KontakItem["tipe"], string> = {

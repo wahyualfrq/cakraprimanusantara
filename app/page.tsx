@@ -11,9 +11,6 @@ import { buildMetadata } from "@/lib/seo/metadata";
 
 // Organization JSON-LD sudah dipasang sekali di root layout (app/layout.tsx)
 // sesuai STRUCTURE.md §6.2 — tidak diulang di sini supaya tidak duplikat di <head>.
-//
-// UnitSelector dan PortfolioHighlight (konsep unit usaha holding & proyek di luar
-// scope Ostindo) dilepas dari render di K4 — file komponennya dipertahankan.
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({

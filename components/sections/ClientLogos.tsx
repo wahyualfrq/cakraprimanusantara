@@ -4,8 +4,7 @@ import { pelangganList } from "@/content/agribisnis/pelanggan";
 import styles from "./ClientLogos.module.css";
 
 // Daftar Konsumen/Pelanggan Ostindo (PDF Company Profile, CONTENT-SOURCE.md §7)
-// sebagai wordmark teks, bukan logo (DESIGN.md §7). Baris "Mitra Distribusi"
-// (merek trading di luar scope) dilepas di K4.
+// sebagai wordmark teks, bukan logo (DESIGN.md §7).
 const pelangganRow = pelangganList.map((p) => p.nama);
 
 function LogoStrip({ label, items }: { label: string; items: string[] }) {
