@@ -51,6 +51,7 @@ export default async function BeritaDetailPage({ params }: PageProps) {
 
   const schema = articleSchema({
     headline: meta.judul,
+    path: `/berita/${meta.slug}`,
     datePublished: meta.tanggal,
   });
 
@@ -128,7 +129,7 @@ export default async function BeritaDetailPage({ params }: PageProps) {
                 {/* h2: heading pertama setelah h1 (isi MDX tidak memakai heading). */}
                 <h2 className={styles.ctaHeading}>Hubungi Kami</h2>
               </div>
-              <Link href="/kontak" className={styles.ctaButton}>
+              <Link href="/hubungi-kami" className={styles.ctaButton}>
                 Hubungi Kami
               </Link>
             </div>

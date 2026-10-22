@@ -15,7 +15,7 @@ export function ProductShowcase() {
       <Container>
         <div className={styles.header}>
           <SectionHeading title="Produk" />
-          <Link href="/agribisnis/produk" className={styles.link}>
+          <Link href="/produk" className={styles.link}>
             Ke halaman Produk →
           </Link>
         </div>
@@ -23,7 +23,7 @@ export function ProductShowcase() {
         <EditorialIndex
           thumbnailVariant="produk"
           items={produkList.map((produk) => ({
-            href: `/agribisnis/produk/${produk.slug}`,
+            href: `/produk/${produk.slug}`,
             title: produk.nama,
             deskripsi: produk.deskripsiSingkat,
           }))}

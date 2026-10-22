@@ -18,7 +18,7 @@ export function ResearchHighlight() {
       <Container className={styles.grid}>
         <div className={styles.intro}>
           <SectionHeading title="Riset & Inovasi" />
-          <Link href="/agribisnis/riset-inovasi" className={styles.link}>
+          <Link href="/riset-dan-inovasi" className={styles.link}>
             Lihat Riset &amp; Inovasi →
           </Link>
         </div>

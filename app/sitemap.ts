@@ -1,27 +1,29 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/seo/metadata";
+import { absoluteUrl } from "@/lib/seo/metadata";
 import { beritaPublishedList } from "@/lib/content/berita";
+import { produkList } from "@/content/agribisnis/produk";
 
-// Hanya rute Ostindo yang sudah memiliki konten nyata dan siap diindeks mesin pencari.
-// Rute stub (agribisnis/*) menunggu konten dan keputusan URL final (PRD.md §9 poin 1).
-// Rute di luar scope (kontraktor, alat-berat, trading, portofolio) dinonaktifkan —
-// lihat GAP-REPORT.md §8.
-const staticRoutes = ["/", "/tentang-kami", "/berita", "/kontak"];
+// Hanya halaman berisi yang boleh diindeks (Tahap S). URL = canonical masing-masing
+// halaman (absoluteUrl, dengan trailing slash) — pola URL situs lama (keputusan D5).
+// Tidak masuk: artikel draft (404), stub /agribisnis/* (dialihkan 301), route di
+// luar scope (404, GAP-REPORT.md §8), halaman 404.
+const staticRoutes = ["/", "/tentang-kami", "/produk", "/riset-dan-inovasi", "/berita", "/hubungi-kami"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // lastModified sengaja tidak diisi untuk halaman statis: tanggal build bukan tanggal
+  // perubahan isi. Artikel memakai tanggal terbit dari sumber bila ada.
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: path === "/" ? 1.0 : 0.8,
+    url: absoluteUrl(path),
+  }));
+
+  const produkEntries: MetadataRoute.Sitemap = produkList.map((produk) => ({
+    url: absoluteUrl(`/produk/${produk.slug}`),
   }));
 
   const beritaEntries: MetadataRoute.Sitemap = beritaPublishedList.map((entry) => ({
-    url: `${SITE_URL}/berita/${entry.meta.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "yearly",
-    priority: 0.6,
+    url: absoluteUrl(`/berita/${entry.meta.slug}`),
+    ...(entry.meta.tanggal ? { lastModified: entry.meta.tanggal } : {}),
   }));
 
-  return [...staticEntries, ...beritaEntries];
+  return [...staticEntries, ...produkEntries, ...beritaEntries];
 }

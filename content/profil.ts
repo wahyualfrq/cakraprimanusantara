@@ -113,8 +113,8 @@ export const heroInterim = {
   judulAkhir: "Selaras Alam",
   // Gabungan frasa §E1 ("Produksi dan Pemasaran Penyubur Tanah") + fakta berdiri Juli 1995.
   subjudul: "Produksi dan Pemasaran Penyubur Tanah sejak Juli 1995",
-  ctaUtama: { label: "Lihat Produk", href: "/agribisnis/produk" },
-  ctaSekunder: { label: "Hubungi Kami", href: "/kontak" },
+  ctaUtama: { label: "Lihat Produk", href: "/produk" },
+  ctaSekunder: { label: "Hubungi Kami", href: "/hubungi-kami" },
 };
 
 // INTERIM — belum disetujui (D2). CTA penutup beranda: judul label UI + kalimat §H1.

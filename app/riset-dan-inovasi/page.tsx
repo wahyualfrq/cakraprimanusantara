@@ -15,8 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     // INTERIM — belum disetujui (D2). Kalimat pertama CONTENT-VERBATIM.md §E3 (typo "tana" diperbaiki — TYPO-LOG.md).
     description:
       "OSTINDO merupakan suatu produk penyubur tanah hayati dengan formula unggulan yang mengkombinasikan bahan organik berkualitas dengan mikroba terseleksi sehingga berperan dalam meningkatkan kehidupan tanah secara alami melalui proses biologi tanah.",
-    path: "/agribisnis/riset-inovasi",
-    noindex: true,
+    path: "/riset-dan-inovasi",
   });
 }
 
@@ -33,7 +32,7 @@ export default function RisetInovasiPage() {
         variant="solid"
         breadcrumb={[
           { label: "Beranda", href: "/" },
-          { label: "Riset & Inovasi", href: "/agribisnis/riset-inovasi" },
+          { label: "Riset & Inovasi", href: "/riset-dan-inovasi" },
         ]}
         title="Riset & Inovasi"
       />

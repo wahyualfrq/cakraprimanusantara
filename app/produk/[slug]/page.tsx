@@ -36,8 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return buildMetadata({
     title: found.nama,
     description: found.deskripsiSingkat,
-    path: `/agribisnis/produk/${slug}`,
-    noindex: true,
+    path: `/produk/${slug}`,
   });
 }
 
@@ -49,7 +48,7 @@ export default async function ProdukDetailPage({ params }: PageProps) {
   const found = produkList.find((p) => p.slug === slug);
   if (!found) notFound();
 
-  const path = `/agribisnis/produk/${found.slug}`;
+  const path = `/produk/${found.slug}`;
   const infoProduk: DefinitionItem[] = [
     ...(found.faktaKunci ?? [])
       .filter((fakta) => !fakta.perluVerifikasi)
@@ -85,7 +84,7 @@ export default async function ProdukDetailPage({ params }: PageProps) {
         variant="solid"
         breadcrumb={[
           { label: "Beranda", href: "/" },
-          { label: "Produk", href: "/agribisnis/produk" },
+          { label: "Produk", href: "/produk" },
           { label: found.nama, href: path },
         ]}
         title={found.nama}
@@ -143,7 +142,7 @@ export default async function ProdukDetailPage({ params }: PageProps) {
       <Section>
         <Container>
           <div className={styles.footerNav}>
-            <Link href="/agribisnis/produk" className={styles.backLink}>
+            <Link href="/produk" className={styles.backLink}>
               ← Semua produk
             </Link>
             <PillButton href={kontakLink.href} variant="solid">

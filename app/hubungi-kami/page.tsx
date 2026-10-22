@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
     // INTERIM — belum disetujui (D2). Kalimat CONTENT-VERBATIM.md §H1 (titik ganda sumber diperbaiki — TYPO-LOG.md).
     description:
       "Anda dapat mengirimkan pertanyaan mengenai produk maupun layanan dan kami akan berusaha menjawab dengan sebaik mungkin.",
-    path: "/kontak",
+    path: "/hubungi-kami",
   });
 }
 
@@ -130,7 +130,7 @@ export default function KontakPage() {
         variant="solid"
         breadcrumb={[
           { label: "Beranda", href: "/" },
-          { label: "Kontak", href: "/kontak" },
+          { label: "Hubungi Kami", href: "/hubungi-kami" },
         ]}
         title="Hubungi Kami"
         description={profil.pembukaKontak}

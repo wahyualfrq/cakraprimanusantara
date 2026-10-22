@@ -1,4 +1,4 @@
-import { SITE_NAME, SITE_URL } from "./metadata";
+import { SITE_NAME, absoluteUrl } from "./metadata";
 
 /**
  * Helper generator JSON-LD — dipanggil dari page yang relevan lalu
@@ -11,10 +11,10 @@ export function organizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE_NAME,
-    url: SITE_URL,
+    url: absoluteUrl("/"),
     foundingDate: "1995-07-31",
     sameAs: ["https://instagram.com/pupukkebun"],
-    // TODO: isi logo setelah URL aset final ditetapkan (Tahap S)
+    // logo sengaja tidak diisi: status logo belum final (D3a) — belum ada aset logo Ostindo yang sah.
   };
 }
 
@@ -65,6 +65,8 @@ export function itemListSchema(items: ItemListInput) {
 
 type ArticleInput = {
   headline: string;
+  /** Path artikel (mis. /berita/kerjasama-dengan-lipi). */
+  path: string;
   /** ISO date — cuma diisi kalau tanggal terbit terverifikasi dari sumber. */
   datePublished?: string;
 };
@@ -74,11 +76,13 @@ export function articleSchema(input: ArticleInput) {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: input.headline,
+    url: absoluteUrl(input.path),
+    mainEntityOfPage: absoluteUrl(input.path),
     ...(input.datePublished ? { datePublished: input.datePublished } : {}),
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
-      url: SITE_URL,
+      url: absoluteUrl("/"),
     },
   };
 }
@@ -86,7 +90,7 @@ export function articleSchema(input: ArticleInput) {
 type ProductInput = {
   name: string;
   description: string;
-  /** Path halaman produk (mis. /agribisnis/produk/ostindo). */
+  /** Path halaman produk (mis. /produk/ostindo). */
   path?: string;
   image?: string;
   sku?: string;
@@ -102,13 +106,13 @@ export function productSchema(input: ProductInput) {
     "@type": "Product",
     name: input.name,
     description: input.description,
-    ...(input.path ? { url: `${SITE_URL}${input.path}` } : {}),
+    ...(input.path ? { url: absoluteUrl(input.path) } : {}),
     image: input.image,
     sku: input.sku,
     manufacturer: {
       "@type": "Organization",
       name: SITE_NAME,
-      url: SITE_URL,
+      url: absoluteUrl("/"),
     },
   };
 }
@@ -129,7 +133,7 @@ export function serviceSchema(input: ServiceInput) {
     provider: {
       "@type": "Organization",
       name: SITE_NAME,
-      url: SITE_URL,
+      url: absoluteUrl("/"),
     },
     ...(input.areaServed ? { areaServed: input.areaServed } : {}),
   };
@@ -148,7 +152,7 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${SITE_URL}${item.path}`,
+      item: absoluteUrl(item.path),
     })),
   };
 }
