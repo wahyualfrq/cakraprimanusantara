@@ -11,8 +11,7 @@ import { ilustrasi } from "@/content/ilustrasi";
 import styles from "./page.module.css";
 
 // Isi bersumber dari content/profil.ts (CONTENT-VERBATIM.md §E1, §G2, §G3,
-// §G5, §G6) dan milestoneList (§E4). content/tentang-kami.ts (profil holding)
-// dan StatsSection (angka tanpa sumber) dilepas dari render — file dipertahankan.
+// §G5, §G6) dan milestoneList (§E4).
 // Sekapur Sirih (§G7) opsional, belum ditampilkan sampai disetujui.
 // Struktur (DESIGN.md §8.11 "Tentang"): tiap section beda struktur dari
 // tetangganya; satu section ber-tint (Milestone).

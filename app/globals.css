@@ -26,9 +26,6 @@
   --cpn-gray-900: #181d19;
   --cpn-gray-950: #0d110e;
 
-  /* Token navy & orange (tema "konstruksi") — dilepas dari pemakaian, lihat arsip
-     di bawah blok :root (DESIGN.md §4, OUT OF SCOPE). */
-
   /* Token semantik — satu tema hijau untuk seluruh halaman (DESIGN.md §4). */
   --cpn-color-primary: var(--cpn-green-700);
   --cpn-color-primary-hover: var(--cpn-green-800);
@@ -176,31 +173,6 @@
     --cpn-space-section: 4rem;
   }
 }
-
-/* ARSIP — tema per unit usaha v0.1, TIDAK dipakai (DESIGN.md §4: satu tema hijau).
-   Disimpan sebagai komentar; dihapus hanya dengan persetujuan (Tahap H).
-
-   :root {
-     --cpn-navy-700: #16324f;
-     --cpn-navy-800: #0f2338;
-     --cpn-navy-100: #e7ecf1;
-     --cpn-orange-500: #f2994a;
-     --cpn-orange-600: #db7f2b;
-   }
-
-   [data-theme="konstruksi"] {
-     --cpn-color-primary: var(--cpn-navy-700);
-     --cpn-color-primary-hover: var(--cpn-navy-800);
-     --cpn-color-accent: var(--cpn-orange-500);
-     --cpn-color-surface-tint: var(--cpn-navy-100);
-   }
-
-   [data-theme="agri"] {
-     --cpn-color-primary: var(--cpn-green-600);
-     --cpn-color-primary-hover: var(--cpn-green-700);
-     --cpn-color-accent: var(--cpn-green-400);
-   }
-*/
 
 html {
   height: 100%;

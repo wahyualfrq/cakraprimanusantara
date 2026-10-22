@@ -47,22 +47,6 @@ export function localBusinessSchema(input: LocalBusinessInput) {
   };
 }
 
-type ItemListInput = {
-  name: string;
-}[];
-
-export function itemListSchema(items: ItemListInput) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-    })),
-  };
-}
-
 type ArticleInput = {
   headline: string;
   /** Path artikel (mis. /berita/kerjasama-dengan-lipi). */
@@ -114,28 +98,6 @@ export function productSchema(input: ProductInput) {
       name: SITE_NAME,
       url: absoluteUrl("/"),
     },
-  };
-}
-
-type ServiceInput = {
-  name: string;
-  description: string;
-  /** Cuma diisi kalau field area-nya memang ada di data sumber — jangan ditebak. */
-  areaServed?: string;
-};
-
-export function serviceSchema(input: ServiceInput) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: input.name,
-    description: input.description,
-    provider: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      url: absoluteUrl("/"),
-    },
-    ...(input.areaServed ? { areaServed: input.areaServed } : {}),
   };
 }
 
