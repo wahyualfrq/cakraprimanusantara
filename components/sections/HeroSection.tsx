@@ -28,7 +28,9 @@ export function HeroSection() {
             src={ilustrasi.kebunSawit.src}
             alt={ilustrasi.kebunSawit.alt}
             fill
-            priority
+            // LCP beranda: gambar ini di desktop, H1 di mobile — preload saja; fetchPriority="high"
+            // memperlambat LCP teks di mobile (diukur Tahap O: 1620 vs 1764 ms).
+            preload
             sizes="100vw"
             className={styles.image}
           />

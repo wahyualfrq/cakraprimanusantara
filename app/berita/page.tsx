@@ -59,7 +59,9 @@ export default function BeritaPage() {
                     fill
                     sizes="(min-width: 900px) 560px, 100vw"
                     className={styles.cover}
-                    priority
+                    // Elemen LCP /berita/ di 360 & 1440 → preload + prioritas tinggi (diukur Tahap O).
+                    preload
+                    fetchPriority="high"
                   />
                 </div>
               )}
@@ -109,7 +111,7 @@ export default function BeritaPage() {
                           src={gambar.src}
                           alt={gambar.alt}
                           fill
-                          sizes="(min-width: 640px) 220px, 100vw"
+                          sizes="(min-width: 640px) 220px, calc(100vw - 2rem)"
                           className={styles.cover}
                         />
                       ) : (
@@ -117,7 +119,7 @@ export default function BeritaPage() {
                           alt={meta.fotoAlt ?? meta.judul}
                           variant="berita"
                           fill
-                          sizes="(min-width: 640px) 220px, 100vw"
+                          sizes="(min-width: 640px) 220px, calc(100vw - 2rem)"
                         />
                       )}
                     </div>

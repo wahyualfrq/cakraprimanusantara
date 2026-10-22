@@ -44,7 +44,7 @@ export function NewsHighlight() {
                     src={item.gambar.src}
                     alt={item.gambar.alt}
                     fill
-                    sizes="(min-width: 640px) 220px, 100vw"
+                    sizes="(min-width: 640px) 220px, calc(100vw - 2rem)"
                     className={styles.thumbImage}
                   />
                 </div>

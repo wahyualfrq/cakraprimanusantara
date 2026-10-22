@@ -64,6 +64,9 @@ export default function TentangKamiPage() {
               src={ilustrasi.rumahKaca.src}
               alt={ilustrasi.rumahKaca.alt}
               fill
+              // Elemen LCP di 360 & 1440 → preload + prioritas tinggi (Tahap O: 2776 → ±1900 ms di mobile).
+              preload
+              fetchPriority="high"
               sizes="(max-width: 900px) 100vw, 40vw"
               className={styles.cover}
             />

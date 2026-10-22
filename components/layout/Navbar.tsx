@@ -27,9 +27,14 @@ export function Navbar() {
           <Image
             src="/images/LogosG.png"
             alt=""
-            width={76}
-            height={76}
-            priority
+            // = ukuran render (--cpn-navbar-logo-height 4rem = 64px) → srcset 64w/128w.
+            // Eager + fetchPriority low: logo di atas lipatan tapi bukan elemen LCP. React 19
+            // mem-preload otomatis <img> non-lazy kecuali fetchPriority="low" — preload hanya
+            // untuk gambar LCP (Tahap O).
+            width={64}
+            height={64}
+            loading="eager"
+            fetchPriority="low"
             className={styles.logoImage}
           />
         </Link>

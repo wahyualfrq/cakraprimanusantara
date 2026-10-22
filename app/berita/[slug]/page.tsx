@@ -81,7 +81,8 @@ export default async function BeritaDetailPage({ params }: PageProps) {
                 fill
                 sizes="(min-width: 1024px) 820px, 100vw"
                 className={styles.mediaImage}
-                priority
+                // LCP artikel: gambar ini di desktop, H1 di mobile — preload saja, tanpa prioritas tinggi.
+                preload
               />
             </div>
           ) : meta.fotoAlt ? (
