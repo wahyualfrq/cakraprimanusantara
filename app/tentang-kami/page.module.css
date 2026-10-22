@@ -62,66 +62,263 @@
 }
 
 /* ── 4. Misi & visi ────────────────────────────────────────────────── */
-.missionGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-block) var(--cpn-space-xl);
-}
 
-.subTitle {
-  margin-bottom: var(--cpn-space-md);
-  font-size: var(--cpn-text-h3);
-  font-weight: var(--cpn-font-weight-semibold);
-  line-height: var(--cpn-line-height-title);
-}
-
-.numbered {
-  list-style: none;
+/* ── 4. Visi & misi: card unggulan + card misi terstruktur ─────── */
+.vmContainer {
   display: flex;
   flex-direction: column;
+  gap: var(--cpn-space-xl);
 }
 
-.numbered li {
-  display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
-  gap: var(--cpn-space-md);
-  padding-block: var(--cpn-space-md);
-  border-top: 1px solid var(--cpn-color-border);
-  font-size: var(--cpn-text-body);
-  line-height: var(--cpn-line-height-body);
-  color: var(--cpn-gray-700);
+.visionCard {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xl);
+  padding: var(--cpn-space-band);
+  border-radius: var(--cpn-radius-lg);
+  overflow: hidden;
+  background-color: var(--cpn-green-900);
+  border: 1px solid var(--cpn-color-border-on-dark-subtle);
+  color: var(--cpn-color-text-on-dark);
+  box-shadow: 0 10px 30px rgba(12, 20, 16, 0.08);
+  transition:
+    border-color var(--cpn-duration-base) var(--cpn-ease),
+    box-shadow var(--cpn-duration-base) var(--cpn-ease),
+    transform var(--cpn-duration-base) var(--cpn-ease);
 }
 
-.number {
-  font-family: var(--cpn-font-heading);
-  font-size: var(--cpn-text-body);
-  font-weight: var(--cpn-font-weight-semibold);
-  font-variant-numeric: lining-nums tabular-nums;
-  color: var(--cpn-color-primary);
+.visionCard:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 14px 36px rgba(12, 20, 16, 0.16);
+  transform: translateY(-2px);
 }
 
-.vision {
-  display: grid;
+.visionCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle at 90% 15%, color-mix(in srgb, var(--cpn-green-300) 22%, transparent) 0, transparent 45%),
+    radial-gradient(color-mix(in srgb, var(--cpn-color-text-on-dark) 8%, transparent) 1px, transparent 1px);
+  background-size:
+    auto,
+    18px 18px;
+}
+
+.visionHeader {
+  display: flex;
+  flex-direction: column;
   gap: var(--cpn-space-sm);
-  margin-top: var(--cpn-space-block);
+  max-width: var(--cpn-measure);
 }
 
-.visionLabel {
+.visionTag {
+  align-self: flex-start;
+  padding: var(--cpn-space-xs) 0.75rem;
+  border-radius: var(--cpn-radius-full);
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--cpn-color-border-on-dark-subtle);
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--cpn-green-300);
+}
+
+.visionQuote {
+  margin: 0;
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-h2);
+  font-weight: var(--cpn-font-weight-regular);
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-color-text-on-dark);
+  letter-spacing: -0.01em;
+}
+
+.visionPillarsWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  border-top: 1px solid var(--cpn-color-border-on-dark-subtle);
+  padding-top: var(--cpn-space-lg);
+}
+
+.visionPillarsTitle {
   font-family: var(--cpn-font-body);
   font-size: var(--cpn-text-caption);
   font-weight: var(--cpn-font-weight-semibold);
   letter-spacing: var(--cpn-letter-spacing-caps);
   text-transform: uppercase;
-  color: var(--cpn-green-800);
+  color: var(--cpn-green-200);
+  margin: 0;
 }
 
-.visionText {
-  max-width: 52ch;
+.visionPillars {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-md);
+}
+
+.visionPillarCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+  padding: var(--cpn-space-md);
+  border-radius: var(--cpn-radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--cpn-color-border-on-dark-subtle);
+  backdrop-filter: blur(8px);
+  transition: background-color var(--cpn-duration-base) var(--cpn-ease), border-color var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.visionPillarCard:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.visionPillarIndex {
+  font-family: var(--cpn-font-body);
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-bold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--cpn-green-300);
+}
+
+.visionPillarText {
+  margin: 0;
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-on-dark-muted);
+}
+
+/* ── Misi Section ─────────────────────────────────── */
+.missionSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-lg);
+}
+
+.missionHeaderRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+}
+
+.missionSectionTitle {
   font-family: var(--cpn-font-heading);
-  font-size: var(--cpn-text-h3);
-  font-weight: var(--cpn-font-weight-regular);
-  line-height: var(--cpn-line-height-lead);
+  font-size: var(--cpn-text-h2);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-heading);
   color: var(--cpn-color-text);
+  margin: 0;
+}
+
+.missionSectionSubtitle {
+  font-size: var(--cpn-text-small);
+  color: var(--cpn-color-text-muted);
+}
+
+.missionGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-md);
+}
+
+.missionCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  padding: var(--cpn-space-band);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-lg);
+  background-color: var(--cpn-color-bg);
+  overflow: hidden;
+  transition:
+    border-color var(--cpn-duration-base) var(--cpn-ease),
+    box-shadow var(--cpn-duration-base) var(--cpn-ease),
+    transform var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.missionCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cpn-color-primary) 0%, var(--cpn-green-300) 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.missionCard:hover {
+  border-color: var(--cpn-green-300);
+  box-shadow: 0 8px 24px rgba(27, 77, 46, 0.06);
+}
+
+.missionCard:hover::before {
+  transform: scaleX(1);
+}
+
+.missionCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cpn-space-sm);
+}
+
+.missionBadgeWrap {
+  display: flex;
+  align-items: center;
+  gap: var(--cpn-space-sm);
+}
+
+.missionIconBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--cpn-radius-md);
+  background-color: var(--cpn-color-surface-tint);
+  color: var(--cpn-color-primary);
+  transition: background-color var(--cpn-duration-fast) var(--cpn-ease), color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.missionCard:hover .missionIconBox {
+  background-color: var(--cpn-green-800);
+  color: var(--cpn-color-text-on-dark);
+}
+
+.missionIndexBadge {
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-bold);
+  color: var(--cpn-color-primary);
+}
+
+.missionMetaTag {
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--cpn-radius-sm);
+  background-color: var(--cpn-color-surface-muted);
+  color: var(--cpn-color-text-muted);
+}
+
+.missionCardText {
+  margin: 0;
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-gray-700);
 }
 
 /* ── 5. Inovasi: split-media 7:5 ───────────────────────────────────── */
@@ -131,26 +328,158 @@
   gap: var(--cpn-space-lg);
 }
 
-/* ── 6. Legalitas: S0 dua kolom ────────────────────────────────────── */
-.legalList {
+.innovationCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+}
+
+.innovationMedia {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--cpn-radius-lg);
+  overflow: hidden;
+  background-color: var(--cpn-color-surface-muted);
+}
+
+/* ── 6. Legalitas: modern cards with authoritative feel ──────────────── */
+.legalTrustBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+  margin-top: var(--cpn-space-md);
+  padding: var(--cpn-space-xs) var(--cpn-space-sm);
+  border-radius: var(--cpn-radius-full);
+  background-color: var(--cpn-color-surface-tint);
+  border: 1px solid var(--cpn-green-200);
+  color: var(--cpn-green-800);
+  font-size: var(--cpn-text-small);
+  font-weight: var(--cpn-font-weight-medium);
+}
+
+.legalGrid {
   list-style: none;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  column-gap: var(--cpn-space-lg);
+  gap: var(--cpn-space-md);
 }
 
-.legalItem {
-  padding-block: var(--cpn-space-row);
-  border-top: 1px solid var(--cpn-color-border);
-  font-family: var(--cpn-font-heading);
-  font-size: var(--cpn-text-h3);
+.legalCardModern {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  padding: var(--cpn-space-row);
+  border: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-lg);
+  background-color: var(--cpn-color-bg);
+  overflow: hidden;
+  transition:
+    border-color var(--cpn-duration-base) var(--cpn-ease),
+    background-color var(--cpn-duration-base) var(--cpn-ease),
+    box-shadow var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.legalCardModern::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  background: var(--cpn-color-primary);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.legalCardFeatured {
+  border-color: var(--cpn-green-200);
+  background-color: var(--cpn-color-surface-tint);
+}
+
+.legalCardModern:hover {
+  border-color: var(--cpn-color-primary);
+  box-shadow: 0 8px 24px rgba(27, 77, 46, 0.08);
+}
+
+.legalCardModern:hover::before {
+  transform: scaleY(1);
+}
+
+.legalCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cpn-space-sm);
+}
+
+.legalCardIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--cpn-radius-md);
+  background-color: var(--cpn-color-surface-tint);
+  color: var(--cpn-color-primary);
+  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.legalCardModern:hover .legalCardIcon {
+  transform: translateY(-2px);
+}
+
+.legalStatusTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--cpn-text-caption);
   font-weight: var(--cpn-font-weight-semibold);
-  line-height: var(--cpn-line-height-title);
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--cpn-radius-full);
+  background-color: rgba(34, 197, 94, 0.12);
+  color: var(--cpn-green-800);
+}
+
+.legalCardContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+}
+
+.legalCardCategory {
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--cpn-color-text-muted);
+}
+
+.legalCardAbbr {
+  margin: 0;
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-h2);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-heading);
+  color: var(--cpn-color-text);
+  letter-spacing: 0.02em;
+}
+
+.legalCardFullName {
+  margin: 0;
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-color-text-muted);
 }
 
 @media (min-width: 640px) {
-  .missionGrid,
-  .legalList {
+  .visionPillars {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .legalGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -182,5 +511,23 @@
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: var(--cpn-space-xl);
     align-items: center;
+  }
+
+  .missionGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visionCard,
+  .missionCard,
+  .missionCard::before,
+  .visionCard:hover,
+  .missionCard:hover,
+  .visionPillarItem,
+  .missionIconBox,
+  .legalCardModern {
+    transition: none !important;
+    transform: none !important;
   }
 }

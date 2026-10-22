@@ -30,7 +30,9 @@ export default function RisetInovasiPage() {
   return (
     <>
       <PageHeader
-        variant="solid"
+        variant="photo"
+        photoSrc="/images/gambar-9.png"
+        photoPosition="center 35%"
         breadcrumb={[
           { label: "Beranda", href: "/" },
           { label: "Riset & Inovasi", href: "/riset-dan-inovasi" },

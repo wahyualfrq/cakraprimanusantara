@@ -9,6 +9,7 @@ import { DefinitionList, type DefinitionItem } from "@/components/ui/DefinitionL
 import { SpecTable, type SpecColumn } from "@/components/ui/SpecTable";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { ContentImage } from "@/components/ui/ContentImage";
 import { Reveal } from "@/components/ui/Reveal";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { kontakLink } from "@/components/layout/navLinks";
@@ -83,7 +84,9 @@ export default async function ProdukDetailPage({ params }: PageProps) {
       <JsonLd data={schema} />
 
       <PageHeader
-        variant="solid"
+        variant="photo"
+        photoSrc="/images/gambar-10.png"
+        photoPosition="center 45%"
         breadcrumb={[
           { label: "Beranda", href: "/" },
           { label: "Produk", href: "/produk" },
@@ -99,7 +102,7 @@ export default async function ProdukDetailPage({ params }: PageProps) {
             {found.poin && found.poin.length > 0 && (
               <div className={styles.block}>
                 {found.judulPoin && <p className={styles.pointsTitle}>{found.judulPoin}</p>}
-                <ol className={styles.points}>
+                <Reveal as="ol" stagger className={styles.points}>
                   {found.poin.map((butir, index) => (
                     <li key={butir}>
                       <span className={styles.number} aria-hidden="true">
@@ -108,7 +111,7 @@ export default async function ProdukDetailPage({ params }: PageProps) {
                       <span>{butir}</span>
                     </li>
                   ))}
-                </ol>
+                </Reveal>
               </div>
             )}
 
@@ -133,6 +136,15 @@ export default async function ProdukDetailPage({ params }: PageProps) {
           </div>
 
           <Card as="aside" className={styles.aside} aria-labelledby="informasi-produk">
+            <div className={styles.mediaSlot}>
+              <ContentImage
+                src={found.gambar}
+                alt={`Kemasan ${found.nama}`}
+                variant="produk"
+                fill
+                sizes="(max-width: 768px) 100vw, 360px"
+              />
+            </div>
             <h2 id="informasi-produk" className={styles.asideTitle}>
               Informasi Produk
             </h2>

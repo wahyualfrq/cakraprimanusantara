@@ -87,6 +87,16 @@
   align-self: start;
 }
 
+.mediaSlot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--cpn-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--cpn-color-border-subtle);
+  background-color: var(--cpn-color-surface-tint);
+}
+
 .asideTitle {
   font-family: var(--cpn-font-body);
   font-size: var(--cpn-text-caption);

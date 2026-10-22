@@ -18,7 +18,13 @@
   transition:
     background-color var(--cpn-duration-fast) var(--cpn-ease),
     border-color var(--cpn-duration-fast) var(--cpn-ease),
-    color var(--cpn-duration-fast) var(--cpn-ease);
+    color var(--cpn-duration-fast) var(--cpn-ease),
+    transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+/* Umpan balik tekan: sedikit mengecil saat ditekan (bukan efek angkat saat hover). */
+.button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .button:focus-visible {

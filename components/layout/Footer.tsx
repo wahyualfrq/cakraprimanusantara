@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import { lokasiList } from "@/content/kontak";
 import { profil } from "@/content/profil";
 import { kontakHref, kontakLabel } from "@/lib/kontak";
@@ -18,7 +19,8 @@ export function Footer() {
   return (
     <footer className={styles.footer}>
       <Container>
-        <div className={styles.grid}>
+        {/* Reveal ringan per kolom (stagger); tanpa JS / reduced motion langsung tampil. */}
+        <Reveal stagger className={styles.grid}>
           <div className={styles.brand}>
             <p className={styles.name}>{profil.nama}</p>
             <h2 className={styles.columnTitle}>Visi Perusahaan</h2>
@@ -68,7 +70,7 @@ export function Footer() {
               </div>
             );
           })}
-        </div>
+        </Reveal>
 
         <div className={styles.bottom}>
           <nav aria-label="Tautan cepat">

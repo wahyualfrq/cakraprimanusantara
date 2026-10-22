@@ -24,12 +24,11 @@ function Daftar({ hidden = false }: { hidden?: boolean }) {
 
 export function ClientLogos() {
   return (
-    <section className={styles.strip} aria-labelledby="pelanggan-judul">
+    // Label visual dilepas → nama aksesibel lewat aria-label (id pelanggan-judul tidak ada lagi).
+    <section className={styles.strip} aria-label="Konsumen/Pelanggan">
       <Container>
         <div className={styles.inner}>
-          <h2 id="pelanggan-judul" className={styles.label}>
-            Konsumen/Pelanggan
-          </h2>
+          <div className={styles.label} />
           <div className={styles.viewport}>
             <div className={styles.track}>
               <Daftar />

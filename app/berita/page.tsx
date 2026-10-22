@@ -42,12 +42,15 @@ export default function BeritaPage() {
   return (
     <>
       <PageHeader
-        variant="solid"
+        variant="photo"
+        photoSrc="/images/gambar-11.png"
+        photoPosition="center 30%"
         breadcrumb={[
           { label: "Beranda", href: "/" },
           { label: "Berita", href: "/berita" },
         ]}
         title="Berita"
+        description="Publikasi resmi, riset inovasi, dan kabar terkini PT Anugerah Mustika Ostindo."
       />
 
       <Section aria-label="Daftar berita">

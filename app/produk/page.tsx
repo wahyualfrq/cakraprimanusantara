@@ -27,7 +27,9 @@ export default function ProdukAgribisnisPage() {
   return (
     <>
       <PageHeader
-        variant="solid"
+        variant="photo"
+        photoSrc="/images/gambar-10.png"
+        photoPosition="center 45%"
         breadcrumb={[
           { label: "Beranda", href: "/" },
           { label: "Produk", href: "/produk" },
@@ -59,6 +61,7 @@ export default function ProdukAgribisnisPage() {
 
           <EditorialIndex
             start={2}
+            thumbnailVariant="produk"
             items={lainnya.map((produk) => ({
               href: `/produk/${produk.slug}`,
               title: produk.nama,

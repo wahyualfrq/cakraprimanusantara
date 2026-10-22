@@ -3,6 +3,7 @@ import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Card } from "@/components/ui/Card";
+import { Reveal } from "@/components/ui/Reveal";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { localBusinessSchema } from "@/lib/seo/structured-data";
@@ -91,9 +92,11 @@ export default function KontakPage() {
         <JsonLd key={lokasiOstindo[index].slug} data={schema} />
       ))}
 
-      {/* Header — kalimat pembuka verbatim §H1. */}
+      {/* Header — banner foto fasilitas operasional & pengantar kontak */}
       <PageHeader
-        variant="solid"
+        variant="photo"
+        photoSrc="/images/gambar-1.png"
+        photoPosition="center 40%"
         breadcrumb={[
           { label: "Beranda", href: "/" },
           { label: "Hubungi Kami", href: "/hubungi-kami" },
@@ -109,11 +112,11 @@ export default function KontakPage() {
             <h2 id="lokasi-ostindo" className={styles.sectionTitle}>
               Lokasi
             </h2>
-            <ul className={styles.locations}>
+            <Reveal as="ul" stagger className={styles.locations}>
               {lokasiOstindo.map((lokasi) => (
                 <LokasiRow key={lokasi.slug} lokasi={lokasi} />
               ))}
-            </ul>
+            </Reveal>
           </section>
 
           <Card as="section" className={styles.formPanel} aria-labelledby="form-kontak">

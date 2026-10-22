@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { DefinitionList } from "@/components/ui/DefinitionList";
 import { Timeline } from "@/components/ui/Timeline";
 import { Reveal } from "@/components/ui/Reveal";
+import { Card } from "@/components/ui/Card";
 import { NilaiList } from "@/components/sections/WhyChooseUs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { profil } from "@/content/profil";
@@ -140,12 +141,16 @@ export default function TentangKamiPage() {
   return (
     <>
       <PageHeader
-        variant="solid"
+        variant="photo"
+        fullScreen
+        photoSrc="/images/gambar-6.png"
+        photoPosition="center 35%"
         breadcrumb={[
           { label: "Beranda", href: "/" },
           { label: "Tentang Kami", href: "/tentang-kami" },
         ]}
         title="Tentang Kami"
+        description="Profil, sejarah, komitmen mutu, dan legalitas resmi PT Anugerah Mustika Ostindo."
       />
 
       {/* 1. Profil perusahaan — §E1, split-media 5:7 dengan gambar sticky */}
@@ -205,45 +210,45 @@ export default function TentangKamiPage() {
         <Container>
           <SectionHeading title="Visi dan Misi" id="misi-judul" />
           <div className={styles.vmContainer}>
-            {/* Visi Perusahaan & Visi Kami — Card Unggulan Utama */}
-            <article className={styles.visionFeatured} aria-labelledby="visi-utama-heading">
-              <div className={styles.visionHeader}>
-                <span className={styles.visionTag}>Visi Perusahaan</span>
-                <p id="visi-utama-heading" className={styles.visionQuote}>
-                  &ldquo;{profil.visiPerusahaan}&rdquo;
-                </p>
-              </div>
-
-              <div className={styles.visionPillarsWrap}>
-                <h3 className={styles.visionPillarsTitle}>Pilar Komitmen Visi</h3>
-                <div className={styles.visionPillars}>
-                  {profil.visi.map((butir, index) => (
-                    <div key={butir} className={styles.visionPillarCard}>
-                      <span className={styles.visionPillarIndex}>Pilar {String(index + 1).padStart(2, "0")}</span>
-                      <p className={styles.visionPillarText}>{butir}</p>
-                    </div>
-                  ))}
+            {/* Card Visi Unggulan — Reveal saat masuk viewport */}
+            <Reveal>
+              <Card as="article" className={styles.visionCard} aria-labelledby="visi-utama-heading">
+                <div className={styles.visionHeader}>
+                  <p id="visi-utama-heading" className={styles.visionQuote}>
+                    &ldquo;{profil.visiPerusahaan}&rdquo;
+                  </p>
                 </div>
-              </div>
-            </article>
 
-            {/* Misi Kami — Grid 3 Card Terstruktur */}
+                <div className={styles.visionPillarsWrap}>
+                  <h3 className={styles.visionPillarsTitle}>Pilar Komitmen Visi</h3>
+                  <div className={styles.visionPillars}>
+                    {profil.visi.map((butir, index) => (
+                      <div key={butir} className={styles.visionPillarCard}>
+                        <span className={styles.visionPillarIndex}>Pilar {String(index + 1).padStart(2, "0")}</span>
+                        <p className={styles.visionPillarText}>{butir}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            </Reveal>
+
+            {/* Card Misi Terpisah — Grid responsif dengan animasi stagger */}
             <div className={styles.missionSection}>
               <div className={styles.missionHeaderRow}>
-                <h3 className={styles.missionSectionTitle}>Misi Kami</h3>
-                <span className={styles.missionSectionSubtitle}>Tiga pilar operasional berkesinambungan</span>
+                <h3 className={styles.missionSectionTitle}>Misi Perusahaan</h3>
               </div>
               <Reveal as="div" stagger className={styles.missionGrid}>
                 {profil.misi.map((butir, index) => {
                   const meta = misiMeta[index];
                   return (
-                    <article key={butir} className={styles.missionCardModern}>
+                    <Card as="article" key={butir} className={styles.missionCard}>
                       <div className={styles.missionCardTop}>
                         <div className={styles.missionBadgeWrap}>
                           <span className={styles.missionIconBox} aria-hidden="true">
                             <MissionIcon index={index} />
                           </span>
-                          <span className={styles.missionIndexBadge}>Misi {String(index + 1).padStart(2, "0")}</span>
+                          <span className={styles.missionIndexBadge}>Misi 0{index + 1}</span>
                         </div>
                         {meta && (
                           <span className={styles.missionMetaTag}>
@@ -252,7 +257,7 @@ export default function TentangKamiPage() {
                         )}
                       </div>
                       <p className={styles.missionCardText}>{butir}</p>
-                    </article>
+                    </Card>
                   );
                 })}
               </Reveal>

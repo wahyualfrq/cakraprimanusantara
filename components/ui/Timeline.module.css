@@ -16,6 +16,18 @@
   left: calc((var(--dot) - var(--line)) / 2);
   width: var(--line);
   background-color: var(--cpn-green-200);
+  transform-origin: top;
+}
+
+/* Garis tergambar dari atas sekali saat timeline masuk layar (state dari Reveal).
+   Tanpa JS / reduced motion: data-reveal tidak pernah "hidden" → garis utuh. */
+.timeline[data-reveal="hidden"]::before {
+  transform: scaleY(0);
+}
+
+.timeline[data-reveal="shown"]::before {
+  transform: scaleY(1);
+  transition: transform var(--cpn-duration-draw) var(--cpn-ease);
 }
 
 .item {

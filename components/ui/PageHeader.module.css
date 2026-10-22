@@ -1,5 +1,4 @@
-/* Header halaman dalam (DESIGN.md §10.2): rata kiri, latar green-50, di bawah
-   navbar sticky — tanpa clearance tambahan. */
+/* Header halaman dalam (DESIGN.md §10.2): rata kiri, di bawah navbar sticky */
 .header {
   position: relative;
   padding-block: var(--cpn-space-header);
@@ -8,13 +7,58 @@
   overflow: hidden;
 }
 
+/* Banner hero gambar penuh (Section 5) */
 .photo {
   color: var(--cpn-color-text-on-dark);
-  --cpn-breadcrumb-link: var(--cpn-color-text-on-dark-muted);
-  --cpn-breadcrumb-current: var(--cpn-color-text-on-dark);
+  --cpn-breadcrumb-link: rgba(255, 255, 255, 0.78);
+  --cpn-breadcrumb-current: #ffffff;
   min-height: 20rem;
+  padding-block: calc(var(--cpn-space-header) + var(--cpn-space-md)) var(--cpn-space-header);
   display: flex;
   align-items: flex-end;
+}
+
+@media (min-width: 900px) {
+  .photo {
+    min-height: 24rem;
+    padding-block: calc(var(--cpn-space-header) + var(--cpn-space-xl)) var(--cpn-space-header);
+  }
+}
+
+/* Full-screen hero variant (khusus Tentang Kami / hero landing per instruksi) */
+.fullScreen {
+  min-height: calc(100vh - var(--cpn-navbar-height));
+  min-height: calc(100svh - var(--cpn-navbar-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-block: calc(var(--cpn-space-xl) + var(--cpn-space-sm));
+  box-sizing: border-box;
+}
+
+@media (min-width: 900px) {
+  .fullScreen {
+    min-height: calc(100vh - var(--cpn-navbar-height));
+    min-height: calc(100svh - var(--cpn-navbar-height));
+    padding-block: var(--cpn-space-2xl);
+  }
+}
+
+.fullScreen .inner {
+  gap: var(--cpn-space-lg);
+}
+
+.fullScreen .title {
+  max-width: 24ch;
+  font-size: var(--cpn-text-display);
+  line-height: var(--cpn-line-height-display);
+}
+
+.fullScreen .description {
+  max-width: var(--cpn-measure);
+  font-size: var(--cpn-text-lead);
+  line-height: var(--cpn-line-height-lead);
 }
 
 .photoLayer {
@@ -26,12 +70,18 @@
 .photoImage {
   position: absolute;
   inset: 0;
+  object-fit: cover;
 }
 
 .scrim {
   position: absolute;
   inset: 0;
-  background: var(--cpn-scrim);
+  background: linear-gradient(
+    180deg,
+    rgba(12, 20, 16, 0.42) 0%,
+    rgba(12, 20, 16, 0.6) 45%,
+    rgba(12, 20, 16, 0.88) 100%
+  );
 }
 
 .inner {
@@ -41,13 +91,20 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--cpn-space-md);
+  width: 100%;
 }
 
 .title {
-  max-width: 24ch;
+  max-width: 28ch;
   font-size: var(--cpn-text-h1);
   font-weight: var(--cpn-font-weight-bold);
   line-height: var(--cpn-line-height-heading);
+  letter-spacing: -0.02em;
+}
+
+.photo .title {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
 .title em {
@@ -62,5 +119,6 @@
 }
 
 .photo .description {
-  color: var(--cpn-color-text-on-dark-muted);
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }

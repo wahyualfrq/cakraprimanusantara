@@ -1,12 +1,14 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb, type BreadcrumbItem } from "@/components/ui/Breadcrumb";
-import { ContentImage } from "@/components/ui/ContentImage";
 import styles from "./PageHeader.module.css";
 import { cn } from "@/lib/utils";
 
 type PageHeaderProps = {
-  variant: "solid" | "photo";
+  variant?: "solid" | "photo";
+  fullScreen?: boolean;
+  className?: string;
   breadcrumb: BreadcrumbItem[];
   title: string;
   /**
@@ -18,6 +20,7 @@ type PageHeaderProps = {
   description?: string;
   photoSrc?: string;
   photoAlt?: string;
+  photoPosition?: string;
 };
 
 function renderTitle(title: string, accentWord?: string): ReactNode {
@@ -38,28 +41,43 @@ function renderTitle(title: string, accentWord?: string): ReactNode {
 /**
  * Header halaman dalam (DESIGN.md §10.2): rata kiri, breadcrumb → H1 → satu kalimat
  * deskripsi opsional. `data-page-header` dipakai Section untuk jarak ke konten pertama.
- * Dua varian: `solid` (latar green-50) dan `photo` (hanya bila foto asli tersedia, scrim wajib).
+ * Dua varian: `solid` (latar green-50) dan `photo` (banner hero gambar penuh dengan scrim).
+ * Opsi `fullScreen` untuk tampilan hero penuh (min-height 100svh).
  */
 export function PageHeader({
-  variant,
+  variant = "solid",
+  fullScreen = false,
+  className,
   breadcrumb,
   title,
   accentWord,
   description,
   photoSrc,
   photoAlt,
+  photoPosition = "center",
 }: PageHeaderProps) {
+  const isPhoto = variant === "photo" && Boolean(photoSrc);
+
   return (
-    <header data-page-header="" className={cn(styles.header, variant === "photo" && styles.photo)}>
-      {variant === "photo" && (
-        <div className={styles.photoLayer} aria-hidden={!photoSrc}>
-          <ContentImage
-            src={photoSrc}
-            alt={photoAlt ?? title}
-            variant="unit"
+    <header
+      data-page-header=""
+      className={cn(
+        styles.header,
+        isPhoto && styles.photo,
+        fullScreen && styles.fullScreen,
+        className
+      )}
+    >
+      {isPhoto && (
+        <div className={styles.photoLayer} aria-hidden="true">
+          <Image
+            src={photoSrc!}
+            alt={photoAlt ?? ""}
             fill
             sizes="100vw"
+            priority
             className={styles.photoImage}
+            style={{ objectPosition: photoPosition }}
           />
           <div className={styles.scrim} aria-hidden="true" />
         </div>

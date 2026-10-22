@@ -12,7 +12,12 @@
   transition:
     background-color var(--cpn-duration-fast) var(--cpn-ease),
     border-color var(--cpn-duration-fast) var(--cpn-ease),
-    color var(--cpn-duration-fast) var(--cpn-ease);
+    color var(--cpn-duration-fast) var(--cpn-ease),
+    transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.94);
 }
 
 .button:focus-visible {
