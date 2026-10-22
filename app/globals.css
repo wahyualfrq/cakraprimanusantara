@@ -60,11 +60,17 @@
   /* Scrim wajib di belakang teks yang duduk di atas foto/pola gelap. */
   --cpn-scrim: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
 
-  /* Scrim hero berbingkai — tipis di atas, paling gelap di kiri-bawah tempat teks
-     duduk; teks ≥ 4,5:1 di area tercerah dan tergelap (DESIGN.md §10.1). */
-  --cpn-scrim-hero:
-    linear-gradient(180deg, rgba(12, 20, 16, 0.2) 0%, rgba(12, 20, 16, 0.35) 45%, rgba(12, 20, 16, 0.82) 100%),
-    linear-gradient(90deg, rgba(12, 20, 16, 0.45) 0%, rgba(12, 20, 16, 0) 70%);
+  /* Scrim hero full-bleed (versi fe-lanjutan, dipertahankan) — gelap atas, lebih
+     terang di tengah, paling gelap di bawah (trust bar). */
+  --cpn-scrim-hero: linear-gradient(
+    180deg,
+    rgba(12, 20, 16, 0.55) 0%,
+    rgba(12, 20, 16, 0.4) 40%,
+    rgba(12, 20, 16, 0.75) 100%
+  );
+
+  /* Text-shadow tipis untuk teks putih yang duduk langsung di atas foto (hero). */
+  --cpn-text-shadow-on-photo: 0 1px 3px rgba(0, 0, 0, 0.35);
 
   /* Garis pemisah di atas latar gelap/foto. */
   --cpn-color-border-on-dark-subtle: rgba(255, 255, 255, 0.12);
@@ -144,6 +150,10 @@
   --cpn-duration-slow: 500ms;
   --cpn-ease: cubic-bezier(0.2, 0, 0, 1);
   --cpn-stagger: 80ms;
+  /* Pengecualian batas 600 ms: gerak kontinu marquee pelanggan (±60 px/detik) dan
+     garis timeline yang tergambar sekali saat masuk layar. */
+  --cpn-duration-marquee: 120s;
+  --cpn-duration-draw: 900ms;
   --cpn-reveal-shift: 12px;
 
   /* Cincin fokus keyboard — ganda (putih lalu hijau), terlihat di atas terang maupun gelap. */

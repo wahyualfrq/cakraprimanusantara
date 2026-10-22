@@ -36,6 +36,7 @@ export default function RisetInovasiPage() {
           { label: "Riset & Inovasi", href: "/riset-dan-inovasi" },
         ]}
         title="Riset & Inovasi"
+        description="Pengembangan formulasi bioteknologi ramah lingkungan dan kerja sama penelitian terpadu."
       />
 
       {/* 1. Narasi §E3 — tiap bagian: rail judul | paragraf */}

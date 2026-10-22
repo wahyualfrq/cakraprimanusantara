@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Eyebrow } from "./Eyebrow";
+import { Reveal } from "./Reveal";
 import styles from "./SectionHeading.module.css";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +32,10 @@ function renderTitle(title: string, accent?: string): ReactNode {
   );
 }
 
-/** Kepala section: eyebrow opsional, H2, deskripsi, dan kontrol (DESIGN.md §3.2 section-head). */
+/**
+ * Kepala section: eyebrow opsional, H2, deskripsi, dan kontrol (DESIGN.md §3.2 section-head).
+ * Muncul bertahap saat masuk layar (judul lalu sisi kanan) lewat Reveal.
+ */
 export function SectionHeading({
   title,
   accent,
@@ -44,7 +48,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const hasSide = Boolean(description || actions);
   return (
-    <div className={cn(styles.wrap, layout === "split" && styles.split, className)}>
+    <Reveal stagger className={cn(styles.wrap, layout === "split" && styles.split, className)}>
       <div className={styles.titleGroup}>
         {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
         <h2 id={id} className={styles.title}>
@@ -57,6 +61,6 @@ export function SectionHeading({
           {actions && <div className={styles.actions}>{actions}</div>}
         </div>
       )}
-    </div>
+    </Reveal>
   );
 }

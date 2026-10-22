@@ -1,165 +1,267 @@
-/* Hero berbingkai (DESIGN.md §10.1): di bawah navbar, margin atas --cpn-space-md,
-   lebar container, radius xl. Tanpa reveal (elemen LCP, §16.3). */
 .hero {
-  padding-top: var(--cpn-space-md);
+  position: relative;
+  overflow: hidden;
 }
+
+/* ─── BASE: MOBILE LAYOUT (up to 600px) ────────────────────────── */
 
 .frame {
   position: relative;
   isolation: isolate;
+  /* 100vh sebagai fallback, lalu 100svh (tinggi viewport kecil di mobile) menimpanya.
+     Adaptasi v0.4: navbar sticky tidak lagi menimpa foto, jadi tinggi navbar dikurangi
+     supaya hero tetap mengisi sisa layar seperti versi fe-lanjutan. */
+  min-height: calc(100vh - var(--cpn-navbar-height));
+  min-height: calc(100svh - var(--cpn-navbar-height));
+  height: auto;
+  max-height: none;
   display: flex;
-  align-items: flex-end;
-  min-height: clamp(30rem, calc(82svh - var(--cpn-navbar-height)), 46rem);
-  border-radius: var(--cpn-radius-xl);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  background-color: var(--cpn-green-900);
-  color: var(--cpn-color-text-on-dark);
+  box-sizing: border-box;
+  /* Clearance navbar mengambang dilepas (navbar sticky berada di atas hero). */
+  padding-top: var(--cpn-space-md);
+  padding-bottom: var(--cpn-space-xl);
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
 }
 
 .image {
-  z-index: -2;
   object-fit: cover;
-  object-position: 50% 40%;
+  object-position: center;
 }
 
 .scrim {
   position: absolute;
   inset: 0;
-  z-index: -1;
   background: var(--cpn-scrim-hero);
 }
 
 .content {
+  width: 100%;
+  padding-block: 0;
+}
+
+.copy {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: var(--cpn-space-md);
-  width: 100%;
-  max-width: 46rem;
-  padding: var(--cpn-space-hero);
-}
-
-.tags {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
   gap: var(--cpn-space-sm);
-}
-
-/* Tag kecil: radius full (penanda kecil, §7.1), garis putih tanpa blur. */
-.tag {
-  padding: var(--cpn-space-xs) 0.75rem;
-  border: 1px solid var(--cpn-glass-border);
-  border-radius: var(--cpn-radius-full);
-  font-size: var(--cpn-text-caption);
-  font-weight: var(--cpn-font-weight-semibold);
-  letter-spacing: var(--cpn-letter-spacing-caps);
-  line-height: var(--cpn-line-height-title);
-  text-transform: uppercase;
-}
-
-/* Mobile: tag maks. 2 (§10.1). */
-.tag:nth-child(n + 3) {
-  display: none;
+  color: var(--cpn-color-text-on-dark);
 }
 
 .headline {
-  max-width: 16ch;
-  font-size: var(--cpn-text-display);
+  font-size: clamp(1.85rem, 6.5vw, 2.35rem);
   font-weight: var(--cpn-font-weight-semibold);
-  line-height: var(--cpn-line-height-display);
+  line-height: 1.2;
   letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin: 0;
 }
 
-/* Aksen italic Fraunces asli [T5]. */
-.headline em {
+.headlineLine {
+  display: block;
+}
+
+/* Satu kata aksen per headline hero, italic ASLI Fraunces (DESIGN.md §6.1). */
+.accentWord {
+  font-family: var(--cpn-font-heading);
   font-style: italic;
-  font-weight: var(--cpn-font-weight-regular);
-  color: var(--cpn-green-300);
+  font-weight: var(--cpn-font-weight-medium);
 }
 
 .subheadline {
-  max-width: 34rem;
-  font-size: var(--cpn-text-lead);
-  line-height: var(--cpn-line-height-lead);
+  font-size: clamp(0.875rem, 3.2vw, 0.9375rem);
+  line-height: 1.55;
   color: var(--cpn-color-text-on-dark-muted);
+  max-width: 28rem;
+  margin: 0;
+  text-wrap: pretty;
 }
 
+/* Pasangan CTA: pill putih solid + tautan teks (DESIGN.md §10.2). */
 .actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: var(--cpn-space-sm) var(--cpn-space-lg);
-  margin-top: var(--cpn-space-sm);
+  margin-top: var(--cpn-space-xs);
 }
 
-/* Kartu info glass: kanan-bawah, hanya ≥ 900 px, maks. dua fakta bersumber. */
-.info {
-  display: none;
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+  padding: var(--cpn-space-sm) var(--cpn-space-xs);
+  border-radius: var(--cpn-radius-full);
+  color: var(--cpn-color-text-on-dark);
+  font-weight: var(--cpn-font-weight-semibold);
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3em;
+  text-shadow: var(--cpn-text-shadow-on-photo);
+  transition: text-decoration-color 0.15s ease;
 }
 
-.facts {
+.ctaSecondary:hover {
+  text-decoration-color: currentColor;
+}
+
+.ctaSecondary:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+.trustBar {
+  position: static;
+  width: 100%;
+  z-index: 1;
+  margin-top: var(--cpn-space-xl);
+  padding-top: var(--cpn-space-md);
+  padding-bottom: 0;
+  border-top: 1px solid var(--cpn-color-border-on-dark-subtle);
+}
+
+.trust {
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-md);
-}
-
-.fact {
-  display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: var(--cpn-space-xs);
 }
 
-.fact + .fact {
-  padding-top: var(--cpn-space-md);
-  border-top: 1px solid var(--cpn-glass-border);
-}
-
-.fact dt {
-  font-size: var(--cpn-text-caption);
-  font-weight: var(--cpn-font-weight-semibold);
-  letter-spacing: var(--cpn-letter-spacing-caps);
+.trustLabel {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--cpn-color-text-on-dark-muted);
 }
 
-.fact dd {
-  font-family: var(--cpn-font-heading);
-  font-size: var(--cpn-text-h3);
-  font-weight: var(--cpn-font-weight-semibold);
-  line-height: var(--cpn-line-height-title);
+.logoStrip {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--cpn-space-xs) var(--cpn-space-md);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: var(--cpn-font-weight-bold);
+  color: var(--cpn-color-text-on-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  max-width: 26rem;
+  margin-inline: auto;
 }
 
-@media (max-width: 639px) {
-  .actions {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-  }
-
-  .actions > :last-child {
-    justify-content: flex-start;
-  }
-}
+/* ─── TABLET BREAKPOINT (640px - 900px) ─────────────────────────── */
 
 @media (min-width: 640px) {
-  .tag:nth-child(n + 3) {
-    display: block;
+  .frame {
+    padding-top: var(--cpn-space-xl);
+    padding-bottom: var(--cpn-space-2xl);
+  }
+
+  .content {
+    padding-block: var(--cpn-space-md);
+  }
+
+  .copy {
+    max-width: 44rem;
+    gap: var(--cpn-space-md);
+  }
+
+  .headline {
+    font-size: clamp(2.35rem, 5vw, 3.25rem);
+    line-height: 1.18;
+  }
+
+  .subheadline {
+    font-size: 1rem;
+    max-width: 34rem;
+  }
+
+  .actions {
+    margin-top: var(--cpn-space-sm);
+  }
+
+  .trustBar {
+    margin-top: var(--cpn-space-2xl);
+    padding-top: var(--cpn-space-md);
+  }
+
+  .trust {
+    gap: var(--cpn-space-sm);
+  }
+
+  .trustLabel {
+    font-size: 0.8125rem;
+  }
+
+  .logoStrip {
+    font-size: 0.9375rem;
+    gap: var(--cpn-space-sm) var(--cpn-space-lg);
+    max-width: 40rem;
   }
 }
 
-@media (min-width: 900px) {
-  /* Ruang untuk kartu info di kanan supaya teks tidak tertimpa. */
-  .content {
-    max-width: min(46rem, calc(100% - 15rem - var(--cpn-space-hero)));
+/* ─── DESKTOP BREAKPOINT (> 900px) ─────────────────────────────── */
+
+@media (min-width: 901px) {
+  .frame {
+    min-height: 44rem;
+    height: calc(100vh - var(--cpn-navbar-height));
+    max-height: 56rem;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
-  .info {
-    display: block;
+  .content {
+    padding-block: var(--cpn-space-2xl);
+  }
+
+  .copy {
+    max-width: 60rem;
+    gap: var(--cpn-space-md);
+  }
+
+  /* Maksimal 2 baris (DESIGN.md §7): tiap baris headline satu span blok. */
+  .headline {
+    font-size: clamp(2.5rem, 4.4vw, 4rem);
+    line-height: 1.12;
+  }
+
+  .subheadline {
+    font-size: 1.0625rem;
+    max-width: 38rem;
+  }
+
+  .trustBar {
     position: absolute;
-    right: var(--cpn-space-hero);
-    bottom: var(--cpn-space-hero);
-    width: 15rem;
-    padding: var(--cpn-space-row);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 0;
+    padding-block: var(--cpn-space-lg);
+    border-top: none;
+  }
+
+  .logoStrip {
+    font-size: 1.0625rem;
+    gap: var(--cpn-space-md) var(--cpn-space-lg);
+    max-width: none;
   }
 }

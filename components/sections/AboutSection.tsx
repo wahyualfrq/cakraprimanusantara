@@ -29,7 +29,7 @@ export function AboutSection() {
           <p className={styles.lead}>{profil.narasi[0]}</p>
           <DefinitionList items={fakta} layout="grid" className={styles.facts} />
           <div className={styles.actions}>
-            <Button href="/tentang-kami" arrow>
+            <Button href="/tentang-kami">
               Profil perusahaan
             </Button>
             <Button href="/produk" variant="text-link">
@@ -38,7 +38,7 @@ export function AboutSection() {
           </div>
         </Reveal>
 
-        <div className={styles.media}>
+        <Reveal className={styles.media}>
           {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
           <Image
             src={ilustrasi.rumahKaca.src}
@@ -47,7 +47,7 @@ export function AboutSection() {
             sizes="(min-width: 900px) 260px, calc(100vw - 2rem)"
             className={styles.image}
           />
-        </div>
+        </Reveal>
       </Container>
     </Section>
   );

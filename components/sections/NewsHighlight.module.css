@@ -75,6 +75,18 @@
   font-size: var(--cpn-text-ui);
   font-weight: var(--cpn-font-weight-semibold);
   color: var(--cpn-color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+}
+
+.more span {
+  display: inline-block;
+  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.featuredLink:hover .more span {
+  transform: translateX(4px);
 }
 
 .featuredLink:hover .featuredTitle,

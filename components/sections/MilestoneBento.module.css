@@ -15,6 +15,14 @@
   padding: var(--cpn-space-lg);
   border-radius: var(--cpn-radius-lg);
   background-color: var(--cpn-color-bg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition:
+    box-shadow var(--cpn-duration-base) var(--cpn-ease),
+    transform var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.card:hover {
+  box-shadow: 0 10px 24px rgba(27, 77, 46, 0.08);
 }
 
 .year {

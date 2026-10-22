@@ -48,6 +48,13 @@
 .image {
   object-fit: cover;
   object-position: 50% 40%;
+  transition: transform var(--cpn-duration-slow) var(--cpn-ease);
+}
+
+@media (hover: hover) {
+  .media:hover .image {
+    transform: scale(1.04);
+  }
 }
 
 @media (min-width: 640px) {

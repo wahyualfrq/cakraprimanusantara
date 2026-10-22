@@ -11,14 +11,29 @@
   display: flex;
   flex-direction: column;
   gap: var(--cpn-space-sm);
-  padding-top: var(--cpn-space-row);
+  padding: var(--cpn-space-row);
   border-top: 2px solid var(--cpn-color-primary);
+  border-radius: 0 0 var(--cpn-radius-md) var(--cpn-radius-md);
+  transition:
+    background-color var(--cpn-duration-base) var(--cpn-ease),
+    border-color var(--cpn-duration-base) var(--cpn-ease),
+    box-shadow var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.item:hover {
+  background-color: var(--cpn-color-surface-tint);
+  border-top-color: var(--cpn-green-300);
 }
 
 .icon {
   display: inline-flex;
   margin-bottom: var(--cpn-space-sm);
   color: var(--cpn-color-primary);
+  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.item:hover .icon {
+  transform: translateY(-2px);
 }
 
 .label {

@@ -27,7 +27,7 @@ export function NewsHighlight() {
           layout="split"
           id="berita-judul"
           actions={
-            <Button href="/berita" variant="text-link" arrow>
+            <Button href="/berita" variant="text-link">
               Semua berita
             </Button>
           }
@@ -56,7 +56,7 @@ export function NewsHighlight() {
                   <h3 className={styles.featuredTitle}>{unggulan.meta.judul}</h3>
                   {unggulan.meta.excerpt && <span className={styles.excerpt}>{unggulan.meta.excerpt}</span>}
                   <span className={styles.more}>
-                    Baca artikel <span aria-hidden="true">→</span>
+                    Baca artikel <span aria-hidden="true"></span>
                   </span>
                 </span>
               </Link>

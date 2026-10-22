@@ -91,11 +91,23 @@
 }
 
 .featuredMore {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-xs);
   font-size: var(--cpn-text-ui);
   font-weight: var(--cpn-font-weight-semibold);
   text-decoration: underline;
   text-decoration-color: var(--cpn-glass-border);
   text-underline-offset: 0.3em;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.featured:hover .arrow {
+  transform: translateX(4px);
 }
 
 .featuredMore span {

@@ -13,7 +13,7 @@
   gap: var(--cpn-space-md);
 }
 
-.part + .part {
+.part+.part {
   padding-top: var(--cpn-space-block);
   border-top: 1px solid var(--cpn-color-border);
 }
@@ -73,8 +73,17 @@
   display: grid;
   grid-template-columns: 4rem minmax(0, 1fr);
   gap: var(--cpn-space-md);
-  padding-block: var(--cpn-space-row);
+  padding: var(--cpn-space-row);
   border-top: 1px solid var(--cpn-color-border);
+  border-radius: var(--cpn-radius-md);
+  transition:
+    background-color var(--cpn-duration-base) var(--cpn-ease),
+    border-color var(--cpn-duration-base) var(--cpn-ease);
+}
+
+.certItem:hover {
+  background-color: var(--cpn-color-surface-tint);
+  border-top-color: var(--cpn-green-300);
 }
 
 .certYear {
@@ -112,6 +121,7 @@
 }
 
 @media (min-width: 900px) {
+
   .part,
   .railGrid {
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);

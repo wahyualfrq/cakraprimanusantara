@@ -25,7 +25,7 @@ export function MilestoneBento() {
           layout="split"
           id="milestone-judul"
           actions={
-            <Button href="/tentang-kami" variant="text-link" arrow>
+            <Button href="/tentang-kami" variant="text-link">
               Milestone lengkap
             </Button>
           }

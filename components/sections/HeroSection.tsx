@@ -1,32 +1,28 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { GlassCard } from "@/components/ui/GlassCard";
-import { heroInterim, profil } from "@/content/profil";
-import { kategoriLabel } from "@/content/agribisnis/produk";
+import { PillButton } from "@/components/ui/PillButton";
+import { heroInterim } from "@/content/profil";
+import { pelangganList } from "@/content/agribisnis/pelanggan";
 import { ilustrasi } from "@/content/ilustrasi";
 import styles from "./HeroSection.module.css";
 
-// Tag hero = nama kategori produk bersumber (DESIGN.md §10.1), bukan klaim.
-const TAG_KATEGORI = [kategoriLabel["penyubur-tanah"], kategoriLabel["bio-pestisida"], kategoriLabel["pupuk-cair"]];
-
-// Kartu info: maks. dua fakta bersumber. Berdiri = §E1 ("Juli 1995, dengan Akta …");
-// lokasi produksi = §G6 ("fasilitas produksi kami yang terletak di daerah Balaraja, Banten").
-const FAKTA_HERO = [
-  { label: "Berdiri", nilai: profil.berdiri.teks.split(",")[0] },
-  { label: "Fasilitas produksi", nilai: "Balaraja, Banten" },
-];
+// Nama dari strip lama yang tercantum di Daftar Konsumen/Pelanggan Ostindo
+// (content/agribisnis/pelanggan.ts), dengan ejaan sumber. Pilihan nama final
+// mengikuti copy beranda (D2).
+// VERIFY: izin klien untuk menampilkan nama pelanggan pada strip "Dipercaya oleh".
+const NAMA_STRIP = ["Astra Agro Lestari Group", "PT Perkebunan Nusantara", "Perhutani"];
+const trustLogos = pelangganList.filter((p) => NAMA_STRIP.includes(p.nama)).map((p) => p.nama);
 
 /**
- * Hero berbingkai (DESIGN.md §10.1 [T4]): gambar berradius xl di dalam container, di
- * bawah navbar; teks rata kiri menempel kiri-bawah; satu kartu info glass ≥ 900 px.
- * Satu-satunya <h1> dan satu-satunya gambar yang di-preload di beranda.
+ * Hero full-bleed, layout centered — headline + sub-headline + 1 CTA +
+ * trust logos. Satu-satunya <h1> di homepage.
  */
 export function HeroSection() {
   return (
-    <section className={styles.hero} aria-labelledby="hero-judul">
-      <Container>
-        <div className={styles.frame}>
+    <section className={styles.hero}>
+      <div className={styles.frame}>
+        <div className={styles.media}>
           {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
           <Image
             src={ilustrasi.kebunSawit.src}
@@ -35,49 +31,59 @@ export function HeroSection() {
             // LCP beranda: gambar ini di desktop, H1 di mobile — preload saja; fetchPriority="high"
             // memperlambat LCP teks di mobile (diukur Tahap O: 1620 vs 1764 ms).
             preload
-            sizes="(min-width: 1200px) 1136px, calc(100vw - 2rem)"
+            sizes="100vw"
             className={styles.image}
           />
           <div className={styles.scrim} aria-hidden="true" />
+        </div>
 
-          <div className={styles.content}>
-            <ul className={styles.tags} aria-label="Kategori produk">
-              {TAG_KATEGORI.map((tag) => (
-                <li key={tag} className={styles.tag}>
-                  {tag}
-                </li>
-              ))}
-            </ul>
-
+        <Container className={styles.content}>
+          <div className={styles.copy}>
             {/* INTERIM — copy belum disetujui (D2), dibaca dari content/profil.ts. */}
-            <h1 id="hero-judul" className={styles.headline}>
-              {heroInterim.judulAwal} <em>{heroInterim.kataAksen}</em> {heroInterim.judulAkhir}
+            <h1 className={styles.headline}>
+              <span className={styles.headlineLine}>{heroInterim.judulAwal}</span>
+              <span className={styles.headlineLine}>
+                <em className={styles.accentWord}>{heroInterim.kataAksen}</em>{" "}
+                {heroInterim.judulAkhir}
+              </span>
             </h1>
 
             <p className={styles.subheadline}>{heroInterim.subjudul}</p>
 
+            {/* Pill putih solid (bukan glass) + tautan teks — label dari heroInterim (INTERIM, D2). */}
             <div className={styles.actions}>
-              <Button href={heroInterim.ctaUtama.href} variant="accent" arrow>
+              <PillButton href={heroInterim.ctaUtama.href} variant="light">
                 {heroInterim.ctaUtama.label}
-              </Button>
-              <Button href={heroInterim.ctaSekunder.href} variant="text-link" onDark>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </PillButton>
+              <Link href={heroInterim.ctaSekunder.href} className={styles.ctaSecondary}>
                 {heroInterim.ctaSekunder.label}
-              </Button>
+              </Link>
             </div>
           </div>
+        </Container>
 
-          <GlassCard className={styles.info}>
-            <dl className={styles.facts}>
-              {FAKTA_HERO.map((fakta) => (
-                <div key={fakta.label} className={styles.fact}>
-                  <dt>{fakta.label}</dt>
-                  <dd>{fakta.nilai}</dd>
-                </div>
-              ))}
-            </dl>
-          </GlassCard>
+        <div className={styles.trustBar}>
+          <Container>
+            <div className={styles.trust}>
+              <span className={styles.trustLabel}>Dipercaya oleh:</span>
+              <ul className={styles.logoStrip}>
+                {trustLogos.map((name) => (
+                  <li key={name}>{name}</li>
+                ))}
+              </ul>
+            </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

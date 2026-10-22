@@ -87,7 +87,7 @@ export function ProductCarousel({ items, title, accent, description }: ProductCa
           id="produk-judul"
           actions={
             <>
-              <Button href="/produk" variant="text-link" arrow>
+              <Button href="/produk" variant="text-link" >
                 Semua produk
               </Button>
               <span className={styles.controls}>

@@ -3,6 +3,7 @@ import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { Timeline } from "@/components/ui/Timeline";
+import { Reveal } from "@/components/ui/Reveal";
 import { milestoneList } from "@/content/agribisnis/milestone";
 import { narasiRisetList } from "@/content/agribisnis/riset";
 import styles from "./ResearchHighlight.module.css";
@@ -19,15 +20,15 @@ export function ResearchHighlight() {
   return (
     <Section aria-labelledby="riset-judul">
       <Container className={styles.grid}>
-        <div className={styles.rail}>
+        <Reveal as="div" className={styles.rail}>
           <Eyebrow>Riset &amp; Inovasi</Eyebrow>
           <h2 id="riset-judul" className={styles.title}>
             {bagianKerjasama?.judul ?? "Riset & Inovasi"}
           </h2>
-          <Button href="/riset-dan-inovasi" variant="text-link" arrow>
+          <Button href="/riset-dan-inovasi" variant="text-link">
             Riset &amp; Inovasi
           </Button>
-        </div>
+        </Reveal>
 
         <div className={styles.body}>
           {bagianKerjasama?.paragraf.map((paragraf) => (

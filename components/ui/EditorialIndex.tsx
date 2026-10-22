@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ContentImage, type ContentImageVariant } from "@/components/ui/ContentImage";
+import { Reveal } from "@/components/ui/Reveal";
 import styles from "./EditorialIndex.module.css";
 import { cn } from "@/lib/utils";
 
@@ -26,7 +27,7 @@ type EditorialIndexProps = {
  */
 export function EditorialIndex({ items, thumbnailVariant, start = 1, className }: EditorialIndexProps) {
   return (
-    <ol className={cn(styles.list, className)} start={start}>
+    <Reveal as="ol" stagger className={cn(styles.list, className)}>
       {items.map((item, index) => (
         <li key={item.href} className={styles.item}>
           <Link href={item.href} className={styles.row}>
@@ -42,11 +43,11 @@ export function EditorialIndex({ items, thumbnailVariant, start = 1, className }
                   <ContentImage alt="" variant={thumbnailVariant} fill sizes="144px" />
                 </span>
               )}
-              <span className={styles.arrow}>→</span>
+              {/* <span className={styles.arrow}>→</span> */}
             </span>
           </Link>
         </li>
       ))}
-    </ol>
+    </Reveal>
   );
 }

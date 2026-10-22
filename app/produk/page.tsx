@@ -33,6 +33,7 @@ export default function ProdukAgribisnisPage() {
           { label: "Produk", href: "/produk" },
         ]}
         title="Produk"
+        description="Rangkaian produk penyubur tanah, pupuk hayati, dan biopestisida ramah lingkungan."
       />
 
       <Section aria-label="Daftar produk">
@@ -50,7 +51,7 @@ export default function ProdukAgribisnisPage() {
                 <span className={styles.featuredName}>{unggulan.nama}</span>
                 <span className={styles.featuredDesc}>{unggulan.deskripsiSingkat}</span>
                 <span className={styles.featuredMore}>
-                  Selengkapnya <span aria-hidden="true">→</span>
+                  Selengkapnya <span className={styles.arrow} aria-hidden="true"></span>
                 </span>
               </span>
             </Link>
