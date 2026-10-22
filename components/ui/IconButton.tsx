@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./IconButton.module.css";
 import { cn } from "@/lib/utils";
 
-type Variant = "glass" | "solid";
+type Variant = "outline" | "glass";
 
 type CommonProps = {
   children: ReactNode;
@@ -20,6 +20,7 @@ type IconButtonAsLink = CommonProps &
 type IconButtonAsButton = CommonProps & {
   href?: undefined;
   onClick?: () => void;
+  disabled?: boolean;
   /** Untuk tombol disclosure (mis. menu mobile). */
   "aria-expanded"?: boolean;
   "aria-controls"?: string;
@@ -28,9 +29,9 @@ type IconButtonAsButton = CommonProps & {
 type IconButtonProps = IconButtonAsLink | IconButtonAsButton;
 
 /**
- * Tombol bulat kecil berisi ikon (mis. tombol menu MobileNav) (DESIGN.md §7).
+ * Tombol ikon persegi 44 px (DESIGN.md §8.4) — toggle menu mobile, panah karusel.
  */
-export function IconButton({ children, variant = "glass", className, href, ...rest }: IconButtonProps) {
+export function IconButton({ children, variant = "outline", className, href, ...rest }: IconButtonProps) {
   const classes = cn(styles.button, styles[variant], className);
 
   if (href) {

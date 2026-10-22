@@ -1,111 +1,188 @@
-/* Lembar produk (DESIGN.md §8.11): isi sumber di kiri, fakta kunci di kanan. */
+/* Detail produk — split-aside 8:4 (DESIGN.md §3.2, §13.4). */
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-xl);
+  gap: var(--cpn-space-block);
 }
 
-/* Teks verbatim panjang — kolom baca terbatas supaya tetap nyaman dibaca. */
-.prose {
-  max-width: 68ch;
-  font-size: var(--cpn-text-body);
-  line-height: var(--cpn-line-height-body);
-  color: var(--cpn-color-text-muted);
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-block);
+  min-width: 0;
 }
 
-.prose p + p,
-.points + p {
-  margin-top: var(--cpn-space-md);
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
 }
 
-.pointsTitle {
-  font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-text);
+.blockHeading {
   margin-bottom: var(--cpn-space-sm);
 }
 
+.pointsTitle {
+  font-size: var(--cpn-text-body);
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-text);
+}
+
+/* Butir sumber sebagai baris bernomor S0. */
 .points {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-sm);
-  color: var(--cpn-color-text);
+  border-bottom: 1px solid var(--cpn-color-border);
 }
 
 .points li {
-  position: relative;
-  padding-left: var(--cpn-space-lg);
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--cpn-space-md);
+  padding-block: var(--cpn-space-md);
+  border-top: 1px solid var(--cpn-color-border);
+  font-size: var(--cpn-text-lead);
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-color-text);
 }
 
-/* Penanda bulat kecil, bukan ikon centang (DESIGN.md §8.3). */
-.points li::before {
-  content: "";
-  position: absolute;
-  left: var(--cpn-space-xs);
-  top: 0.6em;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: var(--cpn-radius-full);
-  background-color: var(--cpn-color-primary);
-}
-
-.aside {
-  padding: var(--cpn-space-lg);
-  border: 1px solid var(--cpn-color-border);
-  border-radius: var(--cpn-radius-lg);
-  background-color: var(--cpn-color-surface);
-}
-
-.asideTitle {
+.number {
   font-family: var(--cpn-font-heading);
-  font-size: 1.25rem;
+  font-size: var(--cpn-text-body);
   font-weight: var(--cpn-font-weight-semibold);
-  margin-bottom: var(--cpn-space-md);
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-color-primary);
+}
+
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  max-width: var(--cpn-measure);
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-gray-700);
+}
+
+.prose em {
+  font-style: italic;
 }
 
 .note {
-  max-width: 68ch;
-  margin-top: var(--cpn-space-md);
+  padding: var(--cpn-space-md) var(--cpn-space-row);
+  border-left: 2px solid var(--cpn-color-primary);
+  background-color: var(--cpn-color-surface-tint);
+  border-radius: 0 var(--cpn-radius-md) var(--cpn-radius-md) 0;
+  font-size: var(--cpn-text-body);
+  color: var(--cpn-green-800);
+}
+
+/* Aside S1 sticky: offset = tinggi navbar + space-md (§3.2). */
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  align-self: start;
+}
+
+.asideTitle {
+  font-family: var(--cpn-font-body);
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  text-transform: uppercase;
   color: var(--cpn-color-text-muted);
 }
 
-.tableWrap {
-  margin-top: var(--cpn-space-lg);
-}
-
-.footerNav {
+.asideActions {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--cpn-space-md);
-  padding-top: var(--cpn-space-lg);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cpn-space-xs);
+  padding-top: var(--cpn-space-md);
   border-top: 1px solid var(--cpn-color-border);
 }
 
-.backLink {
-  font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-primary);
-  border-radius: var(--cpn-radius-md);
+/* ── Produk lainnya: kartu horizontal ringkas di atas surface-muted (tanpa border, §7.2). */
+.others {
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-md);
 }
 
-.backLink:hover {
-  color: var(--cpn-color-primary-hover);
+.otherCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+  height: 100%;
+  padding: var(--cpn-space-row) var(--cpn-space-xl) var(--cpn-space-row) var(--cpn-space-row);
+  border-radius: var(--cpn-radius-lg);
+  background-color: var(--cpn-color-bg);
 }
 
-.backLink:focus-visible {
+.otherCard:focus-visible {
   outline: 2px solid transparent;
   box-shadow: var(--cpn-focus-ring);
 }
 
+.otherMeta {
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--cpn-color-text-muted);
+}
+
+.otherName {
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-h3);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-title);
+  transition: color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.otherArrow {
+  position: absolute;
+  right: var(--cpn-space-row);
+  top: 50%;
+  translate: 0 -50%;
+  font-size: var(--cpn-text-h3);
+  color: var(--cpn-color-primary);
+  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.otherCard:hover .otherName {
+  color: var(--cpn-color-primary);
+}
+
+.otherCard:hover .otherArrow,
+.otherCard:focus-visible .otherArrow {
+  transform: translateX(4px);
+}
+
+@media (min-width: 640px) {
+  .others {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 900px) {
   .layout {
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    gap: var(--cpn-space-xl);
     align-items: start;
   }
 
   .aside {
     position: sticky;
     top: calc(var(--cpn-navbar-height) + var(--cpn-space-md));
+  }
+
+  .others {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }

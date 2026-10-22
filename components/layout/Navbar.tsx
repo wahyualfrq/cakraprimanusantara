@@ -5,13 +5,13 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MobileNav } from "./MobileNav";
 import { ariaCurrentFor, kontakLink, navLinks } from "./navLinks";
-import { PillButton } from "@/components/ui/PillButton";
+import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import styles from "./Navbar.module.css";
 
 /**
- * Navbar bar putih membulat mengambang (keputusan D10, DESIGN.md §10.2):
- * logo di kiri, menu ringkas dengan item aktif berbentuk pill, CTA pill.
+ * Navbar bar putih rata, sticky (DESIGN.md §9 [T2]): logo | navigasi | CTA, tanpa
+ * kapsul, tanpa shadow. Item aktif = teks green-800 600 + indikator 2 px di tepi bawah.
  */
 export function Navbar() {
   const pathname = usePathname();
@@ -27,12 +27,11 @@ export function Navbar() {
           <Image
             src="/images/LogosG.png"
             alt=""
-            // = ukuran render (--cpn-navbar-logo-height 4rem = 64px) → srcset 64w/128w.
-            // Eager + fetchPriority low: logo di atas lipatan tapi bukan elemen LCP. React 19
-            // mem-preload otomatis <img> non-lazy kecuali fetchPriority="low" — preload hanya
-            // untuk gambar LCP (Tahap O).
-            width={64}
-            height={64}
+            // = ukuran render terbesar (--cpn-navbar-logo-height 2.5rem = 40px) → srcset 64w/128w.
+            // Eager + fetchPriority low: logo di atas lipatan tapi bukan elemen LCP; preload
+            // hanya untuk gambar LCP (Tahap O).
+            width={40}
+            height={40}
             loading="eager"
             fetchPriority="low"
             className={styles.logoImage}
@@ -56,14 +55,14 @@ export function Navbar() {
         </nav>
 
         <div className={styles.right}>
-          <PillButton
+          <Button
             href={kontakLink.href}
-            variant="solid"
+            size="sm"
             aria-current={ariaCurrentFor(pathname, kontakLink.href)}
             className={styles.ctaDesktop}
           >
             {kontakLink.label}
-          </PillButton>
+          </Button>
           <MobileNav />
         </div>
       </div>

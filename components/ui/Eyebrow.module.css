@@ -1,0 +1,22 @@
+/* Eyebrow bertitik — nama section, bukan slogan; hanya di section Beranda (DESIGN.md §11.2). */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-sm);
+  font-family: var(--cpn-font-body);
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  line-height: var(--cpn-line-height-title);
+  text-transform: uppercase;
+  color: var(--cpn-color-text-muted);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--cpn-radius-full);
+  background-color: var(--cpn-color-primary);
+  flex-shrink: 0;
+}

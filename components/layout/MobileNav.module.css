@@ -1,44 +1,78 @@
 .wrapper {
   display: none;
-  position: relative;
 }
 
-/* Kartu tarik-turun di bawah bar mengambang — bar (logo + tombol tutup) tetap
-   terlihat dan bisa dijangkau saat menu terbuka. */
+/* Panel tepat di bawah bar, lebar penuh, radius bawah lg, shadow elemen melayang
+   (DESIGN.md §9.4). Tinggi maks = viewport − bar, scroll internal. */
 .panel {
   position: fixed;
-  top: calc(var(--cpn-navbar-height) + var(--cpn-space-sm));
-  left: var(--cpn-space-md);
-  right: var(--cpn-space-md);
-  max-height: calc(100dvh - var(--cpn-navbar-height) - 2 * var(--cpn-space-md));
+  top: var(--cpn-navbar-height);
+  left: 0;
+  right: 0;
   z-index: 60;
-  background-color: var(--cpn-color-bg);
-  border: 1px solid var(--cpn-color-border);
-  border-radius: var(--cpn-radius-lg);
-  box-shadow: var(--cpn-shadow-card);
-  padding: var(--cpn-space-md);
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-xs);
+  max-height: calc(100dvh - var(--cpn-navbar-height));
   overflow-y: auto;
-  font-weight: var(--cpn-font-weight-semibold);
-  font-size: var(--cpn-text-lead);
+  padding: var(--cpn-space-md) var(--cpn-container-padding) var(--cpn-space-row);
+  background-color: var(--cpn-color-bg);
+  border-bottom: 1px solid var(--cpn-color-border);
+  border-radius: 0 0 var(--cpn-radius-lg) var(--cpn-radius-lg);
+  box-shadow: var(--cpn-shadow-card);
+  animation: panelIn var(--cpn-duration-base) var(--cpn-ease);
 }
 
+.closing {
+  animation: panelOut var(--cpn-duration-fast) var(--cpn-ease) forwards;
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes panelOut {
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.list li + li {
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+/* Item ≥ 48 px; aktif = bilah kiri 3 px green-700 + latar green-50 (§9.4). */
 .link {
-  padding: var(--cpn-space-sm) var(--cpn-space-md);
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
+  padding-inline: var(--cpn-space-md);
+  border-left: 3px solid transparent;
   border-radius: var(--cpn-radius-md);
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-semibold);
   color: var(--cpn-color-text);
+  transition:
+    background-color var(--cpn-duration-fast) var(--cpn-ease),
+    color var(--cpn-duration-fast) var(--cpn-ease);
 }
 
 .link:hover {
-  background-color: var(--cpn-gray-100);
+  color: var(--cpn-color-primary);
 }
 
 .linkActive,
 .linkActive:hover {
-  background-color: var(--cpn-green-100);
-  color: var(--cpn-color-primary-hover);
+  border-left-color: var(--cpn-color-primary);
+  background-color: var(--cpn-color-surface-tint);
+  color: var(--cpn-green-800);
 }
 
 .link:focus-visible {
@@ -47,11 +81,10 @@
 }
 
 .cta {
-  margin-top: var(--cpn-space-sm);
-  width: 100%;
+  margin-top: var(--cpn-space-md);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 899px) {
   .wrapper {
     display: block;
   }

@@ -1,6 +1,6 @@
 :root {
   /* Green scale — brand utama (#016625 = green-700), nilai dipertahankan. Asal
-     "dari logo": VERIFY (DESIGN.md §2). Satu tema hijau untuk seluruh situs (§4). */
+     "dari logo": VERIFY (DESIGN.md §6.1). Satu tema hijau untuk seluruh situs. */
   --cpn-green-50: #f3fcf6;
   --cpn-green-100: #e2f9ea;
   --cpn-green-200: #bef4d1;
@@ -13,7 +13,7 @@
   --cpn-green-900: #013213;
   --cpn-green-950: #021d0b;
 
-  /* Gray scale — netral undertone hijau. DESIGN.md §3, sudah final. */
+  /* Gray scale — netral undertone hijau (DESIGN.md §6.2). */
   --cpn-gray-50: #fafafa;
   --cpn-gray-100: #f4f5f4;
   --cpn-gray-200: #e7e9e7;
@@ -26,73 +26,63 @@
   --cpn-gray-900: #181d19;
   --cpn-gray-950: #0d110e;
 
-  /* Token semantik — satu tema hijau untuk seluruh halaman (DESIGN.md §4). */
+  /* Token semantik — satu tema hijau (DESIGN.md §6.3). */
   --cpn-color-primary: var(--cpn-green-700);
   --cpn-color-primary-hover: var(--cpn-green-800);
   --cpn-color-on-primary: #ffffff;
-  --cpn-color-secondary: var(--cpn-green-600);
-  --cpn-color-accent: var(--cpn-green-500);
 
   --cpn-color-bg: #ffffff;
   --cpn-color-surface: var(--cpn-gray-50);
+  --cpn-color-surface-muted: var(--cpn-gray-100);
   --cpn-color-surface-tint: var(--cpn-green-50);
   --cpn-color-border: var(--cpn-gray-200);
+  --cpn-color-border-strong: var(--cpn-gray-300);
 
   --cpn-color-text: var(--cpn-gray-900);
   --cpn-color-text-muted: var(--cpn-gray-600);
   --cpn-color-text-on-dark: #ffffff;
   --cpn-color-text-on-dark-muted: rgba(255, 255, 255, 0.72);
 
-  /* Liquid glass — varian "Light Glass", dipakai di atas foto/background gelap. DESIGN.md §5.1. */
+  /* Liquid glass — hanya di atas foto (DESIGN.md §11.5). */
   --cpn-glass-bg: rgba(255, 255, 255, 0.14);
   --cpn-glass-border: rgba(255, 255, 255, 0.28);
   --cpn-glass-blur: blur(24px) saturate(160%);
   --cpn-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 
-  /* Shadow untuk card biasa non-glass (di atas background solid/putih). DESIGN.md §8.8. */
+  /* Satu-satunya shadow non-glass: elemen melayang (panel menu, dialog) — §7.3. */
   --cpn-shadow-card: 0 2px 8px rgba(24, 29, 25, 0.08);
 
-  /* Liquid glass — varian "Tinted Glass", dipakai di atas background terang/putih. DESIGN.md §5.2. */
+  /* Varian glass ber-tint (GlassCard "tinted"). */
   --cpn-glass-tint-bg: rgba(1, 102, 37, 0.06);
   --cpn-glass-tint-border: rgba(1, 102, 37, 0.16);
   --cpn-glass-tint-blur: blur(16px);
 
-  /* Scrim wajib di belakang teks yang duduk di atas foto — DESIGN.md §5.3. */
+  /* Scrim wajib di belakang teks yang duduk di atas foto/pola gelap. */
   --cpn-scrim: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
 
-  /* Varian scrim untuk elemen yang menempel di tepi atas (mis. navbar) —
-     gelap di atas, memudar ke bawah. Kontras teks di navbar tidak boleh
-     bergantung sepenuhnya pada kecerahan foto di baliknya (DESIGN.md §5.3). */
-  --cpn-scrim-top: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 100%);
+  /* Scrim hero berbingkai — tipis di atas, paling gelap di kiri-bawah tempat teks
+     duduk; teks ≥ 4,5:1 di area tercerah dan tergelap (DESIGN.md §10.1). */
+  --cpn-scrim-hero:
+    linear-gradient(180deg, rgba(12, 20, 16, 0.2) 0%, rgba(12, 20, 16, 0.35) 45%, rgba(12, 20, 16, 0.82) 100%),
+    linear-gradient(90deg, rgba(12, 20, 16, 0.45) 0%, rgba(12, 20, 16, 0) 70%);
 
-  /* Text-shadow tipis untuk teks putih yang duduk langsung di atas foto
-     (mis. link navbar glass) — lapisan kontras tambahan selain scrim. */
-  --cpn-text-shadow-on-photo: 0 1px 3px rgba(0, 0, 0, 0.35);
-
-  /* Scrim hero full-bleed — gelap atas, lebih terang di tengah, paling gelap di
-     bawah (trust bar). Dipindah dari HeroSection.module.css, nilai sama (§5.3). */
-  --cpn-scrim-hero: linear-gradient(
-    180deg,
-    rgba(12, 20, 16, 0.55) 0%,
-    rgba(12, 20, 16, 0.4) 40%,
-    rgba(12, 20, 16, 0.75) 100%
-  );
-
-  /* Garis pemisah tipis di atas latar gelap/foto. */
+  /* Garis pemisah di atas latar gelap/foto. */
   --cpn-color-border-on-dark-subtle: rgba(255, 255, 255, 0.12);
-  /* Garis pemisah footer (hijau tua) — nilai dipindah dari Footer.module.css. */
   --cpn-color-border-on-dark: rgba(255, 255, 255, 0.16);
 
-  /* Tipografi — DESIGN.md §6 (keputusan D1): heading Fraunces, body Inter, di-load
-     via next/font (app/layout.tsx). Fallback generik serif/sans, tanpa Georgia. */
+  /* Tipografi (D1): heading Fraunces, body Inter via next/font (app/layout.tsx). */
   --cpn-font-heading: var(--font-heading, ui-serif, serif);
   --cpn-font-body: var(--font-body, system-ui, sans-serif);
 
-  /* Skala ukuran teks. h1/h2 = nilai yang sudah dipakai PageHeader & SectionHeading. */
+  /* Skala tipe — 10 token, satu fungsi per ukuran (DESIGN.md §5.1). */
+  --cpn-text-display: clamp(2rem, 1.1rem + 3.2vw, 4rem);
   --cpn-text-h1: clamp(2rem, 1.6rem + 1.6vw, 2.75rem);
   --cpn-text-h2: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
-  --cpn-text-lead: 1.0625rem;
+  --cpn-text-index: clamp(1.375rem, 1.1rem + 1vw, 2rem);
+  --cpn-text-h3: 1.25rem;
+  --cpn-text-lead: clamp(1.0625rem, 0.95rem + 0.5vw, 1.375rem);
   --cpn-text-body: 1rem;
+  --cpn-text-ui: 0.9375rem;
   --cpn-text-small: 0.875rem;
   --cpn-text-caption: 0.75rem;
 
@@ -101,61 +91,102 @@
   --cpn-font-weight-semibold: 600;
   --cpn-font-weight-bold: 700;
 
+  --cpn-line-height-display: 1.12;
   --cpn-line-height-heading: 1.15;
+  --cpn-line-height-title: 1.3;
+  --cpn-line-height-lead: 1.5;
   --cpn-line-height-body: 1.6;
+  --cpn-line-height-article: 1.75;
+  --cpn-letter-spacing-caps: 0.08em;
 
+  /* Spasi (§4). Nilai section tidak diubah: 6rem desktop, 4rem < 640px. */
   --cpn-space-xs: 0.25rem;
   --cpn-space-sm: 0.5rem;
   --cpn-space-md: 1rem;
   --cpn-space-lg: 2rem;
   --cpn-space-xl: 4rem;
   --cpn-space-2xl: 6rem;
-  --cpn-space-section: 6rem; /* padding vertikal standar tiap section, desktop — DESIGN.md §8.10; versi mobile di bawah */
+  --cpn-space-section: 6rem;
+  --cpn-space-header: 2.5rem;
+  --cpn-space-block: 3rem;
+  --cpn-space-row: 1.5rem;
+  --cpn-space-head: 2.5rem;
+  /* Padding isi hero berbingkai dan band CTA (DESIGN.md §10.1, §11.2). */
+  --cpn-space-hero: clamp(1.5rem, 4vw, 3rem);
+  --cpn-space-band: clamp(2rem, 5vw, 4rem);
 
+  /* Radius (§7.1) — nilai tidak diubah. */
   --cpn-radius-sm: 4px;
   --cpn-radius-md: 8px;
   --cpn-radius-lg: 20px;
   --cpn-radius-xl: 28px;
   --cpn-radius-full: 9999px;
 
+  /* Container (§3.1). Padding inline 16 / 24 / 32 px per rentang. */
   --cpn-container-max: 1200px;
-
-  /* Navbar bar putih membulat mengambang (keputusan D10, DESIGN.md §10.2).
-     Tinggi bar = tinggi logo + padding; --cpn-navbar-height = ruang total yang
-     ditempati navbar dari tepi atas (jarak + bar) — dipakai komponen halaman
-     dalam (mis. PageHeader) untuk clearance, karena navbar position:fixed tidak
-     mendorong <main> lewat document flow. */
-  --cpn-navbar-logo-height: 4rem;
-  --cpn-navbar-offset: var(--cpn-space-sm);
-  --cpn-navbar-bar-height: calc(var(--cpn-navbar-logo-height) + 2 * var(--cpn-space-xs));
-  --cpn-navbar-height: calc(var(--cpn-navbar-offset) + var(--cpn-navbar-bar-height));
-
-  /* Clearance awal halaman dalam — satu token untuk PageHeader, artikel, dan
-     404, supaya jarak di bawah navbar mengambang disengaja dan seragam. */
-  --cpn-page-top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
-
-  /* Lebar baca teks panjang (paragraf, artikel). */
+  --cpn-container-article: 820px;
+  --cpn-container-padding: 1rem;
   --cpn-measure: 68ch;
+  --cpn-measure-short: 56ch;
 
-  /* Cincin fokus keyboard — ganda (putih lalu hijau) supaya terlihat di atas
-     latar terang maupun foto gelap. Dipakai lewat :focus-visible. */
+  /* Navbar bar putih rata, sticky (§9.2): 64 px desktop / 56 px < 900 px. */
+  --cpn-navbar-height: 4rem;
+  --cpn-navbar-logo-height: 2.5rem;
+
+  /* Target sentuh minimum kontrol mandiri (§17.3). */
+  --cpn-touch-target: 2.75rem;
+  --cpn-control-sm: 2.5rem;
+  --cpn-space-button: 1.25rem;
+
+  /* Motion (§16.1). Tidak ada durasi di atas 600 ms. */
+  --cpn-duration-fast: 150ms;
+  --cpn-duration-base: 250ms;
+  --cpn-duration-slow: 500ms;
+  --cpn-ease: cubic-bezier(0.2, 0, 0, 1);
+  --cpn-stagger: 80ms;
+  --cpn-reveal-shift: 12px;
+
+  /* Cincin fokus keyboard — ganda (putih lalu hijau), terlihat di atas terang maupun gelap. */
   --cpn-focus-ring: 0 0 0 2px var(--cpn-color-bg), 0 0 0 4px var(--cpn-color-primary);
 
-  /* Pesan error form — kontras 6.57:1 di atas putih (WCAG AA). */
+  /* Pesan error form — kontras 6.57:1 di atas putih. */
   --cpn-color-danger: #b42318;
-  /* Border field form — kontras ±4:1 terhadap putih (WCAG 1.4.11, ≥ 3:1). */
+  /* Border field form — kontras ±3,85:1 terhadap putih (WCAG 1.4.11, ≥ 3:1). */
   --cpn-color-border-field: var(--cpn-gray-500);
 
-  /* Breakpoint rujukan (konvensi, STRUCTURE.md §5.1): 640px / 900px / 1200px.
-     @media tidak bisa membaca var(), jadi nilai ini rujukan untuk menulis media
-     query. Pengecualian terdokumentasi: navbar (max-width: 900px) dan hero
-     (min-width: 901px) berpasangan di titik 900px. */
+  /* Breakpoint rujukan (§17.1): 640 / 900 / 1200 px, mobile-first. @media tidak bisa
+     membaca var(); bentuk max-width yang diizinkan hanya 639px dan 899px. */
   --cpn-bp-sm: 640px;
   --cpn-bp-md: 900px;
   --cpn-bp-lg: 1200px;
 }
 
-/* Hormati preferensi pengguna yang mengurangi gerak: transisi/animasi jadi instan. */
+@media (max-width: 639px) {
+  :root {
+    --cpn-space-section: 4rem;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --cpn-container-padding: 1.5rem;
+  }
+}
+
+@media (max-width: 899px) {
+  :root {
+    --cpn-navbar-height: 3.5rem;
+    --cpn-navbar-logo-height: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --cpn-container-padding: 2rem;
+  }
+}
+
+/* Hormati preferensi pengurangan gerak: transisi/animasi jadi instan. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -167,24 +198,19 @@
   }
 }
 
-/* Ritme vertikal section di layar kecil — satu token, nilai lebih rapat (≤ --cpn-bp-sm). */
-@media (max-width: 640px) {
-  :root {
-    --cpn-space-section: 4rem;
-  }
-}
-
 html {
   height: 100%;
   /* Elemen yang di-scroll ke tampilan (Tab, anchor) tidak berhenti di balik
-     navbar fixed (WCAG 2.4.11 Focus Not Obscured). */
+     navbar sticky (WCAG 2.4.11 Focus Not Obscured). */
   scroll-padding-top: calc(var(--cpn-navbar-height) + var(--cpn-space-md));
 }
 
+/* clip, bukan hidden: hidden membuat body jadi scroll container dan mematahkan
+   navbar sticky. Hanya pengaman — overflow tetap diperbaiki di sumbernya (§17.3). */
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -194,6 +220,8 @@ body {
   color: var(--cpn-color-text);
   background: var(--cpn-color-bg);
   font-family: var(--cpn-font-body);
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -213,6 +241,10 @@ button {
   font-family: inherit;
 }
 
+img {
+  max-width: 100%;
+}
+
 h1,
 h2,
 h3,
@@ -220,6 +252,12 @@ h4,
 h5,
 h6 {
   font-family: var(--cpn-font-heading);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 main {
@@ -238,7 +276,7 @@ main:focus {
   left: var(--cpn-space-sm);
   z-index: 1000;
   padding: var(--cpn-space-sm) var(--cpn-space-md);
-  border-radius: var(--cpn-radius-full);
+  border-radius: var(--cpn-radius-md);
   background-color: var(--cpn-color-primary);
   color: var(--cpn-color-on-primary);
   font-size: var(--cpn-text-small);

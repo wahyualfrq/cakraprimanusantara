@@ -1,49 +1,65 @@
-/* 404 — clearance navbar memakai token bersama halaman dalam (--cpn-page-top);
-   tipografi selaras dengan H1 halaman dalam. */
+/* 404 — gaya header halaman dalam (latar green-50) lalu daftar tautan + satu primary. */
 .section {
-  padding-top: var(--cpn-page-top);
+  flex: 1;
+  padding-block: var(--cpn-space-section);
+  background-color: var(--cpn-color-surface-tint);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cpn-space-md);
 }
 
 .code {
   font-family: var(--cpn-font-heading);
-  font-size: 0.9375rem;
-  font-weight: var(--cpn-font-weight-semibold);
+  font-size: var(--cpn-text-display);
+  font-style: italic;
+  font-weight: var(--cpn-font-weight-regular);
+  line-height: var(--cpn-line-height-display);
   color: var(--cpn-color-primary);
 }
 
 .title {
-  font-family: var(--cpn-font-heading);
   font-size: var(--cpn-text-h1);
   font-weight: var(--cpn-font-weight-bold);
   line-height: var(--cpn-line-height-heading);
-  margin-block: var(--cpn-space-sm) var(--cpn-space-md);
 }
 
 .description {
-  max-width: var(--cpn-measure);
-  line-height: var(--cpn-line-height-body);
+  max-width: var(--cpn-measure-short);
+  font-size: var(--cpn-text-lead);
+  line-height: var(--cpn-line-height-lead);
   color: var(--cpn-color-text-muted);
-  margin-bottom: var(--cpn-space-lg);
 }
 
-.unitLinks {
+.links {
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--cpn-space-sm);
-  margin-bottom: var(--cpn-space-lg);
+  gap: 0 var(--cpn-space-lg);
+  margin-block: var(--cpn-space-sm);
 }
 
-.kontakLink {
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+  min-height: var(--cpn-touch-target);
+  border-radius: var(--cpn-radius-sm);
+  font-size: var(--cpn-text-ui);
   font-weight: var(--cpn-font-weight-semibold);
   color: var(--cpn-color-primary);
-  border-radius: var(--cpn-radius-sm);
 }
 
-.kontakLink:hover {
+.link:hover {
   color: var(--cpn-color-primary-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
 }
 
-.kontakLink:focus-visible {
+.link:focus-visible {
   outline: 2px solid transparent;
   box-shadow: var(--cpn-focus-ring);
 }

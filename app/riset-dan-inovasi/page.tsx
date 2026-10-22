@@ -3,6 +3,8 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Timeline } from "@/components/ui/Timeline";
+import { Reveal } from "@/components/ui/Reveal";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { narasiRisetList } from "@/content/agribisnis/riset";
 import { milestoneList } from "@/content/agribisnis/milestone";
@@ -19,12 +21,11 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-// Narasi §E3, milestone §E4, sertifikat & penghargaan (judul section sumber:
-// "Sertifikat & Penghargaan"; keputusan D9: section di halaman ini, bukan halaman
-// terpisah). Daftar mitra riset (mitraRisetList) TIDAK ditampilkan sampai
-// direkonsiliasi (label kategori tak bersumber, catatan provenans, 17 entri vs
-// 23 baris sumber) — keputusan pemilik proyek. Karena itu `pengantarDaftarMitra`
-// juga tidak dirender (lihat content/agribisnis/riset.ts).
+// Struktur DESIGN.md v0.4 §13.5: narasi §E3 (split-rail per bagian) → milestone §E4
+// (band) → Sertifikat & Penghargaan (S0 dua kolom; keputusan D9). Daftar mitra riset
+// (mitraRisetList) TIDAK ditampilkan sampai direkonsiliasi (label kategori tak
+// bersumber, catatan provenans, 17 entri vs 23 baris sumber) — keputusan pemilik
+// proyek. Karena itu `pengantarDaftarMitra` juga tidak dirender.
 export default function RisetInovasiPage() {
   return (
     <>
@@ -37,54 +38,59 @@ export default function RisetInovasiPage() {
         title="Riset & Inovasi"
       />
 
-      {/* 1. Narasi §E3 */}
-      <Section>
-        <Container>
-          <div className={styles.narrative}>
-            {narasiRisetList.map((bagian) => (
-              <section key={bagian.judul}>
-                <SectionHeading title={bagian.judul} />
+      {/* 1. Narasi §E3 — tiap bagian: rail judul | paragraf */}
+      <Section aria-label="Narasi riset">
+        <Container className={styles.narrative}>
+          {narasiRisetList.map((bagian, index) => {
+            const id = `narasi-${index + 1}`;
+            return (
+              <Reveal as="section" key={bagian.judul} aria-labelledby={id} className={styles.part}>
+                <div className={styles.rail}>
+                  <span className={styles.partNumber} aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h2 id={id} className={styles.partTitle}>
+                    {bagian.judul}
+                  </h2>
+                </div>
                 <div className={styles.prose}>
-                  {bagian.paragraf.map((paragraf) => (
-                    <p key={paragraf}>{paragraf}</p>
+                  {bagian.paragraf.map((paragraf, i) => (
+                    <p key={paragraf} className={i === 0 ? styles.lead : undefined}>
+                      {paragraf}
+                    </p>
                   ))}
                 </div>
-              </section>
-            ))}
-          </div>
+              </Reveal>
+            );
+          })}
         </Container>
       </Section>
 
-      {/* 2. Milestone §E4 */}
-      <Section className={styles.timelineSection}>
-        <Container>
-          <SectionHeading title="Milestone" />
-          <ol className={styles.timeline}>
-            {milestoneList.map((item) => (
-              <li key={item.tahun} className={styles.timelineItem}>
-                <span className={styles.year}>{item.tahun}</span>
-                <p className={styles.timelineDesc}>{item.deskripsi}</p>
-              </li>
-            ))}
-          </ol>
+      {/* 2. Milestone §E4 — satu-satunya band halaman */}
+      <Section tone="muted" aria-labelledby="milestone-judul">
+        <Container className={styles.railGrid}>
+          <div className={styles.stickyRail}>
+            <SectionHeading title="Milestone" id="milestone-judul" />
+          </div>
+          <Timeline items={milestoneList} />
         </Container>
       </Section>
 
       {/* 3. Sertifikat & Penghargaan — D9. Nomor & masa berlaku tidak ada di sumber. */}
-      <Section>
+      <Section aria-labelledby="sertifikat-judul">
         <Container>
-          <SectionHeading title="Sertifikat & Penghargaan" />
-          <ul className={styles.certList}>
-            {sertifikasiList.map((item) => {
-              const meta = item.deskripsi ?? (item.tahun ? String(item.tahun) : undefined);
-              return (
-                <li key={item.slug} className={styles.certItem}>
-                  <p className={styles.certName}>{item.nama}</p>
-                  {meta && <p className={styles.certMeta}>{meta}</p>}
-                </li>
-              );
-            })}
-          </ul>
+          <SectionHeading title="Sertifikat & Penghargaan" id="sertifikat-judul" />
+          <Reveal as="ul" stagger className={styles.certList}>
+            {sertifikasiList.map((item) => (
+              <li key={item.slug} className={styles.certItem}>
+                <span className={styles.certYear}>{item.tahun ?? ""}</span>
+                <span className={styles.certBody}>
+                  <span className={styles.certName}>{item.nama}</span>
+                  {item.deskripsi && <span className={styles.certMeta}>{item.deskripsi}</span>}
+                </span>
+              </li>
+            ))}
+          </Reveal>
         </Container>
       </Section>
     </>

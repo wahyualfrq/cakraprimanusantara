@@ -1,34 +1,23 @@
-import Link from "next/link";
-import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { EditorialIndex } from "@/components/ui/EditorialIndex";
-import { produkList } from "@/content/agribisnis/produk";
-import styles from "./ProductShowcase.module.css";
+import { kategoriLabel, produkList } from "@/content/agribisnis/produk";
+import { ProductCarousel } from "./ProductCarousel";
 
-// Product Showcase (DESIGN.md §7): selama foto produk asli belum ada, pakai indeks
-// editorial bernomor — bukan kartu placeholder berulang (§8.9). Urutan dan kalimat
-// tiap baris = kalimat pembuka halaman produk, CONTENT-VERBATIM.md §E2.
+// Produk di Beranda — karusel kartu tinggi S2 (DESIGN.md §13.1 [T7]). Urutan sumber
+// dan kalimat tiap kartu = kalimat pembuka halaman produk, CONTENT-VERBATIM.md §E2.
+// Latar kartu = pola, bukan foto: foto produk asli belum tersedia (§12.1).
 export function ProductShowcase() {
   return (
-    <Section>
-      <Container>
-        <div className={styles.header}>
-          <SectionHeading title="Produk" />
-          <Link href="/produk" className={styles.link}>
-            Ke halaman Produk →
-          </Link>
-        </div>
-
-        <EditorialIndex
-          thumbnailVariant="produk"
-          items={produkList.map((produk) => ({
-            href: `/produk/${produk.slug}`,
-            title: produk.nama,
-            deskripsi: produk.deskripsiSingkat,
-          }))}
-        />
-      </Container>
+    <Section aria-labelledby="produk-judul">
+      <ProductCarousel
+        title="Produk Ostindo"
+        accent="Ostindo"
+        items={produkList.map((produk) => ({
+          href: `/produk/${produk.slug}`,
+          nama: produk.nama,
+          kategori: kategoriLabel[produk.kategori],
+          deskripsi: produk.deskripsiSingkat,
+        }))}
+      />
     </Section>
   );
 }

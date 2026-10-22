@@ -230,3 +230,16 @@ export const produkList: Produk[] = [
     faktaKunci: [{ label: "Kemasan", nilai: "25 kg", perluVerifikasi: true }],
   },
 ];
+
+// Label kategori untuk UI (tag hero, karusel, indeks produk) — frasa sumber, bukan
+// istilah baru: Ostindo "pupuk penyubur tanah" (§E2), "Biofungisida" (§E1/§E2 Futricho),
+// "Pupuk NPK" (judul sumber §E2), "Pupuk Organik Cair" (§E1/§E2 Bless), "pupuk hayati
+// (mycorrhyza …)" (§E1, PDF hal. 3), "produk Bio Activator" (§E2 Actifert).
+export const kategoriLabel: Record<Produk["kategori"], string> = {
+  "penyubur-tanah": "Penyubur Tanah",
+  "bio-pestisida": "Biofungisida",
+  "pupuk-npk": "Pupuk NPK",
+  "pupuk-cair": "Pupuk Organik Cair",
+  mikoriza: "Pupuk Hayati",
+  "bio-activator": "Bio Activator",
+};

@@ -1,34 +1,63 @@
 .wrap {
+  display: grid;
+  gap: var(--cpn-space-md);
+  margin-bottom: var(--cpn-space-head);
+}
+
+.titleGroup {
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-xs);
-  max-width: 48rem;
+  align-items: flex-start;
+  gap: var(--cpn-space-md);
+  max-width: 40rem;
 }
 
-.center {
-  align-items: center;
-  text-align: center;
-  margin-inline: auto;
-}
-
-.eyebrow {
-  font-size: 0.75rem;
-  font-weight: var(--cpn-font-weight-bold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--cpn-color-primary);
-}
-
-/* H2 Fraunces semibold, tanpa italic (DESIGN.md §6.1). */
+/* H2 Fraunces semibold (DESIGN.md §5.1). */
 .title {
-  font-family: var(--cpn-font-heading);
   font-size: var(--cpn-text-h2);
   font-weight: var(--cpn-font-weight-semibold);
-  line-height: 1.2;
+  line-height: var(--cpn-line-height-heading);
   color: var(--cpn-color-text);
 }
 
+/* Aksen italic asli Fraunces — satu frasa penutup, hanya H2 Beranda (§5.2 [T5]). */
+.title em {
+  font-style: italic;
+  font-weight: var(--cpn-font-weight-regular);
+  color: var(--cpn-color-primary);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cpn-space-md);
+}
+
 .description {
+  max-width: var(--cpn-measure-short);
   font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
   color: var(--cpn-color-text-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cpn-space-sm) var(--cpn-space-md);
+}
+
+/* section-head 7:5 — judul kiri, deskripsi + kontrol kanan (DESIGN.md §3.2). */
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: var(--cpn-space-xl);
+  }
+
+  .split .side {
+    align-items: flex-end;
+    text-align: right;
+  }
 }

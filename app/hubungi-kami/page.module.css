@@ -1,127 +1,133 @@
-/* Kontak (DESIGN.md §8.11): form di kiri, direktori lokasi Ostindo (Office &
-   Factory) di kanan; satu kolom di layar kecil. Semua nilai lewat token. */
+/* Kontak (DESIGN.md v0.4 §13.8): direktori lokasi S0 | panel form S1. */
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-xl);
+  gap: var(--cpn-space-block);
 }
 
-.formColumn {
+.sectionTitle {
+  font-size: var(--cpn-text-h2);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-heading);
+}
+
+.directory {
   display: flex;
   flex-direction: column;
   gap: var(--cpn-space-lg);
 }
 
 .locations {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-md);
-}
-
-.locationsTitle {
-  font-family: var(--cpn-font-heading);
-  font-size: var(--cpn-text-h2);
-  font-weight: var(--cpn-font-weight-semibold);
-  line-height: 1.2;
-}
-
-.cardList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-md);
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-sm);
-  padding: var(--cpn-space-lg);
-  border: 1px solid var(--cpn-color-border);
-  border-radius: var(--cpn-radius-lg);
-  background-color: var(--cpn-color-surface);
-}
-
-.cardTitle {
-  font-family: var(--cpn-font-heading);
-  font-size: 1.25rem;
-  font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-text);
-}
-
-.address {
-  font-style: normal;
-  line-height: var(--cpn-line-height-body);
-  color: var(--cpn-color-text-muted);
-}
-
-.mapsLink {
-  align-self: flex-start;
-  display: inline-flex;
-  gap: var(--cpn-space-xs);
-  font-weight: var(--cpn-font-weight-semibold);
-  font-size: var(--cpn-text-small);
-  color: var(--cpn-color-primary);
-  border-radius: var(--cpn-radius-sm);
-}
-
-.kontakList {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-xs);
 }
 
-.kontakItem {
+.location {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--cpn-space-xs);
-  font-size: 0.9375rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cpn-space-sm);
+  padding-block: var(--cpn-space-row);
+  border-top: 1px solid var(--cpn-color-border);
 }
 
-.kontakLabel {
+.location:last-child {
+  border-bottom: 1px solid var(--cpn-color-border);
+}
+
+.locationName {
+  font-size: var(--cpn-text-h3);
   font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-text);
+  line-height: var(--cpn-line-height-title);
 }
 
-.kontakItem a,
-.email a {
+.address {
+  max-width: 44ch;
+  font-size: var(--cpn-text-body);
+  font-style: normal;
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-gray-700);
+}
+
+.mapsLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cpn-space-xs);
+  min-height: var(--cpn-touch-target);
+  border-radius: var(--cpn-radius-sm);
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-primary);
+}
+
+.mapsLink:hover {
+  color: var(--cpn-color-primary-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+  width: 100%;
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-body);
+}
+
+/* Pasangan label | nilai. */
+.contact {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: var(--cpn-space-sm);
+}
+
+.contact dt {
+  color: var(--cpn-color-text-muted);
+}
+
+.contact dd {
+  color: var(--cpn-color-text);
+  overflow-wrap: anywhere;
+}
+
+.contact a {
   color: var(--cpn-color-primary);
   border-radius: var(--cpn-radius-sm);
 }
 
-.email a {
-  font-weight: var(--cpn-font-weight-semibold);
-}
-
-.kontakPic {
-  font-size: var(--cpn-text-small);
-  color: var(--cpn-color-text-muted);
-}
-
-.mapsLink:hover,
-.kontakItem a:hover,
-.email a:hover {
+.contact a:hover {
   color: var(--cpn-color-primary-hover);
   text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .mapsLink:focus-visible,
-.kontakItem a:focus-visible,
-.email a:focus-visible {
+.contact a:focus-visible {
   outline: 2px solid transparent;
   box-shadow: var(--cpn-focus-ring);
 }
 
+.pic {
+  color: var(--cpn-color-text-muted);
+}
+
+.formPanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-lg);
+}
+
 @media (min-width: 900px) {
   .layout {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-    gap: var(--cpn-space-2xl);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--cpn-space-xl);
     align-items: start;
   }
 
-  .locations {
+  .directory {
     position: sticky;
-    top: calc(var(--cpn-navbar-height) + var(--cpn-space-md));
+    top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
   }
 }

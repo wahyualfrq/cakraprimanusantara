@@ -1,0 +1,110 @@
+/* Bento asimetris (DESIGN.md §3.3): 1 kolom < 640, 2 kolom 640–899 (D selebar baris),
+   12 kolom ≥ 900 — A 1–4 × 2 baris, B 5–8, C 9–12, D 5–12. */
+.bento {
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-md);
+}
+
+/* S3: putih di atas surface-muted, tanpa border/shadow (§7.2). */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  padding: var(--cpn-space-lg);
+  border-radius: var(--cpn-radius-lg);
+  background-color: var(--cpn-color-bg);
+}
+
+.year {
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-lead);
+  font-weight: var(--cpn-font-weight-semibold);
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: var(--cpn-line-height-title);
+  color: var(--cpn-color-primary);
+}
+
+.text {
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
+}
+
+/* A — kartu tinggi: tahun besar di atas, teks menempel bawah. */
+.a {
+  justify-content: space-between;
+}
+
+.a .year {
+  font-size: var(--cpn-text-display);
+  font-weight: var(--cpn-font-weight-regular);
+  line-height: var(--cpn-line-height-display);
+}
+
+.a .text {
+  font-size: var(--cpn-text-body);
+  color: var(--cpn-gray-700);
+}
+
+/* D — kartu lebar gelap S4: item paling akhir. */
+.d {
+  background-color: var(--cpn-green-800);
+  color: var(--cpn-color-text-on-dark);
+}
+
+.d .year {
+  color: var(--cpn-green-300);
+}
+
+.d .text {
+  font-size: var(--cpn-text-body);
+  color: var(--cpn-color-text-on-dark-muted);
+}
+
+@media (min-width: 640px) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .a {
+    grid-row: span 2;
+  }
+
+  .d {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 900px) {
+  .bento {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .a {
+    grid-column: 1 / 5;
+    grid-row: 1 / 3;
+    min-height: 26rem;
+  }
+
+  .b {
+    grid-column: 5 / 9;
+  }
+
+  .c {
+    grid-column: 9 / 13;
+  }
+
+  .d {
+    grid-column: 5 / 13;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--cpn-space-lg);
+  }
+
+  .d .year {
+    flex-shrink: 0;
+    font-size: var(--cpn-text-h2);
+  }
+}

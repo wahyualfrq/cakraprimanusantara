@@ -1,81 +1,71 @@
-/* Satu-satunya section ber-tint di beranda (DESIGN.md §8.10). */
-.section {
-  background-color: var(--cpn-color-surface-tint);
-}
-
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "body"
+    "media";
   gap: var(--cpn-space-lg);
 }
 
-.intro {
+.body {
+  grid-area: body;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--cpn-space-md);
+  gap: var(--cpn-space-lg);
 }
 
-.link {
-  font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-primary);
-  border-radius: var(--cpn-radius-md);
-}
-
-.link:hover {
-  color: var(--cpn-color-primary-hover);
-}
-
-.link:focus-visible {
-  outline: 2px solid transparent;
-  box-shadow: var(--cpn-focus-ring);
-}
-
-/* Paragraf besar editorial (DESIGN.md §10.2). */
+/* Paragraf pembuka terbesar di section (§3.2 split-intro): Fraunces reguler. */
 .lead {
-  max-width: 60ch;
-  font-size: 1.125rem;
-  line-height: var(--cpn-line-height-body);
+  max-width: 40ch;
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-h2);
+  font-weight: var(--cpn-font-weight-regular);
+  line-height: var(--cpn-line-height-title);
   color: var(--cpn-color-text);
 }
 
 .facts {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-md);
-  margin-top: var(--cpn-space-lg);
-  padding-top: var(--cpn-space-lg);
-  border-top: 1px solid var(--cpn-green-200);
+  width: 100%;
 }
 
-.factLabel {
-  font-size: var(--cpn-text-small);
-  font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-primary-hover);
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cpn-space-sm) var(--cpn-space-lg);
 }
 
-.factValue {
-  margin-top: var(--cpn-space-xs);
-  font-size: var(--cpn-text-small);
-  line-height: var(--cpn-line-height-body);
-  color: var(--cpn-color-text-muted);
+.media {
+  grid-area: media;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--cpn-radius-lg);
+  overflow: hidden;
+  background-color: var(--cpn-color-surface-muted);
+}
+
+.image {
+  object-fit: cover;
+  object-position: 50% 40%;
 }
 
 @media (min-width: 640px) {
-  .facts {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--cpn-space-lg);
+  .media {
+    max-width: 22rem;
   }
 }
 
 @media (min-width: 900px) {
   .grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    grid-template-areas: "media body";
     gap: var(--cpn-space-xl);
+    align-items: start;
   }
 
-  .lead {
-    font-size: 1.375rem;
-    line-height: 1.5;
+  .media {
+    max-width: none;
+    margin-top: var(--cpn-space-xl);
   }
 }

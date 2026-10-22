@@ -1,63 +1,49 @@
-.header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--cpn-space-sm) var(--cpn-space-lg);
-  margin-bottom: var(--cpn-space-lg);
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-lg);
 }
 
-.viewAll {
-  font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-primary);
-  border-radius: var(--cpn-radius-md);
+/* Artikel unggulan: gambar 3:2 + tanggal → judul → excerpt; seluruh blok satu tautan. */
+.featuredLink {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-row);
+  border-radius: var(--cpn-radius-lg);
 }
 
-.viewAll:hover {
-  color: var(--cpn-color-primary-hover);
-}
-
-.viewAll:focus-visible,
-.titleLink:focus-visible {
+.featuredLink:focus-visible,
+.row:focus-visible {
   outline: 2px solid transparent;
   box-shadow: var(--cpn-focus-ring);
 }
 
-/* Daftar baris vertikal — bukan grid kartu (DESIGN.md §7, §8.11). */
-.list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-}
-
-.row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-md);
-  padding-block: var(--cpn-space-lg);
-  border-top: 1px solid var(--cpn-color-border);
-}
-
-.list li:last-child .row {
-  border-bottom: 1px solid var(--cpn-color-border);
-}
-
-.thumb {
+.featuredMedia {
   position: relative;
+  display: block;
   aspect-ratio: 3 / 2;
-  border-radius: var(--cpn-radius-md);
+  border-radius: var(--cpn-radius-lg);
   overflow: hidden;
-  background-color: var(--cpn-color-surface);
+  background-color: var(--cpn-color-surface-muted);
 }
 
-.thumbImage {
+.image {
   object-fit: cover;
+  object-position: 50% 40%;
+  transition: transform var(--cpn-duration-slow) var(--cpn-ease);
 }
 
-.body {
+@media (hover: hover) {
+  .featuredLink:hover .image {
+    transform: scale(1.04);
+  }
+}
+
+.featuredBody {
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-xs);
+  align-items: flex-start;
+  gap: var(--cpn-space-sm);
 }
 
 .date {
@@ -65,37 +51,90 @@
   color: var(--cpn-color-text-muted);
 }
 
-.title {
-  font-family: var(--cpn-font-heading);
-  font-size: 1.25rem;
+.featuredTitle {
+  font-size: var(--cpn-text-h2);
   font-weight: var(--cpn-font-weight-semibold);
-  line-height: 1.3;
-}
-
-.titleLink {
+  line-height: var(--cpn-line-height-heading);
   color: var(--cpn-color-text);
-  border-radius: var(--cpn-radius-sm);
-}
-
-.titleLink:hover {
-  color: var(--cpn-color-primary);
+  transition: color var(--cpn-duration-fast) var(--cpn-ease);
 }
 
 .excerpt {
-  max-width: 68ch;
-  line-height: var(--cpn-line-height-body);
-  color: var(--cpn-color-text-muted);
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  max-width: var(--cpn-measure);
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
 }
 
-@media (min-width: 640px) {
-  .row {
-    grid-template-columns: 13.75rem minmax(0, 1fr);
-    gap: var(--cpn-space-lg);
-    align-items: center;
+.more {
+  margin-top: var(--cpn-space-xs);
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-primary);
+}
+
+.featuredLink:hover .featuredTitle,
+.row:hover .rowTitle {
+  color: var(--cpn-color-primary);
+}
+
+/* Baris S5: tanggal → judul → excerpt 2 baris, divider; satu tautan per baris. */
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--cpn-color-border);
+}
+
+.list li {
+  border-bottom: 1px solid var(--cpn-color-border);
+}
+
+.row {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-sm);
+  padding: var(--cpn-space-row) var(--cpn-space-xl) var(--cpn-space-row) 0;
+  border-radius: var(--cpn-radius-md);
+}
+
+.row .excerpt {
+  -webkit-line-clamp: 2;
+  font-size: var(--cpn-text-small);
+}
+
+.rowTitle {
+  font-size: var(--cpn-text-h3);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-title);
+  color: var(--cpn-color-text);
+  transition: color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.arrow {
+  position: absolute;
+  top: var(--cpn-space-row);
+  right: 0;
+  font-size: var(--cpn-text-h3);
+  color: var(--cpn-color-primary);
+  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.row:hover .arrow,
+.row:focus-visible .arrow {
+  transform: translateX(4px);
+}
+
+/* ≥ 900 px: unggulan 7 kolom (gambar di atas teks) | daftar 5 kolom. */
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--cpn-space-xl);
+    align-items: start;
   }
 }

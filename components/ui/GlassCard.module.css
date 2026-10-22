@@ -20,13 +20,6 @@
   color: var(--cpn-color-text);
 }
 
-.solid {
-  background-color: var(--cpn-color-bg);
-  border-color: var(--cpn-color-border);
-  box-shadow: var(--cpn-glass-shadow);
-  color: var(--cpn-color-text);
-}
-
 .radius-lg {
   border-radius: var(--cpn-radius-lg);
 }

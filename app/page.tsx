@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { ClientLogos } from "@/components/sections/ClientLogos";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ProductShowcase } from "@/components/sections/ProductShowcase";
+import { MilestoneBento } from "@/components/sections/MilestoneBento";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { ResearchHighlight } from "@/components/sections/ResearchHighlight";
-import { ClientLogos } from "@/components/sections/ClientLogos";
 import { NewsHighlight } from "@/components/sections/NewsHighlight";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -22,18 +23,20 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-// Urutan & ritme beranda (V4, DESIGN.md §8.2/§8.10/§10.2): tiap section beda
-// struktur dari tetangganya; satu section ber-tint (Tentang); CTA + footer hijau
-// sebagai penutup. Semua isi bersumber — tanpa statistik, testimoni, atau rating.
+// Urutan Beranda (DESIGN.md v0.4 §13.1): hero berbingkai → strip pelanggan → intro
+// split → karusel produk → bento milestone (satu-satunya band) → nilai → riset
+// split-rail → berita → band CTA. Tidak ada dua section berurutan dengan pola sama;
+// semua isi bersumber — tanpa statistik, testimoni, atau rating.
 export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <ClientLogos />
       <AboutSection />
       <ProductShowcase />
+      <MilestoneBento />
       <WhyChooseUs />
       <ResearchHighlight />
-      <ClientLogos />
       <NewsHighlight />
       <ClosingCta />
     </>

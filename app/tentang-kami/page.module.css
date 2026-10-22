@@ -1,28 +1,15 @@
-/* Tentang Kami (DESIGN.md §8.11): profil → nilai → milestone → misi/visi →
-   inovasi → legalitas. Tiap section beda struktur dari tetangganya (§8.2);
-   satu section ber-tint (Milestone, §8.10). Semua nilai lewat token. */
+/* Tentang Kami (DESIGN.md v0.4 §13.2). Semua nilai lewat token. */
 
-/* Gambar ilustrasi (rasio tetap, sudut membulat). */
 .cover {
   object-fit: cover;
+  object-position: 50% 40%;
 }
 
-.prose {
-  max-width: var(--cpn-measure);
-  font-size: var(--cpn-text-body);
-  line-height: var(--cpn-line-height-body);
-  color: var(--cpn-color-text-muted);
-}
-
-.prose p + p {
-  margin-top: var(--cpn-space-md);
-}
-
-/* 1. Profil — split gambar | teks */
+/* ── 1. Profil: split-media 5:7, gambar sticky ─────────────────────── */
 .profileGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-xl);
+  gap: var(--cpn-space-lg);
 }
 
 .profileMedia,
@@ -31,7 +18,7 @@
   aspect-ratio: 4 / 3;
   border-radius: var(--cpn-radius-lg);
   overflow: hidden;
-  background-color: var(--cpn-color-surface);
+  background-color: var(--cpn-color-surface-muted);
 }
 
 .profileCopy {
@@ -40,192 +27,129 @@
   gap: var(--cpn-space-lg);
 }
 
-.facts {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-md);
-  padding-block: var(--cpn-space-md);
-  border-block: 1px solid var(--cpn-color-border);
-}
-
-.factLabel {
-  font-size: var(--cpn-text-small);
+.profileTitle {
+  font-size: var(--cpn-text-h2);
   font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-primary-hover);
+  line-height: var(--cpn-line-height-heading);
 }
 
-.factValue {
-  margin-top: var(--cpn-space-xs);
-  font-size: var(--cpn-text-small);
-  line-height: var(--cpn-line-height-body);
-  color: var(--cpn-color-text-muted);
-}
-
-/* 2. Nilai — tiga kolom berbatas garis, bukan kartu */
-.values {
-  list-style: none;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-lg);
-  margin-top: var(--cpn-space-lg);
-}
-
-.value {
-  padding-top: var(--cpn-space-md);
-  border-top: 2px solid var(--cpn-color-primary);
-}
-
-.valueTitle {
-  font-family: var(--cpn-font-heading);
-  font-size: 1.25rem;
-  font-weight: var(--cpn-font-weight-semibold);
-  line-height: 1.25;
-}
-
-.valueText {
-  margin-top: var(--cpn-space-sm);
-  line-height: var(--cpn-line-height-body);
-  color: var(--cpn-color-text-muted);
-}
-
-/* 3. Milestone — lini waktu tahun | deskripsi (satu-satunya tint) */
-.milestoneSection {
-  background-color: var(--cpn-color-surface-tint);
-}
-
-.timeline {
-  list-style: none;
-  margin-top: var(--cpn-space-lg);
-  border-left: 2px solid var(--cpn-green-200);
-}
-
-.timelineItem {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-xs);
-  padding: var(--cpn-space-md) 0 var(--cpn-space-md) var(--cpn-space-lg);
-}
-
-/* Titik penanda di garis lini waktu. */
-.timelineItem::before {
-  content: "";
-  position: absolute;
-  left: calc(-0.4375rem - 1px);
-  top: calc(var(--cpn-space-md) + 0.45em);
-  width: 0.875rem;
-  height: 0.875rem;
-  border-radius: var(--cpn-radius-full);
-  background-color: var(--cpn-color-primary);
-  box-shadow: 0 0 0 3px var(--cpn-color-surface-tint);
-}
-
-.year {
-  font-family: var(--cpn-font-heading);
-  font-size: 1.5rem;
-  font-weight: var(--cpn-font-weight-semibold);
-  line-height: 1.2;
-  color: var(--cpn-color-primary);
-}
-
-.timelineText {
+.lead {
   max-width: var(--cpn-measure);
-  line-height: var(--cpn-line-height-body);
-  color: var(--cpn-color-text);
+  font-size: var(--cpn-text-lead);
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-gray-700);
 }
 
-/* 4. Misi & visi — dua kolom daftar + blok Visi Perusahaan */
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  max-width: var(--cpn-measure);
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
+}
+
+/* ── Rail 4:8 (milestone, legalitas) ───────────────────────────────── */
+.railGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.railHeading {
+  margin-bottom: var(--cpn-space-lg);
+}
+
+/* ── 4. Misi & visi ────────────────────────────────────────────────── */
 .missionGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-xl);
-  margin-top: var(--cpn-space-lg);
+  gap: var(--cpn-space-block) var(--cpn-space-xl);
 }
 
 .subTitle {
-  font-family: var(--cpn-font-heading);
-  font-size: 1.25rem;
-  font-weight: var(--cpn-font-weight-semibold);
-  line-height: 1.25;
   margin-bottom: var(--cpn-space-md);
+  font-size: var(--cpn-text-h3);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-title);
 }
 
-.bullets {
+.numbered {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-sm);
+}
+
+.numbered li {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--cpn-space-md);
+  padding-block: var(--cpn-space-md);
+  border-top: 1px solid var(--cpn-color-border);
+  font-size: var(--cpn-text-body);
   line-height: var(--cpn-line-height-body);
-  color: var(--cpn-color-text-muted);
+  color: var(--cpn-gray-700);
 }
 
-.bullets li {
-  position: relative;
-  padding-left: var(--cpn-space-lg);
-}
-
-/* Penanda bulat kecil, bukan ikon centang (DESIGN.md §8.3). */
-.bullets li::before {
-  content: "";
-  position: absolute;
-  left: var(--cpn-space-xs);
-  top: 0.6em;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: var(--cpn-radius-full);
-  background-color: var(--cpn-color-primary);
+.number {
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-body);
+  font-weight: var(--cpn-font-weight-semibold);
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--cpn-color-primary);
 }
 
 .vision {
-  margin-top: var(--cpn-space-xl);
-  padding: var(--cpn-space-lg);
-  border-left: 3px solid var(--cpn-color-primary);
-  background-color: var(--cpn-color-surface);
-  border-radius: 0 var(--cpn-radius-md) var(--cpn-radius-md) 0;
+  display: grid;
+  gap: var(--cpn-space-sm);
+  margin-top: var(--cpn-space-block);
+}
+
+.visionLabel {
+  font-family: var(--cpn-font-body);
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--cpn-green-800);
 }
 
 .visionText {
-  max-width: var(--cpn-measure);
+  max-width: 52ch;
   font-family: var(--cpn-font-heading);
-  font-size: 1.25rem;
-  line-height: 1.5;
+  font-size: var(--cpn-text-h3);
+  font-weight: var(--cpn-font-weight-regular);
+  line-height: var(--cpn-line-height-lead);
   color: var(--cpn-color-text);
 }
 
-/* 5. Inovasi — split teks | gambar (cermin dari profil) */
+/* ── 5. Inovasi: split-media 7:5 ───────────────────────────────────── */
 .innovationGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--cpn-space-xl);
+  gap: var(--cpn-space-lg);
 }
 
-.innovationCopy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-md);
-}
-
-/* 6. Legalitas — daftar dokumen berbaris */
+/* ── 6. Legalitas: S0 dua kolom ────────────────────────────────────── */
 .legalList {
   list-style: none;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  margin-top: var(--cpn-space-lg);
-  column-gap: var(--cpn-space-xl);
+  column-gap: var(--cpn-space-lg);
 }
 
 .legalItem {
-  padding-block: var(--cpn-space-md);
+  padding-block: var(--cpn-space-row);
   border-top: 1px solid var(--cpn-color-border);
-  font-weight: var(--cpn-font-weight-medium);
-  color: var(--cpn-color-text);
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-h3);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-title);
 }
 
 @media (min-width: 640px) {
-  .facts {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
+  .missionGrid,
   .legalList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -233,26 +157,30 @@
 
 @media (min-width: 900px) {
   .profileGrid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--cpn-space-xl);
     align-items: start;
   }
 
-  .values {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .profileMedia {
+    position: sticky;
+    top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
+  }
+
+  .railGrid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
     gap: var(--cpn-space-xl);
+    align-items: start;
   }
 
-  .timelineItem {
-    grid-template-columns: 7rem minmax(0, 1fr);
-    gap: var(--cpn-space-lg);
-  }
-
-  .missionGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .rail {
+    position: sticky;
+    top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
   }
 
   .innovationGrid {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--cpn-space-xl);
     align-items: center;
   }
 }

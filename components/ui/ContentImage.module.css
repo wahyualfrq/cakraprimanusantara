@@ -12,9 +12,11 @@
 .image {
   display: block;
   object-fit: cover;
+  /* Subjek di sepertiga atas (DESIGN.md §12.3). */
+  object-position: 50% 40%;
 }
 
-/* Placeholder — pattern ringan per DESIGN.md §8.9, bukan flat gradient.
+/* Placeholder — pattern ringan per DESIGN.md §12.7, bukan flat gradient.
    Treatment beda per tipe konten supaya struktur sudah berbeda sebelum
    foto asli masuk. Tint warna ikut tema aktif lewat --cpn-color-primary. */
 

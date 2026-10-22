@@ -10,15 +10,17 @@ export type DefinitionItem = {
 
 type DefinitionListProps = {
   items: DefinitionItem[];
-  /** Nomor besar bergaya tipografis di depan tiap item — pengganti bullet/ikon centang. */
+  /** Nomor tipografis di depan tiap item — pengganti bullet/ikon centang. */
   numbered?: boolean;
+  /** `grid` = 3 kolom ≥ 640 px (fakta); `stack` = satu kolom (aside). */
+  layout?: "stack" | "grid";
   className?: string;
 };
 
-/** Daftar "judul tebal + penjelasan" untuk poin berlabel (DESIGN.md §8.11). */
-export function DefinitionList({ items, numbered = false, className }: DefinitionListProps) {
+/** Daftar "label + nilai" untuk fakta berlabel (DESIGN.md §11.2). */
+export function DefinitionList({ items, numbered = false, layout = "stack", className }: DefinitionListProps) {
   return (
-    <dl className={cn(styles.list, className)}>
+    <dl className={cn(styles.list, styles[layout], className)}>
       {items.map((item, index) => (
         // <div> di dalam <dl> hanya boleh berisi <dt>/<dd> (axe: definition-list,
         // dlitem) — nomor dekoratif ikut di dalam <dt>.

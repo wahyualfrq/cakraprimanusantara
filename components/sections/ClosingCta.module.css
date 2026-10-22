@@ -1,56 +1,34 @@
-/* Band hijau solid (tanpa gradient) — penutup kuat sebelum footer (DESIGN.md §8.10). */
-.ctaCard {
-  background-color: var(--cpn-green-800);
-  border-radius: var(--cpn-radius-xl);
-  padding: clamp(2rem, 5vw, 4rem);
-  text-align: center;
-  color: var(--cpn-color-text-on-dark);
+/* Band CTA: green-800 solid tanpa gradient, radius xl, terpusat (DESIGN.md §11.2). */
+.band {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--cpn-space-md);
+  padding: var(--cpn-space-band);
+  border-radius: var(--cpn-radius-xl);
+  background-color: var(--cpn-green-800);
+  color: var(--cpn-color-text-on-dark);
+  text-align: center;
 }
 
-.ctaTitle {
-  font-family: var(--cpn-font-heading);
+.title {
   font-size: var(--cpn-text-h2);
   font-weight: var(--cpn-font-weight-semibold);
-  line-height: 1.2;
+  line-height: var(--cpn-line-height-heading);
 }
 
-.ctaText {
-  max-width: 55ch;
-  font-size: var(--cpn-text-body);
-  line-height: var(--cpn-line-height-body);
+.text {
+  max-width: var(--cpn-measure-short);
+  font-size: var(--cpn-text-lead);
+  line-height: var(--cpn-line-height-lead);
   color: var(--cpn-color-text-on-dark-muted);
 }
 
-.ctaActions {
+.actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: var(--cpn-space-sm) var(--cpn-space-lg);
   margin-top: var(--cpn-space-sm);
-}
-
-.ctaSecondary {
-  padding: var(--cpn-space-sm) var(--cpn-space-xs);
-  border-radius: var(--cpn-radius-full);
-  font-weight: var(--cpn-font-weight-semibold);
-  font-size: 0.9375rem;
-  color: var(--cpn-color-text-on-dark);
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 0.3em;
-  transition: text-decoration-color 0.15s ease;
-}
-
-.ctaSecondary:hover {
-  text-decoration-color: currentColor;
-}
-
-.ctaSecondary:focus-visible {
-  outline: 2px solid transparent;
-  box-shadow: var(--cpn-focus-ring);
 }

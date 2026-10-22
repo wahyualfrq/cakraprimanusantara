@@ -1,33 +1,28 @@
 import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
 import { pelangganList } from "@/content/agribisnis/pelanggan";
 import styles from "./ClientLogos.module.css";
 
 // Daftar Konsumen/Pelanggan Ostindo (PDF Company Profile, CONTENT-SOURCE.md §7)
-// sebagai wordmark teks, bukan logo (DESIGN.md §7).
-const pelangganRow = pelangganList.map((p) => p.nama);
-
-function LogoStrip({ label, items }: { label: string; items: string[] }) {
-  return (
-    <div className={styles.row}>
-      <span className={styles.rowLabel}>{label}</span>
-      <ul className={styles.list}>
-        {items.map((name) => (
-          <li key={name} className={styles.wordmark}>
-            {name}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
+// sebagai wordmark teks, bukan logo (DESIGN.md §11.2 "Strip pelanggan"). Nama persis
+// sumber, urutan sumber, tanpa marquee. VERIFY: izin klien menampilkan nama pelanggan.
 export function ClientLogos() {
   return (
-    <Section>
-      <Container className={styles.stack}>
-        <LogoStrip label="Konsumen/Pelanggan" items={pelangganRow} />
+    <section className={styles.strip} aria-labelledby="pelanggan-judul">
+      <Container>
+        <div className={styles.inner}>
+          <h2 id="pelanggan-judul" className={styles.label}>
+            Konsumen/Pelanggan
+          </h2>
+          {/* tabIndex: area geser < 900 px harus bisa dijangkau keyboard (axe scrollable-region-focusable). */}
+          <ul className={styles.list} tabIndex={0} aria-labelledby="pelanggan-judul">
+            {pelangganList.map((p) => (
+              <li key={p.nama} className={styles.wordmark}>
+                {p.nama}
+              </li>
+            ))}
+          </ul>
+        </div>
       </Container>
-    </Section>
+    </section>
   );
 }

@@ -1,20 +1,18 @@
+/* Tombol ikon persegi 44 px, radius md (DESIGN.md §8.4) — toggle menu, panah karusel. */
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: var(--cpn-radius-full);
+  width: var(--cpn-touch-target);
+  height: var(--cpn-touch-target);
   border: 1px solid transparent;
+  border-radius: var(--cpn-radius-md);
   cursor: pointer;
   flex-shrink: 0;
   transition:
-    transform 0.15s ease,
-    background-color 0.15s ease;
-}
-
-.button:hover {
-  transform: translateY(-2px);
+    background-color var(--cpn-duration-fast) var(--cpn-ease),
+    border-color var(--cpn-duration-fast) var(--cpn-ease),
+    color var(--cpn-duration-fast) var(--cpn-ease);
 }
 
 .button:focus-visible {
@@ -22,23 +20,35 @@
   box-shadow: var(--cpn-focus-ring);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .button:hover {
-    transform: none;
-  }
+.button:disabled {
+  color: var(--cpn-gray-400);
+  border-color: var(--cpn-color-border);
+  background-color: transparent;
+  cursor: not-allowed;
 }
 
+.outline {
+  background-color: var(--cpn-color-bg);
+  border-color: var(--cpn-color-border-strong);
+  color: var(--cpn-color-text);
+}
+
+.outline:hover:not(:disabled) {
+  border-color: var(--cpn-color-primary);
+  color: var(--cpn-color-primary);
+}
+
+.outline[aria-expanded="true"] {
+  background-color: var(--cpn-green-50);
+  border-color: var(--cpn-color-primary);
+  color: var(--cpn-color-primary-hover);
+}
+
+/* Hanya di atas foto (DESIGN.md §11.5). */
 .glass {
   background-color: var(--cpn-glass-bg);
   border-color: var(--cpn-glass-border);
   backdrop-filter: var(--cpn-glass-blur);
   -webkit-backdrop-filter: var(--cpn-glass-blur);
-  box-shadow: var(--cpn-glass-shadow);
   color: var(--cpn-color-text-on-dark);
-}
-
-.solid {
-  background-color: var(--cpn-color-bg);
-  color: var(--cpn-color-text);
-  box-shadow: var(--cpn-glass-shadow);
 }

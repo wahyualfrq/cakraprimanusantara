@@ -10,17 +10,14 @@ type PageHeaderProps = {
   breadcrumb: BreadcrumbItem[];
   title: string;
   /**
-   * Satu kata di `title` yang dapat treatment italic aksen (DESIGN.md §6.1,
-   * maks. satu kata, hanya kalau maknanya organik/tumbuh — bukan struktural).
-   * Font heading Fraunces di-load dengan style italic asli (app/layout.tsx,
-   * keputusan D1), jadi italic di sini bukan fake italic. Aturan §6.1 tetap
-   * berlaku: hanya headline utama halaman, bukan judul section (H2).
+   * Satu kata di `title` dengan italic Fraunces asli. DESIGN.md v0.4 §5.2 [T5]: tidak
+   * dipakai di H1 halaman dalam — prop dipertahankan untuk kompatibilitas.
    */
   accentWord?: string;
+  /** Satu kalimat bersumber (verbatim), ≤ 56ch. */
   description?: string;
   photoSrc?: string;
   photoAlt?: string;
-  align?: "left" | "center";
 };
 
 function renderTitle(title: string, accentWord?: string): ReactNode {
@@ -39,9 +36,9 @@ function renderTitle(title: string, accentWord?: string): ReactNode {
 }
 
 /**
- * Header halaman dalam — rata kiri (default) atau tengah (align="center"), breadcrumb,
- * H1, satu kalimat deskripsi. Tinggi jauh lebih rendah dari hero homepage (DESIGN.md §8.11).
- * Dua varian: `solid` (background tema) dan `photo` (foto + scrim wajib §5.3).
+ * Header halaman dalam (DESIGN.md §10.2): rata kiri, breadcrumb → H1 → satu kalimat
+ * deskripsi opsional. `data-page-header` dipakai Section untuk jarak ke konten pertama.
+ * Dua varian: `solid` (latar green-50) dan `photo` (hanya bila foto asli tersedia, scrim wajib).
  */
 export function PageHeader({
   variant,
@@ -51,10 +48,9 @@ export function PageHeader({
   description,
   photoSrc,
   photoAlt,
-  align = "left",
 }: PageHeaderProps) {
   return (
-    <header className={cn(styles.header, variant === "photo" ? styles.photo : styles.solid)}>
+    <header data-page-header="" className={cn(styles.header, variant === "photo" && styles.photo)}>
       {variant === "photo" && (
         <div className={styles.photoLayer} aria-hidden={!photoSrc}>
           <ContentImage
@@ -68,7 +64,7 @@ export function PageHeader({
           <div className={styles.scrim} aria-hidden="true" />
         </div>
       )}
-      <Container className={cn(styles.inner, align === "center" && styles.innerCenter)}>
+      <Container className={styles.inner}>
         <Breadcrumb items={breadcrumb} />
         <h1 className={styles.title}>{renderTitle(title, accentWord)}</h1>
         {description && <p className={styles.description}>{description}</p>}

@@ -1,29 +1,31 @@
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { PillButton } from "@/components/ui/PillButton";
+import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
 import { heroInterim, penutupInterim } from "@/content/profil";
 import styles from "./ClosingCta.module.css";
 
-// CTA penutup: band hijau solid tanpa gradient sebelum footer (DESIGN.md §8.10),
-// pill putih + tautan teks — pola sama dengan hero.
+// Band CTA (DESIGN.md §11.2): green-800, radius xl, terpusat, maks. satu per halaman,
+// terakhir sebelum footer; tombol light + text-link.
 export function ClosingCta() {
   return (
-    <Section>
+    <Section aria-labelledby="penutup-judul">
       <Container>
         {/* INTERIM — copy belum disetujui (D2), dibaca dari content/profil.ts. */}
-        <div className={styles.ctaCard}>
-          <h2 className={styles.ctaTitle}>{penutupInterim.judul}</h2>
-          <p className={styles.ctaText}>{penutupInterim.teks}</p>
-          <div className={styles.ctaActions}>
-            <PillButton href={heroInterim.ctaSekunder.href} variant="light">
+        <Reveal className={styles.band}>
+          <h2 id="penutup-judul" className={styles.title}>
+            {penutupInterim.judul}
+          </h2>
+          <p className={styles.text}>{penutupInterim.teks}</p>
+          <div className={styles.actions}>
+            <Button href={heroInterim.ctaSekunder.href} variant="light" arrow>
               {heroInterim.ctaSekunder.label}
-            </PillButton>
-            <Link href={heroInterim.ctaUtama.href} className={styles.ctaSecondary}>
+            </Button>
+            <Button href={heroInterim.ctaUtama.href} variant="text-link" onDark>
               {heroInterim.ctaUtama.label}
-            </Link>
+            </Button>
           </div>
-        </div>
+        </Reveal>
       </Container>
     </Section>
   );

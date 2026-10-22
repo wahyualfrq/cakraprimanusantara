@@ -1,32 +1,62 @@
+import type { ReactNode } from "react";
+import { Eyebrow } from "./Eyebrow";
 import styles from "./SectionHeading.module.css";
 import { cn } from "@/lib/utils";
 
 type SectionHeadingProps = {
   title: string;
-  description?: string;
-  /** Default mati — batas 1 eyebrow label per halaman (DESIGN.md §8.11). */
+  /**
+   * Frasa penutup `title` (≤ 3 kata, sudah ada di judul) yang dibuat italic Fraunces.
+   * Hanya untuk maks. dua H2 di Beranda (DESIGN.md §5.2 [T5]).
+   */
+  accent?: string;
+  /** Nama section bertitik — hanya di Beranda (§11.2 [T6]). */
   eyebrow?: string;
-  align?: "left" | "center";
+  description?: ReactNode;
+  /** Kontrol di sisi kanan (mis. panah karusel, tautan "Lihat semua"). */
+  actions?: ReactNode;
+  /** `split` = pola section-head 7:5 di ≥ 900 px; `stack` = judul di atas deskripsi. */
+  layout?: "stack" | "split";
+  id?: string;
   className?: string;
 };
 
-/**
- * Judul section + deskripsi opsional. H2 selalu Fraunces/heading font,
- * semibold, tanpa italic — treatment italic khusus H1 hero/unit saja
- * (DESIGN.md §6.1).
- */
+function renderTitle(title: string, accent?: string): ReactNode {
+  if (!accent || !title.endsWith(accent)) return title;
+  return (
+    <>
+      {title.slice(0, title.length - accent.length)}
+      <em>{accent}</em>
+    </>
+  );
+}
+
+/** Kepala section: eyebrow opsional, H2, deskripsi, dan kontrol (DESIGN.md §3.2 section-head). */
 export function SectionHeading({
   title,
-  description,
+  accent,
   eyebrow,
-  align = "left",
+  description,
+  actions,
+  layout = "stack",
+  id,
   className,
 }: SectionHeadingProps) {
+  const hasSide = Boolean(description || actions);
   return (
-    <div className={cn(styles.wrap, align === "center" && styles.center, className)}>
-      {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
-      <h2 className={styles.title}>{title}</h2>
-      {description && <p className={styles.description}>{description}</p>}
+    <div className={cn(styles.wrap, layout === "split" && styles.split, className)}>
+      <div className={styles.titleGroup}>
+        {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+        <h2 id={id} className={styles.title}>
+          {renderTitle(title, accent)}
+        </h2>
+      </div>
+      {hasSide && (
+        <div className={styles.side}>
+          {description && <p className={styles.description}>{description}</p>}
+          {actions && <div className={styles.actions}>{actions}</div>}
+        </div>
+      )}
     </div>
   );
 }

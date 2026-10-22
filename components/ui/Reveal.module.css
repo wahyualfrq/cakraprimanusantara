@@ -1,0 +1,58 @@
+/* Reveal saat scroll (DESIGN.md §16.2–16.3): opacity + translateY 12px, sekali.
+   State tersembunyi hanya dipasang oleh JS untuk elemen yang masih di bawah layar,
+   jadi tanpa JS / sebelum hidrasi konten tetap terlihat. */
+.root[data-reveal="hidden"] {
+  opacity: 0;
+  transform: translateY(var(--cpn-reveal-shift));
+}
+
+.root[data-reveal="shown"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--cpn-duration-slow) var(--cpn-ease),
+    transform var(--cpn-duration-slow) var(--cpn-ease);
+}
+
+/* Stagger: anak langsung tertunda 80 ms, maks. 4 anak — sisanya muncul bersamaan. */
+.stagger[data-reveal="hidden"] {
+  opacity: 1;
+  transform: none;
+}
+
+.stagger[data-reveal="hidden"] > * {
+  opacity: 0;
+  transform: translateY(var(--cpn-reveal-shift));
+}
+
+.stagger[data-reveal="shown"] {
+  transition: none;
+}
+
+.stagger[data-reveal="shown"] > * {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--cpn-duration-slow) var(--cpn-ease),
+    transform var(--cpn-duration-slow) var(--cpn-ease);
+}
+
+.stagger[data-reveal="shown"] > :nth-child(2) {
+  transition-delay: var(--cpn-stagger);
+}
+
+.stagger[data-reveal="shown"] > :nth-child(3) {
+  transition-delay: calc(2 * var(--cpn-stagger));
+}
+
+.stagger[data-reveal="shown"] > :nth-child(n + 4) {
+  transition-delay: calc(3 * var(--cpn-stagger));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root[data-reveal="hidden"],
+  .stagger[data-reveal="hidden"] > * {
+    opacity: 1;
+    transform: none;
+  }
+}

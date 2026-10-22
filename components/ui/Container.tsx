@@ -4,9 +4,11 @@ import { cn } from "@/lib/utils";
 
 type ContainerProps = {
   children: ReactNode;
+  /** `wide` untuk section umum; `article` (820 px) untuk detail berita (DESIGN.md §3.1). */
+  size?: "wide" | "article";
   className?: string;
 };
 
-export function Container({ children, className }: ContainerProps) {
-  return <div className={cn(styles.container, className)}>{children}</div>;
+export function Container({ children, size = "wide", className }: ContainerProps) {
+  return <div className={cn(styles.container, size === "article" && styles.article, className)}>{children}</div>;
 }

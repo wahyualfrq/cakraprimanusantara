@@ -1,6 +1,13 @@
+/* S1 panel informasi — gray-50 + border, radius lg, tanpa shadow (DESIGN.md §11.1). */
 .card {
   background-color: var(--cpn-color-surface);
   border: 1px solid var(--cpn-color-border);
-  border-radius: var(--cpn-radius-md);
+  border-radius: var(--cpn-radius-lg);
   padding: var(--cpn-space-lg);
+}
+
+@media (max-width: 639px) {
+  .card {
+    padding: var(--cpn-space-row);
+  }
 }

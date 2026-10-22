@@ -1,41 +1,38 @@
-/* Bar putih membulat mengambang di atas hero (keputusan D10, DESIGN.md §10.2).
-   Latar putih solid, tanpa glass/blur: kontras teks tidak bergantung pada foto
-   di belakangnya (DESIGN.md §5.3, §8.1). */
+/* Bar putih sticky rata (DESIGN.md §9.1): latar putih solid, border bawah 1 px,
+   tanpa shadow/radius, tidak menimpa hero. Tinggi 64 px / 56 px (< 900 px). */
 .navbar {
-  position: fixed;
-  top: var(--cpn-navbar-offset);
-  left: 0;
-  right: 0;
+  position: sticky;
+  top: 0;
   z-index: 50;
-  padding-inline: var(--cpn-space-md);
-  /* Area transparan di kiri/kanan bar tidak menghalangi klik ke konten. */
-  pointer-events: none;
+  height: var(--cpn-navbar-height);
+  background-color: var(--cpn-color-bg);
+  border-bottom: 1px solid var(--cpn-color-border);
 }
 
 .inner {
-  pointer-events: auto;
-  max-width: calc(var(--cpn-container-max) - 2 * var(--cpn-space-md));
-  height: var(--cpn-navbar-bar-height);
+  position: relative;
+  height: 100%;
+  max-width: var(--cpn-container-max);
   margin-inline: auto;
-  padding-inline: var(--cpn-space-md) var(--cpn-space-xs);
+  padding-inline: var(--cpn-container-padding);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--cpn-space-md);
-  background-color: var(--cpn-color-bg);
-  border: 1px solid var(--cpn-color-border);
-  border-radius: var(--cpn-radius-full);
-  box-shadow: var(--cpn-shadow-card);
+  gap: var(--cpn-space-lg);
 }
 
 .logoLink {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-width: var(--cpn-touch-target);
+  min-height: var(--cpn-touch-target);
   flex-shrink: 0;
   border-radius: var(--cpn-radius-md);
 }
 
 .logoImage {
+  display: block;
   height: var(--cpn-navbar-logo-height);
   width: auto;
 }
@@ -44,30 +41,53 @@
   display: flex;
   align-items: center;
   gap: var(--cpn-space-xs);
-  font-size: 0.9375rem;
-  font-weight: var(--cpn-font-weight-medium);
+  margin-right: auto;
 }
 
 .link {
-  padding: var(--cpn-space-sm) var(--cpn-space-md);
-  border-radius: var(--cpn-radius-full);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: var(--cpn-control-sm);
+  padding-inline: 0.75rem;
+  border-radius: var(--cpn-radius-md);
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-medium);
   color: var(--cpn-color-text);
-  transition: background-color 0.15s ease;
+  transition: color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+/* Indikator 2 px di tepi bawah bar: hover memanjang (scaleX), aktif instan (§9.3, §16.2). */
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: calc((var(--cpn-control-sm) - var(--cpn-navbar-height) + 1px) / 2);
+  height: 2px;
+  background-color: var(--cpn-color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
 }
 
 .link:hover {
-  background-color: var(--cpn-gray-100);
+  color: var(--cpn-color-primary);
 }
 
-/* Item aktif: pill hijau muda + teks hijau tua (kontras ±9:1). */
-.linkActive {
-  background-color: var(--cpn-green-100);
-  color: var(--cpn-color-primary-hover);
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+.linkActive,
+.linkActive:hover {
+  color: var(--cpn-green-800);
   font-weight: var(--cpn-font-weight-semibold);
 }
 
-.linkActive:hover {
-  background-color: var(--cpn-green-100);
+.linkActive::after {
+  transform: scaleX(1);
+  transition: none;
 }
 
 .logoLink:focus-visible,
@@ -82,11 +102,14 @@
   gap: var(--cpn-space-sm);
 }
 
-@media (max-width: 900px) {
-  .links {
-    display: none;
+@media (min-width: 900px) {
+  .inner {
+    justify-content: flex-start;
   }
+}
 
+@media (max-width: 899px) {
+  .links,
   .ctaDesktop {
     display: none;
   }

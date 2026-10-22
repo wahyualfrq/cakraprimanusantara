@@ -1,0 +1,175 @@
+.headWrap {
+  max-width: var(--cpn-container-max);
+  margin-inline: auto;
+  padding-inline: var(--cpn-container-padding);
+}
+
+.controls {
+  display: none;
+  gap: var(--cpn-space-sm);
+}
+
+/* Panah hanya untuk pointer; di layar sentuh geser langsung. */
+@media (hover: hover) and (pointer: fine) {
+  .controls {
+    display: inline-flex;
+  }
+}
+
+/* Bleed kanan (§3.1): track mulai dari tepi kiri container, bocor ke tepi kanan viewport. */
+.viewport {
+  --track-start: calc(max(0px, (100% - var(--cpn-container-max)) / 2) + var(--cpn-container-padding));
+}
+
+.track {
+  list-style: none;
+  display: flex;
+  gap: var(--cpn-space-md);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--track-start);
+  padding-inline: var(--track-start);
+  padding-bottom: var(--cpn-space-sm);
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 auto;
+  width: min(72vw, 20rem);
+  scroll-snap-align: start;
+}
+
+/* Kartu tinggi S2 (§11.1): rasio 3:4, min 22rem, radius lg, satu tautan penuh. */
+.card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 3 / 4;
+  min-height: 22rem;
+  padding: var(--cpn-space-row);
+  border-radius: var(--cpn-radius-lg);
+  overflow: hidden;
+  background-color: var(--cpn-green-800);
+  color: var(--cpn-color-text-on-dark);
+}
+
+.slide:nth-child(3n + 2) .card {
+  background-color: var(--cpn-green-900);
+}
+
+.slide:nth-child(3n + 3) .card {
+  background-color: var(--cpn-green-700);
+}
+
+.card:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+/* Latar: pola ringan di atas nada hijau (pengganti foto produk asli, §11.2) + scrim. */
+.pattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    var(--cpn-scrim),
+    radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--cpn-green-300) 22%, transparent) 0, transparent 46%),
+    radial-gradient(color-mix(in srgb, var(--cpn-color-text-on-dark) 12%, transparent) 1px, transparent 1px);
+  background-size:
+    auto,
+    auto,
+    14px 14px;
+  transition: transform var(--cpn-duration-slow) var(--cpn-ease);
+}
+
+@media (hover: hover) {
+  .card:hover .pattern {
+    transform: scale(1.04);
+  }
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--cpn-space-md);
+}
+
+.label {
+  padding: var(--cpn-space-xs) 0.75rem;
+  border: 1px solid var(--cpn-glass-border);
+  border-radius: var(--cpn-radius-full);
+  font-size: var(--cpn-text-caption);
+  font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  line-height: var(--cpn-line-height-title);
+  text-transform: uppercase;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--cpn-touch-target);
+  height: var(--cpn-touch-target);
+  flex-shrink: 0;
+  border-radius: var(--cpn-radius-md);
+  background-color: var(--cpn-color-bg);
+  color: var(--cpn-green-800);
+  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.card:hover .icon,
+.card:focus-visible .icon {
+  transform: translateX(4px);
+}
+
+/* Nomor urut sumber — dekoratif, tipografis. */
+.numeral {
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-display);
+  font-style: italic;
+  font-weight: var(--cpn-font-weight-regular);
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1;
+  color: var(--cpn-green-300);
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-sm);
+}
+
+.name {
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-h2);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-heading);
+}
+
+.desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-color-text-on-dark-muted);
+}
+
+.more {
+  margin-top: var(--cpn-space-xs);
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-semibold);
+  text-decoration: underline;
+  text-decoration-color: var(--cpn-glass-border);
+  text-underline-offset: 0.3em;
+}

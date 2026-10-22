@@ -16,7 +16,9 @@ export const kontakLink = { label: "Hubungi Kami", href: "/hubungi-kami" };
  * URL berada di bawah item itu (mis. detail produk di bawah "Produk").
  */
 export function ariaCurrentFor(pathname: string, href: string): "page" | "true" | undefined {
-  if (pathname === href) return "page";
-  if (pathname.startsWith(`${href}/`)) return "true";
+  // trailingSlash: true (next.config.ts) → pathname bisa "/produk/"; samakan dulu.
+  const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  if (path === href) return "page";
+  if (path.startsWith(`${href}/`)) return "true";
   return undefined;
 }

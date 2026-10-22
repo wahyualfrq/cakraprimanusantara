@@ -1,14 +1,11 @@
+/* Header halaman dalam (DESIGN.md §10.2): rata kiri, latar green-50, di bawah
+   navbar sticky — tanpa clearance tambahan. */
 .header {
   position: relative;
-  /* Clearance navbar mengambang — token bersama halaman dalam. */
-  padding-top: var(--cpn-page-top);
-  padding-bottom: var(--cpn-space-xl);
-  overflow: hidden;
-}
-
-.solid {
+  padding-block: var(--cpn-space-header);
   background-color: var(--cpn-color-surface-tint);
   color: var(--cpn-color-text);
+  overflow: hidden;
 }
 
 .photo {
@@ -43,16 +40,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--cpn-space-sm);
-  text-align: left;
-}
-
-.photo .inner {
-  text-shadow: var(--cpn-text-shadow-on-photo);
+  gap: var(--cpn-space-md);
 }
 
 .title {
-  font-family: var(--cpn-font-heading);
+  max-width: 24ch;
   font-size: var(--cpn-text-h1);
   font-weight: var(--cpn-font-weight-bold);
   line-height: var(--cpn-line-height-heading);
@@ -63,23 +55,12 @@
 }
 
 .description {
-  max-width: 48ch;
+  max-width: var(--cpn-measure-short);
   font-size: var(--cpn-text-lead);
-  opacity: 0.85;
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-color-text-muted);
 }
 
-.innerCenter {
-  align-items: center;
-  text-align: center;
-}
-
-.innerCenter nav ol,
-.innerCenter nav ul {
-  justify-content: center;
-}
-
-.innerCenter .description {
-  max-width: 68ch;
-  margin-inline: auto;
-  line-height: 1.65;
+.photo .description {
+  color: var(--cpn-color-text-on-dark-muted);
 }

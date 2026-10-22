@@ -1,39 +1,87 @@
-/* Client Logo Strip (DESIGN.md §7): wordmark teks grayscale, tanpa chip/pill,
-   dibatasi garis tipis — kesan trust bar editorial, bukan daftar besar. */
-.stack {
-  display: flex;
-  flex-direction: column;
+/* Strip pelanggan tepat di bawah hero: rapat, di antara garis tipis atas-bawah
+   (DESIGN.md §11.2). < 900 px: dua baris yang bisa digeser; ≥ 900 px: alur kata. */
+.strip {
+  padding-top: var(--cpn-space-block);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--cpn-space-md);
-  padding-block: var(--cpn-space-lg);
+  padding-block: var(--cpn-space-row);
   border-block: 1px solid var(--cpn-color-border);
 }
 
-.row {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-md);
-}
-
-.rowLabel {
+.label {
+  font-family: var(--cpn-font-body);
   font-size: var(--cpn-text-caption);
   font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-text-muted);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  line-height: var(--cpn-line-height-title);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  color: var(--cpn-color-text-muted);
 }
 
 .list {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
   gap: var(--cpn-space-sm) var(--cpn-space-lg);
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Bleed ke tepi layar supaya terlihat bisa digeser. */
+  margin-right: calc(-1 * var(--cpn-container-padding));
+  padding-right: var(--cpn-container-padding);
 }
 
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Wordmark teks gray-600 (kontras 6,3:1, §6.4). */
 .wordmark {
-  color: var(--cpn-gray-500);
-  font-size: 0.8125rem;
-  font-weight: var(--cpn-font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-body);
+  font-weight: var(--cpn-font-weight-medium);
+  line-height: var(--cpn-line-height-title);
+  color: var(--cpn-color-text-muted);
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: var(--cpn-space-xl);
+    align-items: baseline;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cpn-space-sm) 0;
+    overflow: visible;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  /* Pemisah titik dekoratif di antara nama. */
+  .wordmark:not(:last-child)::after {
+    content: "";
+    width: 4px;
+    height: 4px;
+    margin-inline: 0.75rem;
+    border-radius: var(--cpn-radius-full);
+    background-color: var(--cpn-color-border-strong);
+  }
+}
+
+.list:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+  border-radius: var(--cpn-radius-sm);
 }

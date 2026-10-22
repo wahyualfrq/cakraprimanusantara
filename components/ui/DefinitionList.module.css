@@ -1,44 +1,60 @@
+/* Definition list (DESIGN.md §11.2): label small 600 green-800 di atas nilai small
+   gray-600, garis atas 1 px. `grid` = 3 kolom ≥ 640 px; `stack` = satu kolom (aside). */
 .list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cpn-space-lg);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0 var(--cpn-space-lg);
+}
+
+.grid {
+  gap: var(--cpn-space-md) var(--cpn-space-lg);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
   padding-block: var(--cpn-space-md);
   border-top: 1px solid var(--cpn-color-border);
 }
 
-.item:first-child {
+.stack .item:first-child {
   border-top: none;
   padding-top: 0;
 }
 
-/* Varian bernomor: nomor (di dalam <dt>) diletakkan di kolom kiri lewat
-   position absolute tanpa top — tetap sejajar baris pertama label. */
 .itemNumbered {
   position: relative;
-  padding-left: calc(2.5rem + var(--cpn-space-md));
+  padding-left: calc(3rem + var(--cpn-space-md));
 }
 
 .number {
   position: absolute;
   left: 0;
   font-family: var(--cpn-font-heading);
-  font-size: 1.75rem;
-  font-weight: var(--cpn-font-weight-bold);
-  color: var(--cpn-color-accent);
-  line-height: 1;
+  font-size: var(--cpn-text-h3);
+  font-weight: var(--cpn-font-weight-semibold);
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--cpn-color-primary);
+  line-height: var(--cpn-line-height-title);
 }
 
 .label {
-  font-weight: var(--cpn-font-weight-bold);
-  font-size: var(--cpn-text-lead);
-  color: var(--cpn-color-text);
-  margin-bottom: var(--cpn-space-xs);
+  font-size: var(--cpn-text-small);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-green-800);
 }
 
 .description {
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-body);
   color: var(--cpn-color-text-muted);
-  line-height: 1.6;
+  overflow-wrap: anywhere;
 }

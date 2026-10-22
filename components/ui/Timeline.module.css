@@ -1,0 +1,76 @@
+.timeline {
+  --dot: 14px;
+  --line: 2px;
+  list-style: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Satu garis vertikal di kiri; titik setiap item duduk di atasnya. */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: var(--cpn-space-sm);
+  bottom: var(--cpn-space-sm);
+  left: calc((var(--dot) - var(--line)) / 2);
+  width: var(--line);
+  background-color: var(--cpn-green-200);
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cpn-space-xs);
+  padding-left: calc(var(--dot) + var(--cpn-space-md));
+  padding-bottom: var(--cpn-space-lg);
+}
+
+.item:last-child {
+  padding-bottom: 0;
+}
+
+.item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: var(--cpn-radius-full);
+  background-color: var(--cpn-color-primary);
+}
+
+.year {
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-h3);
+  font-weight: var(--cpn-font-weight-semibold);
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: var(--cpn-line-height-title);
+  color: var(--cpn-color-text);
+}
+
+.text {
+  max-width: var(--cpn-measure);
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-body);
+  color: var(--cpn-color-text-muted);
+}
+
+@media (min-width: 900px) {
+  .item {
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: var(--cpn-space-lg);
+    padding-left: calc(var(--dot) + var(--cpn-space-lg));
+  }
+
+  .year {
+    font-size: var(--cpn-text-h2);
+    line-height: var(--cpn-line-height-heading);
+  }
+
+  .item::before {
+    top: 0.65em;
+  }
+}

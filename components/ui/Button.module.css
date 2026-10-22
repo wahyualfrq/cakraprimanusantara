@@ -1,34 +1,112 @@
+/* Satu sistem tombol persegi (DESIGN.md §8): radius md, tanpa pill, tanpa efek
+   angkat. Hover = perubahan warna saja. */
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--cpn-space-xs);
-  padding: var(--cpn-space-sm) var(--cpn-space-lg);
-  border-radius: var(--cpn-radius-sm);
-  font-family: var(--cpn-font-body);
-  font-weight: 600;
-  font-size: 0.9375rem;
+  gap: var(--cpn-space-sm);
+  min-height: var(--cpn-touch-target);
+  padding: var(--cpn-space-sm) var(--cpn-space-button);
   border: 1px solid transparent;
+  border-radius: var(--cpn-radius-md);
+  font-family: var(--cpn-font-body);
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-title);
+  text-align: center;
   cursor: pointer;
-  transition: opacity 0.15s ease;
+  transition:
+    background-color var(--cpn-duration-fast) var(--cpn-ease),
+    border-color var(--cpn-duration-fast) var(--cpn-ease),
+    color var(--cpn-duration-fast) var(--cpn-ease);
 }
 
-.button:hover {
-  opacity: 0.85;
+.button:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+.button:disabled {
+  background-color: var(--cpn-gray-100);
+  border-color: var(--cpn-gray-300);
+  color: var(--cpn-gray-500);
+  cursor: not-allowed;
+}
+
+.sm {
+  min-height: var(--cpn-control-sm);
+}
+
+.block {
+  width: 100%;
 }
 
 .primary {
   background-color: var(--cpn-color-primary);
-  color: var(--cpn-color-bg);
+  color: var(--cpn-color-on-primary);
 }
 
-.secondary {
-  background-color: var(--cpn-color-secondary);
-  color: var(--cpn-color-bg);
+.primary:hover:not(:disabled),
+.primary[aria-current] {
+  background-color: var(--cpn-color-primary-hover);
 }
 
 .outline {
   background-color: transparent;
-  color: var(--cpn-color-primary);
   border-color: var(--cpn-color-primary);
+  color: var(--cpn-color-primary);
+}
+
+.outline:hover:not(:disabled) {
+  background-color: var(--cpn-green-50);
+}
+
+/* Di atas foto, band CTA, dan latar gelap. */
+.light {
+  background-color: var(--cpn-color-bg);
+  color: var(--cpn-green-800);
+}
+
+.light:hover:not(:disabled) {
+  background-color: var(--cpn-green-50);
+}
+
+/* Hanya di atas foto/latar gelap — teks green-900 di atas green-300 = 9,97:1. */
+.accent {
+  background-color: var(--cpn-green-300);
+  color: var(--cpn-green-900);
+}
+
+.accent:hover:not(:disabled) {
+  background-color: var(--cpn-green-200);
+}
+
+/* Aksi tersier: teks + panah, tanpa kotak. */
+.textLink {
+  min-height: var(--cpn-touch-target);
+  padding-inline: 0;
+  color: var(--cpn-color-primary);
+}
+
+.textLink:hover {
+  color: var(--cpn-color-primary-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.onDark.textLink {
+  color: var(--cpn-color-text-on-dark);
+}
+
+.onDark.textLink:hover {
+  color: var(--cpn-color-text-on-dark);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.button:hover .arrow {
+  transform: translateX(4px);
 }

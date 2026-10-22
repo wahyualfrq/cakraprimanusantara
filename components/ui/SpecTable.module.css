@@ -1,3 +1,5 @@
+/* Tabel spesifikasi (DESIGN.md §11.2): header caption huruf besar gray-600, hover
+   baris gray-100; < 640 px menjadi blok bergaris (data-label per sel). */
 .wrap {
   width: 100%;
 }
@@ -5,26 +7,43 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9375rem;
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-body);
 }
 
 .table th,
 .table td {
-  padding: var(--cpn-space-sm) var(--cpn-space-md);
+  padding: var(--cpn-space-md);
   text-align: left;
+  vertical-align: top;
   border-bottom: 1px solid var(--cpn-color-border);
-  vertical-align: middle;
 }
 
 .table thead th {
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--cpn-color-text-muted);
+  padding-block: var(--cpn-space-sm);
+  font-size: var(--cpn-text-caption);
   font-weight: var(--cpn-font-weight-semibold);
+  letter-spacing: var(--cpn-letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--cpn-color-text-muted);
+  border-bottom-color: var(--cpn-color-border-strong);
 }
 
-@media (max-width: 640px) {
+.table tbody td:first-child {
+  font-weight: var(--cpn-font-weight-semibold);
+  color: var(--cpn-color-text);
+}
+
+.table tbody td {
+  color: var(--cpn-gray-700);
+  transition: background-color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.table tbody tr:hover td {
+  background-color: var(--cpn-color-surface-muted);
+}
+
+@media (max-width: 639px) {
   .table thead {
     display: none;
   }
@@ -38,33 +57,32 @@
   }
 
   .table tr {
-    margin-bottom: var(--cpn-space-md);
-    border: 1px solid var(--cpn-color-border);
-    border-radius: var(--cpn-radius-md);
-    overflow: hidden;
+    padding-block: var(--cpn-space-md);
+    border-top: 1px solid var(--cpn-color-border-strong);
   }
 
   .table tr:last-child {
-    margin-bottom: 0;
+    border-bottom: 1px solid var(--cpn-color-border-strong);
   }
 
   .table td {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--cpn-space-sm);
-    border-bottom: 1px solid var(--cpn-color-border);
+    display: grid;
+    grid-template-columns: minmax(0, 7rem) minmax(0, 1fr);
+    gap: var(--cpn-space-md);
+    padding: var(--cpn-space-xs) 0;
+    border-bottom: none;
   }
 
-  .table td:last-child {
-    border-bottom: none;
+  .table tbody tr:hover td {
+    background-color: transparent;
   }
 
   .table td::before {
     content: attr(data-label);
+    font-size: var(--cpn-text-caption);
     font-weight: var(--cpn-font-weight-semibold);
-    font-size: 0.8125rem;
+    letter-spacing: var(--cpn-letter-spacing-caps);
+    text-transform: uppercase;
     color: var(--cpn-color-text-muted);
-    flex-shrink: 0;
   }
 }

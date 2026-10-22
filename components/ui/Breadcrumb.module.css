@@ -1,8 +1,9 @@
-/* Warna lewat token, bukan opacity — opacity di atas teks muted jatuh di bawah
-   4,5:1 (mis. artikel: 3,2:1). Header berfoto mengganti nilai lewat custom
-   property --cpn-breadcrumb-link / --cpn-breadcrumb-current. */
+/* Breadcrumb (DESIGN.md §10.2): small, tautan gray-600, halaman kini 600 gray-900,
+   pemisah "/" dekoratif. Header berfoto mengganti warna lewat custom property
+   --cpn-breadcrumb-link / --cpn-breadcrumb-current. */
 .nav {
-  font-size: 0.8125rem;
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-lead);
 }
 
 .list {
@@ -10,28 +11,29 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--cpn-space-xs);
+  gap: var(--cpn-space-xs) var(--cpn-space-sm);
 }
 
 .item {
   display: inline-flex;
   align-items: center;
-  gap: var(--cpn-space-xs);
+  gap: var(--cpn-space-sm);
+  min-width: 0;
 }
 
 .item a {
   color: var(--cpn-breadcrumb-link, var(--cpn-color-text-muted));
   border-radius: var(--cpn-radius-sm);
+  transition: color var(--cpn-duration-fast) var(--cpn-ease);
 }
 
 .item a:hover {
-  color: var(--cpn-breadcrumb-current, var(--cpn-color-text));
+  color: var(--cpn-breadcrumb-current, var(--cpn-color-primary));
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
 
 .item a:focus-visible {
-  color: var(--cpn-breadcrumb-current, var(--cpn-color-text));
   outline: 2px solid transparent;
   box-shadow: var(--cpn-focus-ring);
 }
@@ -39,10 +41,10 @@
 .item span[aria-current="page"] {
   color: var(--cpn-breadcrumb-current, var(--cpn-color-text));
   font-weight: var(--cpn-font-weight-semibold);
+  overflow-wrap: anywhere;
 }
 
 /* Pemisah dekoratif (aria-hidden). */
 .separator {
-  color: var(--cpn-breadcrumb-link, var(--cpn-color-text-muted));
-  opacity: 0.6;
+  color: var(--cpn-color-border-strong);
 }

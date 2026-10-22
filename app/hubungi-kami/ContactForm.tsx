@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { PillButton } from "@/components/ui/PillButton";
+import { Button } from "@/components/ui/Button";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { lokasiList } from "@/content/kontak";
 import styles from "./ContactForm.module.css";
@@ -143,10 +143,12 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className={styles.form} noValidate>
       <p className={styles.hint}>Semua kolom wajib diisi.</p>
 
-      {renderField("nama", "input")}
-      {renderField("email", "input", "email")}
-      {renderField("telepon", "input", "tel")}
-      {renderField("subjek", "input")}
+      <div className={styles.grid}>
+        {renderField("nama", "input")}
+        {renderField("email", "input", "email")}
+        {renderField("telepon", "input", "tel")}
+        {renderField("subjek", "input")}
+      </div>
       {renderField("pesan", "textarea")}
 
       {/* Ringkasan error dibacakan pembaca layar (aria-live). */}
@@ -155,12 +157,12 @@ export function ContactForm() {
       </p>
 
       <div className={styles.actions}>
-        <PillButton type="button" onClick={() => handleKirim("whatsapp")}>
+        <Button type="button" onClick={() => handleKirim("whatsapp")}>
           Kirim lewat WhatsApp
-        </PillButton>
-        <button type="button" className={styles.btnSecondary} onClick={() => handleKirim("email")}>
+        </Button>
+        <Button type="button" variant="outline" onClick={() => handleKirim("email")}>
           Kirim lewat email
-        </button>
+        </Button>
       </div>
 
       <p className={styles.note}>Data form tidak disimpan di website ini.</p>

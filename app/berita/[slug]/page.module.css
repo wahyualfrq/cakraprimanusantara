@@ -1,24 +1,15 @@
-/* Halaman artikel. Gambar di atas judul (keputusan commit e0cba4b) — artikel
-   tidak memakai PageHeader, tetapi clearance navbar memakai token yang sama
-   dengan halaman dalam lain (--cpn-page-top). */
+/* Artikel (DESIGN.md v0.4 §13.7): container article 820 px, isi 68ch. */
 .articlePage {
-  padding-top: var(--cpn-page-top);
-  padding-bottom: var(--cpn-space-section);
-  background-color: var(--cpn-color-bg);
+  padding-block: var(--cpn-space-header) var(--cpn-space-section);
 }
 
-.articleContainer {
-  max-width: 820px;
-  margin-inline: auto;
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-lg);
 }
 
-/* ── 1. BREADCRUMB ──────────────────────────────────────────────────── */
-.breadcrumbWrapper {
-  margin-bottom: var(--cpn-space-md);
-  color: var(--cpn-color-text-muted);
-}
-
-/* ── 2. GAMBAR UTAMA ARTIKEL ────────────────────────────────────────── */
+/* Sampul 16:9, tinggi maks. 440 px, radius lg. */
 .mediaFrame {
   position: relative;
   width: 100%;
@@ -26,66 +17,54 @@
   max-height: 440px;
   border-radius: var(--cpn-radius-lg);
   overflow: hidden;
-  background-color: var(--cpn-color-surface);
-  margin-bottom: var(--cpn-space-lg);
+  background-color: var(--cpn-color-surface-muted);
 }
 
 .mediaImage {
   object-fit: cover;
+  object-position: 50% 40%;
 }
 
-/* ── 3. METADATA: ENTITAS & TANGGAL (TEKS BIASA, BUKAN BADGE) ───────── */
-.metaGroup {
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+}
+
+/* Metadata: small gray-600, tanpa italic (§5.2). */
+.meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--cpn-space-xs);
-  margin-bottom: var(--cpn-space-xs);
+  gap: var(--cpn-space-xs) var(--cpn-space-sm);
   font-size: var(--cpn-text-small);
-}
-
-.metaEntity {
-  font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-primary-hover);
+  color: var(--cpn-color-text-muted);
 }
 
 .metaDot {
-  color: var(--cpn-color-text-muted);
+  color: var(--cpn-color-border-strong);
 }
 
-.metaDate {
-  color: var(--cpn-color-text-muted);
-}
-
-/* ── 4. JUDUL ARTIKEL — skala sama dengan H1 halaman dalam ──────────── */
 .title {
-  max-width: 28ch;
-  font-family: var(--cpn-font-heading);
   font-size: var(--cpn-text-h1);
   font-weight: var(--cpn-font-weight-bold);
   line-height: var(--cpn-line-height-heading);
   color: var(--cpn-color-text);
-  margin-top: var(--cpn-space-xs);
-  margin-bottom: var(--cpn-space-md);
 }
 
-/* ── 5. EXCERPT / RINGKASAN ARTIKEL ─────────────────────────────────── */
 .lead {
   max-width: var(--cpn-measure);
+  padding-bottom: var(--cpn-space-lg);
+  border-bottom: 1px solid var(--cpn-color-border);
   font-size: var(--cpn-text-lead);
-  line-height: 1.65;
+  line-height: var(--cpn-line-height-lead);
   color: var(--cpn-gray-700);
-  border-left: 3px solid var(--cpn-color-primary);
-  padding-left: var(--cpn-space-md);
-  margin-bottom: var(--cpn-space-xl);
 }
 
-/* ── 6. ISI ARTIKEL (MDX) — lebar baca terbatas, ritme paragraf jelas ─ */
 .content {
   max-width: var(--cpn-measure);
-  font-family: var(--cpn-font-body);
-  font-size: 1.0625rem;
-  line-height: 1.8;
+  font-size: var(--cpn-text-body);
+  line-height: var(--cpn-line-height-article);
   color: var(--cpn-gray-800);
 }
 
@@ -118,26 +97,26 @@
 .content h3 {
   font-family: var(--cpn-font-heading);
   font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-title);
   color: var(--cpn-color-text);
-  line-height: 1.35;
 }
 
 .content * + h2,
 .content * + h3 {
-  margin-top: var(--cpn-space-xl);
+  margin-top: var(--cpn-space-lg);
 }
 
 .content h2 {
-  font-size: 1.5rem;
+  font-size: var(--cpn-text-h2);
 }
 
 .content h3 {
-  font-size: 1.25rem;
+  font-size: var(--cpn-text-h3);
 }
 
 .content blockquote {
-  border-left: 3px solid var(--cpn-color-primary);
   padding-left: var(--cpn-space-md);
+  border-left: 2px solid var(--cpn-color-primary);
   font-style: italic;
   color: var(--cpn-gray-700);
 }
@@ -151,15 +130,14 @@
   margin-top: var(--cpn-space-xs);
 }
 
-/* ── 7. FOOTER ARTIKEL ──────────────────────────────────────────────── */
 .articleFooter {
-  max-width: var(--cpn-measure);
-  margin-top: var(--cpn-space-xl);
-  padding-top: var(--cpn-space-lg);
-  border-top: 1px solid var(--cpn-color-border);
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-lg);
+  align-items: flex-start;
+  gap: var(--cpn-space-md);
+  max-width: var(--cpn-measure);
+  width: 100%;
+  margin-top: var(--cpn-space-lg);
 }
 
 .ctaBox {
@@ -168,55 +146,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--cpn-space-md);
-  background-color: var(--cpn-color-surface-tint);
-  border: 1px solid var(--cpn-green-200);
-  border-radius: var(--cpn-radius-md);
-  padding: var(--cpn-space-lg);
-}
-
-.ctaContent {
-  max-width: 46ch;
+  width: 100%;
 }
 
 .ctaHeading {
-  font-family: var(--cpn-font-heading);
-  font-size: 1.125rem;
+  font-size: var(--cpn-text-h3);
   font-weight: var(--cpn-font-weight-semibold);
-  color: var(--cpn-color-text);
-}
-
-.ctaButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--cpn-space-sm) var(--cpn-space-lg);
-  background-color: var(--cpn-color-primary);
-  color: var(--cpn-color-on-primary);
-  font-size: 0.9375rem;
-  font-weight: var(--cpn-font-weight-semibold);
-  border-radius: var(--cpn-radius-full);
-  white-space: nowrap;
-  transition: background-color 0.15s ease;
-}
-
-.ctaButton:hover {
-  background-color: var(--cpn-color-primary-hover);
-}
-
-.ctaButton:focus-visible {
-  outline: 2px solid transparent;
-  box-shadow: var(--cpn-focus-ring);
-}
-
-/* ── RESPONSIVE ─────────────────────────────────────────────────────── */
-@media (max-width: 640px) {
-  .ctaBox {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: var(--cpn-space-md);
-  }
-
-  .ctaButton {
-    width: 100%;
-  }
+  line-height: var(--cpn-line-height-title);
 }

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ContentImage } from "@/components/ui/ContentImage";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { kontakLink } from "@/components/layout/navLinks";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { beritaPublishedList, getBeritaBySlug } from "@/lib/content/berita";
@@ -41,6 +43,8 @@ const ARTIKEL_MEDIA: Record<string, Ilustrasi> = {
   "kerjasama-dengan-lipi": ilustrasi.rumahKaca,
 };
 
+// Artikel (DESIGN.md v0.4 §13.7): container article 820 px — breadcrumb → sampul 16:9
+// (tinggi maks. 440 px) → metadata → H1 → ringkasan → isi 68ch.
 export default async function BeritaDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const entry = getBeritaBySlug(slug);
@@ -60,26 +64,22 @@ export default async function BeritaDetailPage({ params }: PageProps) {
       <JsonLd data={schema} />
 
       <article className={styles.articlePage}>
-        <Container className={styles.articleContainer}>
-          {/* 1. Breadcrumb Beranda / Berita / judul artikel (item aktif = halaman ini) */}
-          <div className={styles.breadcrumbWrapper}>
-            <Breadcrumb
-              items={[
-                { label: "Beranda", href: "/" },
-                { label: "Berita", href: "/berita" },
-                { label: meta.judul, href: `/berita/${meta.slug}` },
-              ]}
-            />
-          </div>
+        <Container size="article" className={styles.article}>
+          <Breadcrumb
+            items={[
+              { label: "Beranda", href: "/" },
+              { label: "Berita", href: "/berita" },
+              { label: meta.judul, href: `/berita/${meta.slug}` },
+            ]}
+          />
 
-          {/* 2. Gambar Utama Artikel (Sebelum Judul) */}
           {media ? (
             <div className={styles.mediaFrame}>
               <Image
                 src={media.src}
                 alt={media.alt}
                 fill
-                sizes="(min-width: 1024px) 820px, 100vw"
+                sizes="(min-width: 900px) 820px, calc(100vw - 2rem)"
                 className={styles.mediaImage}
                 // LCP artikel: gambar ini di desktop, H1 di mobile — preload saja, tanpa prioritas tinggi.
                 preload
@@ -87,59 +87,42 @@ export default async function BeritaDetailPage({ params }: PageProps) {
             </div>
           ) : meta.fotoAlt ? (
             <div className={styles.mediaFrame}>
-              <ContentImage
-                alt={meta.fotoAlt}
-                variant="berita"
-                fill
-                sizes="(min-width: 1024px) 820px, 100vw"
-              />
+              <ContentImage alt={meta.fotoAlt} variant="berita" fill sizes="(min-width: 900px) 820px, 100vw" />
             </div>
           ) : null}
 
-          {/* 3. Informasi Entitas dan Tanggal Publikasi */}
-          <div className={styles.metaGroup}>
-            <span className={styles.metaEntity}>PT Anugerah Mustika Ostindo</span>
-            {meta.tanggal && (
-              <>
-                <span className={styles.metaDot} aria-hidden="true">·</span>
-                <time dateTime={meta.tanggal} className={styles.metaDate}>
-                  Diterbitkan pada {formatTanggalIndonesia(meta.tanggal)}
-                </time>
-              </>
-            )}
-          </div>
+          <header className={styles.header}>
+            <p className={styles.meta}>
+              <span>PT Anugerah Mustika Ostindo</span>
+              {meta.tanggal && (
+                <>
+                  <span className={styles.metaDot} aria-hidden="true">
+                    ·
+                  </span>
+                  <time dateTime={meta.tanggal}>Diterbitkan pada {formatTanggalIndonesia(meta.tanggal)}</time>
+                </>
+              )}
+            </p>
+            <h1 className={styles.title}>{meta.judul}</h1>
+            {meta.excerpt && <p className={styles.lead}>{meta.excerpt}</p>}
+          </header>
 
-          {/* 4. Judul Artikel */}
-          <h1 className={styles.title}>{meta.judul}</h1>
-
-          {/* 5. Excerpt atau Ringkasan Artikel */}
-          {meta.excerpt && (
-            <p className={styles.lead}>{meta.excerpt}</p>
-          )}
-
-          {/* 6. Isi Artikel */}
           <div className={styles.content}>
             <Content />
           </div>
 
-          {/* 7. Footer: CTA & Tautan Kembali ke Semua Berita */}
           <footer className={styles.articleFooter}>
-            <div className={styles.ctaBox}>
-              {/* Tanpa kalimat deskriptif karangan (aturan CONTENT-VERBATIM.md #3). */}
-              <div className={styles.ctaContent}>
-                {/* h2: heading pertama setelah h1 (isi MDX tidak memakai heading). */}
-                <h2 className={styles.ctaHeading}>Hubungi Kami</h2>
-              </div>
-              <Link href="/hubungi-kami" className={styles.ctaButton}>
-                Hubungi Kami
-              </Link>
-            </div>
-
-            <div className={styles.navigationRow}>
-              {/* <Link href="/berita" className={styles.backLink}>
-                ← Kembali ke Semua Berita
-              </Link> */}
-            </div>
+            {/* Tanpa kalimat deskriptif karangan (aturan CONTENT-VERBATIM.md #3). */}
+            <Card className={styles.ctaBox}>
+              {/* h2: heading pertama setelah h1 (isi MDX tidak memakai heading). */}
+              <h2 className={styles.ctaHeading}>{kontakLink.label}</h2>
+              <Button href={kontakLink.href} arrow>
+                {kontakLink.label}
+              </Button>
+            </Card>
+            <Button href="/berita" variant="text-link">
+              <span aria-hidden="true">←</span> Semua berita
+            </Button>
           </footer>
         </Container>
       </article>

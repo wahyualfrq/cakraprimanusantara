@@ -1,4 +1,22 @@
-/* Ritme vertikal default — satu token untuk semua section (DESIGN.md §8.10). */
+/* Ritme vertikal (DESIGN.md §4.3): dua section polos berurutan berjarak satu kali
+   --cpn-space-section; section band (latar berbeda) padding penuh atas-bawah. */
 .section {
   padding-block: var(--cpn-space-section);
+}
+
+.section:not(.band) + .section:not(.band) {
+  padding-top: 0;
+}
+
+/* Section pertama setelah header halaman dalam: header + konten = 2 × --cpn-space-header. */
+:global([data-page-header]) + .section:not(.band) {
+  padding-top: var(--cpn-space-header);
+}
+
+.muted {
+  background-color: var(--cpn-color-surface-muted);
+}
+
+.tint {
+  background-color: var(--cpn-color-surface-tint);
 }

@@ -1,36 +1,42 @@
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Button } from "@/components/ui/Button";
+import { Timeline } from "@/components/ui/Timeline";
 import { milestoneList } from "@/content/agribisnis/milestone";
+import { narasiRisetList } from "@/content/agribisnis/riset";
 import styles from "./ResearchHighlight.module.css";
 
-// Sorotan riset di beranda: milestone yang berkaitan dengan kerja sama riset dan
-// lisensi LIPI (CONTENT-VERBATIM.md §E4, verbatim). Lini waktu tipografis tanpa
-// foto (keputusan V4) — tidak ada angka/klaim selain teks milestone sumber.
-const TAHUN_SOROTAN = [2006, 2013, 2015];
+// Riset di Beranda — split-rail 4:8 (DESIGN.md §13.1): rail judul | paragraf §E3
+// "Kerjasama Penelitian dan Pengembangan" (verbatim) + lini waktu milestone riset §E4
+// (kerja sama dan lisensi LIPI). Tahun lain sudah tampil di bento, tidak diulang.
+const TAHUN_RISET = [2006, 2013, 2015];
+const bagianKerjasama = narasiRisetList.find((bagian) => bagian.judul === "Kerjasama Penelitian dan Pengembangan");
 
 export function ResearchHighlight() {
-  const sorotan = milestoneList.filter((item) => TAHUN_SOROTAN.includes(item.tahun));
+  const sorotan = milestoneList.filter((item) => TAHUN_RISET.includes(item.tahun));
 
   return (
-    <Section>
+    <Section aria-labelledby="riset-judul">
       <Container className={styles.grid}>
-        <div className={styles.intro}>
-          <SectionHeading title="Riset & Inovasi" />
-          <Link href="/riset-dan-inovasi" className={styles.link}>
-            Lihat Riset &amp; Inovasi →
-          </Link>
+        <div className={styles.rail}>
+          <Eyebrow>Riset &amp; Inovasi</Eyebrow>
+          <h2 id="riset-judul" className={styles.title}>
+            {bagianKerjasama?.judul ?? "Riset & Inovasi"}
+          </h2>
+          <Button href="/riset-dan-inovasi" variant="text-link" arrow>
+            Riset &amp; Inovasi
+          </Button>
         </div>
 
-        <ol className={styles.timeline}>
-          {sorotan.map((item) => (
-            <li key={item.tahun} className={styles.item}>
-              <span className={styles.year}>{item.tahun}</span>
-              <p className={styles.desc}>{item.deskripsi}</p>
-            </li>
+        <div className={styles.body}>
+          {bagianKerjasama?.paragraf.map((paragraf) => (
+            <p key={paragraf} className={styles.lead}>
+              {paragraf}
+            </p>
           ))}
-        </ol>
+          <Timeline items={sorotan} />
+        </div>
       </Container>
     </Section>
   );

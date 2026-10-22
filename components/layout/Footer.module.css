@@ -1,90 +1,154 @@
+/* Footer (DESIGN.md §14): green-900, padding 4rem atas / 2rem bawah. */
 .footer {
   background-color: var(--cpn-green-900);
   color: var(--cpn-color-text-on-dark);
-  padding-block: var(--cpn-space-2xl) var(--cpn-space-lg);
+  padding-block: var(--cpn-space-xl) var(--cpn-space-lg);
 }
 
-/* Mobile-first, breakpoint konvensi 640 / 900 (STRUCTURE.md §5.1). */
+/* Mobile-first: 1 kolom < 640, 2 kolom 640–899 (Visi selebar baris), 5 | 4 | 3 ≥ 900. */
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--cpn-space-lg);
-  padding-bottom: var(--cpn-space-xl);
+  padding-bottom: var(--cpn-space-block);
 }
 
+.brand,
 .column {
   display: flex;
   flex-direction: column;
-  gap: var(--cpn-space-xs);
+  align-items: flex-start;
+  gap: var(--cpn-space-sm);
 }
 
-/* h2 secara semantik (urutan heading setelah konten halaman), ukuran tetap kecil. */
+.name {
+  margin-bottom: var(--cpn-space-md);
+  font-family: var(--cpn-font-heading);
+  font-size: var(--cpn-text-h3);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-title);
+}
+
+/* h2 secara semantik, ukuran UI (§14). */
 .columnTitle {
-  font-size: 0.9375rem;
-  font-weight: var(--cpn-font-weight-bold);
+  font-family: var(--cpn-font-body);
+  font-size: var(--cpn-text-ui);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-title);
 }
 
-.address {
-  font-size: 0.8125rem;
+.text {
+  max-width: 44ch;
+  font-size: var(--cpn-text-small);
+  font-style: normal;
+  line-height: var(--cpn-line-height-body);
   color: var(--cpn-color-text-on-dark-muted);
-  line-height: 1.5;
 }
 
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-xs);
+  margin-top: var(--cpn-space-sm);
+  font-size: var(--cpn-text-small);
+  line-height: var(--cpn-line-height-body);
+}
+
+/* Pasangan label | nilai, label lebar min 5.5rem (§14). */
 .contact {
-  font-size: 0.8125rem;
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: var(--cpn-space-sm);
+}
+
+.contact dt {
   color: var(--cpn-color-text-on-dark-muted);
+}
+
+.contact dd {
+  color: var(--cpn-color-text-on-dark);
+  overflow-wrap: anywhere;
+}
+
+.contact a,
+.quickLinks a {
+  border-radius: var(--cpn-radius-sm);
+  transition: color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.contact a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.contact a:focus-visible,
+.quickLinks a:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cpn-space-md);
+  padding-top: var(--cpn-space-row);
+  border-top: 1px solid var(--cpn-color-border-on-dark);
 }
 
 .quickLinks {
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--cpn-space-md) var(--cpn-space-lg);
-  padding-block: var(--cpn-space-lg);
-  border-top: 1px solid var(--cpn-color-border-on-dark);
+  gap: 0 var(--cpn-space-lg);
   font-size: var(--cpn-text-small);
   font-weight: var(--cpn-font-weight-medium);
 }
 
+/* Target sentuh ≥ 44 px di mobile (§14, §17.3). */
 .quickLinks a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cpn-touch-target);
   color: var(--cpn-color-text-on-dark-muted);
-  border-radius: var(--cpn-radius-sm);
 }
 
 .quickLinks a:hover {
   color: var(--cpn-color-text-on-dark);
 }
 
-/* Cincin token: lapisan putih dalam yang terlihat di atas hijau tua. */
-.quickLinks a:focus-visible {
-  color: var(--cpn-color-text-on-dark);
-  outline: 2px solid transparent;
-  box-shadow: var(--cpn-focus-ring);
-}
-
 .copyright {
   font-size: var(--cpn-text-caption);
   color: var(--cpn-color-text-on-dark-muted);
-  padding-top: var(--cpn-space-md);
-  border-top: 1px solid var(--cpn-color-border-on-dark);
 }
 
 @media (min-width: 640px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--cpn-space-lg) var(--cpn-space-xl);
   }
 
-  /* Visi Perusahaan selebar baris; dua lokasi berdampingan di bawahnya. */
-  .grid > :first-child {
+  .brand {
     grid-column: 1 / -1;
   }
 }
 
 @media (min-width: 900px) {
   .grid {
-    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3fr);
   }
 
-  .grid > :first-child {
+  .brand {
     grid-column: auto;
+    padding-right: var(--cpn-space-lg);
+  }
+
+  .bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .quickLinks a {
+    min-height: 0;
   }
 }
