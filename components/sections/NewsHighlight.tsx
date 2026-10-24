@@ -18,7 +18,7 @@ export function NewsHighlight() {
   const unggulan = getBeritaBySlug(SLUG_UNGGULAN);
   const lainnya = beritaPublishedList.filter((entry) => entry.meta.slug !== SLUG_UNGGULAN).slice(0, 3);
   const featuredImg = ilustrasiBerita[SLUG_UNGGULAN] ?? {
-    src: "/berita/Picture2.jpg",
+    src: "/berita/Picture2.jpeg",
     alt: "Penandatanganan kerja sama Pusat Riset Mikrobiologi Terapan BRIN dengan PT Anugerah Mustika Ostindo",
   };
 
