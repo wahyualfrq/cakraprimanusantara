@@ -50,11 +50,12 @@ export function Navbar() {
 
   return (
     <>
-      <header ref={headerRef} className={styles.navbar}>
+      {/* suppressHydrationWarning: INIT_SCRIPT menyetel data-nav-state sebelum hidrasi (sengaja). */}
+      <header ref={headerRef} className={styles.navbar} suppressHydrationWarning>
         <Container className={styles.inner}>
           <div className={styles.brand}>
             {/* Logo mitra: elips biru solid berlatar transparan → terbaca di navbar transparan
-                maupun glass tanpa versi putih. 38×30 = ukuran render desktop (0,75 × tinggi logo; rasio asli 126×100). */}
+                maupun glass tanpa versi putih. 30×30 = ukuran render desktop (0,75 × tinggi logo). */}
             <Image
               src="/images/LogosG.png"
                 alt=""
@@ -65,30 +66,22 @@ export function Navbar() {
                 height={40}
                 loading="eager"
                 fetchPriority="low"
-                className={cn(styles.logoImage, styles.logoDefault)}
+                className={styles.logoImage}
             />
             {/* INTERIM — logo (D3a). Gambar logo yang ada memuat tulisan PT Cakra Prima
                 Nusantara, jadi dipakai sebagai dekoratif (alt kosong) dan nama aksesibel
                 diberikan lewat tautan. Rilis publik diblokir sampai aset/status logo
-                dikonfirmasi. Versi putih hanya tampil di atas hero foto saat navbar transparan. */}
+                dikonfirmasi. */}
             <Link href="/" className={styles.logoLink} aria-label="Beranda">
               <Image
                 src="/images/logo-color-bg-2.png"
                 alt="Logo Cakra Indo Pratama"
-                width={38}
+                // Rasio asli 1:1 (155×155) → 30×30 = ukuran render desktop (0,75 × 2,5rem).
+                width={30}
                 height={30}
                 loading="eager"
                 fetchPriority="low"
                 className={styles.partnerLogo}
-              />
-              <Image
-                src="/images/LogosW.png"
-                alt=""
-                width={40}
-                height={40}
-                loading="eager"
-                fetchPriority="low"
-                className={cn(styles.logoImage, styles.logoOnPhoto)}
               />
             </Link>
           </div>

@@ -83,15 +83,6 @@
   transition: opacity var(--cpn-duration-base) var(--cpn-ease);
 }
 
-/* Logo putih ditumpuk tepat di atas logo hijau; hanya terlihat di atas hero foto. */
-.logoOnPhoto {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-}
-
 .links {
   display: flex;
   align-items: center;
@@ -184,7 +175,7 @@
 }
 
 /* ── Di atas hero foto (halaman bertanda data-nav-overlay) & navbar transparan ──────────
-   Teks, indikator, dan logo putih supaya terbaca di atas scrim foto. Halaman berlatar
+   Teks dan indikator putih supaya terbaca di atas scrim foto. Halaman berlatar
    terang tidak terkena aturan ini (teks tetap gelap). */
 :global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .link,
 :global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .link:hover,
@@ -197,10 +188,3 @@
   background-color: var(--cpn-color-text-on-dark);
 }
 
-:global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .logoDefault {
-  opacity: 0;
-}
-
-:global(body:has(#konten-utama > [data-nav-overlay])) .navbar[data-nav-state="top"]:not(:has([id="navigasi-mobile"])) .logoOnPhoto {
-  opacity: 1;
-}

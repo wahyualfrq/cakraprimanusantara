@@ -24,7 +24,7 @@ export default function NotFound() {
         </p>
         <nav aria-label="Halaman utama">
           <ul className={styles.links}>
-            {[{ label: "Beranda", href: "/" }, ...navLinks].map((item) => (
+            {navLinks.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className={styles.link}>
                   {item.label} <span aria-hidden="true">→</span>
