@@ -16,6 +16,8 @@ export type Lokasi = {
   email?: string;
   latitude?: number;
   longitude?: number;
+  /** true kalau pencarian Maps dari teks alamat belum menunjuk lokasi yang pasti — tautan peta disembunyikan. */
+  petaPerluVerifikasi?: boolean;
   unitUsaha: Array<"kontraktor" | "alat-berat" | "trading" | "agribisnis">;
 };
 
@@ -64,6 +66,8 @@ export const lokasiList: Lokasi[] = [
     alamat: "Kompleks Bojong Indah, Jl. Pakis Raya 88 B, Jakarta Barat 11740",
     kontak: [
       { tipe: "whatsapp", nilai: "+62 819 2922 6666" },
+      // Revisi client (screenshot) — satu nomor per item supaya tautan wa.me valid.
+      { tipe: "whatsapp", nilai: "+62 811-783-675" },
       { tipe: "telepon", nilai: "+62 21 580 9964" },
       { tipe: "fax", nilai: "+62 21 580 9965" },
       { tipe: "instagram", nilai: "@pupukkebun" },
@@ -81,3 +85,17 @@ export const lokasiList: Lokasi[] = [
     unitUsaha: ["agribisnis"],
   },
 ];
+
+// Revisi client (screenshot): lokasi tambahan yang tampil di daftar Lokasi /hubungi-kami.
+// Sengaja di luar lokasiList — bukan lokasi Ostindo, jadi tidak masuk Footer maupun
+// JSON-LD LocalBusiness. Jenis & unit usaha tidak disebut di sumber.
+export const lokasiCakraPrimaNusantara: Lokasi = {
+  slug: "cakra-prima-nusantara-palembang",
+  nama: "PT Cakra Prima Nusantara",
+  jenis: "office",
+  alamat:
+    "Jalan Gotong Royong 1 No. 899, RT. 05 RW. 02, Kec. Sako, Kel. Sako Baru, Palembang 30165 - Indonesia",
+  // Google Maps hanya "cocok sebagian" (Jl. Gotong Royong I, Suka Maju 30961) — perlu konfirmasi client.
+  petaPerluVerifikasi: true,
+  unitUsaha: [],
+};

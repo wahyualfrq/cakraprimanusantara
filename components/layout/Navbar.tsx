@@ -52,33 +52,46 @@ export function Navbar() {
     <>
       <header ref={headerRef} className={styles.navbar}>
         <Container className={styles.inner}>
-          {/* INTERIM — logo (D3a). Gambar logo yang ada memuat tulisan PT Cakra Prima
-              Nusantara, jadi dipakai sebagai dekoratif (alt kosong) dan nama aksesibel
-              diberikan lewat tautan. Rilis publik diblokir sampai aset/status logo
-              dikonfirmasi. Versi putih hanya tampil di atas hero foto saat navbar transparan. */}
-          <Link href="/" className={styles.logoLink} aria-label="Beranda">
+          <div className={styles.brand}>
+            {/* Logo mitra: elips biru solid berlatar transparan → terbaca di navbar transparan
+                maupun glass tanpa versi putih. 38×30 = ukuran render desktop (0,75 × tinggi logo; rasio asli 126×100). */}
             <Image
               src="/images/LogosG.png"
-              alt=""
-              // = ukuran render terbesar (--cpn-navbar-logo-height 2.5rem = 40px) → srcset 64w/128w.
-              // Eager + fetchPriority low: logo di atas lipatan tapi bukan elemen LCP; preload
-              // hanya untuk gambar LCP (Tahap O).
-              width={40}
-              height={40}
-              loading="eager"
-              fetchPriority="low"
-              className={cn(styles.logoImage, styles.logoDefault)}
+                alt=""
+                // = ukuran render terbesar (--cpn-navbar-logo-height 2.5rem = 40px) → srcset 64w/128w.
+                // Eager + fetchPriority low: logo di atas lipatan tapi bukan elemen LCP; preload
+                // hanya untuk gambar LCP (Tahap O).
+                width={40}
+                height={40}
+                loading="eager"
+                fetchPriority="low"
+                className={cn(styles.logoImage, styles.logoDefault)}
             />
-            <Image
-              src="/images/LogosW.png"
-              alt=""
-              width={40}
-              height={40}
-              loading="eager"
-              fetchPriority="low"
-              className={cn(styles.logoImage, styles.logoOnPhoto)}
-            />
-          </Link>
+            {/* INTERIM — logo (D3a). Gambar logo yang ada memuat tulisan PT Cakra Prima
+                Nusantara, jadi dipakai sebagai dekoratif (alt kosong) dan nama aksesibel
+                diberikan lewat tautan. Rilis publik diblokir sampai aset/status logo
+                dikonfirmasi. Versi putih hanya tampil di atas hero foto saat navbar transparan. */}
+            <Link href="/" className={styles.logoLink} aria-label="Beranda">
+              <Image
+                src="/images/logo-color-bg-2.png"
+                alt="Logo Cakra Indo Pratama"
+                width={38}
+                height={30}
+                loading="eager"
+                fetchPriority="low"
+                className={styles.partnerLogo}
+              />
+              <Image
+                src="/images/LogosW.png"
+                alt=""
+                width={40}
+                height={40}
+                loading="eager"
+                fetchPriority="low"
+                className={cn(styles.logoImage, styles.logoOnPhoto)}
+              />
+            </Link>
+          </div>
 
           <nav className={styles.links} aria-label="Navigasi utama">
             {navLinks.map((link) => {

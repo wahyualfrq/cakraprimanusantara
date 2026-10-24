@@ -9,7 +9,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { localBusinessSchema } from "@/lib/seo/structured-data";
 import { kontakHref, mapsUrl } from "@/lib/kontak";
-import { lokasiList, type KontakItem } from "@/content/kontak";
+import { lokasiCakraPrimaNusantara, lokasiList, type KontakItem } from "@/content/kontak";
 import { profil } from "@/content/profil";
 import { ContactForm } from "./ContactForm";
 import { CopyAddress } from "./CopyAddress";
@@ -18,6 +18,8 @@ import styles from "./page.module.css";
 // Hanya lokasi Ostindo (Office & Factory, CONTENT-VERBATIM.md §H1). Lokasi lain
 // di content/kontak.ts di luar scope — tidak dirender dan tidak masuk JSON-LD.
 const lokasiOstindo = lokasiList.filter((lokasi) => lokasi.unitUsaha.includes("agribisnis"));
+// Daftar Lokasi = lokasi Ostindo + lokasi tambahan revisi client (tanpa JSON-LD).
+const lokasiTampil = [...lokasiOstindo, lokasiCakraPrimaNusantara];
 const pesanWhatsApp = `Halo, saya ingin menghubungi ${profil.nama}.`;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -165,19 +167,21 @@ export default function KontakPage() {
               Lokasi
             </h2>
             <Reveal as="ul" stagger className={styles.locations}>
-              {lokasiOstindo.map((lokasi) => (
+              {lokasiTampil.map((lokasi) => (
                 <li key={lokasi.slug} className={styles.location}>
                   <h3 className={styles.locationName}>{lokasi.nama}</h3>
                   <address className={styles.address}>{lokasi.alamat}</address>
                   <div className={styles.locationActions}>
-                    <a
-                      href={mapsUrl(lokasi.alamat)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.actionLink}
-                    >
-                      Buka di Google Maps<span className={styles.srOnly}> (tab baru)</span>
-                    </a>
+                    {!lokasi.petaPerluVerifikasi && (
+                      <a
+                        href={mapsUrl(lokasi.alamat)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.actionLink}
+                      >
+                        Buka di Google Maps<span className={styles.srOnly}> (tab baru)</span>
+                      </a>
+                    )}
                     <CopyAddress alamat={lokasi.alamat} label={lokasi.nama} />
                   </div>
                 </li>

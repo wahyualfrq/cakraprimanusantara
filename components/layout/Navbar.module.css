@@ -47,6 +47,23 @@
   gap: var(--cpn-space-md);
 }
 
+/* Kelompok logo, kiri → kanan: logo mitra (CIP) lalu Ostindo (tautan Beranda). */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--cpn-space-sm);
+  flex-shrink: 0;
+}
+
+/* Elips solid tampak lebih berat daripada logo Ostindo yang berpadding → 0,75 × tinggi logo
+   supaya tinggi visual keduanya seimbang. */
+.partnerLogo {
+  display: block;
+  height: calc(var(--cpn-navbar-logo-height) * 0.75);
+  width: auto;
+  object-fit: contain;
+}
+
 .logoLink {
   position: relative;
   display: inline-flex;
@@ -62,6 +79,7 @@
   display: block;
   height: var(--cpn-navbar-logo-height);
   width: auto;
+  object-fit: contain;
   transition: opacity var(--cpn-duration-base) var(--cpn-ease);
 }
 
@@ -143,7 +161,7 @@
     align-items: center;
   }
 
-  .logoLink {
+  .brand {
     justify-self: start;
   }
 

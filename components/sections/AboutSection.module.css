@@ -1,32 +1,42 @@
+/* Nilai mengikuti section profil di app/tentang-kami/page.module.css
+   (.profileGrid/.profileMedia/.profileCopy/.profileTitle/.lead). Semua lewat token. */
+
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-areas:
-    "body"
-    "media";
   gap: var(--cpn-space-lg);
 }
 
-.body {
-  grid-area: body;
+.media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--cpn-radius-lg);
+  overflow: hidden;
+  background-color: var(--cpn-color-surface-muted);
+}
+
+.cover {
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.copy {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: var(--cpn-space-lg);
 }
 
-/* Paragraf pembuka terbesar di section (§3.2 split-intro): Fraunces reguler. */
-.lead {
-  max-width: 40ch;
-  font-family: var(--cpn-font-heading);
+.title {
   font-size: var(--cpn-text-h2);
-  font-weight: var(--cpn-font-weight-regular);
-  line-height: var(--cpn-line-height-title);
-  color: var(--cpn-color-text);
+  font-weight: var(--cpn-font-weight-semibold);
+  line-height: var(--cpn-line-height-heading);
 }
 
-.facts {
-  width: 100%;
+.lead {
+  max-width: var(--cpn-measure);
+  font-size: var(--cpn-text-lead);
+  line-height: var(--cpn-line-height-lead);
+  color: var(--cpn-gray-700);
 }
 
 .actions {
@@ -36,43 +46,15 @@
   gap: var(--cpn-space-sm) var(--cpn-space-lg);
 }
 
-.media {
-  grid-area: media;
-  position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--cpn-radius-lg);
-  overflow: hidden;
-  background-color: var(--cpn-color-surface-muted);
-}
-
-.image {
-  object-fit: cover;
-  object-position: 50% 40%;
-  transition: transform var(--cpn-duration-slow) var(--cpn-ease);
-}
-
-@media (hover: hover) {
-  .media:hover .image {
-    transform: scale(1.04);
-  }
-}
-
-@media (min-width: 640px) {
-  .media {
-    max-width: 22rem;
-  }
-}
-
 @media (min-width: 900px) {
   .grid {
-    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
-    grid-template-areas: "media body";
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: var(--cpn-space-xl);
     align-items: start;
   }
 
   .media {
-    max-width: none;
-    margin-top: var(--cpn-space-xl);
+    position: sticky;
+    top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
   }
 }
