@@ -12,6 +12,12 @@
   gap: var(--cpn-space-lg);
 }
 
+/* Parent gambar fill harus relative/absolute (bukan sticky) — .profileMedia jadi sticky di ≥ 900 px. */
+.profileMediaFill {
+  position: absolute;
+  inset: 0;
+}
+
 .profileMedia,
 .innovationMedia {
   position: relative;

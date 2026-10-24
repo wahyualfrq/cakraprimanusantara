@@ -25,13 +25,15 @@ export function AboutSection() {
         {/* Split entrance: gambar fade-in, teks fade-up bertahap sedikit sesudahnya. */}
         <Reveal variant="fade" className={styles.media}>
           {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
-          <Image
-            src={ilustrasi.rumahKaca.src}
-            alt={ilustrasi.rumahKaca.alt}
-            fill
-            sizes="(min-width: 1200px) 450px, (min-width: 900px) 38vw, calc(100vw - 2rem)"
-            className={styles.cover}
-          />
+          <div className={styles.mediaFill}>
+            <Image
+              src={ilustrasi.rumahKaca.src}
+              alt={ilustrasi.rumahKaca.alt}
+              fill
+              sizes="(min-width: 1200px) 450px, (min-width: 900px) 38vw, calc(100vw - 2rem)"
+              className={styles.cover}
+            />
+          </div>
         </Reveal>
 
         <Reveal stagger delay={120} className={styles.copy}>

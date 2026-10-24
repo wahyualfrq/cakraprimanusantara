@@ -153,16 +153,18 @@ export default function TentangKamiPage() {
           {/* Split entrance: gambar fade-in, teks fade-up bertahap sedikit sesudahnya. */}
           <Reveal variant="fade" className={styles.profileMedia}>
             {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
-            <Image
-              src={ilustrasi.rumahKaca.src}
-              alt={ilustrasi.rumahKaca.alt}
-              fill
-              // Elemen LCP di 360 & 1440 → preload + prioritas tinggi (Tahap O: 2776 → ±1900 ms di mobile).
-              preload
-              fetchPriority="high"
-              sizes="(min-width: 1200px) 450px, (min-width: 900px) 38vw, calc(100vw - 2rem)"
-              className={styles.cover}
-            />
+            <div className={styles.profileMediaFill}>
+              <Image
+                src={ilustrasi.rumahKaca.src}
+                alt={ilustrasi.rumahKaca.alt}
+                fill
+                // Elemen LCP di 360 & 1440 → preload + prioritas tinggi (Tahap O: 2776 → ±1900 ms di mobile).
+                preload
+                fetchPriority="high"
+                sizes="(min-width: 1200px) 450px, (min-width: 900px) 38vw, calc(100vw - 2rem)"
+                className={styles.cover}
+              />
+            </div>
           </Reveal>
 
           <Reveal stagger delay={120} className={styles.profileCopy}>
