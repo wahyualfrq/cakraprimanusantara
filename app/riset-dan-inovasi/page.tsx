@@ -32,17 +32,17 @@ type Dokumentasi = {
   height: number;
 };
 
-// Dokumentasi per bagian narasi (urutan narasiRisetList). File: public/images/riset/.
+// Dokumentasi per bagian narasi (urutan narasiRisetList). File: public/riset/.
 const DOKUMENTASI: (Dokumentasi | undefined)[] = [
   {
-    src: "/images/riset/ostindo-riset.jpg",
+    src: "/riset/ostindo-riset.jpg",
     alt: "Dokumentasi kultur isolat mikroba formulasi pupuk Ostindo",
     caption: "Dokumentasi kultur isolat mikroba unggulan dalam formulasi Ostindo.",
     width: 625,
     height: 506,
   },
   {
-    src: "/images/riset/riset-ostindo2-.jpg",
+    src: "/riset/riset-ostindo2-.jpg",
     alt: "Dokumentasi pengujian lapangan pupuk Ostindo bekerja sama dengan PPKS Kebun Adolina dan PTPN V Riau",
     caption: "Dokumentasi pengujian lapangan pupuk Ostindo bekerja sama dengan PPKS Kebun Adolina dan PTPN V Riau.",
     width: 800,
@@ -51,25 +51,25 @@ const DOKUMENTASI: (Dokumentasi | undefined)[] = [
 ];
 
 // Gambar sementara (dummy) untuk milestone yang menyebut produk tertentu: foto kemasan produk
-// saat ini dari public/images/produk/ — bukan dokumentasi peristiwa pada tahun tersebut, jadi
+// saat ini dari public/produk/ — bukan dokumentasi peristiwa pada tahun tersebut, jadi
 // alt hanya menggambarkan kemasan. Milestone lain tanpa gambar (tidak ada aset relevan; kolase
 // mikroba dan piagam LIPI sudah tampil di section lain halaman ini).
 const GAMBAR_MILESTONE: Record<number, TimelineItem["gambar"]> = {
-  2001: { src: "/images/produk/Ostindo.png", alt: "Kemasan produk Ostindo", width: 1080, height: 449 },
+  2001: { src: "/produk/Ostindo.png", alt: "Kemasan produk Ostindo", width: 1080, height: 449 },
   2009: {
-    src: "/images/produk/bless-cair-cut-bg.jpg",
+    src: "/produk/bless-cair-cut-bg.jpg",
     alt: "Kemasan Pupuk Organik Cair Bless",
     width: 270,
     height: 312,
   },
-  2010: { src: "/images/produk/npk-new.png", alt: "Kemasan Pupuk NPK Bless", width: 1080, height: 449 },
+  2010: { src: "/produk/npk-new.png", alt: "Kemasan Pupuk NPK Bless", width: 1080, height: 449 },
 };
 
-// Ukuran asli scan dokumen (public/images/riset/) — dokumen tampil utuh, tidak di-crop.
+// Ukuran asli scan dokumen (public/riset/) — dokumen tampil utuh, tidak di-crop.
 const UKURAN_DOKUMEN: Record<string, { width: number; height: number }> = {
-  "/images/riset/sertifikat-sni.jpg": { width: 1200, height: 1696 },
-  "/images/riset/sertifikasi-sni-terbaru.jpg": { width: 1200, height: 1696 },
-  "/images/riset/lipi.jpg": { width: 1500, height: 1061 },
+  "/riset/sertifikat-sni.jpg": { width: 1200, height: 1696 },
+  "/riset/sertifikasi-sni-terbaru.jpg": { width: 1200, height: 1696 },
+  "/riset/lipi.jpg": { width: 1500, height: 1061 },
 };
 
 // Struktur DESIGN.md v0.4 §13.5: narasi §E3 (split-rail per bagian: judul + dokumentasi |

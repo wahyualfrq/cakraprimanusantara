@@ -15,12 +15,6 @@
   background-color: var(--cpn-color-surface-muted);
 }
 
-/* Parent gambar fill harus relative/absolute (bukan sticky) — .media jadi sticky di ≥ 900 px. */
-.mediaFill {
-  position: absolute;
-  inset: 0;
-}
-
 .cover {
   object-fit: cover;
   object-position: 50% 40%;
@@ -59,7 +53,7 @@
     align-items: start;
   }
 
-  .media {
+  .mediaSticky {
     position: sticky;
     top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
   }

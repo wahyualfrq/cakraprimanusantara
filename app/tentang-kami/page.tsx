@@ -151,16 +151,17 @@ export default function TentangKamiPage() {
       <Section aria-labelledby="profil-judul">
         <Container className={styles.profileGrid}>
           {/* Split entrance: gambar fade-in, teks fade-up bertahap sedikit sesudahnya. */}
-          <Reveal variant="fade" className={styles.profileMedia}>
-            {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
-            <div className={styles.profileMediaFill}>
+          {/* Wrapper luar = item grid yang sticky; bingkai dalam = parent `position: relative`
+              untuk Image fill (fill tidak valid langsung di bawah parent sticky). */}
+          <Reveal variant="fade" className={styles.profileMediaSticky}>
+            <div className={styles.profileMedia}>
+              {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
               <Image
                 src={ilustrasi.rumahKaca.src}
                 alt={ilustrasi.rumahKaca.alt}
                 fill
-                // Elemen LCP di 360 & 1440 → preload + prioritas tinggi (Tahap O: 2776 → ±1900 ms di mobile).
-                preload
-                fetchPriority="high"
+                // Lazy (default): di bawah PageHeader fullScreen (100svh) — bukan lagi elemen LCP,
+                // preload di sini hanya berebut bandwidth dengan foto header.
                 sizes="(min-width: 1200px) 450px, (min-width: 900px) 38vw, calc(100vw - 2rem)"
                 className={styles.cover}
               />

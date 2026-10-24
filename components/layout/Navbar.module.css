@@ -1,7 +1,7 @@
 /* Bar sticky rata (DESIGN.md §9.1), tinggi 64 px / 56 px (< 900 px), tanpa radius.
-   Default (sudah di-scroll, atau tanpa JS): putih semi-transparan + blur. Di posisi paling
-   atas (data-nav-state="top"): transparan penuh — tanpa latar, blur, border, dan shadow.
-   Tinggi tidak pernah berubah → tidak ada layout shift. */
+   Default (data-nav-state="scrolled"): putih semi-transparan + blur. Di posisi paling
+   atas (data-nav-state="top", juga nilai render server): transparan penuh — tanpa latar,
+   blur, border, dan shadow. Tinggi tidak pernah berubah → tidak ada layout shift. */
 .navbar {
   position: sticky;
   top: 0;
@@ -81,6 +81,13 @@
   width: auto;
   object-fit: contain;
   transition: opacity var(--cpn-duration-base) var(--cpn-ease);
+}
+
+/* Slot logo kiri. */
+.logoStack {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
 }
 
 .links {

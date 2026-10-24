@@ -23,9 +23,11 @@ export function AboutSection() {
     <Section aria-labelledby="tentang-judul">
       <Container className={styles.grid}>
         {/* Split entrance: gambar fade-in, teks fade-up bertahap sedikit sesudahnya. */}
-        <Reveal variant="fade" className={styles.media}>
-          {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
-          <div className={styles.mediaFill}>
+        {/* Wrapper luar = item grid yang sticky; bingkai dalam = parent `position: relative`
+            untuk Image fill (fill tidak valid langsung di bawah parent sticky). */}
+        <Reveal variant="fade" className={styles.mediaSticky}>
+          <div className={styles.media}>
+            {/* Ilustrasi sementara (D4) — bukan dokumentasi kegiatan. */}
             <Image
               src={ilustrasi.rumahKaca.src}
               alt={ilustrasi.rumahKaca.alt}

@@ -33,7 +33,13 @@ export function localBusinessSchema(input: LocalBusinessInput) {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: input.name,
-    address: input.address,
+    // PostalAddress (format yang diharapkan Google untuk LocalBusiness). Alamat sumber
+    // tidak dipecah ke kota/kode pos supaya tidak ada bagian yang ditebak.
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: input.address,
+      addressCountry: "ID",
+    },
     telephone: input.telephone,
     openingHours: input.openingHours,
     geo:

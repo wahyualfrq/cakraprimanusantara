@@ -19,8 +19,10 @@ import styles from "./page.module.css";
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Berita",
-    // INTERIM — belum disetujui (D2). Sumber tidak punya kalimat deskripsi halaman Berita; label faktual pendek.
-    description: "Berita PT Anugerah Mustika Ostindo.",
+    // INTERIM — belum disetujui (D2). Sumber tidak punya kalimat deskripsi halaman Berita:
+    // deskripsi PageHeader di bawah + topik artikel terbit (judul LIPI & BRIN).
+    description:
+      "Publikasi resmi, riset inovasi, dan kabar terkini PT Anugerah Mustika Ostindo, termasuk kerja sama riset dengan LIPI dan BRIN.",
     path: "/berita",
   });
 }
@@ -68,9 +70,7 @@ export default function BeritaPage() {
                         fill
                         sizes="(min-width: 1200px) 740px, (min-width: 900px) 62vw, calc(100vw - 2rem)"
                         className={styles.cover}
-                        // Elemen LCP /berita/ di 360 & 1440 → preload + prioritas tinggi (diukur Tahap O).
-                        preload
-                        fetchPriority="high"
+                        // Lazy (default): di bawah PageHeader fullScreen (100svh) — bukan lagi elemen LCP.
                       />
                     ) : (
                       <ContentImage alt="" variant="berita" fill sizes="62vw" />
