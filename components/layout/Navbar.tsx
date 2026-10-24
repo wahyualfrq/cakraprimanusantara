@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -14,21 +14,23 @@ import styles from "./Navbar.module.css";
 /** Ambang scroll (px) sebelum navbar berubah dari transparan ke glass. */
 const SCROLL_THRESHOLD = 24;
 
-// Dijalankan sebelum paint pertama (inline): menyetel state awal supaya navbar tidak berkedip
-// putih → transparan saat hidrasi. Tanpa JS atribut tidak pernah ada → navbar tetap glass.
-const INIT_SCRIPT = `(function(){var h=document.currentScript&&document.currentScript.previousElementSibling;if(h)h.setAttribute("data-nav-state",window.scrollY>${SCROLL_THRESHOLD}?"scrolled":"top")})();`;
-
 /**
  * Navbar bar rata, sticky (DESIGN.md §9 [T2]): logo | navigasi | CTA, tanpa kapsul.
  * Di posisi paling atas latar transparan (menyatu dengan hero); setelah scroll > 24 px
- * menjadi putih semi-transparan + blur. State ditulis langsung ke atribut `data-nav-state`
- * (tanpa state React, hanya saat nilainya berubah). Item aktif = teks + indikator 2 px.
+ * menjadi putih semi-transparan + blur. Item aktif = teks + indikator 2 px.
+ *
+ * `data-nav-state` dirender "top" di server DAN render awal client (deterministik — tidak
+ * ada script yang mengubah DOM sebelum hidrasi, sumber hydration mismatch sebelumnya).
+ * Posisi scroll asli disinkronkan di layout effect: jalan sesudah hidrasi tapi sebelum
+ * browser melukis frame berikutnya. Setelah itu atribut ditulis langsung ke DOM (tanpa
+ * state React, hanya saat nilainya berubah); prop JSX tetap "top" sehingga React tidak
+ * pernah menimpanya saat re-render.
  */
 export function Navbar() {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const header = headerRef.current;
     if (!header) return;
     let frame = 0;
@@ -50,13 +52,16 @@ export function Navbar() {
 
   return (
     <>
-      <header ref={headerRef} className={styles.navbar}>
+      <header ref={headerRef} className={styles.navbar} data-nav-state="top">
         <Container className={styles.inner}>
           <div className={styles.brand}>
-            {/* Logo mitra: elips biru solid berlatar transparan → terbaca di navbar transparan
-                maupun glass tanpa versi putih. 38×30 = ukuran render desktop (0,75 × tinggi logo; rasio asli 126×100). */}
-            <Image
-              src="/images/LogosG.png"
+            {/* INTERIM — logo (D3a). Logo kiri memuat tulisan PT Cakra Prima Nusantara, jadi
+                dekoratif (alt kosong). Versi hijau & putih ditumpuk di satu slot; versi putih
+                hanya tampil di atas hero foto saat navbar transparan. Rilis publik diblokir
+                sampai aset/status logo dikonfirmasi. */}
+            <span className={styles.logoStack}>
+              <Image
+                src="/images/LogosG.png"
                 alt=""
                 // = ukuran render terbesar (--cpn-navbar-logo-height 2.5rem = 40px) → srcset 64w/128w.
                 // Eager + fetchPriority low: logo di atas lipatan tapi bukan elemen LCP; preload
@@ -66,20 +71,6 @@ export function Navbar() {
                 loading="eager"
                 fetchPriority="low"
                 className={cn(styles.logoImage, styles.logoDefault)}
-            />
-            {/* INTERIM — logo (D3a). Gambar logo yang ada memuat tulisan PT Cakra Prima
-                Nusantara, jadi dipakai sebagai dekoratif (alt kosong) dan nama aksesibel
-                diberikan lewat tautan. Rilis publik diblokir sampai aset/status logo
-                dikonfirmasi. Versi putih hanya tampil di atas hero foto saat navbar transparan. */}
-            <Link href="/" className={styles.logoLink} aria-label="Beranda">
-              <Image
-                src="/images/logo-color-bg-2.png"
-                alt="Logo Cakra Indo Pratama"
-                width={38}
-                height={30}
-                loading="eager"
-                fetchPriority="low"
-                className={styles.partnerLogo}
               />
               <Image
                 src="/images/LogosW.png"
@@ -89,6 +80,20 @@ export function Navbar() {
                 loading="eager"
                 fetchPriority="low"
                 className={cn(styles.logoImage, styles.logoOnPhoto)}
+              />
+            </span>
+            {/* Logo kanan (tautan Beranda; nama aksesibel dari aria-label). Aset 155×155 (1:1),
+                dirender 30×30 (0,75 × tinggi logo) — width/height = rasio asli supaya tidak
+                ada dimensi yang diubah CSS sepihak. */}
+            <Link href="/" className={styles.logoLink} aria-label="Beranda">
+              <Image
+                src="/images/logo-color-bg-2.png"
+                alt="Logo Cakra Indo Pratama"
+                width={30}
+                height={30}
+                loading="eager"
+                fetchPriority="low"
+                className={styles.partnerLogo}
               />
             </Link>
           </div>
@@ -122,7 +127,6 @@ export function Navbar() {
           </div>
         </Container>
       </header>
-      <script dangerouslySetInnerHTML={{ __html: INIT_SCRIPT }} />
     </>
   );
 }

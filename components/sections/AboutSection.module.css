@@ -53,7 +53,7 @@
     align-items: start;
   }
 
-  .media {
+  .mediaSticky {
     position: sticky;
     top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
   }

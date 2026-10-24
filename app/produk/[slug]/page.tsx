@@ -14,7 +14,7 @@ import { ContentImage } from "@/components/ui/ContentImage";
 import { Reveal } from "@/components/ui/Reveal";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { kontakLink } from "@/components/layout/navLinks";
-import { buildMetadata } from "@/lib/seo/metadata";
+import { SITE_URL, buildMetadata } from "@/lib/seo/metadata";
 import { productSchema } from "@/lib/seo/structured-data";
 import { renderInlineEmphasis } from "@/lib/text";
 import { kategoriLabel, produkList, type BarisDosis } from "@/content/agribisnis/produk";
@@ -32,14 +32,32 @@ export function generateStaticParams() {
 // Slug di luar produkList langsung 404 statis (sama dengan /berita/[slug]).
 export const dynamicParams = false;
 
+/**
+ * Meta description dari kalimat sumber utuh: kalimat pembuka, lalu kalimat lanjutan
+ * selama masih ≤ 200 karakter (kalimat pembuka Actifert/Rizafert terlalu tipis untuk
+ * cuplikan hasil pencarian). Tidak ada kalimat yang dipotong atau ditulis ulang.
+ */
+function deskripsiMeta(produk: (typeof produkList)[number]): string {
+  let teks = produk.deskripsiSingkat;
+  const lanjutan = produk.deskripsiLengkap.flatMap((paragraf) => paragraf.split(/(?<=\.)\s+/));
+  for (const kalimat of lanjutan) {
+    if (teks.length >= 110) break;
+    if (teks.includes(kalimat)) continue;
+    if (teks.length + 1 + kalimat.length > 200) break;
+    teks = `${teks} ${kalimat}`;
+  }
+  return teks;
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const found = produkList.find((p) => p.slug === slug);
   if (!found) return {};
 
   return buildMetadata({
-    title: found.nama,
-    description: found.deskripsiSingkat,
+    // Nama + label kategori (frasa sumber, kategoriLabel) — mis. "Futricho – Biofungisida".
+    title: `${found.nama} – ${kategoriLabel[found.kategori]}`,
+    description: deskripsiMeta(found),
     path: `/produk/${slug}`,
   });
 }
@@ -78,7 +96,13 @@ export default async function ProdukDetailPage({ params }: PageProps) {
   const lainnya = produkList.filter((p) => p.slug !== found.slug);
 
   // Product JSON-LD hanya fakta sumber: nama + kalimat pembuka §E2 (tanpa harga/rating).
-  const schema = productSchema({ name: found.nama, description: found.deskripsiSingkat, path });
+  const schema = productSchema({
+    name: found.nama,
+    description: found.deskripsiSingkat,
+    path,
+    // Packshot resmi (public/produk/) sebagai URL absolut file — bukan absoluteUrl() yang menambah "/".
+    image: found.gambar ? `${SITE_URL}${found.gambar}` : undefined,
+  });
 
   return (
     <>

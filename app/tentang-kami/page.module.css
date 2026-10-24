@@ -491,7 +491,7 @@
     align-items: start;
   }
 
-  .profileMedia {
+  .profileMediaSticky {
     position: sticky;
     top: calc(var(--cpn-navbar-height) + var(--cpn-space-lg));
   }

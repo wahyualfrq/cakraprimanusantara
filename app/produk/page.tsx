@@ -13,8 +13,10 @@ import styles from "./page.module.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
-    title: "Produk Agribisnis",
-    description: "Daftar produk pupuk hayati dan biopestisida: Ostindo, Futricho, Bless, Rizafert, Actifert.",
+    // Kategori = kategoriLabel (frasa sumber); kata kunci produk di depan, bukan "Agribisnis".
+    title: "Produk Penyubur Tanah, Pupuk NPK & Biofungisida",
+    description:
+      "Daftar produk penyubur tanah, pupuk organik cair, pupuk NPK, pupuk hayati, dan biofungisida: Ostindo, Futricho, Bless NPK, Bless Cair, Rizafert, Actifert.",
     path: "/produk",
   });
 }
@@ -91,7 +93,7 @@ export default function ProdukAgribisnisPage() {
                       fill
                       sizes="(max-width: 900px) 280px, 420px"
                       className={styles.featuredImage}
-                      priority
+                      // Lazy (default): di bawah PageHeader fullScreen (100svh).
                     />
                   </div>
                 </div>
@@ -190,14 +192,14 @@ export default function ProdukAgribisnisPage() {
             <Reveal className={styles.qualityMediaSide}>
               <div className={styles.qualityCardsStack}>
                 <a
-                  href="/images/riset/sertifikat-sni.jpg"
+                  href="/riset/sertifikat-sni.jpg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.qualityCertCard}
                 >
                   <div className={styles.certThumbWrap}>
                     <Image
-                      src="/images/riset/sertifikat-sni.jpg"
+                      src="/riset/sertifikat-sni.jpg"
                       alt="Sertifikat SNI Pupuk NPK Bless dan ISO 9001:2008"
                       fill
                       sizes="180px"
@@ -212,14 +214,14 @@ export default function ProdukAgribisnisPage() {
                 </a>
 
                 <a
-                  href="/images/riset/lipi.jpg"
+                  href="/riset/lipi.jpg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.qualityCertCardSecondary}
                 >
                   <div className={styles.certThumbWrapSmall}>
                     <Image
-                      src="/images/riset/lipi.jpg"
+                      src="/riset/lipi.jpg"
                       alt="Piagam Alih Teknologi Lisensi LIPI 2015"
                       fill
                       sizes="140px"

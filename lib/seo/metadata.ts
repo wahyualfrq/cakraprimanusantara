@@ -56,11 +56,15 @@ export function buildMetadata({
 }: BuildMetadataOptions): Metadata {
   const canonicalUrl = absoluteUrl(path);
   const images = ogImage ? { images: [ogImage] } : {};
-  const fullTitle = `${title} | ${SITE_NAME}`;
+  // Judul yang sudah memuat nama situs (mis. judul artikel BRIN, title Beranda) tidak
+  // diberi suffix lagi — nama perusahaan tidak muncul dua kali di satu title.
+  const memuatNamaSitus = title.includes(SITE_NAME);
+  const fullTitle = memuatNamaSitus ? title : `${title} | ${SITE_NAME}`;
   // Di Next.js App Router, template `%s | ...` dari root layout hanya berlaku
   // untuk child route segments, bukan untuk root page (`/`). Gunakan fullTitle
-  // jika path === "/" agar homepage memiliki title yang lengkap.
-  const pageTitle = path === "/" ? fullTitle : title;
+  // jika path === "/" agar homepage memiliki title yang lengkap; `absolute` melewati
+  // template untuk judul yang sudah memuat nama situs.
+  const pageTitle = path === "/" ? fullTitle : memuatNamaSitus ? { absolute: fullTitle } : title;
 
   return {
     title: pageTitle,

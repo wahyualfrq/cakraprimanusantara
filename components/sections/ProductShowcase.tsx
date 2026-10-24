@@ -4,7 +4,7 @@ import { ProductCarousel } from "./ProductCarousel";
 
 // Produk di Beranda — karusel kartu S2 (DESIGN.md §13.1). Urutan sumber
 // dan kalimat tiap kartu = kalimat pembuka halaman produk, CONTENT-VERBATIM.md §E2.
-// Menampilkan packshot produk resmi dan terverifikasi dari public/images/produk/.
+// Menampilkan packshot produk resmi dan terverifikasi dari public/produk/.
 export function ProductShowcase() {
   return (
     <Section aria-labelledby="produk-judul">

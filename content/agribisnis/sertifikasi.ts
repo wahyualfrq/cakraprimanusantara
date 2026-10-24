@@ -16,12 +16,12 @@ export const sertifikasiList: Sertifikasi[] = [
   {
     slug: "sni",
     nama: "Sertifikat SNI",
-    gambar: "/images/riset/sertifikat-sni.jpg",
+    gambar: "/riset/sertifikat-sni.jpg",
   },
   {
     slug: "sni-terbaru",
     nama: "Sertifikat SNI Terbaru",
-    gambar: "/images/riset/sertifikasi-sni-terbaru.jpg",
+    gambar: "/riset/sertifikasi-sni-terbaru.jpg",
   },
   {
     slug: "iopc-2014",
@@ -34,7 +34,7 @@ export const sertifikasiList: Sertifikasi[] = [
     nama: "Penghargaan Alih Teknologi LIPI",
     // penerbit: "LIPI",
     tahun: 2015,
-    gambar: "/images/riset/lipi.jpg",
+    gambar: "/riset/lipi.jpg",
     // Milestone 2015, verbatim (CONTENT-VERBATIM.md §E4).
     deskripsi:
       "Penghargaan Alih Teknologi (LISENSI) dari LIPI sebagai perusahaan penerima dan pengguna invensi : Komposisi Pembenah Tanah dan Penggunaannya untuk Lahan Kritis (produk OSTINDO)",
