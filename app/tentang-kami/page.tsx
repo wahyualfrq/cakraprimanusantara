@@ -98,12 +98,6 @@ function MissionIcon({ index }: { index: number }) {
   );
 }
 
-const misiMeta = [
-  { tema: "Riset & Pengembangan", sub: "Kebutuhan Lapangan" },
-  { tema: "Pemasaran & Kepercayaan", sub: "Kesadaran Merek" },
-  { tema: "Standar Mutu Pertanian", sub: "Tolok Ukur Mutu" },
-];
-
 const legalitasMeta: Record<string, { tipe: "siup" | "tdp" | "industri" | "npwp"; kategori: string; abbr: string; featured: boolean }> = {
   "Surat Ijin Usaha Perdagangan (SIUP)": {
     tipe: "siup",
@@ -222,7 +216,7 @@ export default function TentangKamiPage() {
 
                 <div className={styles.visionPillarsWrap}>
                   <div className={styles.visionPillars}>
-                    {profil.visi.map((butir, index) => (
+                    {profil.visi.map((butir) => (
                       <div key={butir} className={styles.visionPillarCard}>
                         <p className={styles.visionPillarText}>{butir}</p>
                       </div>
@@ -239,7 +233,6 @@ export default function TentangKamiPage() {
               </div>
               <Reveal as="div" stagger className={styles.missionGrid}>
                 {profil.misi.map((butir, index) => {
-                  const meta = misiMeta[index];
                   return (
                     <Card as="article" key={butir} className={styles.missionCard}>
                       <div className={styles.missionCardTop}>

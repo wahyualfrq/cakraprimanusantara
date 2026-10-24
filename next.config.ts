@@ -33,10 +33,27 @@ const redirectList = [
 const nextConfig: NextConfig = {
   // Sama dengan situs lama (/produk/) — URL yang sudah terindeks tetap persis sama.
   trailingSlash: true,
+  poweredByHeader: false,
+  compress: true,
+  compiler: {
+    removeConsole: { exclude: ["error", "warn"] },
+  },
   async redirects() {
     return redirectList;
   },
+  // Aset statis di public/ tidak di-hash namanya, jadi cache dibuat sedang (1 hari +
+  // stale-while-revalidate) — aman kalau file diganti dengan nama yang sama.
+  async headers() {
+    const assetCache = [
+      { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+    ];
+    return ["/images", "/produk", "/riset", "/berita"].map((dir) => ({
+      source: `${dir}/:file*.(png|jpg|jpeg|webp|avif|svg|pdf)`,
+      headers: assetCache,
+    }));
+  },
   images: {
+    formats: ["image/avif", "image/webp"],
     // Kurasi manual sesuai STRUCTURE.md §7.2 — jangan pakai default ladder
     // Next.js (bisa generate belasan variant/gambar dan membengkakkan biaya
     // image transformation di Vercel).
