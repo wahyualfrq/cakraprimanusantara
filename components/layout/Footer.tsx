@@ -1,18 +1,21 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { lokasiList } from "@/content/kontak";
+import { lokasiCakraPrimaNusantara, lokasiList } from "@/content/kontak";
 import { profil } from "@/content/profil";
 import { kontakHref, kontakLabel } from "@/lib/kontak";
+import { BackToTop } from "./BackToTop";
 import { kontakLink, navLinks } from "./navLinks";
 import styles from "./Footer.module.css";
 
-// Hanya lokasi Ostindo; lokasi lain di content/kontak.ts di luar scope.
-const lokasiOstindo = lokasiList.filter((lokasi) => lokasi.unitUsaha.includes("agribisnis"));
-const pesanWhatsApp = `Halo, saya ingin menghubungi ${profil.nama}.`;
+// Lokasi Ostindo + PT Cakra Prima Nusantara; lokasi Cakra lain di content/kontak.ts di luar scope.
+const lokasiFooter = [
+  ...lokasiList.filter((lokasi) => lokasi.unitUsaha.includes("agribisnis")),
+  lokasiCakraPrimaNusantara,
+];
 
 /**
- * Footer (DESIGN.md §14): green-900; Visi Perusahaan 5 | Office 4 | Factory 3 di ≥ 900 px;
+ * Footer (DESIGN.md §14): green-900; Visi Perusahaan 5 | Office 4 | Factory 3 | Cakra 4 di ≥ 900 px;
  * kontak sebagai pasangan label | nilai; tautan cepat + hak cipta di baris bawah.
  */
 export function Footer() {
@@ -27,7 +30,10 @@ export function Footer() {
             <p className={styles.text}>{profil.visiPerusahaan}</p>
           </div>
 
-          {lokasiOstindo.map((lokasi) => {
+          {lokasiFooter.map((lokasi) => {
+            const pesanWhatsApp = `Halo, saya ingin menghubungi ${
+              lokasi === lokasiCakraPrimaNusantara ? lokasi.nama : profil.nama
+            }.`;
             const kontak = (lokasi.kontak ?? []).filter((item) => !item.perluVerifikasi);
             return (
               <div key={lokasi.slug} className={styles.column}>
@@ -81,7 +87,10 @@ export function Footer() {
               ))}
             </ul>
           </nav>
-          <p className={styles.copyright}>© 2026 PT Anugerah Mustika Ostindo. All Rights Reserved.</p>
+          <div className={styles.bottomEnd}>
+            <p className={styles.copyright}>© 2026 PT Anugerah Mustika Ostindo. All Rights Reserved.</p>
+            <BackToTop />
+          </div>
         </div>
       </Container>
     </footer>

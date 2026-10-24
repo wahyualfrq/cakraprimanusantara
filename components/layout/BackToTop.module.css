@@ -1,0 +1,28 @@
+/* Tombol ikon persegi 44 px (target sentuh) di atas latar footer gelap. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--cpn-touch-target);
+  height: var(--cpn-touch-target);
+  flex-shrink: 0;
+  border: 1px solid var(--cpn-color-border-on-dark);
+  border-radius: var(--cpn-radius-md);
+  background: transparent;
+  color: var(--cpn-color-text-on-dark-muted);
+  cursor: pointer;
+  transition:
+    color var(--cpn-duration-fast) var(--cpn-ease),
+    border-color var(--cpn-duration-fast) var(--cpn-ease),
+    background-color var(--cpn-duration-fast) var(--cpn-ease);
+}
+
+.button:hover {
+  color: var(--cpn-color-text-on-dark);
+  border-color: var(--cpn-color-text-on-dark);
+}
+
+.button:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cpn-focus-ring);
+}

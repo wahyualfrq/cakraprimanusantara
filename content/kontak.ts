@@ -97,5 +97,6 @@ export const lokasiCakraPrimaNusantara: Lokasi = {
     "Jalan Gotong Royong 1 No. 899, RT. 05 RW. 02, Kec. Sako, Kel. Sako Baru, Palembang 30165 - Indonesia",
   // Google Maps hanya "cocok sebagian" (Jl. Gotong Royong I, Suka Maju 30961) — perlu konfirmasi client.
   petaPerluVerifikasi: true,
+  kontak: [{ tipe: "whatsapp", nilai: "+62 811-783-675" }],
   unitUsaha: [],
 };

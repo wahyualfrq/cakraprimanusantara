@@ -116,6 +116,14 @@
   color: var(--cpn-color-text-on-dark);
 }
 
+/* Hak cipta + tombol kembali ke atas; tombol selalu di ujung kanan bawah. */
+.bottomEnd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cpn-space-md);
+}
+
 .copyright {
   font-size: var(--cpn-text-caption);
   color: var(--cpn-color-text-on-dark-muted);
@@ -134,7 +142,7 @@
 
 @media (min-width: 900px) {
   .grid {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3fr);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3fr) minmax(0, 4fr);
   }
 
   .brand {
