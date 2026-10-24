@@ -29,7 +29,7 @@ export default function ProdukAgribisnisPage() {
       <PageHeader
         variant="photo"
         fullScreen
-        photoSrc="/images/gambar-10.png"
+        photoSrc="/images/gambar-10.webp"
         photoPosition="center 45%"
         breadcrumb={[
           { label: "Beranda", href: "/" },

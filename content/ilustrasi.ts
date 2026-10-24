@@ -9,24 +9,24 @@ export type Ilustrasi = {
 };
 
 export const ilustrasi = {
-  /** public/images/gambar-4.png — petani di kebun kelapa sawit dengan ladang di latar. */
+  /** public/images/gambar-4.webp — petani di kebun kelapa sawit dengan ladang di latar. */
   kebunSawit: {
-    src: "/images/gambar-4.png",
+    src: "/images/gambar-4.webp",
     alt: "Ilustrasi kebun kelapa sawit dan lahan tanaman pertanian",
   },
-  /** public/images/gambar-9.png — dua orang berjas laboratorium mengamati bibit dalam pot. */
+  /** public/images/gambar-9.webp — dua orang berjas laboratorium mengamati bibit dalam pot. */
   laboratorium: {
-    src: "/images/gambar-9.png",
+    src: "/images/gambar-9.webp",
     alt: "Ilustrasi pengamatan bibit tanaman dalam pot di laboratorium",
   },
-  /** public/images/gambar-11.png — dua orang memeriksa bibit tanaman di rumah kaca. */
+  /** public/images/gambar-11.webp — dua orang memeriksa bibit tanaman di rumah kaca. */
   rumahKaca: {
-    src: "/images/gambar-11.png",
+    src: "/images/gambar-11.webp",
     alt: "Ilustrasi pengamatan bibit tanaman di rumah kaca",
   },
-  /** public/images/gambar-12.png — piala, kemasan, dan butiran pupuk di atas meja. */
+  /** public/images/gambar-12.webp — piala, kemasan, dan butiran pupuk di atas meja. */
   pialaPupuk: {
-    src: "/images/gambar-12.png",
+    src: "/images/gambar-12.webp",
     alt: "Ilustrasi piala penghargaan dan produk pupuk",
   },
 } satisfies Record<string, Ilustrasi>;

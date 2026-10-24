@@ -89,7 +89,7 @@ export default function KontakPage() {
       {/* Header ringkas — ilustrasi kebun (D4, dekoratif) + kalimat pembuka verbatim §H1. */}
       <PageHeader
         variant="photo"
-        photoSrc="/images/gambar-4.png"
+        photoSrc="/images/gambar-4.webp"
         photoPosition="center 45%"
         breadcrumb={[
           { label: "Beranda", href: "/" },

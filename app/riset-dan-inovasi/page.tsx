@@ -85,7 +85,7 @@ export default function RisetInovasiPage() {
       <PageHeader
         variant="photo"
         fullScreen
-        photoSrc="/images/gambar-9.png"
+        photoSrc="/images/gambar-9.webp"
         photoPosition="center 35%"
         breadcrumb={[
           { label: "Beranda", href: "/" },

@@ -137,7 +137,7 @@ export default function TentangKamiPage() {
       <PageHeader
         variant="photo"
         fullScreen
-        photoSrc="/images/gambar-6.png"
+        photoSrc="/images/gambar-6.webp"
         photoPosition="center 35%"
         breadcrumb={[
           { label: "Beranda", href: "/" },

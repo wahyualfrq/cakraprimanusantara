@@ -110,7 +110,7 @@ export default async function ProdukDetailPage({ params }: PageProps) {
 
       <PageHeader
         variant="photo"
-        photoSrc="/images/gambar-10.png"
+        photoSrc="/images/gambar-10.webp"
         photoPosition="center 45%"
         breadcrumb={[
           { label: "Beranda", href: "/" },

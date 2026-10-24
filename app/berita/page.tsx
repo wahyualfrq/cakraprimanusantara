@@ -46,7 +46,7 @@ export default function BeritaPage() {
       <PageHeader
         variant="photo"
         fullScreen
-        photoSrc="/images/gambar-11.png"
+        photoSrc="/images/gambar-11.webp"
         photoPosition="center 30%"
         breadcrumb={[
           { label: "Beranda", href: "/" },
